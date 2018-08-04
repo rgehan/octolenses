@@ -1,9 +1,17 @@
 import React from 'react';
+import humanFormat from 'human-format';
 
 import './RepoCard.scss';
 
 export const RepoCard = ({ repo }) => {
-  const { name, description, language, stargazers_count, html_url } = repo;
+  const {
+    name,
+    description,
+    language,
+    stargazers_count,
+    forks_count,
+    html_url,
+  } = repo;
 
   return (
     <div className="RepoCard">
@@ -13,10 +21,12 @@ export const RepoCard = ({ repo }) => {
       <div className="RepoCard__Description">{description}</div>
       <div className="RepoCard__Indicators">
         <div>
-          <i className="fa fa-star" /> {stargazers_count}
+          <i className="fa fa-star" />{' '}
+          {humanFormat(stargazers_count, { decimals: 1, separator: '' })}
         </div>
         <div>
-          <i className="fa fa-code-branch" /> {stargazers_count}
+          <i className="fa fa-code-branch" />{' '}
+          {humanFormat(forks_count, { decimals: 1, separator: '' })}
         </div>
       </div>
     </div>
