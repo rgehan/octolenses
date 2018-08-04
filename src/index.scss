@@ -15,6 +15,7 @@ body {
   background-color: #eaeff3;
   font-family: 'Open Sans', sans-serif;
   color: #2f2f2f;
+  height: 100vh;
 }
 
 h1,
@@ -36,5 +37,6 @@ a:visited {
 
 #container {
   width: 1080px;
+  height: 100%;
   margin: auto;
 }

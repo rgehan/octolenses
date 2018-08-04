@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { fetchRepos } from '../../lib/github';
-import { RepoCard, Dropdown } from '../../components';
+import { RepoCard, Dropdown, Loader } from '../../components';
 import { LANGUAGES } from '../../constants/languages';
 import { DATES } from '../../constants/dates';
 
@@ -14,6 +14,7 @@ export class Main extends React.Component {
       language: LANGUAGES[0].value,
       date: DATES[0].value,
     },
+    loading: false,
   };
 
   async componentDidMount() {
@@ -31,8 +32,12 @@ export class Main extends React.Component {
 
   async refresh() {
     const { language, date } = this.state.options;
+
+    this.setState({ loading: true });
+
     const repos = await fetchRepos(language, date);
-    this.setState({ repos });
+
+    this.setState({ repos, loading: false });
   }
 
   handleOptionChange = ({ name, value }) => {
@@ -45,7 +50,7 @@ export class Main extends React.Component {
   };
 
   render() {
-    const { repos } = this.state;
+    const { repos, loading } = this.state;
 
     return (
       <div className="Main">
@@ -65,7 +70,7 @@ export class Main extends React.Component {
           </div>
         </div>
         <div className="Main__ReposList">
-          {repos.map(repo => <RepoCard repo={repo} />)}
+          {loading ? <Loader /> : repos.map(repo => <RepoCard repo={repo} />)}
         </div>
       </div>
     );
