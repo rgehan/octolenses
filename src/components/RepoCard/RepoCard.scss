@@ -24,10 +24,14 @@
 
   &__Description {
     flex: 1;
+    min-height: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   &__Indicators {
     display: flex;
+    margin-top: 4px;
 
     > div {
       margin-right: 20px;

@@ -9,6 +9,17 @@
     &Title {
       font-size: 36px;
     }
+
+    &Actions {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+
+      > div {
+        margin-left: 20px;
+      }
+    }
   }
 
   &__ReposList {

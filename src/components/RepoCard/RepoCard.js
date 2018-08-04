@@ -6,8 +6,10 @@ export const RepoCard = ({ repo }) => {
   const { name, description, language, stargazers_count, html_url } = repo;
 
   return (
-    <a className="RepoCard" href={html_url} target="__blank">
-      <div className="RepoCard__Name">{name}</div>
+    <div className="RepoCard">
+      <a className="RepoCard__Name" href={html_url} target="__blank">
+        {name}
+      </a>
       <div className="RepoCard__Description">{description}</div>
       <div className="RepoCard__Indicators">
         <div>
@@ -17,6 +19,6 @@ export const RepoCard = ({ repo }) => {
           <i className="fa fa-code-branch" /> {stargazers_count}
         </div>
       </div>
-    </a>
+    </div>
   );
 };

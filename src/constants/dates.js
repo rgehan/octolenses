@@ -11,7 +11,7 @@ const getDateFrom = (amount, unit) =>
     .subtract(amount, unit)
     .format('YYYY-MM-DD');
 
-export const DATES_FROM = [
+export const DATES = [
   { name: 'Last week', value: getDateFrom(1, 'week') },
   { name: 'Last month', value: getDateFrom(1, 'month') },
   { name: 'Last 6 months', value: getDateFrom(6, 'months') },
