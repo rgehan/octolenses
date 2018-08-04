@@ -1,0 +1,40 @@
+.RepoCard {
+  width: calc(100% / 3 - 40px);
+  height: 225px;
+  margin: 0 40px 40px 0;
+  padding: 15px 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  background: white;
+  box-shadow: 0 4px 10px #00000017;
+
+  transition: all ease 100ms;
+
+  &:hover {
+    box-shadow: 0 8px 12px #00000017;
+    transform: translateY(-4px);
+  }
+
+  &__Name {
+    font-size: 24px;
+    margin-bottom: 5px;
+  }
+
+  &__Description {
+    flex: 1;
+  }
+
+  &__Indicators {
+    display: flex;
+
+    > div {
+      margin-right: 20px;
+
+      i {
+        color: #4c4c4c;
+      }
+    }
+  }
+}

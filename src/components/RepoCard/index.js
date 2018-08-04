@@ -1,0 +1,1 @@
+export { RepoCard } from './RepoCard';

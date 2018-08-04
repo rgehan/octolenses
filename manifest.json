@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+  "name": "Github Trending",
+  "short_name": "Github Trending",
+  "description":
+    "Discover awesome repositories directly from your New Tab page.",
+  "version": "0.1",
+  "permissions": ["tabs", "storage", "webNavigation", "*://*.github.com/*"],
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "options_ui": {
+    "page": "options.html"
+  },
+  "browser_action": {
+    "default_title": "Github Trending"
+  }
+}
