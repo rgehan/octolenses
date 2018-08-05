@@ -33,6 +33,7 @@ export class Dropdown extends React.Component {
             </option>
           ))}
         </select>
+        <i className="fa fa-caret-down" />
       </div>
     );
   }

@@ -76,7 +76,9 @@ export class Main extends React.Component {
     return (
       <div className="Main">
         <div className="Main__Header">
-          <h1 className="Main__HeaderTitle">Github Trending</h1>
+          <h1 className="Main__HeaderTitle">
+            <i className="fab fa-github" />Trending
+          </h1>
           <div className="Main__HeaderActions">
             <Dropdown
               name="language"
