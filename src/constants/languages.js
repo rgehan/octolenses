@@ -419,7 +419,6 @@ export const LANGUAGES = [
   { value: 'stata', name: 'Stata' },
   { value: 'ston', name: 'STON' },
   { value: 'stylus', name: 'Stylus' },
-  { value: 'json-with-comments', name: 'JSON with Comments' },
   { value: 'subrip-text', name: 'SubRip Text' },
   { value: 'sugarss', name: 'SugarSS' },
   { value: 'supercollider', name: 'SuperCollider' },

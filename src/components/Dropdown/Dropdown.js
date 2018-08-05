@@ -1,16 +1,15 @@
 import React from 'react';
-import { find } from 'lodash';
 import PropTypes from 'prop-types';
 
 import './Dropdown.scss';
-import { get } from 'http';
 
 export class Dropdown extends React.Component {
   static propTypes = {
+    value: PropTypes.any,
     name: PropTypes.string.isRequired,
     items: PropTypes.arrayOf(
       PropTypes.shape({
-        value: PropTypes.any.isRequired,
+        value: PropTypes.any,
         name: PropTypes.string.isRequired,
       })
     ).isRequired,
@@ -23,12 +22,16 @@ export class Dropdown extends React.Component {
   };
 
   render() {
-    const { items } = this.props;
+    const { items, value } = this.props;
 
     return (
       <div className="Dropdown">
-        <select onChange={this.handleChange}>
-          {items.map(item => <option value={item.value}>{item.name}</option>)}
+        <select onChange={this.handleChange} value={value}>
+          {items.map(item => (
+            <option key={item.value} value={item.value}>
+              {item.name}
+            </option>
+          ))}
         </select>
       </div>
     );

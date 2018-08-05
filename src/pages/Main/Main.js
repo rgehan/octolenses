@@ -1,21 +1,32 @@
 import React from 'react';
 
 import { fetchRepos } from '../../lib/github';
+import { withStorage, storeData } from '../../lib/storage';
 import { RepoCard, Dropdown, Loader } from '../../components';
 import { LANGUAGES } from '../../constants/languages';
 import { DATES } from '../../constants/dates';
 
 import './Main.scss';
 
+const STORAGE_PREFIX = 'github-trending.options';
+
+@withStorage({
+  language: `${STORAGE_PREFIX}.language`,
+  date: `${STORAGE_PREFIX}.date`,
+})
 export class Main extends React.Component {
-  state = {
-    repos: [],
-    options: {
-      language: LANGUAGES[0].value,
-      date: DATES[0].value,
-    },
-    loading: false,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      repos: [],
+      options: {
+        language: props.language || LANGUAGES[0].value,
+        date: props.date || DATES[0].value,
+      },
+      loading: false,
+    };
+  }
 
   async componentDidMount() {
     await this.refresh();
@@ -47,10 +58,16 @@ export class Main extends React.Component {
         [name]: value,
       },
     });
+
+    storeData(`${STORAGE_PREFIX}.${name}`, value);
   };
 
   render() {
-    const { repos, loading } = this.state;
+    const {
+      repos,
+      loading,
+      options: { language, date },
+    } = this.state;
 
     return (
       <div className="Main">
@@ -60,17 +77,23 @@ export class Main extends React.Component {
             <Dropdown
               name="language"
               items={LANGUAGES}
+              value={language}
               onChange={this.handleOptionChange}
             />
             <Dropdown
               name="date"
               items={DATES}
+              value={date}
               onChange={this.handleOptionChange}
             />
           </div>
         </div>
         <div className="Main__ReposList">
-          {loading ? <Loader /> : repos.map(repo => <RepoCard repo={repo} />)}
+          {loading ? (
+            <Loader />
+          ) : (
+            repos.map(repo => <RepoCard key={repo.name} repo={repo} />)
+          )}
         </div>
       </div>
     );
