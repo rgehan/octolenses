@@ -4,7 +4,7 @@ import { fetchRepos } from '../../lib/github';
 import { withStorage, storeData } from '../../lib/storage';
 import { RepoCard, Dropdown, Loader } from '../../components';
 import { LANGUAGES } from '../../constants/languages';
-import { DATES } from '../../constants/dates';
+import { DATES, getDateFromValue } from '../../constants/dates';
 
 import './Main.scss';
 
@@ -12,7 +12,7 @@ const STORAGE_PREFIX = 'github-trending.options';
 
 @withStorage({
   language: `${STORAGE_PREFIX}.language`,
-  date: `${STORAGE_PREFIX}.date`,
+  dateRange: `${STORAGE_PREFIX}.dateRange`,
 })
 export class Main extends React.Component {
   constructor(props) {
@@ -22,7 +22,7 @@ export class Main extends React.Component {
       repos: [],
       options: {
         language: props.language || LANGUAGES[0].value,
-        date: props.date || DATES[0].value,
+        dateRange: props.dateRange || DATES[0].value,
       },
       loading: false,
     };
@@ -33,19 +33,23 @@ export class Main extends React.Component {
   }
 
   async componentDidUpdate(_, prevState) {
-    const { language, date } = this.state.options;
-    const { language: prevLanguage, date: prevDate } = prevState.options;
+    const { language, dateRange } = this.state.options;
+    const {
+      language: prevLanguage,
+      dateRange: prevDateRange,
+    } = prevState.options;
 
-    if (language !== prevLanguage || date !== prevDate) {
+    if (language !== prevLanguage || dateRange !== prevDateRange) {
       await this.refresh();
     }
   }
 
   async refresh() {
-    const { language, date } = this.state.options;
+    const { language, dateRange } = this.state.options;
 
     this.setState({ loading: true });
 
+    const date = getDateFromValue(dateRange);
     const repos = await fetchRepos(language, date);
 
     this.setState({ repos, loading: false });
@@ -66,7 +70,7 @@ export class Main extends React.Component {
     const {
       repos,
       loading,
-      options: { language, date },
+      options: { language, dateRange },
     } = this.state;
 
     return (
@@ -81,9 +85,9 @@ export class Main extends React.Component {
               onChange={this.handleOptionChange}
             />
             <Dropdown
-              name="date"
+              name="dateRange"
               items={DATES}
-              value={date}
+              value={dateRange}
               onChange={this.handleOptionChange}
             />
           </div>
