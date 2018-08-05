@@ -10,6 +10,7 @@ export const RepoCard = ({ repo }) => {
     language,
     stargazers_count,
     forks_count,
+    open_issues_count,
     html_url,
   } = repo;
 
@@ -27,6 +28,10 @@ export const RepoCard = ({ repo }) => {
         <div>
           <i className="fa fa-code-branch" />{' '}
           {humanFormat(forks_count, { decimals: 1, separator: '' })}
+        </div>
+        <div>
+          <i className="fa fa-exclamation-circle" />{' '}
+          {humanFormat(open_issues_count, { decimals: 1, separator: '' })}
         </div>
       </div>
     </div>
