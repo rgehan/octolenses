@@ -1,17 +1,32 @@
 .RepoCard {
   height: 225px;
+  min-height: 225px;
   padding: 15px 20px;
   display: flex;
   flex-direction: column;
   background: white;
   box-shadow: 0 4px 10px #00000017;
   transition: all ease 100ms;
-
-  width: calc((100% - 2 * 40px) / 3);
   margin-bottom: 40px;
 
-  &:not(:nth-child(3n)) {
-    margin-right: 40px;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+
+  @media screen and (min-width: 769px) and (max-width: 1024px) {
+    width: calc((100% - 1 * 40px) / 2);
+
+    &:not(:nth-child(2n)) {
+      margin-right: 40px;
+    }
+  }
+
+  @media screen and (min-width: 1025px) {
+    width: calc((100% - 2 * 40px) / 3);
+
+    &:not(:nth-child(3n)) {
+      margin-right: 40px;
+    }
   }
 
   &:hover {

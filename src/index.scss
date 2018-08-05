@@ -37,7 +37,11 @@ a:visited {
 }
 
 #container {
-  width: 1080px;
+  max-width: 1024px;
   height: 100%;
   margin: auto;
+
+  @media screen and (max-width: 1024px) {
+    padding: 0 20px;
+  }
 }

@@ -77,7 +77,8 @@ export class Main extends React.Component {
       <div className="Main">
         <div className="Main__Header">
           <h1 className="Main__HeaderTitle">
-            <i className="fab fa-github" />Trending
+            <i className="fab fa-github" />
+            <span>Trending</span>
           </h1>
           <div className="Main__HeaderActions">
             <Dropdown
