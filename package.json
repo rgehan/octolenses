@@ -5,13 +5,15 @@
   "author": "Renan GEHAN <rgehan94@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@rematch/core": "^1.0.0-beta.4",
     "babel-polyfill": "^6.26.0",
     "human-format": "^0.10.0",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
-    "react-dom": "^16.4.2"
+    "react-dom": "^16.4.2",
+    "react-redux": "^5.0.7"
   },
   "devDependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",

@@ -1,51 +1,32 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { fetchRepos } from '../../lib/github';
-import { withStorage, storeData } from '../../lib/storage';
-import { RepoCard, Dropdown, Loader } from '../../components';
-import { LANGUAGES } from '../../constants/languages';
-import { DATES, getDateFromValue } from '../../constants/dates';
+import { RepoCard, Loader } from '../../components';
+import { getDateFromValue } from '../../constants/dates';
 
 import './Main.scss';
 
-const STORAGE_PREFIX = 'github-trending.options';
-
-@withStorage({
-  language: `${STORAGE_PREFIX}.language`,
-  dateRange: `${STORAGE_PREFIX}.dateRange`,
-})
+@connect(({ settings }) => ({
+  language: settings.language,
+  dateRange: settings.dateRange,
+}))
 export class Main extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    repos: [],
+    loading: false,
+  };
 
-    this.state = {
-      repos: [],
-      options: {
-        language: props.language || LANGUAGES[0].value,
-        dateRange: props.dateRange || DATES[0].value,
-      },
-      loading: false,
-    };
+  async componentWillReceiveProps() {
+    await this.refresh();
   }
 
   async componentDidMount() {
     await this.refresh();
   }
 
-  async componentDidUpdate(_, prevState) {
-    const { language, dateRange } = this.state.options;
-    const {
-      language: prevLanguage,
-      dateRange: prevDateRange,
-    } = prevState.options;
-
-    if (language !== prevLanguage || dateRange !== prevDateRange) {
-      await this.refresh();
-    }
-  }
-
   async refresh() {
-    const { language, dateRange } = this.state.options;
+    const { language, dateRange } = this.props;
 
     this.setState({ loading: true });
 
@@ -55,46 +36,11 @@ export class Main extends React.Component {
     this.setState({ repos, loading: false });
   }
 
-  handleOptionChange = ({ name, value }) => {
-    this.setState({
-      options: {
-        ...this.state.options,
-        [name]: value,
-      },
-    });
-
-    storeData(`${STORAGE_PREFIX}.${name}`, value);
-  };
-
   render() {
-    const {
-      repos,
-      loading,
-      options: { language, dateRange },
-    } = this.state;
+    const { repos, loading } = this.state;
 
     return (
       <div className="Main">
-        <div className="Main__Header">
-          <h1 className="Main__HeaderTitle">
-            <i className="fab fa-github" />
-            <span>Trending</span>
-          </h1>
-          <div className="Main__HeaderActions">
-            <Dropdown
-              name="language"
-              items={LANGUAGES}
-              value={language}
-              onChange={this.handleOptionChange}
-            />
-            <Dropdown
-              name="dateRange"
-              items={DATES}
-              value={dateRange}
-              onChange={this.handleOptionChange}
-            />
-          </div>
-        </div>
         <div className="Main__ReposList">
           {loading ? (
             <Loader />
