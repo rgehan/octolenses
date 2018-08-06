@@ -4,7 +4,7 @@ import { Header } from './components/Header';
 import { Main } from './pages/Main';
 
 export const App = () => (
-  <div>
+  <div className="App">
     <Header />
     <Main />
   </div>

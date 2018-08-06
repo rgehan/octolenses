@@ -2,15 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { fetchRepos } from '../../lib/github';
-import { RepoCard, Loader } from '../../components';
-import { getDateFromValue } from '../../constants/dates';
+import { RepoCard, Loader, Dropdown } from '../../components';
+import { DATES, getDateFromValue } from '../../constants/dates';
+import { LANGUAGES } from '../../constants/languages';
 
 import './Main.scss';
 
-@connect(({ settings }) => ({
-  language: settings.language,
-  dateRange: settings.dateRange,
-}))
+@connect(
+  ({ settings }) => ({
+    language: settings.language,
+    dateRange: settings.dateRange,
+  }),
+  ({ settings }) => ({ updateSettings: settings.updateSettings })
+)
 export class Main extends React.Component {
   state = {
     repos: [],
@@ -36,11 +40,30 @@ export class Main extends React.Component {
     this.setState({ repos, loading: false });
   }
 
+  handleOptionChange = ({ name, value }) => {
+    this.props.updateSettings({ key: name, value });
+  };
+
   render() {
+    const { language, dateRange, updateSettings } = this.props;
     const { repos, loading } = this.state;
 
     return (
       <div className="Main">
+        <div className="Main__Actions">
+          <Dropdown
+            name="language"
+            items={LANGUAGES}
+            value={language}
+            onChange={this.handleOptionChange}
+          />
+          <Dropdown
+            name="dateRange"
+            items={DATES}
+            value={dateRange}
+            onChange={this.handleOptionChange}
+          />
+        </div>
         <div className="Main__ReposList">
           {loading ? (
             <Loader />
