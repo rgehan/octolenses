@@ -6,7 +6,7 @@ import { RepoCard, Loader, Dropdown } from '../../components';
 import { DATES, getDateFromValue } from '../../constants/dates';
 import { LANGUAGES } from '../../constants/languages';
 
-import './Main.scss';
+import './Discover.scss';
 
 @connect(
   ({ settings }) => ({
@@ -15,7 +15,7 @@ import './Main.scss';
   }),
   ({ settings }) => ({ updateSettings: settings.updateSettings })
 )
-export class Main extends React.Component {
+export class Discover extends React.Component {
   state = {
     repos: [],
     loading: false,
@@ -49,8 +49,8 @@ export class Main extends React.Component {
     const { repos, loading } = this.state;
 
     return (
-      <div className="Main">
-        <div className="Main__Actions">
+      <div className="Discover">
+        <div className="Discover__Actions">
           <Dropdown
             name="language"
             items={LANGUAGES}
@@ -64,7 +64,7 @@ export class Main extends React.Component {
             onChange={this.handleOptionChange}
           />
         </div>
-        <div className="Main__ReposList">
+        <div className="Discover__ReposList">
           {loading ? (
             <Loader />
           ) : (
