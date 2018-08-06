@@ -5,7 +5,7 @@ import * as models from './models';
 
 const persistPlugin = createRematchPersist({
   whitelist: ['settings'],
-  throttle: 5000,
+  throttle: 1000,
   version: 1,
 });
 
