@@ -5,7 +5,8 @@
   "author": "Renan GEHAN <rgehan94@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@rematch/core": "^1.0.0-beta.4",
+    "@rematch/core": ">=1.0.0-alpha.0",
+    "@rematch/persist": "^1.1.0",
     "babel-polyfill": "^6.26.0",
     "human-format": "^0.10.0",
     "lodash": "^4.17.10",

@@ -13,11 +13,17 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.0.tgz#50c1e2260ac0ed9439a181de3725a0168d59c48a"
 
-"@rematch/core@^1.0.0-beta.4":
-  version "1.0.0-beta.4"
-  resolved "https://registry.yarnpkg.com/@rematch/core/-/core-1.0.0-beta.4.tgz#5bf2f7d80e952582f733c8e66d653022cffca8a4"
+"@rematch/core@>=1.0.0-alpha.0":
+  version "1.0.0-beta.5"
+  resolved "https://registry.yarnpkg.com/@rematch/core/-/core-1.0.0-beta.5.tgz#b1d7dc621de3f5edbb5a9f92df8c26217c36397c"
   dependencies:
     redux "4.0.0"
+
+"@rematch/persist@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@rematch/persist/-/persist-1.1.0.tgz#d73a622f5bad56c41f054a6079d70945734def5f"
+  dependencies:
+    redux-persist "^5.10.0"
 
 abbrev@1:
   version "1.1.1"
@@ -4136,6 +4142,10 @@ reduce-function-call@^1.0.1:
   resolved "https://registry.yarnpkg.com/reduce-function-call/-/reduce-function-call-1.0.2.tgz#5a200bf92e0e37751752fe45b0ab330fd4b6be99"
   dependencies:
     balanced-match "^0.4.2"
+
+redux-persist@^5.10.0:
+  version "5.10.0"
+  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-5.10.0.tgz#5d8d802c5571e55924efc1c3a9b23575283be62b"
 
 redux@4.0.0:
   version "4.0.0"
