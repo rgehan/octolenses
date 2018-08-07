@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchRepos } from '../../lib/github';
 import { RepoCard, Loader, Dropdown } from '../../components';
-import { DATES, getDateFromValue } from '../../constants/dates';
+import { DATES } from '../../constants/dates';
 import { LANGUAGES } from '../../constants/languages';
 
 import './Discover.scss';

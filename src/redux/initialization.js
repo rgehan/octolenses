@@ -1,3 +1,3 @@
 export const initialize = store => {
-  store.dispatch.trends.fetchRepos();
+  store.dispatch.trends.fetchTrendingRepos();
 };

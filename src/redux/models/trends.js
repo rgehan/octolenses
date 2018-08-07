@@ -1,6 +1,6 @@
 import { set } from 'lodash/fp';
 
-import { fetchRepos } from '../../lib/github';
+import { fetchTrendingRepos } from '../../lib/github';
 import { getDateFromValue } from '../../constants/dates';
 
 export const trends = {
@@ -16,14 +16,14 @@ export const trends = {
     },
   },
   effects: dispatch => ({
-    async fetchRepos(_, rootState) {
+    async fetchTrendingRepos(_, rootState) {
       const { updateLoadingState, updateData } = dispatch.trends;
       const { language, dateRange } = rootState.settings;
       const date = getDateFromValue(dateRange);
 
       updateLoadingState({ type: 'repos', loading: true });
 
-      const repos = await fetchRepos(language, date);
+      const repos = await fetchTrendingRepos(language, date);
       updateData({ type: 'repos', data: repos });
 
       updateLoadingState({ type: 'repos', loading: false });

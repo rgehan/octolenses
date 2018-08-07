@@ -1,4 +1,4 @@
-const buildQuery = (language, date) => {
+const buildTrendingReposQuery = (language, date) => {
   let query = `created:>${date}`;
 
   if (language !== null) {
@@ -13,8 +13,8 @@ const buildQuery = (language, date) => {
  * @param {*} language What programming language the user is interested in
  * @param {*} date From which date
  */
-const fetchRepos = async (language, date) => {
-  const query = buildQuery(language, date);
+const fetchTrendingRepos = async (language, date) => {
+  const query = buildTrendingReposQuery(language, date);
   const url = `https://api.github.com/search/repositories?q=${query}&sort=stars&order=desc`;
 
   const data = await fetch(url, {
@@ -29,4 +29,4 @@ const fetchRepos = async (language, date) => {
   return repos;
 };
 
-module.exports = { fetchRepos };
+module.exports = { fetchTrendingRepos };
