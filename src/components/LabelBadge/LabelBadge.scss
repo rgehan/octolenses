@@ -1,0 +1,14 @@
+.LabelBadge {
+  font-size: 12px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  margin-right: 5px;
+
+  &--dark {
+    color: white;
+  }
+
+  &--light {
+    color: black;
+  }
+}

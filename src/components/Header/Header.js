@@ -5,8 +5,8 @@ import cx from 'classnames';
 import './Header.scss';
 
 const LINKS = [
-  { name: 'discover', label: 'Discover' },
   { name: 'dashboard', label: 'Dashboard' },
+  { name: 'discover', label: 'Discover' },
 ];
 
 const _Header = ({ page, navigateTo }) => (

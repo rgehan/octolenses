@@ -1,5 +1,5 @@
 export const navigation = {
-  state: { page: 'discover' },
+  state: { page: 'dashboard' },
   reducers: {
     navigateTo(_, page) {
       return { page };

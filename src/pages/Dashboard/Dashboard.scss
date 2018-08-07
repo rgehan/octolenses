@@ -2,5 +2,30 @@
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column;
+  padding-top: 57px;
+
+  &__Filters {
+    width: 200px;
+
+    &Item {
+      text-align: right;
+      padding-right: 40px;
+      font-weight: lighter;
+      margin-bottom: 12px;
+      color: #87898c;
+      cursor: pointer;
+
+      &--selected,
+      &:hover {
+        color: #2a2b2d;
+      }
+    }
+  }
+
+  &__Results {
+    flex: 1;
+    background: white;
+    box-shadow: 0 4px 10px #00000017;
+    margin-bottom: 40px;
+  }
 }

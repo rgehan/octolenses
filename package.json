@@ -9,6 +9,7 @@
     "@rematch/persist": "^1.1.0",
     "babel-polyfill": "^6.26.0",
     "classnames": "^2.2.6",
+    "contrast": "^1.0.1",
     "human-format": "^0.10.0",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
