@@ -9,44 +9,21 @@ import { LANGUAGES } from '../../constants/languages';
 import './Discover.scss';
 
 @connect(
-  ({ settings }) => ({
+  ({ settings, trends }) => ({
     language: settings.language,
     dateRange: settings.dateRange,
+    repos: trends.repos.data,
+    loading: trends.repos.loading,
   }),
   ({ settings }) => ({ updateSettings: settings.updateSettings })
 )
 export class Discover extends React.Component {
-  state = {
-    repos: [],
-    loading: false,
-  };
-
-  async componentWillReceiveProps() {
-    await this.refresh();
-  }
-
-  async componentDidMount() {
-    await this.refresh();
-  }
-
-  async refresh() {
-    const { language, dateRange } = this.props;
-
-    this.setState({ loading: true });
-
-    const date = getDateFromValue(dateRange);
-    const repos = await fetchRepos(language, date);
-
-    this.setState({ repos, loading: false });
-  }
-
   handleOptionChange = ({ name, value }) => {
     this.props.updateSettings({ key: name, value });
   };
 
   render() {
-    const { language, dateRange, updateSettings } = this.props;
-    const { repos, loading } = this.state;
+    const { language, dateRange, repos, loading } = this.props;
 
     return (
       <div className="Discover">
