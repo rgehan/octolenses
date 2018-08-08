@@ -66,6 +66,11 @@ export const filters = {
       const filter = find(rootState.filters, { id: filterId });
       const data = await fetchFilter(filter.fields);
       dispatch.filters.updateFilterData({ id: filter.id, data });
-    }
+    },
+    async fetchAllFilters(_, { filters }) {
+      await Promise.all(filters.map(filter => {
+        dispatch.filters.fetchFilter({ filterId: filter.id });
+      }));
+    },
   }),
 };
