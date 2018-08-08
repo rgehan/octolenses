@@ -1,6 +1,5 @@
 .IssueCard {
   padding: 20px 20px;
-  cursor: pointer;
   border-bottom: 1px solid #f1f1f1;
 
   &__Icon {
@@ -15,7 +14,11 @@
   &__Title {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+
+    &:hover {
+      text-decoration: underline;
+    }
 
     &Icon {
       margin-right: 7px;
@@ -37,6 +40,15 @@
 
     &Issue {
       //
+    }
+  }
+
+  &__Metadata {
+    font-size: 12px;
+    margin-bottom: 10px;
+
+    &-Author:hover {
+      text-decoration: underline;
     }
   }
 
