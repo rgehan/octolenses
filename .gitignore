@@ -3,3 +3,5 @@ yarn-error.log
 dist/
 .cache/
 config.js
+dist.crx
+dist.pem

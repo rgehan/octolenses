@@ -1,0 +1,26 @@
+.FilterLink {
+  text-align: right;
+  padding-right: 20px;
+  font-weight: lighter;
+  margin-bottom: 12px;
+  color: #87898c;
+  cursor: pointer;
+  direction: rtl;
+  white-space: nowrap;
+
+  &--selected,
+  &:hover {
+    color: #2a2b2d;
+  }
+
+  &__ItemsCount {
+    background: #cecfd4;
+    display: inline-block;
+    min-width: 25px;
+    font-size: 11px;
+    text-align: center;
+    border-radius: 50px;
+    margin-left: 7px;
+    padding: 1px 5px;
+  }
+}

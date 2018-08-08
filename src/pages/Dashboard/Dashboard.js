@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { get, find } from 'lodash';
-import cx from 'classnames';
 
 import { IssueCard } from '../../components/IssueCard';
+import { FilterLink } from '../../components/FilterLink';
 
 import './Dashboard.scss';
 
@@ -40,17 +40,12 @@ export class Dashboard extends React.Component {
       <div className="Dashboard">
         <div className="Dashboard__Filters">
           {filters.map(filter => (
-            <div
+            <FilterLink
               key={filter.id}
-              className={cx(
-                'Dashboard__FiltersItem',
-                filter.id === selectedFilter.id &&
-                  'Dashboard__FiltersItem--selected'
-              )}
+              filter={filter}
+              isSelected={filter.id === selectedFilter.id}
               onClick={() => this.handleFilterSelected(filter.id)}
-            >
-              {filter.label}
-            </div>
+            />
           ))}
         </div>
         <div className="Dashboard__Results">

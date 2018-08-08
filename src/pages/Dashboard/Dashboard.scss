@@ -6,20 +6,8 @@
 
   &__Filters {
     width: 200px;
-
-    &Item {
-      text-align: right;
-      padding-right: 40px;
-      font-weight: lighter;
-      margin-bottom: 12px;
-      color: #87898c;
-      cursor: pointer;
-
-      &--selected,
-      &:hover {
-        color: #2a2b2d;
-      }
-    }
+    display: flex;
+    flex-direction: column;
   }
 
   &__Results {
