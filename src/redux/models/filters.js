@@ -59,7 +59,19 @@ export const filters = {
         },
         ...slice(state, filterIndex + 1),
       ];
-    }
+    },
+    editFilter(state, filter) {
+      const filterIndex = findIndex(state, { id: filter.id });
+
+      return [
+        ...slice(state, 0, filterIndex),
+        {
+          ...filter,
+          data: [],
+        },
+        ...slice(state, filterIndex + 1),
+      ];
+    },
   },
   effects: dispatch => ({
     async fetchFilter({ id }, rootState) {
@@ -72,5 +84,9 @@ export const filters = {
         dispatch.filters.fetchFilter({ id: filter.id });
       }));
     },
+    async editAndRefreshFilter(newFilter) {
+      await dispatch.filters.editFilter(newFilter);
+      await dispatch.filters.fetchFilter(newFilter);
+    }
   }),
 };

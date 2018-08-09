@@ -1,0 +1,47 @@
+.FilterEditModal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  &__Overlay {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    background: white;
+    box-shadow: 0 4px 10px #00000017;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+
+    textarea {
+      min-height: 150px;
+      margin-bottom: 20px;
+      font-family: monospace;
+      font-size: 12px;
+      border: 1px solid lightgray;
+    }
+
+    &Actions {
+      display: flex;
+      justify-content: flex-end;
+
+      > .Button {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  &__Backdrop {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: -1;
+  }
+}

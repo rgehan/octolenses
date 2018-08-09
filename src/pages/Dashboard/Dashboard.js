@@ -4,6 +4,7 @@ import { get, find, isUndefined, findIndex, size } from 'lodash';
 
 import { IssueCard } from '../../components/IssueCard';
 import { FilterLink } from '../../components/FilterLink';
+import { FilterEditModal } from '../../components/FilterEditModal';
 
 import './Dashboard.scss';
 
@@ -11,7 +12,8 @@ import './Dashboard.scss';
   ({ filters }) => ({ filters }),
   ({ filters }) => ({
     fetchFilter: filters.fetchFilter,
-    removeFilter: filters.removeFilter
+    removeFilter: filters.removeFilter,
+    editAndRefreshFilter: filters.editAndRefreshFilter,
   })
 )
 export class Dashboard extends React.Component {
@@ -19,7 +21,8 @@ export class Dashboard extends React.Component {
     super(props);
 
     this.state = {
-      selectedFilterId: get(props, 'filters.0.id')
+      selectedFilterId: get(props, 'filters.0.id'),
+      isEditingFilter: false
     };
   }
 
@@ -47,6 +50,19 @@ export class Dashboard extends React.Component {
     this.props.removeFilter({ id: selectedFilterId });
   };
 
+  handleEditFilter = () => {
+    this.setState({ isEditingFilter: true });
+  };
+
+  handleCancelEdit = () => {
+    this.setState({ isEditingFilter: false });
+  };
+
+  handleApplyEdit = newFilter => {
+    this.setState({ isEditingFilter: false });
+    this.props.editAndRefreshFilter(newFilter);
+  };
+
   getSelectedFilter() {
     const { filters } = this.props;
     const { selectedFilterId } = this.state;
@@ -56,7 +72,8 @@ export class Dashboard extends React.Component {
 
   render() {
     const { filters } = this.props;
-    const { selectedFilterId } = this.state;
+    const { selectedFilterId, isEditingFilter } = this.state;
+
     const selectedFilter = this.getSelectedFilter();
 
     return (
@@ -71,7 +88,12 @@ export class Dashboard extends React.Component {
             />
           ))}
           <div className="Dashboard__Filters-Actions">
-            <div className="Dashboard__Filters-Actions-Edit">Edit filter</div>
+            <div
+              onClick={this.handleEditFilter}
+              className="Dashboard__Filters-Actions-Edit"
+            >
+              Edit filter
+            </div>
             <div
               onClick={this.handleDeleteFilter}
               className="Dashboard__Filters-Actions-Delete"
@@ -86,6 +108,13 @@ export class Dashboard extends React.Component {
               <IssueCard key={issue.id} issue={issue} />
             ))}
         </div>
+        {isEditingFilter && (
+          <FilterEditModal
+            filter={selectedFilter}
+            onCancel={this.handleCancelEdit}
+            onApply={this.handleApplyEdit}
+          />
+        )}
       </div>
     );
   }
