@@ -1,4 +1,4 @@
-import { filter, find, slice, findIndex } from 'lodash';
+import { filter, defaults, findIndex, maxBy, chain } from 'lodash';
 
 import { fetchFilter } from '../../lib/github';
 
@@ -13,8 +13,8 @@ export const filters = {
         repo: 'botify-hq/botify-report',
         author: 'rgehan',
         archived: 'false',
-        is: 'open',
-      },
+        is: 'open'
+      }
     },
     {
       id: 1,
@@ -26,8 +26,8 @@ export const filters = {
         '-author': 'rgehan',
         archived: 'false',
         is: 'open',
-        label: ['PR: Review Todo'],
-      },
+        label: ['PR: Review Todo']
+      }
     },
     {
       id: 2,
@@ -37,56 +37,52 @@ export const filters = {
         type: 'issue',
         repo: 'laravel/framework',
         is: 'open',
-        archived: 'false',
-      },
-    },
+        archived: 'false'
+      }
+    }
   ],
   reducers: {
-    addFilter(state, filter) {
-      return [...state.filters, filter];
+    saveFilter(state, filter) {
+      const index = findIndex(state, { id: filter.id });
+
+      // If it's a new filter
+      if (index === -1) {
+        return chain(state)
+          .clone()
+          .concat(filter)
+          .value();
+      }
+
+      return chain(state)
+        .clone()
+        .set(index, filter)
+        .value();
     },
+
     removeFilter(state, { id }) {
       return filter(state, filter => filter.id !== id);
-    },
-    updateFilterData(state, { id, data }) {
-      const filterIndex = findIndex(state, { id });
-
-      return [
-        ...slice(state, 0, filterIndex),
-        {
-          ...state[filterIndex],
-          data,
-        },
-        ...slice(state, filterIndex + 1),
-      ];
-    },
-    editFilter(state, filter) {
-      const filterIndex = findIndex(state, { id: filter.id });
-
-      return [
-        ...slice(state, 0, filterIndex),
-        {
-          ...filter,
-          data: [],
-        },
-        ...slice(state, filterIndex + 1),
-      ];
-    },
+    }
   },
   effects: dispatch => ({
-    async fetchFilter({ id }, rootState) {
-      const filter = find(rootState.filters, { id });
+    async fetchFilter(filter) {
       const data = await fetchFilter(filter.fields);
-      dispatch.filters.updateFilterData({ id: filter.id, data });
+      dispatch.filters.saveFilter({ ...filter, data });
     },
+
     async fetchAllFilters(_, { filters }) {
-      await Promise.all(filters.map(filter => {
-        dispatch.filters.fetchFilter({ id: filter.id });
-      }));
+      await Promise.all(
+        filters.map(filter => dispatch.filters.fetchFilter(filter))
+      );
     },
-    async editAndRefreshFilter(newFilter) {
-      await dispatch.filters.editFilter(newFilter);
-      await dispatch.filters.fetchFilter(newFilter);
+
+    async saveAndRefreshFilter(filter, { filters }) {
+      const formattedFilter = defaults(filter, {
+        id: maxBy(filters, 'id') + 1,
+        data: []
+      });
+
+      await dispatch.filters.saveFilter(formattedFilter);
+      await dispatch.filters.fetchFilter(formattedFilter);
     }
-  }),
+  })
 };

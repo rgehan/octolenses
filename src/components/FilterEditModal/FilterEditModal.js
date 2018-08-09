@@ -5,11 +5,27 @@ import { Button } from '../Button';
 
 import './FilterEditModal.scss';
 
+const EMPTY_FILTER_PAYLOAD = {
+  label: 'My Super Filter',
+  fields: {
+    type: 'pr',
+    repo: 'username/repo',
+    author: 'username',
+    archived: 'false',
+    is: 'open',
+  },
+};
+
 export class FilterEditModal extends React.Component {
   constructor(props) {
     super(props);
+
+    const filter = props.filter
+      ? omit(props.filter, 'data')
+      : EMPTY_FILTER_PAYLOAD;
+
     this.state = {
-      rawFilter: JSON.stringify(omit(props.filter, 'data'), null, 2),
+      rawFilter: JSON.stringify(filter, null, 2),
     };
   }
 

@@ -13,7 +13,7 @@ import './Dashboard.scss';
   ({ filters }) => ({
     fetchFilter: filters.fetchFilter,
     removeFilter: filters.removeFilter,
-    editAndRefreshFilter: filters.editAndRefreshFilter,
+    saveAndRefreshFilter: filters.saveAndRefreshFilter
   })
 )
 export class Dashboard extends React.Component {
@@ -22,7 +22,7 @@ export class Dashboard extends React.Component {
 
     this.state = {
       selectedFilterId: get(props, 'filters.0.id'),
-      isEditingFilter: false
+      filterModal: { isOpen: false, mode: 'adding' }
     };
   }
 
@@ -50,17 +50,30 @@ export class Dashboard extends React.Component {
     this.props.removeFilter({ id: selectedFilterId });
   };
 
-  handleEditFilter = () => {
-    this.setState({ isEditingFilter: true });
+  /*
+   * Modal logic
+   */
+
+  handleOpenFilterModal = mode => () => {
+    this.setState({
+      filterModal: {
+        isOpen: true,
+        mode
+      }
+    });
   };
 
-  handleCancelEdit = () => {
-    this.setState({ isEditingFilter: false });
+  handleCloseFilterModal = () => {
+    this.setState({
+      filterModal: {
+        isOpen: false
+      }
+    });
   };
 
-  handleApplyEdit = newFilter => {
-    this.setState({ isEditingFilter: false });
-    this.props.editAndRefreshFilter(newFilter);
+  handleSaveFilterModal = filter => {
+    this.handleCloseFilterModal();
+    this.props.saveAndRefreshFilter(filter);
   };
 
   getSelectedFilter() {
@@ -72,7 +85,7 @@ export class Dashboard extends React.Component {
 
   render() {
     const { filters } = this.props;
-    const { selectedFilterId, isEditingFilter } = this.state;
+    const { selectedFilterId, filterModal } = this.state;
 
     const selectedFilter = this.getSelectedFilter();
 
@@ -89,7 +102,13 @@ export class Dashboard extends React.Component {
           ))}
           <div className="Dashboard__Filters-Actions">
             <div
-              onClick={this.handleEditFilter}
+              onClick={this.handleOpenFilterModal('adding')}
+              className="Dashboard__Filters-Actions-Edit"
+            >
+              Add filter
+            </div>
+            <div
+              onClick={this.handleOpenFilterModal('editing')}
               className="Dashboard__Filters-Actions-Edit"
             >
               Edit filter
@@ -108,11 +127,11 @@ export class Dashboard extends React.Component {
               <IssueCard key={issue.id} issue={issue} />
             ))}
         </div>
-        {isEditingFilter && (
+        {filterModal.isOpen && (
           <FilterEditModal
-            filter={selectedFilter}
-            onCancel={this.handleCancelEdit}
-            onApply={this.handleApplyEdit}
+            filter={filterModal.mode === 'editing' ? selectedFilter : null}
+            onCancel={this.handleCloseFilterModal}
+            onApply={this.handleSaveFilterModal}
           />
         )}
       </div>
