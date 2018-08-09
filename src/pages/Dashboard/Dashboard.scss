@@ -12,7 +12,7 @@
     &-Actions {
       display: flex;
       flex-direction: column;
-      text-align: right;
+      align-items: flex-end;
       padding-right: 20px;
       margin-top: 40px;
 
@@ -21,6 +21,7 @@
         margin-bottom: 12px;
         color: #87898c;
         cursor: pointer;
+        user-select: none;
 
         &:hover {
           color: #2a2b2d;

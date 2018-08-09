@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { get, find } from 'lodash';
+import { get, find, isUndefined, findIndex, size } from 'lodash';
 
 import { IssueCard } from '../../components/IssueCard';
 import { FilterLink } from '../../components/FilterLink';
@@ -9,7 +9,10 @@ import './Dashboard.scss';
 
 @connect(
   ({ filters }) => ({ filters }),
-  ({ filters }) => ({ fetchFilter: filters.fetchFilter })
+  ({ filters }) => ({
+    fetchFilter: filters.fetchFilter,
+    removeFilter: filters.removeFilter
+  })
 )
 export class Dashboard extends React.Component {
   constructor(props) {
@@ -22,7 +25,26 @@ export class Dashboard extends React.Component {
 
   handleFilterSelected = filterId => {
     this.setState({ selectedFilterId: filterId });
-    this.props.fetchFilter({ filterId });
+  };
+
+  handleDeleteFilter = () => {
+    const { filters } = this.props;
+    const { selectedFilterId } = this.state;
+
+    if (isUndefined(selectedFilterId) || size(filters) === 1) {
+      return;
+    }
+
+    // Find the id of the filter just above
+    const currentFilterIndex = findIndex(filters, { id: selectedFilterId });
+    const newlySelectedFilterIndex = Math.max(currentFilterIndex - 1, 0);
+
+    // Select the filter above
+    this.setState({
+      selectedFilterId: filters[newlySelectedFilterIndex].id
+    });
+
+    this.props.removeFilter({ id: selectedFilterId });
   };
 
   getSelectedFilter() {
@@ -34,6 +56,7 @@ export class Dashboard extends React.Component {
 
   render() {
     const { filters } = this.props;
+    const { selectedFilterId } = this.state;
     const selectedFilter = this.getSelectedFilter();
 
     return (
@@ -43,13 +66,16 @@ export class Dashboard extends React.Component {
             <FilterLink
               key={filter.id}
               filter={filter}
-              isSelected={filter.id === selectedFilter.id}
+              isSelected={filter.id === selectedFilterId}
               onClick={() => this.handleFilterSelected(filter.id)}
             />
           ))}
           <div className="Dashboard__Filters-Actions">
             <div className="Dashboard__Filters-Actions-Edit">Edit filter</div>
-            <div className="Dashboard__Filters-Actions-Delete">
+            <div
+              onClick={this.handleDeleteFilter}
+              className="Dashboard__Filters-Actions-Delete"
+            >
               Delete filter
             </div>
           </div>

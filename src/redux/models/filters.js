@@ -62,14 +62,14 @@ export const filters = {
     }
   },
   effects: dispatch => ({
-    async fetchFilter({ filterId }, rootState) {
-      const filter = find(rootState.filters, { id: filterId });
+    async fetchFilter({ id }, rootState) {
+      const filter = find(rootState.filters, { id });
       const data = await fetchFilter(filter.fields);
       dispatch.filters.updateFilterData({ id: filter.id, data });
     },
     async fetchAllFilters(_, { filters }) {
       await Promise.all(filters.map(filter => {
-        dispatch.filters.fetchFilter({ filterId: filter.id });
+        dispatch.filters.fetchFilter({ id: filter.id });
       }));
     },
   }),
