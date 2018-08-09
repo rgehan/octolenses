@@ -1,15 +1,15 @@
 {
   "manifest_version": 2,
-  "name": "Github Trending",
-  "short_name": "Github Trending",
+  "name": "Github Dashboard",
+  "short_name": "Github Dashboard",
   "description":
-    "Discover awesome repositories directly from your New Tab page.",
+    "Watch your repos and discover awesome things directly from your New Tab page.",
   "version": "0.1",
   "permissions": ["tabs", "storage", "webNavigation", "*://*.github.com/*"],
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
   "browser_action": {
-    "default_title": "Github Trending"
+    "default_title": "Github Dashboard"
   }
 }

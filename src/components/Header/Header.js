@@ -14,7 +14,7 @@ const _Header = ({ page, navigateTo }) => (
     <div>
       <h1 className="Header__Title">
         <i className="fab fa-github" />
-        <span>Trending</span>
+        <span>Dashboard</span>
       </h1>
       <div className="Header__Tabs">
         {LINKS.map(({ name, label }) => (
