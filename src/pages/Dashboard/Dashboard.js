@@ -47,6 +47,12 @@ export class Dashboard extends React.Component {
               onClick={() => this.handleFilterSelected(filter.id)}
             />
           ))}
+          <div className="Dashboard__Filters-Actions">
+            <div className="Dashboard__Filters-Actions-Edit">Edit filter</div>
+            <div className="Dashboard__Filters-Actions-Delete">
+              Delete filter
+            </div>
+          </div>
         </div>
         <div className="Dashboard__Results">
           {selectedFilter &&
