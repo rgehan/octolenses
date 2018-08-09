@@ -43,7 +43,9 @@ export const IssueCard = ({ issue }) => {
         </a>
       </div>
       <div className="IssueCard__Labels">
-        {issue.labels.map(label => <LabelBadge key={label.id} label={label} />)}
+        {issue.labels.map(label => (
+          <LabelBadge key={label.id} label={label} />
+        ))}
       </div>
     </div>
   );

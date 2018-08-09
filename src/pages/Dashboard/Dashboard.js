@@ -13,7 +13,7 @@ import './Dashboard.scss';
   ({ filters }) => ({
     fetchFilter: filters.fetchFilter,
     removeFilter: filters.removeFilter,
-    saveAndRefreshFilter: filters.saveAndRefreshFilter
+    saveAndRefreshFilter: filters.saveAndRefreshFilter,
   })
 )
 export class Dashboard extends React.Component {
@@ -22,7 +22,7 @@ export class Dashboard extends React.Component {
 
     this.state = {
       selectedFilterId: get(props, 'filters.0.id'),
-      filterModal: { isOpen: false, mode: 'adding' }
+      filterModal: { isOpen: false, mode: 'adding' },
     };
   }
 
@@ -44,7 +44,7 @@ export class Dashboard extends React.Component {
 
     // Select the filter above
     this.setState({
-      selectedFilterId: filters[newlySelectedFilterIndex].id
+      selectedFilterId: filters[newlySelectedFilterIndex].id,
     });
 
     this.props.removeFilter({ id: selectedFilterId });
@@ -58,16 +58,16 @@ export class Dashboard extends React.Component {
     this.setState({
       filterModal: {
         isOpen: true,
-        mode
-      }
+        mode,
+      },
     });
   };
 
   handleCloseFilterModal = () => {
     this.setState({
       filterModal: {
-        isOpen: false
-      }
+        isOpen: false,
+      },
     });
   };
 

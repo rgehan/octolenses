@@ -13,8 +13,8 @@ export const filters = {
         repo: 'botify-hq/botify-report',
         author: 'rgehan',
         archived: 'false',
-        is: 'open'
-      }
+        is: 'open',
+      },
     },
     {
       id: 1,
@@ -26,8 +26,8 @@ export const filters = {
         '-author': 'rgehan',
         archived: 'false',
         is: 'open',
-        label: ['PR: Review Todo']
-      }
+        label: ['PR: Review Todo'],
+      },
     },
     {
       id: 2,
@@ -37,9 +37,9 @@ export const filters = {
         type: 'issue',
         repo: 'laravel/framework',
         is: 'open',
-        archived: 'false'
-      }
-    }
+        archived: 'false',
+      },
+    },
   ],
   reducers: {
     saveFilter(state, filter) {
@@ -61,7 +61,7 @@ export const filters = {
 
     removeFilter(state, { id }) {
       return filter(state, filter => filter.id !== id);
-    }
+    },
   },
   effects: dispatch => ({
     async fetchFilter(filter) {
@@ -78,11 +78,11 @@ export const filters = {
     async saveAndRefreshFilter(filter, { filters }) {
       const formattedFilter = defaults(filter, {
         id: maxBy(filters, 'id') + 1,
-        data: []
+        data: [],
       });
 
       await dispatch.filters.saveFilter(formattedFilter);
       await dispatch.filters.fetchFilter(formattedFilter);
-    }
-  })
+    },
+  }),
 };

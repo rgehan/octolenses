@@ -9,8 +9,8 @@ const github = async ({ endpoint, qs }) => {
     method: 'GET',
     headers: {
       'User-Agent': 'Github Trending Chrome Extension',
-      Authorization: `Bearer ${TOKEN}`
-    }
+      Authorization: `Bearer ${TOKEN}`,
+    },
   });
 
   return await response.json();
@@ -29,7 +29,7 @@ export const fetchTrendingRepos = async (language, date) => {
 
   const { items: repos } = await github({
     endpoint: 'search/repositories',
-    qs: `${query}&sort=stars&order=desc`
+    qs: `${query}&sort=stars&order=desc`,
   });
 
   return repos;
@@ -38,14 +38,16 @@ export const fetchTrendingRepos = async (language, date) => {
 export const fetchFilter = async predicates => {
   const query = chain(predicates)
     .toPairs()
-    .flatMap(([key, values]) => castArray(values).map(value => [key, `"${value}"`]))
+    .flatMap(([key, values]) =>
+      castArray(values).map(value => [key, `"${value}"`])
+    )
     .map(pair => pair.join('%3A'))
     .join('+')
     .value();
 
   const { items: issues } = await github({
     endpoint: 'search/issues',
-    qs: query
+    qs: query,
   });
 
   return issues;

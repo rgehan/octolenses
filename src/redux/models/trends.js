@@ -28,5 +28,5 @@ export const trends = {
 
       updateLoadingState({ type: 'repos', loading: false });
     },
-  })
+  }),
 };

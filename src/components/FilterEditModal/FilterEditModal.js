@@ -33,14 +33,14 @@ export class FilterEditModal extends React.Component {
     this.setState({
       rawFilter: event.target.value,
     });
-  }
+  };
 
   handleSubmit = () => {
     const { rawFilter } = this.state;
     const filter = JSON.parse(rawFilter);
 
     this.props.onApply(filter);
-  }
+  };
 
   render() {
     const { onCancel } = this.props;
@@ -48,14 +48,18 @@ export class FilterEditModal extends React.Component {
 
     return (
       <div className="FilterEditModal">
-          <div className="FilterEditModal__Backdrop" />
-          <div className="FilterEditModal__Overlay">
-            <textarea onChange={this.handleChange} value={rawFilter} />
-            <div className="FilterEditModal__OverlayActions">
-              <Button onClick={onCancel} type="default">Cancel</Button>
-              <Button onClick={this.handleSubmit} type="primary">Apply</Button>
-            </div>
+        <div className="FilterEditModal__Backdrop" />
+        <div className="FilterEditModal__Overlay">
+          <textarea onChange={this.handleChange} value={rawFilter} />
+          <div className="FilterEditModal__OverlayActions">
+            <Button onClick={onCancel} type="default">
+              Cancel
+            </Button>
+            <Button onClick={this.handleSubmit} type="primary">
+              Apply
+            </Button>
           </div>
+        </div>
       </div>
     );
   }
