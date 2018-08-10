@@ -1,4 +1,6 @@
 .FilterLink {
+  display: flex;
+  align-items: center;
   text-align: right;
   padding-right: 20px;
   font-weight: lighter;
@@ -15,12 +17,13 @@
 
   &__ItemsCount {
     background: #cecfd4;
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 17px;
     min-width: 25px;
     font-size: 11px;
-    text-align: center;
     border-radius: 50px;
     margin-left: 7px;
-    padding: 1px 5px;
   }
 }

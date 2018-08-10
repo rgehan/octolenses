@@ -5,6 +5,7 @@ import { get, find, isUndefined, findIndex, size } from 'lodash';
 import { IssueCard } from '../../components/IssueCard';
 import { FilterLink } from '../../components/FilterLink';
 import { FilterEditModal } from '../../components/FilterEditModal';
+import { Loader } from '../../components/Loader';
 
 import './Dashboard.scss';
 
@@ -121,18 +122,33 @@ export class Dashboard extends React.Component {
             </div>
           </div>
         </div>
-        <div className="Dashboard__Results">
-          {selectedFilter &&
-            selectedFilter.data.map(issue => (
-              <IssueCard key={issue.id} issue={issue} />
-            ))}
-        </div>
+        {this.renderResults()}
         {filterModal.isOpen && (
           <FilterEditModal
             filter={filterModal.mode === 'editing' ? selectedFilter : null}
             onCancel={this.handleCloseFilterModal}
             onApply={this.handleSaveFilterModal}
           />
+        )}
+      </div>
+    );
+  }
+
+  renderResults() {
+    const selectedFilter = this.getSelectedFilter();
+
+    if (!selectedFilter) {
+      return null;
+    }
+
+    return (
+      <div className="Dashboard__Results">
+        {selectedFilter.loading ? (
+          <Loader size={50} />
+        ) : (
+          selectedFilter.data.map(issue => (
+            <IssueCard key={issue.id} issue={issue} />
+          ))
         )}
       </div>
     );

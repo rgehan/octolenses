@@ -1,20 +1,10 @@
 import React from 'react';
 import { omit } from 'lodash';
 
+import { EMPTY_FILTER_PAYLOAD } from '../../redux/models/filters';
 import { Button } from '../Button';
 
 import './FilterEditModal.scss';
-
-const EMPTY_FILTER_PAYLOAD = {
-  label: 'My Super Filter',
-  fields: {
-    type: 'pr',
-    repo: 'username/repo',
-    author: 'username',
-    archived: 'false',
-    is: 'open',
-  },
-};
 
 export class FilterEditModal extends React.Component {
   constructor(props) {
