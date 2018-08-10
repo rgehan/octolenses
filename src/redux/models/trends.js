@@ -1,4 +1,4 @@
-import { set } from 'lodash/fp';
+import produce from 'immer';
 
 import { fetchTrendingRepos } from '../../lib/github';
 import { getDateFromValue } from '../../constants/dates';
@@ -8,12 +8,15 @@ export const trends = {
     repos: { data: [], loading: false },
   },
   reducers: {
-    updateData(state, { type, data }) {
-      return set([type, 'data'], data, state);
-    },
-    updateLoadingState(state, { type, loading }) {
-      return set([type, 'loading'], loading, state);
-    },
+    updateData: (_state, { type, data }) =>
+      produce(_state, state => {
+        state[type].data = data;
+      }),
+
+    updateLoadingState: (_state, { type, loading }) =>
+      produce(_state, state => {
+        state[type].loading = loading;
+      }),
   },
   effects: dispatch => ({
     async fetchTrendingRepos(_, rootState) {

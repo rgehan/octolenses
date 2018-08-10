@@ -1,3 +1,5 @@
+import produce from 'immer';
+
 import { LANGUAGES } from '../../constants/languages';
 import { DATES } from '../../constants/dates';
 
@@ -7,11 +9,9 @@ export const settings = {
     dateRange: DATES[0].value,
   },
   reducers: {
-    updateSettings(state, { key, value }) {
-      return {
-        ...state,
-        [key]: value,
-      };
-    },
+    updateSettings: (_state, { key, value }) =>
+      produce(_state, state => {
+        state[key] = value;
+      }),
   },
 };

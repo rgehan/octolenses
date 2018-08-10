@@ -1,4 +1,5 @@
-import { filter, defaults, findIndex, maxBy, chain } from 'lodash';
+import { filter, defaults, findIndex, maxBy } from 'lodash';
+import produce from 'immer';
 
 import { fetchFilter } from '../../lib/github';
 
@@ -45,26 +46,18 @@ export const filters = {
     },
   ],
   reducers: {
-    saveFilter(state, filter) {
-      const index = findIndex(state, { id: filter.id });
+    saveFilter: (_state, filter) =>
+      produce(_state, state => {
+        const index = findIndex(state, { id: filter.id });
 
-      // If it's a new filter
-      if (index === -1) {
-        return chain(state)
-          .clone()
-          .concat(filter)
-          .value();
-      }
+        if (index === -1) {
+          state.push(filter);
+        } else {
+          state[index] = filter;
+        }
+      }),
 
-      return chain(state)
-        .clone()
-        .set(index, filter)
-        .value();
-    },
-
-    removeFilter(state, { id }) {
-      return filter(state, filter => filter.id !== id);
-    },
+    removeFilter: (state, { id }) => filter(state, filter => filter.id !== id),
   },
   effects: dispatch => ({
     async fetchFilter(filter) {
