@@ -10,7 +10,7 @@ import './FilterPredicate.scss';
 export class FilterPredicate extends React.Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
     negated: PropTypes.bool.isRequired,
     onDelete: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
@@ -101,7 +101,7 @@ export class FilterPredicate extends React.Component {
       return (
         <div className="FilterPredicate__Value">
           <select value={value} onChange={this.handleChange}>
-            <option key="__default" value={null}>
+            <option key="__default" value="">
               Choose...
             </option>
             {predicate.choices.map(choice => (

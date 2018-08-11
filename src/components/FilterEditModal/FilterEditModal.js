@@ -38,7 +38,7 @@ export class FilterEditModal extends React.Component {
     }
 
     const updatedFilter = produce(this.state.filter, filter => {
-      filter.predicates.push({ type, value: null });
+      filter.predicates.push({ type, value: '' });
       return filter;
     });
 
