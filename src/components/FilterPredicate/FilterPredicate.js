@@ -10,7 +10,7 @@ import './FilterPredicate.scss';
 export class FilterPredicate extends React.Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     negated: PropTypes.bool.isRequired,
     onDelete: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,

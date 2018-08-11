@@ -1,4 +1,4 @@
-import { filter, findIndex, maxBy } from 'lodash';
+import { filter, findIndex, chain } from 'lodash';
 import produce from 'immer';
 
 import { fetchFilter } from '../../lib/github';
@@ -46,10 +46,15 @@ export const filters = {
     },
 
     async saveAndRefreshFilter(filter, { filters }) {
+      const id =
+        chain(filters)
+          .map('id')
+          .max() + 1;
+
       // Default some keys that might be missing because the filter
       // is brand new
       const validFilter = {
-        id: maxBy(filters, 'id') + 1,
+        id,
         data: [],
         loading: false,
         ...filter,
