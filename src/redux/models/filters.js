@@ -4,20 +4,7 @@ import produce from 'immer';
 import { fetchFilter } from '../../lib/github';
 
 export const filters = {
-  state: [
-    {
-      id: 0,
-      label: 'Botify PR - Mine',
-      data: [],
-      loading: false,
-      predicates: [
-        { type: 'type', value: 'pr' },
-        { type: 'author', value: 'rgehan' },
-        { type: 'repository', value: 'botify-hq/botify-report' },
-        { type: 'status', value: 'open' },
-      ],
-    },
-  ],
+  state: [],
   reducers: {
     saveFilter: (_state, filter) =>
       produce(_state, state => {
