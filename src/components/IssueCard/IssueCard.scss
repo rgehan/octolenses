@@ -19,11 +19,7 @@
     align-items: center;
     margin-bottom: 5px;
 
-    &:hover {
-      text-decoration: underline;
-    }
-
-    &Icon {
+    &-Icon {
       margin-right: 7px;
 
       &--open {
@@ -35,14 +31,17 @@
       }
     }
 
-    &Repo {
+    &-Repo,
+    &-Issue {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &-Repo {
       font-size: 15px;
       margin-right: 5px;
       color: #616165;
-    }
-
-    &Issue {
-      //
     }
   }
 

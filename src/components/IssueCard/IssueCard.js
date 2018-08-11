@@ -14,28 +14,36 @@ const parseRepoName = url =>
     .join('/')
     .value();
 
+const parseRepoUrl = apiUrl =>
+  apiUrl.replace('api.github.com/repos/', 'github.com/');
+
 export const IssueCard = ({ issue }) => {
   const isPR = issue.pull_request;
   const isOpen = issue.state === 'open';
 
   const fullRepoName = parseRepoName(issue.repository_url);
+  const repoUrl = parseRepoUrl(issue.repository_url);
 
   return (
     <div className="IssueCard">
-      <a className="IssueCard__Title" href={issue.html_url}>
+      <div className="IssueCard__Title">
         <i
           className={cx(
-            'IssueCard__TitleIcon',
+            'IssueCard__Title-Icon',
             'fas',
             isPR ? 'fa-code-branch' : 'fa-exclamation-circle',
             isOpen
-              ? 'IssueCard__TitleIcon--open'
-              : 'IssueCard__TitleIcon--closed'
+              ? 'IssueCard__Title-Icon--open'
+              : 'IssueCard__Title-Icon--closed'
           )}
         />
-        <span className="IssueCard__TitleRepo">{fullRepoName}</span>
-        <span className="IssueCard__TitleIssue">{issue.title}</span>
-      </a>
+        <a className="IssueCard__Title-Repo" href={repoUrl}>
+          {fullRepoName}
+        </a>
+        <a className="IssueCard__Title-Issue" href={issue.html_url}>
+          {issue.title}
+        </a>
+      </div>
       <div className="IssueCard__Metadata">
         Opened {timeago().format(issue.created_at)} by{' '}
         <a href={issue.user.html_url} className="IssueCard__Metadata-Author">
