@@ -1,6 +1,9 @@
 .IssueCard {
   padding: 20px 20px;
-  border-bottom: 1px solid #f1f1f1;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid #f1f1f1;
+  }
 
   &__Icon {
     width: 40px;
@@ -12,7 +15,7 @@
   }
 
   &__Title {
-    display: flex;
+    display: inline-block;
     align-items: center;
     margin-bottom: 5px;
 

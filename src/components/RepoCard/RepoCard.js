@@ -7,7 +7,6 @@ export const RepoCard = ({ repo }) => {
   const {
     name,
     description,
-    language,
     stargazers_count,
     forks_count,
     open_issues_count,
