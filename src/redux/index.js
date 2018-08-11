@@ -19,7 +19,6 @@ export const initialize = async () => {
   const needOnboarding = !store.getState().settings.wasOnboarded;
   if (needOnboarding) {
     store.dispatch.filters.saveFilter({
-      id: 0,
       label: 'React PRs',
       data: [],
       loading: false,

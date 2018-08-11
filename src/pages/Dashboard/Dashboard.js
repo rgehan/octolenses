@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { get, find, isUndefined, findIndex, size } from 'lodash';
+import { get, find, isUndefined, findIndex, size, chain } from 'lodash';
 
 import { IssueCard } from '../../components/IssueCard';
 import { FilterLink } from '../../components/FilterLink';
@@ -41,11 +41,18 @@ export class Dashboard extends React.Component {
 
     // Find the id of the filter just above
     const currentFilterIndex = findIndex(filters, { id: selectedFilterId });
-    const newlySelectedFilterIndex = Math.max(currentFilterIndex - 1, 0);
+    const newlySelectedFilterIndex =
+      currentFilterIndex === filters.length - 1
+        ? currentFilterIndex - 1
+        : currentFilterIndex;
 
-    // Select the filter above
+    const realIndex = chain(filters)
+      .filter(({ id }) => id !== selectedFilterId)
+      .get([newlySelectedFilterIndex, 'id'])
+      .value();
+
     this.setState({
-      selectedFilterId: filters[newlySelectedFilterIndex].id,
+      selectedFilterId: realIndex,
     });
 
     this.props.removeFilter({ id: selectedFilterId });

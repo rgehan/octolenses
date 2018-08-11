@@ -42,7 +42,7 @@ export const fetchFilter = async ({ predicates }) => {
     .join('+')
     .value();
 
-  const { items: issues } = await github({
+  const { items: issues = [] } = await github({
     endpoint: 'search/issues',
     qs: query,
   });
