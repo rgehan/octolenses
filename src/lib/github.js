@@ -1,5 +1,6 @@
 import { chain, castArray } from 'lodash';
 
+import { serializePredicatePayload } from './filters';
 import { TOKEN } from '../config';
 
 const github = async ({ endpoint, qs }) => {
@@ -35,13 +36,9 @@ export const fetchTrendingRepos = async (language, date) => {
   return repos;
 };
 
-export const fetchFilter = async predicates => {
+export const fetchFilter = async ({ predicates }) => {
   const query = chain(predicates)
-    .toPairs()
-    .flatMap(([key, values]) =>
-      castArray(values).map(value => [key, `"${value}"`])
-    )
-    .map(pair => pair.join('%3A'))
+    .map(serializePredicatePayload)
     .join('+')
     .value();
 

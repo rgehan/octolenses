@@ -13,25 +13,40 @@
     width: 800px;
     background: white;
     box-shadow: 0 4px 10px #00000017;
-    padding: 20px;
     display: flex;
     flex-direction: column;
+  }
 
-    textarea {
-      min-height: 150px;
-      margin-bottom: 20px;
-      font-family: monospace;
-      font-size: 12px;
-      border: 1px solid lightgray;
+  &__Header {
+    height: 55px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    background: #ecf2f5;
+
+    &-Title {
+      flex: 1;
+      font-size: 20px;
     }
 
-    &Actions {
-      display: flex;
-      justify-content: flex-end;
+    img {
+      cursor: pointer;
+    }
+  }
 
-      > .Button {
-        margin-left: 10px;
-      }
+  &__Predicates {
+    min-height: 150px;
+    margin-bottom: 20px;
+    padding: 20px;
+  }
+
+  &__Actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 20px 20px 0;
+
+    > .Button {
+      margin-left: 10px;
     }
   }
 
@@ -41,7 +56,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.2);
     z-index: -1;
   }
 }

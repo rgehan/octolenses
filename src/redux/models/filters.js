@@ -1,4 +1,4 @@
-import { filter, defaults, findIndex, maxBy } from 'lodash';
+import { filter, findIndex, maxBy } from 'lodash';
 import produce from 'immer';
 
 import { fetchFilter } from '../../lib/github';
@@ -10,39 +10,12 @@ export const filters = {
       label: 'Botify PR - Mine',
       data: [],
       loading: false,
-      fields: {
-        type: 'pr',
-        repo: 'botify-hq/botify-report',
-        author: 'rgehan',
-        archived: 'false',
-        is: 'open',
-      },
-    },
-    {
-      id: 1,
-      label: 'Botify PR - To Review',
-      data: [],
-      loading: false,
-      fields: {
-        type: 'pr',
-        repo: 'botify-hq/botify-report',
-        '-author': 'rgehan',
-        archived: 'false',
-        is: 'open',
-        label: ['PR: Review Todo'],
-      },
-    },
-    {
-      id: 2,
-      label: 'Laravel issues',
-      data: [],
-      loading: false,
-      fields: {
-        type: 'issue',
-        repo: 'laravel/framework',
-        is: 'open',
-        archived: 'false',
-      },
+      predicates: [
+        { type: 'type', value: 'pr' },
+        { type: 'author', value: 'rgehan' },
+        { type: 'repository', value: 'botify-hq/botify-report' },
+        { type: 'status', value: 'open' },
+      ],
     },
   ],
   reducers: {
@@ -62,7 +35,7 @@ export const filters = {
   effects: dispatch => ({
     async fetchFilter(filter) {
       dispatch.filters.saveFilter({ ...filter, loading: true });
-      const data = await fetchFilter(filter.fields);
+      const data = await fetchFilter(filter);
       dispatch.filters.saveFilter({ ...filter, loading: false, data });
     },
 
@@ -73,25 +46,22 @@ export const filters = {
     },
 
     async saveAndRefreshFilter(filter, { filters }) {
-      const formattedFilter = defaults(filter, {
+      // Default some keys that might be missing because the filter
+      // is brand new
+      const validFilter = {
         id: maxBy(filters, 'id') + 1,
         data: [],
         loading: false,
-      });
+        ...filter,
+      };
 
-      await dispatch.filters.saveFilter(formattedFilter);
-      await dispatch.filters.fetchFilter(formattedFilter);
+      await dispatch.filters.saveFilter(validFilter);
+      await dispatch.filters.fetchFilter(validFilter);
     },
   }),
 };
 
 export const EMPTY_FILTER_PAYLOAD = {
-  label: 'My Super Filter',
-  fields: {
-    type: 'pr',
-    repo: 'username/repo',
-    author: 'username',
-    archived: 'false',
-    is: 'open',
-  },
+  label: 'Unnamed filter',
+  predicates: [],
 };

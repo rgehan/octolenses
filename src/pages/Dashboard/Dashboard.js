@@ -23,7 +23,7 @@ export class Dashboard extends React.Component {
 
     this.state = {
       selectedFilterId: get(props, 'filters.0.id'),
-      filterModal: { isOpen: false, mode: 'adding' },
+      filterModal: { isOpen: true, mode: 'editing' },
     };
   }
 
@@ -127,7 +127,7 @@ export class Dashboard extends React.Component {
           <FilterEditModal
             filter={filterModal.mode === 'editing' ? selectedFilter : null}
             onCancel={this.handleCloseFilterModal}
-            onApply={this.handleSaveFilterModal}
+            onSave={this.handleSaveFilterModal}
           />
         )}
       </div>

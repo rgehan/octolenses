@@ -1,17 +1,25 @@
 .Button {
-  padding: 5px 10px;
+  min-width: 100px;
+  padding: 8px 10px;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 16px;
   outline: 0;
   cursor: pointer;
 
   &--primary {
-    background: #3a94da;
+    background: #298fee;
     color: white;
+
+    &:hover {
+      background: #2384de;
+    }
   }
 
   &--default {
-    border: 1px solid #dbe3e4;
-    background: white;
+    background: #ecf2f5;
+
+    &:hover {
+      background: #e1e9ec;
+    }
   }
 }

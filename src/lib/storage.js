@@ -10,8 +10,6 @@ export const withStorage = dataToRetrieve => WrappedComponent => {
     localStorage.getItem(key)
   );
 
-  console.log(propsFromStorage);
-
   return props => (
     <WrappedComponent storeData={storeData} {...props} {...propsFromStorage} />
   );

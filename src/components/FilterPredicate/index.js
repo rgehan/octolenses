@@ -1,0 +1,1 @@
+export { FilterPredicate } from './FilterPredicate';
