@@ -3,22 +3,28 @@ import { connect } from 'react-redux';
 
 import { Header } from './components/Header';
 import { Discover, Dashboard } from './pages';
+import { initialize } from './redux';
 
 const PAGES = {
   discover: Discover,
   dashboard: Dashboard,
 };
 
-const _App = ({ page }) => {
-  const Page = PAGES[page];
-  return (
-    <div className="App">
-      <Header />
-      <Page />
-    </div>
-  );
-};
+@connect(({ navigation }) => ({ page: navigation.page }))
+export class App extends React.Component {
+  componentWillMount() {
+    initialize();
+  }
 
-export const App = connect(({ navigation }) => ({ page: navigation.page }))(
-  _App
-);
+  render() {
+    const { page } = this.props;
+    const Page = PAGES[page];
+
+    return (
+      <div className="App">
+        <Header />
+        <Page />
+      </div>
+    );
+  }
+}

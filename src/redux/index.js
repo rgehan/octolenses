@@ -2,7 +2,6 @@ import { init } from '@rematch/core';
 import createRematchPersist from '@rematch/persist';
 
 import * as models from './models';
-import { initialize } from './initialization';
 
 const persistPlugin = createRematchPersist({
   whitelist: ['settings'],
@@ -15,4 +14,7 @@ export const store = init({
   plugins: [persistPlugin],
 });
 
-initialize(store);
+export const initialize = () => {
+  store.dispatch.trends.fetchTrendingRepos();
+  store.dispatch.filters.fetchAllFilters();
+};
