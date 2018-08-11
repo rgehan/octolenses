@@ -101,6 +101,9 @@ export class FilterPredicate extends React.Component {
       return (
         <div className="FilterPredicate__Value">
           <select value={value} onChange={this.handleChange}>
+            <option key="__default" value={null}>
+              Choose...
+            </option>
             {predicate.choices.map(choice => (
               <option key={choice.value} value={choice.value}>
                 {choice.label}

@@ -3,6 +3,7 @@ import produce from 'immer';
 import { omit } from 'lodash';
 
 import { EMPTY_FILTER_PAYLOAD } from '../../redux/models/filters';
+import { PREDICATES } from '../../lib/filters';
 import { FilterPredicate } from '../FilterPredicate';
 import { Button } from '../Button';
 import deleteIcon from '../../assets/delete.svg';
@@ -19,6 +20,21 @@ export class FilterEditModal extends React.Component {
 
     this.state = { filter };
   }
+
+  handleAddPredicate = event => {
+    const type = event.target.value;
+
+    if (!type) {
+      return;
+    }
+
+    const updatedFilter = produce(this.state.filter, filter => {
+      filter.predicates.push({ type, value: null });
+      return filter;
+    });
+
+    this.setState({ filter: updatedFilter });
+  };
 
   handlePredicateChange = index => ({ value, negated }) => {
     const updatedFilter = produce(this.state.filter, filter => {
@@ -84,7 +100,27 @@ export class FilterEditModal extends React.Component {
             onDelete={this.handlePredicateDeletion(index)}
           />
         ))}
+        {this.renderAddPredicateButton()}
       </div>
+    );
+  }
+
+  renderAddPredicateButton() {
+    return (
+      <select
+        value=""
+        onChange={this.handleAddPredicate}
+        className="FilterEditModal__AddPredicateButton"
+      >
+        <option key="__default" value="" selected>
+          + Add a predicate
+        </option>
+        {PREDICATES.map(({ name, label }) => (
+          <option key={name} value={name}>
+            {label}
+          </option>
+        ))}
+      </select>
     );
   }
 

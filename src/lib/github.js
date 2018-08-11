@@ -1,4 +1,4 @@
-import { chain, castArray } from 'lodash';
+import { chain } from 'lodash';
 
 import { serializePredicatePayload } from './filters';
 import { TOKEN } from '../config';

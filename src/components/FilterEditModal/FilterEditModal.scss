@@ -40,6 +40,15 @@
     padding: 20px;
   }
 
+  &__AddPredicateButton {
+    -webkit-appearance: none;
+    border: 0;
+    outline: 0;
+    background: none;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
   &__Actions {
     display: flex;
     justify-content: flex-end;

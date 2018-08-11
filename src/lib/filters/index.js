@@ -6,7 +6,7 @@ import { label } from './label';
 import { author } from './author';
 import { status } from './status';
 
-const PREDICATES = [type, repository, label, author, status];
+export const PREDICATES = [type, repository, label, author, status];
 
 export const findPredicate = type => find(PREDICATES, { name: type });
 

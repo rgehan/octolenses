@@ -23,7 +23,7 @@ export class Dashboard extends React.Component {
 
     this.state = {
       selectedFilterId: get(props, 'filters.0.id'),
-      filterModal: { isOpen: true, mode: 'editing' },
+      filterModal: { isOpen: false, mode: 'adding' },
     };
   }
 
