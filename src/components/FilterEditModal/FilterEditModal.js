@@ -21,6 +21,15 @@ export class FilterEditModal extends React.Component {
     this.state = { filter };
   }
 
+  handleTitleChange = event => {
+    const updatedFilter = {
+      ...this.state.filter,
+      label: event.target.value,
+    };
+
+    this.setState({ filter: updatedFilter });
+  };
+
   handleAddPredicate = event => {
     const type = event.target.value;
 
@@ -81,7 +90,13 @@ export class FilterEditModal extends React.Component {
 
     return (
       <div className="FilterEditModal__Header">
-        <div className="FilterEditModal__Header-Title">{filter.label}</div>
+        <div className="FilterEditModal__Header-Title">
+          <input
+            type="text"
+            value={filter.label}
+            onChange={this.handleTitleChange}
+          />
+        </div>
         <img src={deleteIcon} onClick={onCancel} />
       </div>
     );

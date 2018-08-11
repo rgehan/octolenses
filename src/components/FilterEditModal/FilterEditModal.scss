@@ -26,7 +26,18 @@
 
     &-Title {
       flex: 1;
-      font-size: 20px;
+
+      > input {
+        font-size: 20px;
+        background: none;
+        border: 0;
+        outline: 0;
+        color: #494b4e;
+
+        &:hover {
+          color: black;
+        }
+      }
     }
 
     img {
