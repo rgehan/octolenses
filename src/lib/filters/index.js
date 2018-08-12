@@ -1,12 +1,31 @@
-import { find } from 'lodash';
+import { find, capitalize, sortBy } from 'lodash';
 
 import { type } from './type';
-import { repository } from './repository';
-import { label } from './label';
-import { author } from './author';
 import { status } from './status';
 
-export const PREDICATES = [type, repository, label, author, status];
+const makeSimplePredicate = (name, label) => ({
+  name,
+  label: label || capitalize(name),
+  type: 'text',
+  serialize: ({ value, negated }) => `${negated ? '-' : ''}${name}:"${value}"`,
+});
+
+export const PREDICATES = sortBy(
+  [
+    makeSimplePredicate('assignee'),
+    makeSimplePredicate('author'),
+    makeSimplePredicate('label'),
+    makeSimplePredicate('mentions'),
+    makeSimplePredicate('team'),
+    makeSimplePredicate('commenter'),
+    makeSimplePredicate('involves'),
+    makeSimplePredicate('milestone'),
+    makeSimplePredicate('repo', 'Repository'),
+    type,
+    status,
+  ],
+  'label'
+);
 
 export const findPredicate = type => find(PREDICATES, { name: type });
 

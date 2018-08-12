@@ -24,7 +24,7 @@ export const initialize = async () => {
       loading: false,
       predicates: [
         { type: 'type', value: 'pr' },
-        { type: 'repository', value: 'facebook/react' },
+        { type: 'repo', value: 'facebook/react' },
         { type: 'status', value: 'open' },
       ],
     });
