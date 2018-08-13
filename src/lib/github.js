@@ -1,4 +1,4 @@
-import { chain } from 'lodash';
+import { chain, omitBy, isNil } from 'lodash';
 
 import { serializePredicatePayload } from './filters';
 
@@ -7,10 +7,13 @@ const github = async ({ endpoint, qs, token }) => {
 
   const response = await fetch(url, {
     method: 'GET',
-    headers: {
-      'User-Agent': 'Github Trending Chrome Extension',
-      Authorization: `Bearer ${token}`,
-    },
+    headers: omitBy(
+      {
+        'User-Agent': 'Github Trending Chrome Extension',
+        Authorization: token && `Bearer ${token}`,
+      },
+      isNil
+    ),
   });
 
   return await response.json();
