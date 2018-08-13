@@ -7,6 +7,7 @@ export const settings = {
   state: {
     language: LANGUAGES[0].value,
     dateRange: DATES[0].value,
+    token: '',
     wasOnboarded: false,
   },
   reducers: {
