@@ -3,17 +3,19 @@ import { connect } from 'react-redux';
 
 import { Header } from './components/Header';
 import { Discover, Dashboard } from './pages';
-import { initialize } from './redux';
 
 const PAGES = {
   discover: Discover,
   dashboard: Dashboard,
 };
 
-@connect(({ navigation }) => ({ page: navigation.page }))
+@connect(
+  ({ navigation }) => ({ page: navigation.page }),
+  ({ application }) => ({ bootstrap: application.bootstrap })
+)
 export class App extends React.Component {
   componentWillMount() {
-    initialize();
+    this.props.bootstrap();
   }
 
   render() {

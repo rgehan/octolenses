@@ -8,7 +8,10 @@ import './SettingsModal.scss';
 
 @connect(
   ({ settings }) => ({ token: settings.token }),
-  ({ settings }) => ({ updateSettings: settings.updateSettings })
+  ({ settings, application }) => ({
+    updateSettings: settings.updateSettings,
+    refreshAllData: application.refreshAllData,
+  })
 )
 export class SettingsModal extends React.Component {
   constructor(props) {
@@ -28,6 +31,7 @@ export class SettingsModal extends React.Component {
   handleSave = () => {
     const { token } = this.state;
     this.props.updateSettings({ key: 'token', value: token });
+    this.props.refreshAllData();
     this.props.onCancel();
   };
 
