@@ -21,6 +21,8 @@ export const PREDICATES = sortBy(
     makeSimplePredicate('involves'),
     makeSimplePredicate('milestone'),
     makeSimplePredicate('repo', 'Repository'),
+    makeSimplePredicate('user'),
+    makeSimplePredicate('org', 'Organization'),
     type,
     status,
   ],
