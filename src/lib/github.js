@@ -1,16 +1,15 @@
 import { chain } from 'lodash';
 
 import { serializePredicatePayload } from './filters';
-import { TOKEN } from '../config';
 
-const github = async ({ endpoint, qs }) => {
+const github = async ({ endpoint, qs, token }) => {
   const url = `https://api.github.com/${endpoint}?q=${qs || ''}`;
 
   const response = await fetch(url, {
     method: 'GET',
     headers: {
       'User-Agent': 'Github Trending Chrome Extension',
-      Authorization: `Bearer ${TOKEN}`,
+      Authorization: `Bearer ${token}`,
     },
   });
 
@@ -22,7 +21,7 @@ const github = async ({ endpoint, qs }) => {
  * @param {*} language What programming language the user is interested in
  * @param {*} date From which date
  */
-export const fetchTrendingRepos = async (language, date) => {
+export const fetchTrendingRepos = async ({ language, date, token }) => {
   let query = `created:>${date}`;
   if (language !== null) {
     query += ` and language:${language}`;
@@ -31,13 +30,14 @@ export const fetchTrendingRepos = async (language, date) => {
   const { items: repos } = await github({
     endpoint: 'search/repositories',
     qs: `${query}&sort=stars&order=desc`,
+    token,
   });
 
   return repos;
 };
 
-export const fetchFilter = async ({ predicates }) => {
-  const query = chain(predicates)
+export const fetchFilter = async ({ filter, token }) => {
+  const query = chain(filter.predicates)
     .map(serializePredicatePayload)
     .join('+')
     .value();
@@ -45,6 +45,7 @@ export const fetchFilter = async ({ predicates }) => {
   const { items: issues = [] } = await github({
     endpoint: 'search/issues',
     qs: query,
+    token,
   });
 
   return issues;

@@ -24,9 +24,9 @@ export const filters = {
     removeFilter: (state, { id }) => filter(state, filter => filter.id !== id),
   },
   effects: dispatch => ({
-    async fetchFilter(filter) {
+    async fetchFilter(filter, { settings }) {
       dispatch.filters.saveFilter({ ...filter, loading: true });
-      const data = await fetchFilter(filter);
+      const data = await fetchFilter({ filter, token: settings.token });
       dispatch.filters.saveFilter({ ...filter, loading: false, data });
     },
 

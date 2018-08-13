@@ -21,12 +21,12 @@ export const trends = {
   effects: dispatch => ({
     async fetchTrendingRepos(_, rootState) {
       const { updateLoadingState, updateData } = dispatch.trends;
-      const { language, dateRange } = rootState.settings;
+      const { language, dateRange, token } = rootState.settings;
       const date = getDateFromValue(dateRange);
 
       updateLoadingState({ type: 'repos', loading: true });
 
-      const repos = await fetchTrendingRepos(language, date);
+      const repos = await fetchTrendingRepos({ language, date, token });
       updateData({ type: 'repos', data: repos });
 
       updateLoadingState({ type: 'repos', loading: false });
