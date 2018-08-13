@@ -10,6 +10,7 @@
 
   &__Title {
     font-size: 36px;
+    text-shadow: 0 1px 0 white;
 
     > i {
       margin-right: 15px;
@@ -30,12 +31,13 @@
     a {
       margin-left: 20px;
       padding: 4px 0;
-      color: #63686b;
+      color: #8f9496;
+      cursor: pointer;
+      text-shadow: 0 1px 0 white;
 
       &.active,
       &:hover {
         color: #333;
-        border-bottom: 3px solid #c1c4c5;
       }
     }
   }

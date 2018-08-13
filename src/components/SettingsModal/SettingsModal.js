@@ -27,8 +27,8 @@ export class SettingsModal extends React.Component {
 
   handleSave = () => {
     const { token } = this.state;
-    console.log('Updating token', token);
     this.props.updateSettings({ key: 'token', value: token });
+    this.props.onCancel();
   };
 
   render() {
