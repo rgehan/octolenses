@@ -127,7 +127,7 @@ export class FilterEditModal extends React.Component {
         onChange={this.handleAddPredicate}
         className="FilterEditModal__AddPredicateButton"
       >
-        <option key="__default" value="" selected>
+        <option key="__default" value="">
           + Add a predicate
         </option>
         {PREDICATES.map(({ name, label }) => (
