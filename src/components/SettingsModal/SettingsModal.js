@@ -80,10 +80,7 @@ export class SettingsModal extends React.Component {
           </p>
           <p>It needs to have the following scope:</p>
           <ul>
-            <li>repo:status</li>
-            <li>repo_deployment</li>
-            <li>public_repo</li>
-            <li>read:org</li>
+            <li>repo</li>
           </ul>
         </div>
       </div>
