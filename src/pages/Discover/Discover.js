@@ -14,11 +14,15 @@ import './Discover.scss';
     repos: trends.repos.data,
     loading: trends.repos.loading,
   }),
-  ({ settings }) => ({ updateSettings: settings.updateSettings })
+  ({ settings, trends }) => ({
+    updateSettings: settings.updateSettings,
+    fetchTrendingRepos: trends.fetchTrendingRepos,
+  })
 )
 export class Discover extends React.Component {
   handleOptionChange = ({ name, value }) => {
     this.props.updateSettings({ key: name, value });
+    this.props.fetchTrendingRepos();
   };
 
   render() {
