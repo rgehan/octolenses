@@ -3,7 +3,7 @@ import { chain, omitBy, isNil } from 'lodash';
 import { serializePredicatePayload } from './filters';
 
 const github = async ({ endpoint, qs, token }) => {
-  const url = `https://api.github.com/${endpoint}?q=${qs || ''}`;
+  const url = `https://api.github.com/${endpoint}?per_page=100&q=${qs || ''}`;
 
   const response = await fetch(url, {
     method: 'GET',
