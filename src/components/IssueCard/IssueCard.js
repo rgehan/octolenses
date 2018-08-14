@@ -26,22 +26,28 @@ export const IssueCard = ({ issue }) => {
 
   return (
     <div className="IssueCard">
-      <div className="IssueCard__Title">
-        <i
-          className={cx(
-            'IssueCard__Title-Icon',
-            'fas',
-            isPR ? 'fa-code-branch' : 'fa-exclamation-circle',
-            isOpen
-              ? 'IssueCard__Title-Icon--open'
-              : 'IssueCard__Title-Icon--closed'
-          )}
-        />
-        <a className="IssueCard__Title-Repo" href={repoUrl}>
-          {fullRepoName}
-        </a>
-        <a className="IssueCard__Title-Issue" href={issue.html_url}>
-          {issue.title}
+      <div className="IssueCard__Header">
+        <div className="IssueCard__Header-Title">
+          <i
+            className={cx(
+              'IssueCard__Header-Title-Icon',
+              'fas',
+              isPR ? 'fa-code-branch' : 'fa-exclamation-circle',
+              isOpen
+                ? 'IssueCard__Header-Title-Icon--open'
+                : 'IssueCard__Header-Title-Icon--closed'
+            )}
+          />
+          <a className="IssueCard__Header-Title-Repo" href={repoUrl}>
+            {fullRepoName}
+          </a>
+          <a className="IssueCard__Header-Title-Issue" href={issue.html_url}>
+            {issue.title}
+          </a>
+        </div>
+        <a href={issue.html_url} className="IssueCard__Header-Comments">
+          {issue.comments}
+          <i className="far fa-comment-alt" />
         </a>
       </div>
       <div className="IssueCard__Metadata">

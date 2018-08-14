@@ -14,34 +14,59 @@
     color: #6e7277;
   }
 
-  &__Title {
-    display: inline-block;
-    align-items: center;
-    margin-bottom: 5px;
+  &__Header {
+    display: flex;
+    align-items: flex-start;
 
-    &-Icon {
-      margin-right: 7px;
-
-      &--open {
-        color: #28a745;
+    &-Title {
+      flex: 1;
+      display: inline-block;
+      align-items: center;
+      margin-bottom: 5px;
+  
+      &-Icon {
+        margin-right: 7px;
+  
+        &--open {
+          color: #28a745;
+        }
+  
+        &--closed {
+          color: #cb2431;
+        }
       }
-
-      &--closed {
-        color: #cb2431;
+  
+      &-Repo,
+      &-Issue {
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+  
+      &-Repo {
+        font-size: 15px;
+        margin-right: 5px;
+        color: #616165;
       }
     }
 
-    &-Repo,
-    &-Issue {
+    &-Comments,
+    &-Comments:active,
+    &-Comments:visited {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: #86898b;
+      margin: 2px 0 0 5px;
+      cursor: pointer;
+
+      > i {
+        margin-left: 5px;
+      }
+
       &:hover {
-        text-decoration: underline;
+        color: #616165;
       }
-    }
-
-    &-Repo {
-      font-size: 15px;
-      margin-right: 5px;
-      color: #616165;
     }
   }
 
