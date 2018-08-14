@@ -33,7 +33,7 @@ export class Header extends React.Component {
           <div>
             <h1 className="Header__Title">
               <i className="fab fa-github" />
-              <span>Dashboard</span>
+              <span>OctoLenses</span>
             </h1>
             <div className="Header__Tabs">
               {this.renderLink('dashboard')}
