@@ -17,7 +17,7 @@ export class Modal extends React.Component {
 
     return (
       <div className={cx('Modal', className)}>
-        <div className="Modal__Backdrop" />
+        <div className="Modal__Backdrop" onClick={onClose} />
         <div className="Modal__Overlay">
           <div className="Modal__Header">
             <div className="Modal__Header-Title">{header}</div>
