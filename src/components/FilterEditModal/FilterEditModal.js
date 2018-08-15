@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import produce from 'immer';
 import { omit } from 'lodash';
 
@@ -6,11 +7,15 @@ import { EMPTY_FILTER_PAYLOAD } from '../../redux/models/filters';
 import { PREDICATES } from '../../lib/filters';
 import { FilterPredicate } from '../FilterPredicate';
 import { Button } from '../Button';
-import deleteIcon from '../../assets/delete.svg';
+import { Modal } from '../Modal';
 
 import './FilterEditModal.scss';
 
 export class FilterEditModal extends React.Component {
+  static propTypes = {
+    onClose: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
 
@@ -72,85 +77,54 @@ export class FilterEditModal extends React.Component {
   };
 
   render() {
-    return (
-      <div className="FilterEditModal">
-        <div className="FilterEditModal__Backdrop" />
-        <div className="FilterEditModal__Overlay">
-          {this.renderHeader()}
-          {this.renderPredicates()}
-          {this.renderActions()}
-        </div>
-      </div>
-    );
-  }
-
-  renderHeader() {
-    const { onCancel } = this.props;
+    const { onClose } = this.props;
     const { filter } = this.state;
 
     return (
-      <div className="FilterEditModal__Header">
-        <div className="FilterEditModal__Header-Title">
+      <Modal onClose={onClose} className="FilterEditModal">
+        <Modal.Header>
           <input
             type="text"
             value={filter.label}
             onChange={this.handleTitleChange}
+            className="FilterEditModal__TitleInput"
           />
-        </div>
-        <img src={deleteIcon} onClick={onCancel} />
-      </div>
-    );
-  }
-
-  renderPredicates() {
-    const { filter } = this.state;
-
-    return (
-      <div className="FilterEditModal__Predicates">
-        {filter.predicates.map((predicate, index) => (
-          <FilterPredicate
-            key={index}
-            {...predicate}
-            onChange={this.handlePredicateChange(index)}
-            onDelete={this.handlePredicateDeletion(index)}
-          />
-        ))}
-        {this.renderAddPredicateButton()}
-      </div>
-    );
-  }
-
-  renderAddPredicateButton() {
-    return (
-      <select
-        value=""
-        onChange={this.handleAddPredicate}
-        className="FilterEditModal__AddPredicateButton"
-      >
-        <option key="__default" value="">
-          + Add a predicate
-        </option>
-        {PREDICATES.map(({ name, label }) => (
-          <option key={name} value={name}>
-            {label}
-          </option>
-        ))}
-      </select>
-    );
-  }
-
-  renderActions() {
-    const { onCancel } = this.props;
-
-    return (
-      <div className="FilterEditModal__Actions">
-        <Button onClick={onCancel} type="default">
-          Cancel
-        </Button>
-        <Button onClick={this.handleSubmit} type="primary">
-          Save
-        </Button>
-      </div>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="FilterEditModal__Predicates">
+            {filter.predicates.map((predicate, index) => (
+              <FilterPredicate
+                key={index}
+                {...predicate}
+                onChange={this.handlePredicateChange(index)}
+                onDelete={this.handlePredicateDeletion(index)}
+              />
+            ))}
+            <select
+              value=""
+              onChange={this.handleAddPredicate}
+              className="FilterEditModal__AddPredicateButton"
+            >
+              <option key="__default" value="">
+                + Add a predicate
+              </option>
+              {PREDICATES.map(({ name, label }) => (
+                <option key={name} value={name}>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </Modal.Body>
+        <Modal.Actions>
+          <Button onClick={onClose} type="default">
+            Cancel
+          </Button>
+          <Button onClick={this.handleSubmit} type="primary">
+            Save
+          </Button>
+        </Modal.Actions>
+      </Modal>
     );
   }
 }

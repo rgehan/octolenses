@@ -44,7 +44,7 @@ export class Header extends React.Component {
             </div>
           </div>
         </div>
-        {settingsModalIsOpen && <SettingsModal onCancel={this.closeModal} />}
+        {settingsModalIsOpen && <SettingsModal onClose={this.closeModal} />}
       </React.Fragment>
     );
   }

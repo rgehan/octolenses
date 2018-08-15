@@ -133,7 +133,7 @@ export class Dashboard extends React.Component {
         {filterModal.isOpen && (
           <FilterEditModal
             filter={filterModal.mode === 'editing' ? selectedFilter : null}
-            onCancel={this.handleCloseFilterModal}
+            onClose={this.handleCloseFilterModal}
             onSave={this.handleSaveFilterModal}
           />
         )}

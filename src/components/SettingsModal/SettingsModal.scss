@@ -1,40 +1,4 @@
 .SettingsModal {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 9999;
-
-  &__Overlay {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 800px;
-    background: white;
-    box-shadow: 0 4px 10px #00000017;
-    display: flex;
-    flex-direction: column;
-  }
-
-  &__Header {
-    height: 55px;
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-    background: #ecf2f5;
-
-    &-Title {
-      flex: 1;
-      font-size: 20px;
-    }
-
-    img {
-      cursor: pointer;
-    }
-  }
-
   &__Form {
     display: flex;
     flex-direction: column;
@@ -63,25 +27,5 @@
         font-family: monospace;
       }
     }
-  }
-
-  &__Actions {
-    display: flex;
-    justify-content: flex-end;
-    padding: 0 20px 20px 0;
-
-    > .Button {
-      margin-left: 10px;
-    }
-  }
-
-  &__Backdrop {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.2);
-    z-index: -1;
   }
 }
