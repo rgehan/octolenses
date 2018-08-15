@@ -129,7 +129,7 @@ export class Dashboard extends React.Component {
             </div>
           </div>
         </div>
-        {this.renderResults()}
+        <div className="Dashboard__Results">{this.renderResults()}</div>
         {filterModal.isOpen && (
           <FilterEditModal
             filter={filterModal.mode === 'editing' ? selectedFilter : null}
@@ -148,16 +148,21 @@ export class Dashboard extends React.Component {
       return null;
     }
 
-    return (
-      <div className="Dashboard__Results">
-        {selectedFilter.loading ? (
-          <Loader size={50} />
-        ) : (
-          selectedFilter.data.map(issue => (
-            <IssueCard key={issue.id} issue={issue} />
-          ))
-        )}
-      </div>
-    );
+    if (selectedFilter.loading) {
+      return <Loader size={50} />;
+    }
+
+    if (size(selectedFilter.data) === 0) {
+      return (
+        <div className="Dashboard__Results-NoResults">
+          <i className="fa fa-search" />
+          No results.
+        </div>
+      );
+    }
+
+    return selectedFilter.data.map(issue => (
+      <IssueCard key={issue.id} issue={issue} />
+    ));
   }
 }
