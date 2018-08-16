@@ -1,6 +1,6 @@
 {
   "name": "github-trending-chrome-extension",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "index.js",
   "author": "Renan GEHAN <rgehan94@gmail.com>",
   "license": "MIT",
@@ -39,7 +39,8 @@
     "clean": "rimraf dist/",
     "start": "parcel serve src/index.html",
     "copyManifest": "cp manifest.json dist/manifest.json",
-    "build:unpacked": "yarn clean && parcel build src/index.html && yarn copyManifest",
+    "syncManifestVersion": "version=$(cat package.json | jq -r .version) && sed -i '' \"s/<version>/$version/\" dist/manifest.json && echo \"Updated manifest with version: $version\"",
+    "build:unpacked": "yarn clean && parcel build src/index.html && yarn copyManifest && yarn syncManifestVersion",
     "compress": "cd dist/ && zip -rq ../octolenses-browser-extension.zip *",
     "build": "yarn build:unpacked && yarn compress"
   }
