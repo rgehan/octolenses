@@ -8,9 +8,9 @@ is fundamental: your code
 This extension allows you to create very precise filters than will nicely lay
 out all the information you need in order to be as productive as possible.
 
-![](.GITHUB/dashboard_screenshot.png)
+![](.github/dashboard_screenshot.png)
 
-![](.GITHUB/filter_editor_screenshot.png)
+![](.github/filter_editor_screenshot.png)
 
 ## Installation
 
