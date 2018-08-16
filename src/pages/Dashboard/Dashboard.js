@@ -5,6 +5,7 @@ import { get, find, isUndefined, findIndex, size, chain } from 'lodash';
 import { IssueCard } from '../../components/IssueCard';
 import { FilterLink } from '../../components/FilterLink';
 import { FilterEditModal } from '../../components/FilterEditModal';
+import { FilterDeleteModal } from '../../components/FilterDeleteModal';
 import { Loader } from '../../components/Loader';
 
 import './Dashboard.scss';
@@ -25,6 +26,7 @@ export class Dashboard extends React.Component {
     this.state = {
       selectedFilterId: get(props, 'filters.0.id'),
       filterModal: { isOpen: false, mode: 'adding' },
+      filterDeleteModal: { isOpen: false },
     };
   }
 
@@ -57,6 +59,7 @@ export class Dashboard extends React.Component {
     });
 
     this.props.removeFilter({ id: selectedFilterId });
+    this.handleCloseFilterDeleteModal();
   };
 
   /*
@@ -85,6 +88,22 @@ export class Dashboard extends React.Component {
     this.props.saveAndRefreshFilter(filter);
   };
 
+  handleOpenFilterDeleteModal = () => {
+    this.setState({
+      filterDeleteModal: {
+        isOpen: true,
+      }
+    });
+  };
+
+  handleCloseFilterDeleteModal = () => {
+    this.setState({
+      filterDeleteModal: {
+        isOpen: false,
+      }
+    });
+  };
+
   getSelectedFilter() {
     const { filters } = this.props;
     const { selectedFilterId } = this.state;
@@ -94,7 +113,7 @@ export class Dashboard extends React.Component {
 
   render() {
     const { filters } = this.props;
-    const { selectedFilterId, filterModal } = this.state;
+    const { selectedFilterId, filterModal, filterDeleteModal } = this.state;
 
     const selectedFilter = this.getSelectedFilter();
 
@@ -123,7 +142,7 @@ export class Dashboard extends React.Component {
               Edit filter
             </div>
             <div
-              onClick={this.handleDeleteFilter}
+              onClick={this.handleOpenFilterDeleteModal}
               className="Dashboard__Filters-Actions-Delete"
             >
               Delete filter
@@ -136,6 +155,13 @@ export class Dashboard extends React.Component {
             filter={filterModal.mode === 'editing' ? selectedFilter : null}
             onClose={this.handleCloseFilterModal}
             onSave={this.handleSaveFilterModal}
+          />
+        )}
+        {filterDeleteModal.isOpen && (
+          <FilterDeleteModal
+            filterLabel={selectedFilter.label}
+            onClose={this.handleCloseFilterDeleteModal}
+            onConfirm={this.handleDeleteFilter}
           />
         )}
       </div>
