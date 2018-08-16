@@ -39,6 +39,8 @@
     "clean": "rimraf dist/",
     "start": "parcel serve src/index.html",
     "copyManifest": "cp manifest.json dist/manifest.json",
-    "build": "yarn clean && parcel build src/index.html && yarn copyManifest"
+    "build:unpacked": "yarn clean && parcel build src/index.html && yarn copyManifest",
+    "compress": "cd dist/ && zip -rq ../octolenses-browser-extension.zip *",
+    "build": "yarn build:unpacked && yarn compress"
   }
 }

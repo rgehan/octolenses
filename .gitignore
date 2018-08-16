@@ -1,7 +1,10 @@
 node_modules/
+
 yarn-error.log
-dist/
+
 .cache/
-config.js
+
+dist/
 dist.crx
 dist.pem
+octolenses-browser-extension.zip
