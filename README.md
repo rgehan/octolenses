@@ -53,6 +53,18 @@ your browser as an _unpacked extension_, provided you're in developer mode.
 
 [https://github.com/rgehan/octolenses-browser-extension](rgehan/octolenses-browser-extension)
 
+## Releasing
+
+```sh
+# Tag the version
+yarn version patch|minor|major
+
+# Build the release .zip archive
+yarn build
+```
+
+The archive can then be uploaded on the Chrome Store dashboard.
+
 ## Contributing
 
 1. Fork it (<https://github.com/rgehan/octolenses-browser-extension/fork>)
