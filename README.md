@@ -14,7 +14,7 @@ out all the information you need in order to be as productive as possible.
 
 ## Installation
 
-This section is a work in progress.
+It is only available on the [Chrome Store](https://chrome.google.com/webstore/detail/octolenses/ghlblfakaklgkdmfejdlffbmpcaidoci) for now, but should be compatible with Firefox if I took the time to do it.
 
 ## Usage example
 
