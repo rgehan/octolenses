@@ -8,6 +8,7 @@ import { FilterEditModal } from '../../components/FilterEditModal';
 import { Loader } from '../../components/Loader';
 
 import './Dashboard.scss';
+import ExtendableError from '../../../node_modules/es6-error';
 
 @connect(
   ({ filters }) => ({ filters }),
@@ -150,6 +151,20 @@ export class Dashboard extends React.Component {
 
     if (selectedFilter.loading) {
       return <Loader size={50} />;
+    }
+
+    if (selectedFilter.error) {
+      const errorMessage =
+        selectedFilter.error instanceof ExtendableError
+          ? selectedFilter.error.message
+          : 'Something failed, sorry.';
+
+      return (
+        <div className="Dashboard__Results-NoResults">
+          <i className="fas fa-exclamation-triangle" />
+          {errorMessage}
+        </div>
+      );
     }
 
     if (size(selectedFilter.data) === 0) {

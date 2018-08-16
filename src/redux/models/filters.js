@@ -26,8 +26,16 @@ export const filters = {
   effects: dispatch => ({
     async fetchFilter(filter, { settings }) {
       dispatch.filters.saveFilter({ ...filter, loading: true });
-      const data = await fetchFilter({ filter, token: settings.token });
-      dispatch.filters.saveFilter({ ...filter, loading: false, data });
+
+      let data = [];
+      let error = null;
+      try {
+        data = await fetchFilter({ filter, token: settings.token });
+      } catch (err) {
+        error = err;
+      }
+
+      dispatch.filters.saveFilter({ ...filter, loading: false, data, error });
     },
 
     async fetchAllFilters(_, { filters }) {
@@ -47,6 +55,7 @@ export const filters = {
 function formatFilter(filter) {
   return {
     data: [],
+    error: null,
     loading: false,
     id: uuidv1(),
     ...filter,

@@ -1,5 +1,6 @@
-import { chain, omitBy, isNil } from 'lodash';
+import { chain, pickBy, get } from 'lodash';
 
+import { InvalidCredentials, RateLimitError, NeedTokenError } from '../errors';
 import { serializePredicatePayload } from './filters';
 
 const github = async ({ endpoint, qs, token }) => {
@@ -7,16 +8,39 @@ const github = async ({ endpoint, qs, token }) => {
 
   const response = await fetch(url, {
     method: 'GET',
-    headers: omitBy(
-      {
-        'User-Agent': 'Github Trending Chrome Extension',
-        Authorization: token && `Bearer ${token}`,
-      },
-      isNil
-    ),
+    headers: pickBy({
+      'User-Agent': 'OctoLenses Github Dashboard',
+      Authorization: token && `Bearer ${token}`,
+    }),
   });
 
+  if (!response.ok) {
+    await handleErrorResponse(response);
+  }
+
   return await response.json();
+};
+
+const handleErrorResponse = async response => {
+  const status = response.status;
+  const { message = '', errors = [] } = await response.json();
+
+  const firstErrorMessage = get(errors, '0.message', '');
+
+  if (status === 401 && message.includes('Bad credentials')) {
+    throw new InvalidCredentials();
+  }
+
+  if (status === 403 && message.includes('API rate limit')) {
+    throw new RateLimitError();
+  }
+
+  if (
+    status === 422 &&
+    firstErrorMessage.includes('do not exist or you do not have permission')
+  ) {
+    throw new NeedTokenError();
+  }
 };
 
 /**
