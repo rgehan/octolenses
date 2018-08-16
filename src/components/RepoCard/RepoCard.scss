@@ -2,6 +2,8 @@
   height: 225px;
   min-height: 225px;
   padding: 15px 20px;
+  display: flex;
+  flex-direction: column;
   background: white;
   box-shadow: 0 4px 10px #00000017;
   transition: all ease 100ms;
@@ -35,12 +37,6 @@
   &__Name {
     font-size: 24px;
     margin-bottom: 5px;
-  }
-
-  &__Link {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
   }
 
   &__Description {

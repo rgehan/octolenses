@@ -14,25 +14,23 @@ export const RepoCard = ({ repo }) => {
   } = repo;
 
   return (
-    <div className="RepoCard">
-      <a className="RepoCard__Link" href={html_url} target="__blank">
-        <div className="RepoCard__Name">{name}</div>
-        <div className="RepoCard__Description">{description}</div>
-        <div className="RepoCard__Indicators">
-          <div>
-            <i className="fa fa-star" />{' '}
-            {humanFormat(stargazers_count, { decimals: 1, separator: '' })}
-          </div>
-          <div>
-            <i className="fa fa-code-branch" />{' '}
-            {humanFormat(forks_count, { decimals: 1, separator: '' })}
-          </div>
-          <div>
-            <i className="fa fa-exclamation-circle" />{' '}
-            {humanFormat(open_issues_count, { decimals: 1, separator: '' })}
-          </div>
+    <a className="RepoCard" href={html_url} target="__blank">
+      <div className="RepoCard__Name">{name}</div>
+      <div className="RepoCard__Description">{description}</div>
+      <div className="RepoCard__Indicators">
+        <div>
+          <i className="fa fa-star" />{' '}
+          {humanFormat(stargazers_count, { decimals: 1, separator: '' })}
         </div>
-      </a>
-    </div>
+        <div>
+          <i className="fa fa-code-branch" />{' '}
+          {humanFormat(forks_count, { decimals: 1, separator: '' })}
+        </div>
+        <div>
+          <i className="fa fa-exclamation-circle" />{' '}
+          {humanFormat(open_issues_count, { decimals: 1, separator: '' })}
+        </div>
+      </div>
+    </a>
   );
 };
