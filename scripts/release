@@ -1,0 +1,51 @@
+#!/usr/bin/env node
+
+const path = require('path');
+const { execSync } = require('child_process');
+const { readFileSync, writeFileSync } = require('fs');
+const { includes, isBuffer } = require('lodash');
+const semver = require('semver');
+
+const RELEASE_TYPES = ['patch', 'minor', 'major'];
+
+const exec = command => {
+  const stdout = execSync(command);
+  return isBuffer(stdout) ? stdout.toString() : stdout;
+};
+
+// Ensure the release type is valid
+const releaseType = process.argv[2];
+if (!includes(RELEASE_TYPES, releaseType)) {
+  console.log(`Usage: yarn release ${RELEASE_TYPES.join('|')}`);
+  process.exit(1);
+}
+
+// Compute the new version number
+const packageJsonPath = path.resolve(__dirname, '../package.json');
+const packageJson = require(packageJsonPath);
+const currentVersion = packageJson.version;
+const newVersion = semver.inc(currentVersion, releaseType);
+console.log(`1. Incrementing version from ${currentVersion} to ${newVersion}`);
+
+// Generate and write the changelog
+console.log('2. Writing changelog...');
+const changelogPath = path.resolve(__dirname, '../changelog.md');
+const changelogAdditions = exec(`git log v${currentVersion}..HEAD --pretty="- %s [%cn]"`);
+const existingChangelog = readFileSync(changelogPath);
+const newChangelog = `### v${newVersion}\n${changelogAdditions}\n${existingChangelog}`;
+writeFileSync(changelogPath, newChangelog);
+
+// Update package.json version & create the release commit
+console.log('3. Updating package.json version number...');
+packageJson.version = newVersion;
+writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+
+console.log('4. Creating release commit...')
+exec(`git add changelog.md package.json`);
+exec(`git commit -m "v${newVersion}"`);
+
+console.log('5. Creating release tag...');
+exec(`git tag v${newVersion}`);
+
+console.log('[INFO] To publish the changes, run:');
+console.log('$ git push origin HEAD && git push --tags');

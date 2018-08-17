@@ -34,7 +34,8 @@
     "node-sass": "^4.9.2",
     "parcel-bundler": "^1.9.7",
     "prettier": "^1.14.2",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "semver": "^5.5.0"
   },
   "scripts": {
     "clean": "rimraf dist/",
@@ -43,6 +44,7 @@
     "syncManifestVersion": "version=$(cat package.json | jq -r .version) && sed -i '' \"s/<version>/$version/\" dist/manifest.json && echo \"Updated manifest with version: $version\"",
     "build:unpacked": "yarn clean && parcel build src/index.html && yarn copyManifest && yarn syncManifestVersion",
     "compress": "cd dist/ && zip -rq ../octolenses-browser-extension.zip *",
-    "build": "yarn build:unpacked && yarn compress"
+    "build": "yarn build:unpacked && yarn compress",
+    "release": "./scripts/release"
   }
 }
