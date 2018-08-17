@@ -2,6 +2,7 @@ import { find, capitalize, sortBy } from 'lodash';
 
 import { type } from './type';
 import { status } from './status';
+import { review } from './review';
 
 const makeSimplePredicate = (name, label) => ({
   name,
@@ -23,8 +24,12 @@ export const PREDICATES = sortBy(
     makeSimplePredicate('repo', 'Repository'),
     makeSimplePredicate('user'),
     makeSimplePredicate('org', 'Organization'),
+    makeSimplePredicate('reviewed-by', 'Reviewed by'),
+    makeSimplePredicate('review-requested', 'Requested Reviewer (User)'),
+    makeSimplePredicate('team-review-requested', 'Requested Reviewer (Team)'),
     type,
     status,
+    review,
   ],
   'label'
 );
