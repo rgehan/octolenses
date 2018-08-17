@@ -15,6 +15,15 @@
     }
   }
 
+  &--alert {
+    background: #dc3545;
+    color: white;
+
+    &:hover {
+      background: #c82333;
+    }
+  }
+
   &--default {
     background: #ecf2f5;
 
