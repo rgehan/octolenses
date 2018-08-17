@@ -43,6 +43,10 @@ $radius: 4px;
     border-top-right-radius: $radius;
     border-bottom-right-radius: $radius;
 
+    > input {
+      min-width: 250px;
+    }
+
     > input,
     > select {
       font-size: 14px;
