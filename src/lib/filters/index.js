@@ -4,29 +4,45 @@ import { type } from './type';
 import { status } from './status';
 import { review } from './review';
 
-const makeSimplePredicate = (name, label) => ({
+const makeSimplePredicate = (name, { label, placeholder }) => ({
   name,
   label: label || capitalize(name),
+  placeholder,
   type: 'text',
   serialize: ({ value, negated }) => `${negated ? '-' : ''}${name}:"${value}"`,
 });
 
 export const PREDICATES = sortBy(
   [
-    makeSimplePredicate('assignee'),
-    makeSimplePredicate('author'),
-    makeSimplePredicate('label'),
-    makeSimplePredicate('mentions'),
-    makeSimplePredicate('team'),
-    makeSimplePredicate('commenter'),
-    makeSimplePredicate('involves'),
-    makeSimplePredicate('milestone'),
-    makeSimplePredicate('repo', 'Repository'),
-    makeSimplePredicate('user'),
-    makeSimplePredicate('org', 'Organization'),
-    makeSimplePredicate('reviewed-by', 'Reviewed by'),
-    makeSimplePredicate('review-requested', 'Requested Reviewer (User)'),
-    makeSimplePredicate('team-review-requested', 'Requested Reviewer (Team)'),
+    makeSimplePredicate('assignee', { placeholder: 'USERNAME' }),
+    makeSimplePredicate('author', { placeholder: 'USERNAME' }),
+    makeSimplePredicate('label', { placeholder: 'LABEL' }),
+    makeSimplePredicate('mentions', { placeholder: 'USERNAME' }),
+    makeSimplePredicate('team', { placeholder: 'ORGNAME/TEAMNAME' }),
+    makeSimplePredicate('commenter', { placeholder: 'USERNAME' }),
+    makeSimplePredicate('involves', { placeholder: 'USERNAME' }),
+    makeSimplePredicate('milestone', { placeholder: 'MILESTONE' }),
+    makeSimplePredicate('user', { placeholder: 'USERNAME' }),
+    makeSimplePredicate('repo', {
+      placeholder: 'USERNAME/REPOSITORY',
+      label: 'Repository',
+    }),
+    makeSimplePredicate('org', {
+      placehodler: 'ORGNAME',
+      label: 'Organization',
+    }),
+    makeSimplePredicate('reviewed-by', {
+      placeholder: 'USERNAME',
+      label: 'Reviewed by',
+    }),
+    makeSimplePredicate('review-requested', {
+      placeholder: 'USERNAME',
+      label: 'Requested Reviewer (User)',
+    }),
+    makeSimplePredicate('team-review-requested', {
+      placeholder: 'ORGNAME/TEAMNAME',
+      label: 'Requested Reviewer (Team)',
+    }),
     type,
     status,
     review,

@@ -92,7 +92,12 @@ export class FilterPredicate extends React.Component {
     if (predicate.type === 'text') {
       return (
         <div className="FilterPredicate__Value">
-          <input type="text" value={value} onChange={this.handleChange} />
+          <input
+            type="text"
+            value={value}
+            onChange={this.handleChange}
+            placeholder={predicate.placeholder}
+          />
         </div>
       );
     }
