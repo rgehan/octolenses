@@ -56,8 +56,8 @@ your browser as an _unpacked extension_, provided you're in developer mode.
 ## Releasing
 
 ```sh
-# Tag the version
-yarn version patch|minor|major
+# Update changelog, increment version number & create release commit and tag
+yarn release patch|minor|major
 
 # Build the release .zip archive
 yarn build
