@@ -92,8 +92,10 @@ class FiltersStore {
     try {
       const data = await fetchFilter({ filter, token: settings.token });
       this.data[index].data = data;
+      this.data[index].error = null;
     } catch (error) {
       this.data[index].error = error;
+      this.data[index].data = [];
     }
 
     this.data[index].loading = false;
