@@ -1,12 +1,12 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 import cx from 'classnames';
 import { size } from 'lodash';
-
 import { Loader } from '../Loader';
 
 import './FilterLink.scss';
 
-export const FilterLink = ({ filter, isSelected, onClick }) => {
+export const FilterLink = observer(({ filter, isSelected, onClick }) => {
   const { loading, error } = filter;
   return (
     <div
@@ -22,4 +22,4 @@ export const FilterLink = ({ filter, isSelected, onClick }) => {
       <bdi>{filter.label}</bdi>
     </div>
   );
-};
+});
