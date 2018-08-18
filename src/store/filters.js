@@ -107,7 +107,7 @@ class FiltersStore {
 }
 
 function formatFilter(filter) {
-  return defaults(filter, {
+  return defaults({}, filter, {
     data: [],
     error: null,
     loading: false,
