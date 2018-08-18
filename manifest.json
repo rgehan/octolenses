@@ -3,9 +3,8 @@
   "name": "OctoLenses",
   "version": "<version>",
   "short_name": "OctoLenses Browser Extension",
-  "description":
-    "Watch your repos and discover awesome things directly from your New Tab page.",
-  "permissions": ["tabs", "storage", "webNavigation", "*://*.github.com/*"],
+  "description": "Watch your repos and discover awesome things directly from your New Tab page.",
+  "permissions": [],
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
