@@ -38,7 +38,7 @@ export class Discover extends React.Component {
           {trends.loading ? (
             <Loader />
           ) : (
-            trends.data.map(repo => <RepoCard key={repo.name} repo={repo} />)
+            trends.data.map(repo => <RepoCard key={repo.id} repo={repo} />)
           )}
         </div>
       </div>
