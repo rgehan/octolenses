@@ -5,6 +5,13 @@ import { filters } from './filters';
 import { trends } from './trends';
 import { settings } from './settings';
 
+const hydrateStores = async () => {
+  const hydrate = create({});
+  await Promise.all([
+    hydrate('navigationStore', navigation),
+    hydrate('settingsStore', settings),
+  ]);
+};
 
 const performOnboarding = async () => {
   if (settings.wasOnboarded) {
@@ -26,6 +33,8 @@ const performOnboarding = async () => {
 };
 
 export const bootstrap = async () => {
+  await hydrateStores();
+
   await performOnboarding();
 
   // prettier-ignore

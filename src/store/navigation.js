@@ -1,6 +1,8 @@
 import { observable, action } from 'mobx';
+import { persist } from 'mobx-persist';
 
 class NavigationStore {
+  @persist
   @observable
   page = 'dashboard';
 
