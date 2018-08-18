@@ -1,6 +1,6 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { get, find, isUndefined, findIndex, size, chain } from 'lodash';
+import { find, isUndefined, findIndex, size, chain } from 'lodash';
 
 import { IssueCard } from '../../components/IssueCard';
 import { FilterLink } from '../../components/FilterLink';
