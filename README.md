@@ -5,7 +5,7 @@
 As a developer, you shouldn't have to worry about that and instead focus on what
 is fundamental: your code
 
-This extension allows you to create very precise filters than will nicely lay
+This extension allows you to create very precise filters that will nicely lay
 out all the information you need in order to be as productive as possible.
 
 ![](.github/dashboard_screenshot.png)
@@ -20,7 +20,7 @@ It is only available on the [Chrome Store](https://chrome.google.com/webstore/de
 
 At my current job, we have quite a lovely system where each Pull Request is
 assigned a specific label depending on whether it's a WIP, under review or
-if has been successfully (or not) reviewed.
+if it has been successfully (or not) reviewed.
 
 I built this tool for the very purpose of keeping track of this, but this is not
 all it can do. It can do much more, such as:
