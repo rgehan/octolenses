@@ -13,13 +13,24 @@ import ExtendableError from '../../../node_modules/es6-error';
 @inject('filters')
 @observer
 export class Dashboard extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    selectedFilterId: null,
+    filterModal: { isOpen: false, mode: 'adding' },
+  };
 
-    this.state = {
-      selectedFilterId: props.filters.firstFilterId,
-      filterModal: { isOpen: false, mode: 'adding' },
-    };
+  static getDerivedStateFromProps(props, state) {
+    const { selectedFilterId } = state;
+    const { filters } = props;
+
+    // If no filter is selected, but there are filters available,
+    // select the first one
+    if (selectedFilterId === null && filters.count > 0) {
+      return {
+        selectedFilterId: filters.firstFilterId,
+      };
+    }
+
+    return null;
   }
 
   handleFilterSelected = filterId => {
