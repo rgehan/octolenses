@@ -13,6 +13,7 @@
     "immer": "^1.5.0",
     "lodash": "^4.17.10",
     "mobx": "^5.0.3",
+    "mobx-persist": "^0.4.1",
     "mobx-react": "^5.2.5",
     "moment": "^2.22.2",
     "prop-types": "^15.6.2",

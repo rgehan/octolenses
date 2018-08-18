@@ -1,23 +1,32 @@
+import { create } from 'mobx-persist';
+
+import { navigation } from './navigation';
 import { filters } from './filters';
 import { trends } from './trends';
 import { settings } from './settings';
 
-export const bootstrap = async () => {
-  // Add demo filter if necessary
-  if (!settings.wasOnboarded) {
-    filters.saveFilter({
-      label: 'React PRs',
-      data: [],
-      loading: false,
-      predicates: [
-        { type: 'type', value: 'pr' },
-        { type: 'repo', value: 'facebook/react' },
-        { type: 'status', value: 'open' },
-      ],
-    });
 
-    settings.updateSettings('wasOnboarded', true);
+const performOnboarding = async () => {
+  if (settings.wasOnboarded) {
+    return;
   }
+
+  filters.saveFilter({
+    label: 'React PRs',
+    data: [],
+    loading: false,
+    predicates: [
+      { type: 'type', value: 'pr' },
+      { type: 'repo', value: 'facebook/react' },
+      { type: 'status', value: 'open' },
+    ],
+  });
+
+  settings.updateSettings('wasOnboarded', true);
+};
+
+export const bootstrap = async () => {
+  await performOnboarding();
 
   // prettier-ignore
   await Promise.all([
@@ -26,7 +35,7 @@ export const bootstrap = async () => {
   ]);
 };
 
-export { navigation } from './navigation';
+export { navigation };
 export { filters };
 export { trends };
 export { settings };
