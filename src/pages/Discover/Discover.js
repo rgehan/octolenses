@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { inject, observer } from 'mobx-react';
 
 import { RepoCard, Loader, Dropdown } from '../../components';
 import { DATES } from '../../constants/dates';
@@ -7,26 +7,16 @@ import { LANGUAGES } from '../../constants/languages';
 
 import './Discover.scss';
 
-@connect(
-  ({ settings, trends }) => ({
-    language: settings.language,
-    dateRange: settings.dateRange,
-    repos: trends.repos.data,
-    loading: trends.repos.loading,
-  }),
-  ({ settings, trends }) => ({
-    updateSettings: settings.updateSettings,
-    fetchTrendingRepos: trends.fetchTrendingRepos,
-  })
-)
+@inject('trends', 'settings')
+@observer
 export class Discover extends React.Component {
   handleOptionChange = ({ name, value }) => {
-    this.props.updateSettings({ key: name, value });
-    this.props.fetchTrendingRepos();
+    this.props.settings.updateSettings(name, value);
+    this.props.trends.fetchTrendingRepos();
   };
 
   render() {
-    const { language, dateRange, repos, loading } = this.props;
+    const { trends, settings } = this.props;
 
     return (
       <div className="Discover">
@@ -34,21 +24,21 @@ export class Discover extends React.Component {
           <Dropdown
             name="language"
             items={LANGUAGES}
-            value={language}
+            value={settings.language}
             onChange={this.handleOptionChange}
           />
           <Dropdown
             name="dateRange"
             items={DATES}
-            value={dateRange}
+            value={settings.dateRange}
             onChange={this.handleOptionChange}
           />
         </div>
         <div className="Discover__ReposList">
-          {loading ? (
+          {trends.loading ? (
             <Loader />
           ) : (
-            repos.map(repo => <RepoCard key={repo.name} repo={repo} />)
+            trends.data.map(repo => <RepoCard key={repo.name} repo={repo} />)
           )}
         </div>
       </div>

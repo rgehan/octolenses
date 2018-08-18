@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 
 import { Modal } from '../Modal';
@@ -7,13 +7,8 @@ import { Button } from '../Button';
 
 import './SettingsModal.scss';
 
-@connect(
-  ({ settings }) => ({ token: settings.token }),
-  ({ settings, application }) => ({
-    updateSettings: settings.updateSettings,
-    refreshAllData: application.refreshAllData,
-  })
-)
+@inject('settings')
+@observer
 export class SettingsModal extends React.Component {
   static propTypes = {
     onClose: PropTypes.func.isRequired,
@@ -23,7 +18,7 @@ export class SettingsModal extends React.Component {
     super(props);
 
     this.state = {
-      token: props.token,
+      token: props.settings.token,
     };
   }
 
@@ -35,8 +30,8 @@ export class SettingsModal extends React.Component {
 
   handleSave = () => {
     const { token } = this.state;
-    this.props.updateSettings({ key: 'token', value: token });
-    this.props.refreshAllData();
+    this.props.settings.updateSettings('token', token);
+    // this.props.refreshAllData(); // TODO
     this.props.onClose();
   };
 

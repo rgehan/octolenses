@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { observer, inject } from 'mobx-react';
 
 import { Header } from './components/Header';
 import { Discover, Dashboard } from './pages';
@@ -9,22 +9,16 @@ const PAGES = {
   dashboard: Dashboard,
 };
 
-@connect(
-  ({ navigation }) => ({ page: navigation.page }),
-  ({ application }) => ({ bootstrap: application.bootstrap })
-)
+@inject('navigation')
+@observer
 export class App extends React.Component {
-  componentWillMount() {
-    this.props.bootstrap();
-  }
-
   render() {
-    const { page } = this.props;
-    const Page = PAGES[page];
+    const { navigation } = this.props;
+    const Page = PAGES[navigation.page];
 
     return (
       <div className="App">
-        <Header />
+        <Header navigation={navigation} />
         <Page />
       </div>
     );

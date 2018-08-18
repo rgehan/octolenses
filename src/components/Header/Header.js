@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import cx from 'classnames';
 import { capitalize } from 'lodash';
 
@@ -7,10 +6,6 @@ import { SettingsModal } from '../SettingsModal';
 
 import './Header.scss';
 
-@connect(
-  ({ navigation }) => ({ page: navigation.page }),
-  ({ navigation }) => ({ navigateTo: navigation.navigateTo })
-)
 export class Header extends React.Component {
   state = {
     settingsModalIsOpen: false,
@@ -50,7 +45,7 @@ export class Header extends React.Component {
   }
 
   renderLink(name) {
-    const { page, navigateTo } = this.props;
+    const { page, navigateTo } = this.props.navigation;
     return (
       <a
         className={cx(page === name && 'active')}

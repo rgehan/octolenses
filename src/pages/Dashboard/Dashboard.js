@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { inject, observer } from 'mobx-react';
 import { get, find, isUndefined, findIndex, size, chain } from 'lodash';
 
 import { IssueCard } from '../../components/IssueCard';
@@ -10,20 +10,14 @@ import { Loader } from '../../components/Loader';
 import './Dashboard.scss';
 import ExtendableError from '../../../node_modules/es6-error';
 
-@connect(
-  ({ filters }) => ({ filters }),
-  ({ filters }) => ({
-    fetchFilter: filters.fetchFilter,
-    removeFilter: filters.removeFilter,
-    saveAndRefreshFilter: filters.saveAndRefreshFilter,
-  })
-)
+@inject('filters')
+@observer
 export class Dashboard extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedFilterId: get(props, 'filters.0.id'),
+      selectedFilterId: props.filters.firstFilterId,
       filterModal: { isOpen: false, mode: 'adding' },
     };
   }
@@ -36,18 +30,21 @@ export class Dashboard extends React.Component {
     const { filters } = this.props;
     const { selectedFilterId } = this.state;
 
-    if (isUndefined(selectedFilterId) || size(filters) === 1) {
+    if (isUndefined(selectedFilterId) || filters.count === 1) {
       return;
     }
 
     // Find the id of the filter just above
-    const currentFilterIndex = findIndex(filters, { id: selectedFilterId });
+    const currentFilterIndex = findIndex(filters.data, {
+      id: selectedFilterId,
+    });
+
     const newlySelectedFilterIndex =
-      currentFilterIndex === filters.length - 1
+      currentFilterIndex === filters.count - 1
         ? currentFilterIndex - 1
         : currentFilterIndex;
 
-    const realIndex = chain(filters)
+    const realIndex = chain(filters.data)
       .filter(({ id }) => id !== selectedFilterId)
       .get([newlySelectedFilterIndex, 'id'])
       .value();
@@ -56,7 +53,7 @@ export class Dashboard extends React.Component {
       selectedFilterId: realIndex,
     });
 
-    this.props.removeFilter({ id: selectedFilterId });
+    this.props.filters.removeFilter(selectedFilterId);
   };
 
   /*
@@ -82,14 +79,12 @@ export class Dashboard extends React.Component {
 
   handleSaveFilterModal = filter => {
     this.handleCloseFilterModal();
-    this.props.saveAndRefreshFilter(filter);
+    this.props.filters.saveFilter(filter);
   };
 
   getSelectedFilter() {
     const { filters } = this.props;
-    const { selectedFilterId } = this.state;
-
-    return find(filters, { id: selectedFilterId });
+    return find(filters.data, { id: this.state.selectedFilterId });
   }
 
   render() {
@@ -101,7 +96,7 @@ export class Dashboard extends React.Component {
     return (
       <div className="Dashboard">
         <div className="Dashboard__Filters">
-          {filters.map(filter => (
+          {filters.data.map(filter => (
             <FilterLink
               key={filter.id}
               filter={filter}

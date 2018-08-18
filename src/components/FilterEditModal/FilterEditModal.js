@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import produce from 'immer';
 import { omit } from 'lodash';
 
-import { EMPTY_FILTER_PAYLOAD } from '../../redux/models/filters';
+import { EMPTY_FILTER_PAYLOAD } from '../../store/filters';
 import { PREDICATES } from '../../lib/filters';
 import { FilterPredicate } from '../FilterPredicate';
 import { Button } from '../Button';

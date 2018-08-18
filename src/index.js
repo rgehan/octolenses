@@ -1,18 +1,21 @@
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { getPersistor } from '@rematch/persist';
-import { PersistGate } from 'redux-persist/lib/integration/react';
+import { Provider } from 'mobx-react';
 
 import { App } from './App';
-import { store } from './redux';
+import { bootstrap, navigation, settings, trends, filters } from './store';
+
+bootstrap();
 
 ReactDOM.render(
-  <PersistGate persistor={getPersistor()}>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </PersistGate>,
+  <Provider
+    navigation={navigation}
+    settings={settings}
+    trends={trends}
+    filters={filters}
+  >
+    <App />
+  </Provider>,
   document.getElementById('container')
 );
