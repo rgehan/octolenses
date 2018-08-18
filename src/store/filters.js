@@ -1,6 +1,6 @@
 import { observable, action, computed } from 'mobx';
 import { persist } from 'mobx-persist';
-import { findIndex } from 'lodash';
+import { findIndex, defaults } from 'lodash';
 import uuidv1 from 'uuid/v1';
 
 import { fetchFilter } from '../lib/github';
@@ -63,6 +63,22 @@ class FiltersStore {
   }
 
   @action.bound
+  cloneFilter(id) {
+    const index = findIndex(this.data, { id });
+    const filter = this.data[index];
+
+    const clonedFilter = formatFilter({
+      ...filter,
+      label: `${filter.label} (Copy)`,
+      id: undefined,
+    });
+
+    this.data.splice(index + 1, 0, clonedFilter);
+
+    return clonedFilter;
+  }
+
+  @action.bound
   removeFilter(id) {
     const index = findIndex(this.data, { id });
     this.data.splice(index, 1);
@@ -89,13 +105,12 @@ class FiltersStore {
 }
 
 function formatFilter(filter) {
-  return {
+  return defaults(filter, {
     data: [],
     error: null,
     loading: false,
     id: uuidv1(),
-    ...filter,
-  };
+  });
 }
 
 export const EMPTY_FILTER_PAYLOAD = {

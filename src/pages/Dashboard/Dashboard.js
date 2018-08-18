@@ -38,7 +38,9 @@ export class Dashboard extends React.Component {
   };
 
   handleCloneFilter = () => {
-    // To be implemented
+    const filter = this.getSelectedFilter();
+    const { id } = this.props.filters.cloneFilter(filter.id);
+    this.handleFilterSelected(id);
   };
 
   handleDeleteFilter = () => {
