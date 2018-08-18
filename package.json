@@ -1,6 +1,6 @@
 {
   "name": "github-trending-chrome-extension",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "main": "index.js",
   "author": "Renan GEHAN <rgehan94@gmail.com>",
   "license": "MIT",

@@ -1,3 +1,18 @@
+### v0.1.4
+- Add clone filter button (fix #16) [Renan GEHAN]
+- Improve filter actions UI in the Dashboard [Renan GEHAN]
+- Add default 'is:open' predicate to new filters [Renan GEHAN]
+- Ensure there is a filter selected after hydration [Renan GEHAN]
+- Use repo id as a key to prevent duplicate key warning when using repo name [Renan GEHAN]
+- Remove unused import [Renan GEHAN]
+- Fix FilterLink not reacting to loading/error state changes [Renan GEHAN]
+- Persist filters definitions, not their data [Renan GEHAN]
+- Persist settings and navigation store [Renan GEHAN]
+- Install mobx-persist & reorganize store bootstrap logic [Renan GEHAN]
+- Replace all rematch models by mobx stores [Renan GEHAN]
+- Fix order of babel plugins so that mobx decorators work as expected [Renan GEHAN]
+- Replace rematch with mobx [Renan GEHAN]
+
 ### v0.1.3
 - Update README to reflect changes in release process [Renan GEHAN]
 - Create release script (fix #22) [Renan GEHAN]
