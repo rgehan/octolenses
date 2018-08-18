@@ -5,8 +5,6 @@
   "author": "Renan GEHAN <rgehan94@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@rematch/core": ">=1.0.0-alpha.0",
-    "@rematch/persist": "^1.1.0",
     "babel-polyfill": "^6.26.0",
     "classnames": "^2.2.6",
     "contrast": "^1.0.1",
@@ -14,11 +12,12 @@
     "human-format": "^0.10.0",
     "immer": "^1.5.0",
     "lodash": "^4.17.10",
+    "mobx": "^5.0.3",
+    "mobx-react": "^5.2.5",
     "moment": "^2.22.2",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-redux": "^5.0.7",
     "timeago.js": "^3.0.2",
     "uuid": "^3.3.2"
   },
