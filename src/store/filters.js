@@ -100,7 +100,7 @@ function formatFilter(filter) {
 
 export const EMPTY_FILTER_PAYLOAD = {
   label: 'Unnamed filter',
-  predicates: [],
+  predicates: [{ type: 'status', value: 'open' }],
 };
 
 export const filters = new FiltersStore();
