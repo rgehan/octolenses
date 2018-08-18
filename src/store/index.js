@@ -10,6 +10,7 @@ const hydrateStores = async () => {
   await Promise.all([
     hydrate('navigationStore', navigation),
     hydrate('settingsStore', settings),
+    hydrate('filtersStore', filters),
   ]);
 };
 

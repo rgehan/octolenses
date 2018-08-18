@@ -1,11 +1,36 @@
 import { observable, action, computed } from 'mobx';
+import { persist } from 'mobx-persist';
 import { findIndex } from 'lodash';
 import uuidv1 from 'uuid/v1';
 
 import { fetchFilter } from '../lib/github';
 import { settings } from './settings';
 
+class Filter {
+  @persist
+  @observable
+  id;
+
+  @persist
+  @observable
+  label = '';
+
+  @persist('list')
+  @observable
+  predicates = [];
+
+  @observable
+  data = [];
+
+  @observable
+  error = null;
+
+  @observable
+  loading = false;
+}
+
 class FiltersStore {
+  @persist('list', Filter)
   @observable
   data = [];
 
