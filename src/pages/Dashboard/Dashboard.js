@@ -37,6 +37,10 @@ export class Dashboard extends React.Component {
     this.setState({ selectedFilterId: filterId });
   };
 
+  handleCloneFilter = () => {
+    // To be implemented
+  };
+
   handleDeleteFilter = () => {
     const { filters } = this.props;
     const { selectedFilterId } = this.state;
@@ -116,23 +120,18 @@ export class Dashboard extends React.Component {
             />
           ))}
           <div className="Dashboard__Filters-Actions">
-            <div
-              onClick={this.handleOpenFilterModal('adding')}
-              className="Dashboard__Filters-Actions-Edit"
-            >
-              Add filter
+            <div onClick={this.handleOpenFilterModal('adding')}>
+              Add <i className="far fa-plus-square" />
             </div>
-            <div
-              onClick={this.handleOpenFilterModal('editing')}
-              className="Dashboard__Filters-Actions-Edit"
-            >
-              Edit filter
+            <div />
+            <div onClick={this.handleOpenFilterModal('editing')}>
+              Edit <i className="far fa-edit" />
             </div>
-            <div
-              onClick={this.handleDeleteFilter}
-              className="Dashboard__Filters-Actions-Delete"
-            >
-              Delete filter
+            <div onClick={this.handleCloneFilter}>
+              Clone <i className="far fa-clone" />
+            </div>
+            <div onClick={this.handleDeleteFilter}>
+              Delete <i className="far fa-trash-alt" />
             </div>
           </div>
         </div>

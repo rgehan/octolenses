@@ -16,8 +16,7 @@
       padding-right: 20px;
       margin-top: 40px;
 
-      &-Edit,
-      &-Delete {
+      > div {
         margin-bottom: 12px;
         color: #87898c;
         cursor: pointer;
@@ -25,6 +24,12 @@
 
         &:hover {
           color: #2a2b2d;
+        }
+
+        > i {
+          width: 20px;
+          margin-left: 5px;
+          opacity: 0.85;
         }
       }
     }

@@ -127,7 +127,7 @@ export class FilterPredicate extends React.Component {
 
     return (
       <div className="FilterPredicate__Actions">
-        <i className="fa fa-trash-alt" onClick={onDelete} />
+        <i className="far fa-trash-alt" onClick={onDelete} />
       </div>
     );
   }
