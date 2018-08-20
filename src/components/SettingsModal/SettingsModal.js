@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import { Modal } from '../Modal';
 import { Button } from '../Button';
+import { refreshAllData } from '../../store';
 
 import './SettingsModal.scss';
 
@@ -31,7 +32,7 @@ export class SettingsModal extends React.Component {
   handleSave = () => {
     const { token } = this.state;
     this.props.settings.updateSettings('token', token);
-    // this.props.refreshAllData(); // TODO
+    refreshAllData();
     this.props.onClose();
   };
 

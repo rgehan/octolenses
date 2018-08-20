@@ -33,16 +33,18 @@ const performOnboarding = async () => {
   settings.updateSettings('wasOnboarded', true);
 };
 
-export const bootstrap = async () => {
-  await hydrateStores();
-
-  await performOnboarding();
-
+export const refreshAllData = async () => {
   // prettier-ignore
   await Promise.all([
     trends.fetchTrendingRepos(),
     filters.fetchAllFilters(),
   ]);
+};
+
+export const bootstrap = async () => {
+  await hydrateStores();
+  await performOnboarding();
+  await refreshAllData();
 };
 
 export { navigation };
