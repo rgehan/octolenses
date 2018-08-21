@@ -14,7 +14,9 @@ out all the information you need in order to be as productive as possible.
 
 ## Installation
 
-It is only available on the [Chrome Store](https://chrome.google.com/webstore/detail/octolenses/ghlblfakaklgkdmfejdlffbmpcaidoci) for now, but should be compatible with Firefox if I took the time to do it.
+Simply download it on your favorite browser's extensions store.
+
+It is available on both [Google Chrome](https://chrome.google.com/webstore/detail/octolenses/ghlblfakaklgkdmfejdlffbmpcaidoci) and [Firefox](https://addons.mozilla.org/fr/firefox/addon/github-octolenses/).
 
 ## Usage example
 
