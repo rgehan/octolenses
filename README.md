@@ -33,6 +33,15 @@ all it can do. It can do much more, such as:
 
 ## Development setup
 
+You need a few tools before being able to build the extension:
+
+- `yarn`, a [JS package manager](https://yarnpkg.com/docs/install) (on Mac: `brew install yarn`)
+- `jq`, a [JSON CLI utility](https://stedolan.github.io/jq/) (on Mac: `brew install jq`).
+- `sed`, should be available on any Unix system.
+- `zip`, should be available on any Unix system.
+
+Then you can follow this process to develop/build the extension:
+
 ```sh
 # Clone the repository
 git clone git@github.com:rgehan/octolenses-browser-extension.git && \
