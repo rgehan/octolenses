@@ -1,3 +1,11 @@
+### v0.1.5
+- Refresh filters/trends when a token is set (fix #31) [Renan GEHAN]
+- Fix FilterEditModal title input width [Renan GEHAN]
+- Remove unnecessary permissions [Renan GEHAN]
+- Fix new filter default id not being applied [Renan GEHAN]
+- Ensure a failed filter error is removed once refetched successfully [Renan GEHAN]
+- Fix typos in README (#24) [Renan GEHAN]
+
 ### v0.1.4
 - Add clone filter button (fix #16) [Renan GEHAN]
 - Improve filter actions UI in the Dashboard [Renan GEHAN]
