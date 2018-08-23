@@ -55,7 +55,7 @@ export class SettingsModal extends React.Component {
             <div className="SettingsModal__Form-HelpText">
               <p>
                 You can generate a Personal Access Token on{' '}
-                <a href="https://github.com/settings/tokens" target="__blank">
+                <a href="https://github.com/settings/tokens/new?scopes=repo&description=octolenses-browser-extension" target="__blank">
                   this page
                 </a>
                 .
