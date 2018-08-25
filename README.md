@@ -18,6 +18,12 @@ Simply download it on your favorite browser's extensions store.
 
 It is available on both [Google Chrome](https://chrome.google.com/webstore/detail/octolenses/ghlblfakaklgkdmfejdlffbmpcaidoci) and [Firefox](https://addons.mozilla.org/fr/firefox/addon/github-octolenses/).
 
+By default, it overrides your browser's default "New Tab" page, but this can be
+disabled so that it only opens when you click on the extension's icon.
+
+You can access this setting in the settings modal, which can be opened by
+simply clicking on the little cog icon on the top right hand corner.
+
 ## Usage example
 
 At my current job, we have quite a lovely system where each Pull Request is
