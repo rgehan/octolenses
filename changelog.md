@@ -1,3 +1,16 @@
+### v0.2.0
+- Update README to explain why the 'tabs' permission is required [Renan GEHAN]
+- Update README to explain how to disable the New Tab override [Renan GEHAN]
+- Allow setting the new tab behavior in the SettingsModal [Renan GEHAN]
+- Add a browser_action for opening OctoLenses [Renan GEHAN]
+- Reorganize background scripts to expose a single entry point [Renan GEHAN]
+- Update browser_action title [Renan GEHAN]
+- Let the decision of overriding the new tab page to a smart background script [Renan GEHAN]
+- Add icons [Renan GEHAN]
+- Change github personal access token creation link to prefill needed scope (#34) [Renan GEHAN]
+- Add link to the Firefox version [Renan GEHAN]
+- Improve README.md build instructions [Renan GEHAN]
+
 ### v0.1.5
 - Refresh filters/trends when a token is set (fix #31) [Renan GEHAN]
 - Fix FilterEditModal title input width [Renan GEHAN]
