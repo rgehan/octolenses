@@ -5,16 +5,6 @@
     align-items: flex-start;
     padding: 20px;
 
-    > label {
-      margin-bottom: 10px;
-    }
-
-    > input {
-      width: 300px;
-      padding: 4px 8px;
-      margin-bottom: 5px;
-    }
-
     &-HelpText {
       font-size: 14px;
       color: #777f82;
@@ -25,6 +15,40 @@
 
       li {
         font-family: monospace;
+      }
+    }
+
+    &-RadioGroup {
+      margin-bottom: 5px;
+
+      label {
+        margin-left: 10px;
+        font-size: 14px;
+      }
+    }
+  }
+
+  &__FormGroup {
+    display: flex;
+    flex-direction: column;
+
+    &-Header {
+      margin-bottom: 10px;
+    }
+
+    &--behavior {
+      margin-bottom: 20px;
+    }
+
+    &--token {
+      > label {
+        margin-bottom: 10px;
+      }
+
+      > input {
+        width: 300px;
+        padding: 4px 8px;
+        margin-bottom: 5px;
       }
     }
   }

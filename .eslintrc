@@ -15,7 +15,8 @@
   "rules": {
     "no-console": "off",
     "react/prop-types": "off",
-    "react/no-deprecated": "off"
+    "react/no-deprecated": "off",
+    "react/no-unescaped-entities": "off"
   },
   "env": {
     "es6": true,
