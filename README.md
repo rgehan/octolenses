@@ -39,6 +39,13 @@ all it can do. It can do much more, such as:
 - Allowing you to discover trendy repositories in your favorite language
   (similar to what [GitHunt](https://github.com/kamranahmedse/githunt) allows)
 
+## Permissions asked
+
+OctoLenses only asks for the `tabs` permission, as it needs to be able to:
+
+- Detect when a tab is opened so it can eventually override it
+- Create a new tab when the extension's icon is clicked.
+
 ## Development setup
 
 You need a few tools before being able to build the extension:
