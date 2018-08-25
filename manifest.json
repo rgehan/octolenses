@@ -9,7 +9,7 @@
     "scripts": ["override-new-tab-page.js"]
   },
   "browser_action": {
-    "default_title": "Github Dashboard"
+    "default_title": "OctoLenses"
   },
   "icons": {
     "16": "icons/icon-16.png",
