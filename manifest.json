@@ -6,7 +6,7 @@
   "description": "Watch your repos and discover awesome things directly from your New Tab page.",
   "permissions": ["tabs"],
   "background": {
-    "scripts": ["override-new-tab-page.js"]
+    "scripts": ["background.js"]
   },
   "browser_action": {
     "default_title": "OctoLenses"

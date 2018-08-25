@@ -11,10 +11,10 @@ const shouldUseNewTabPage = () => {
  * Whenever a blank new tab is opened, overrides it with OctoLenses
  * if the settings of the user allowed it.
  */
-chrome.tabs.onCreated.addListener(tab => {
+export const overrideNewTabPage = tab => {
   if (shouldUseNewTabPage() && tab.url === 'chrome://newtab/') {
     chrome.tabs.update(tab.id, {
       url: chrome.extension.getURL('index.html'),
     });
   }
-});
+};
