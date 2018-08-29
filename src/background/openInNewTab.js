@@ -1,6 +1,6 @@
 export const openInNewTab = tab => {
   // If it's a new tab, open directly in it
-  if (tab.url === 'chrome://newtab/') {
+  if (tab.url === 'chrome://newtab/' || tab.url === 'about:newtab') {
     return chrome.tabs.update(tab.id, {
       url: chrome.extension.getURL('index.html'),
     });
