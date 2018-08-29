@@ -1,3 +1,5 @@
+import { isNewTabUrl } from './utils';
+
 /**
  * If no setting is explicitely set (most probably on first start),
  * use the new tab page, else respect the setting value.
@@ -12,7 +14,7 @@ const shouldUseNewTabPage = () => {
  * if the settings of the user allowed it.
  */
 export const overrideNewTabPage = tab => {
-  if (shouldUseNewTabPage() && tab.url === 'chrome://newtab/') {
+  if (shouldUseNewTabPage() && isNewTabUrl(tab.url)) {
     chrome.tabs.update(tab.id, {
       url: chrome.extension.getURL('index.html'),
     });
