@@ -1,3 +1,6 @@
+### v0.2.2
+- Add icons on the browser_action so it works on FF [Renan GEHAN]
+
 ### v0.2.1
 - Create util method for checking if url is a new tab url [Renan GEHAN]
 - Change new tab url check for firefox (#38) [Renan GEHAN]
