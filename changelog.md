@@ -1,3 +1,7 @@
+### v0.2.1
+- Create util method for checking if url is a new tab url [Renan GEHAN]
+- Change new tab url check for firefox (#38) [Renan GEHAN]
+
 ### v0.2.0
 - Update README to explain why the 'tabs' permission is required [Renan GEHAN]
 - Update README to explain how to disable the New Tab override [Renan GEHAN]
