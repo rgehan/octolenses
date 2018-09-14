@@ -4,6 +4,11 @@ import { find } from 'lodash';
 export const DATES = [
   { name: 'Last week', value: 'last_week', data: { amount: 1, unit: 'week' } },
   {
+    name: 'Last 2 weeks',
+    value: 'last_two_weeks',
+    data: { amount: 2, unit: 'weeks' },
+  },
+  {
     name: 'Last month',
     value: 'last_month',
     data: { amount: 1, unit: 'month' },
