@@ -52,10 +52,15 @@
       align-items: center;
       justify-content: center;
       user-select: none;
+      margin: 40px 0;
 
       > i {
         margin-right: 10px;
       }
+    }
+
+    .Loader {
+      margin: 35px 0;
     }
   }
 }
