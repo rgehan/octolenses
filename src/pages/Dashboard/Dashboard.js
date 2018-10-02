@@ -43,6 +43,11 @@ export class Dashboard extends React.Component {
     this.handleFilterSelected(id);
   };
 
+  handleRefreshFilter = () => {
+    const filter = this.getSelectedFilter();
+    this.props.filters.fetchFilter(filter);
+  };
+
   handleDeleteFilter = () => {
     const { filters } = this.props;
     const { selectedFilterId } = this.state;
@@ -131,6 +136,9 @@ export class Dashboard extends React.Component {
             </div>
             <div onClick={this.handleCloneFilter}>
               Clone <i className="far fa-clone" />
+            </div>
+            <div onClick={this.handleRefreshFilter}>
+              Refresh <i className="fas fa-sync-alt" />
             </div>
             <div onClick={this.handleDeleteFilter}>
               Delete <i className="far fa-trash-alt" />
