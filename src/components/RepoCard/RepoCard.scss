@@ -37,6 +37,8 @@
   &__Name {
     font-size: 24px;
     margin-bottom: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   &__Description {
