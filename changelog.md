@@ -1,3 +1,10 @@
+### v0.2.3
+- Add ellipsis and overflow to repo cards titles (#46) [Renan GEHAN]
+- Add margins on Loader & error messages (#43) [GitHub]
+- Add refresh filter button (#41) [GitHub]
+- Add 'Last 2 Weeks' option to discover date ranges [Renan GEHAN]
+- Fix Dashboard container height when there are few cards [Renan GEHAN]
+
 ### v0.2.2
 - Add icons on the browser_action so it works on FF [Renan GEHAN]
 
