@@ -39,6 +39,13 @@ all it can do. It can do much more, such as:
 - Allowing you to discover trendy repositories in your favorite language
   (similar to what [GitHunt](https://github.com/kamranahmedse/githunt) allows)
 
+## Miscellaneous
+
+Because being flashed bright lights in the eyes at night is the worst thing
+ever, I even included a pretty cool dark mode.
+
+![](.github/dashboard_dark_screenshot.png)
+
 ## Permissions asked
 
 OctoLenses only asks for the `tabs` permission, as it needs to be able to:
