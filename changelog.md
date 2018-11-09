@@ -1,3 +1,12 @@
+### v0.3.0
+- Showcase dark mode in the README [Renan GEHAN]
+- Improve Loader style in dark mode [Renan GEHAN]
+- Update yarn.lock with integrity entries [Renan GEHAN]
+- Improve layout of the settings modal [Renan GEHAN]
+- Add night time detection to toggle dark mode [Renan GEHAN]
+- Add a dark theme to all relevant components [Renan GEHAN]
+- Add a dark mode option [Renan GEHAN]
+
 ### v0.2.3
 - Add ellipsis and overflow to repo cards titles (#46) [Renan GEHAN]
 - Add margins on Loader & error messages (#43) [GitHub]
