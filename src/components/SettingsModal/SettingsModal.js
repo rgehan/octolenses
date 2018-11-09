@@ -173,7 +173,7 @@ export class SettingsModal extends React.Component {
             checked={darkMode === DARK_MODE.AT_NIGHT}
             onChange={this.handleDarkModeChange}
           />
-          <label htmlFor="darkMode-night">At Night</label>
+          <label htmlFor="darkMode-night">At Night (7pm - 7am)</label>
         </div>
       </div>
     );
