@@ -2,7 +2,7 @@ import React from 'react';
 
 import './Loader.scss';
 
-export const Loader = ({ size = 50, color = '#678bc2', strokeWidth = 10 }) => (
+export const Loader = ({ size = 50, strokeWidth = 10 }) => (
   <div className="Loader">
     <svg
       width={`${size}px`}
@@ -17,7 +17,6 @@ export const Loader = ({ size = 50, color = '#678bc2', strokeWidth = 10 }) => (
         cx="50"
         cy="50"
         fill="none"
-        stroke={color}
         strokeWidth={strokeWidth}
         r="35"
         strokeDasharray="164.93361431346415 56.97787143782138"
