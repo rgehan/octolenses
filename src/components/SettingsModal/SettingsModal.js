@@ -78,9 +78,7 @@ export class SettingsModal extends React.Component {
         <Modal.Body>
           <div className="SettingsModal__Form">
             {this.renderBehaviorSettings()}
-            <br />
             {this.renderDarkModeSettings()}
-            <br />
             {this.renderTokenSettings()}
           </div>
         </Modal.Body>
