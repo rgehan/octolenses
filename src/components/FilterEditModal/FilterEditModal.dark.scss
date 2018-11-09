@@ -1,0 +1,15 @@
+.dark {
+  .FilterEditModal {
+    &__TitleInput {
+      color: #dcdcdc;
+
+      &:hover {
+        color: white;
+      }
+    }
+
+    &__AddPredicateButton {
+      color: #dcdcdc;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+.dark {
+  .FilterPredicate {
+    &__Label {
+      background: #565656;
+      color: white;
+    }
+
+    &__Value {
+      background: none;
+      border: 1px solid #565656;
+      border-left: none;
+
+      > input,
+      > select {
+        color: white;
+      }
+    }
+
+    &__Actions > i:hover {
+      color: white;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+.dark {
+  .FilterLink {
+    color: #c1c3c5;
+
+    &--selected,
+    &:hover {
+      color: #f1f2f3;
+    }
+
+    &__ItemsCount {
+      background: #4e4e4e;
+    }
+  }
+}

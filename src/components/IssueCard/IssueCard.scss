@@ -1,3 +1,5 @@
+@import 'IssueCard.dark.scss';
+
 .IssueCard {
   padding: 20px 20px;
 
@@ -23,26 +25,26 @@
       display: inline-block;
       align-items: center;
       margin-bottom: 5px;
-  
+
       &-Icon {
         margin-right: 7px;
-  
+
         &--open {
           color: #28a745;
         }
-  
+
         &--closed {
           color: #cb2431;
         }
       }
-  
+
       &-Repo,
       &-Issue {
         &:hover {
           text-decoration: underline;
         }
       }
-  
+
       &-Repo {
         font-size: 15px;
         margin-right: 5px;

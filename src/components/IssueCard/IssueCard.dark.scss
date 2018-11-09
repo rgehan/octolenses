@@ -1,0 +1,19 @@
+.dark {
+  .IssueCard {
+    &:not(:last-child) {
+      border-bottom: 1px solid #545454;
+    }
+
+    &__Header {
+      &-Comments,
+      &-Comments:active,
+      &-Comments:visited {
+        color: #adadb1;
+
+        &:hover {
+          color: #d3d3d6;
+        }
+      }
+    }
+  }
+}

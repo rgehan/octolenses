@@ -1,0 +1,12 @@
+.dark {
+  .Button {
+    &--default {
+      background: #565656;
+      color: white;
+
+      &:hover {
+        background: #616161;
+      }
+    }
+  }
+}

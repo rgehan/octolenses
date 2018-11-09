@@ -17,6 +17,11 @@ body {
   color: #2f2f2f;
   min-height: 100vh;
   font-size: 100%;
+
+  &.dark {
+    background-color: #2f2f2f;
+    color: white;
+  }
 }
 
 h1,
