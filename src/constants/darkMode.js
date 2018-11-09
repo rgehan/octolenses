@@ -1,0 +1,5 @@
+export const DARK_MODE = {
+  DISABLED: 'DISABLED',
+  ENABLED: 'ENABLED',
+  AT_NIGHT: 'AT_NIGHT',
+};

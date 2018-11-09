@@ -7,6 +7,7 @@ import { Button } from '../Button';
 import { refreshAllData } from '../../store';
 
 import './SettingsModal.scss';
+import { DARK_MODE } from '../../constants/darkMode';
 
 const CREATE_TOKEN_URL =
   'https://github.com/settings/tokens/new?scopes=repo&description=octolenses-browser-extension';
@@ -27,6 +28,7 @@ export class SettingsModal extends React.Component {
     this.state = {
       useNewTabPage,
       token: props.settings.token,
+      darkMode: props.settings.darkMode,
     };
   }
 
@@ -42,17 +44,29 @@ export class SettingsModal extends React.Component {
     });
   };
 
-  handleSave = () => {
-    const { token, useNewTabPage } = this.state;
+  handleDarkModeChange = event => {
+    this.setState({
+      darkMode: event.target.value,
+    });
+  };
 
-    // Save the token & refresh the data
-    this.props.settings.updateSettings('token', token);
-    refreshAllData();
+  handleSave = () => {
+    const { onClose, settings } = this.props;
+    const { token, useNewTabPage, darkMode } = this.state;
 
     // Save the behavior
     localStorage.setItem('useNewTabPage', useNewTabPage);
 
-    this.props.onClose();
+    // Save the token & refresh the data
+    if (token !== this.props.settings.token) {
+      settings.updateSettings('token', token);
+      refreshAllData();
+    }
+
+    // Save the dark mode settings
+    settings.updateSettings('darkMode', darkMode);
+
+    onClose();
   };
 
   render() {
@@ -64,6 +78,8 @@ export class SettingsModal extends React.Component {
         <Modal.Body>
           <div className="SettingsModal__Form">
             {this.renderBehaviorSettings()}
+            <br />
+            {this.renderDarkModeSettings()}
             <br />
             {this.renderTokenSettings()}
           </div>
@@ -113,6 +129,51 @@ export class SettingsModal extends React.Component {
           <label htmlFor="useNewTabPage-false">
             When I click on the extension's icon
           </label>
+        </div>
+      </div>
+    );
+  }
+
+  renderDarkModeSettings() {
+    const { darkMode } = this.state;
+
+    return (
+      <div className="SettingsModal__FormGroup SettingsModal__FormGroup--darkMode">
+        <span className="SettingsModal__FormGroup-Header">
+          When should dark mode be enabled?
+        </span>
+        <div className="SettingsModal__Form-RadioGroup">
+          <input
+            type="radio"
+            name="darkMode"
+            value={DARK_MODE.DISABLED}
+            id="darkMode-never"
+            checked={darkMode === DARK_MODE.DISABLED}
+            onChange={this.handleDarkModeChange}
+          />
+          <label htmlFor="darkMode-never">Never</label>
+        </div>
+        <div className="SettingsModal__Form-RadioGroup">
+          <input
+            type="radio"
+            name="darkMode"
+            value={DARK_MODE.ENABLED}
+            id="darkMode-always"
+            checked={darkMode === DARK_MODE.ENABLED}
+            onChange={this.handleDarkModeChange}
+          />
+          <label htmlFor="darkMode-always">Always</label>
+        </div>
+        <div className="SettingsModal__Form-RadioGroup">
+          <input
+            type="radio"
+            name="darkMode"
+            value={DARK_MODE.AT_NIGHT}
+            id="darkMode-night"
+            checked={darkMode === DARK_MODE.AT_NIGHT}
+            onChange={this.handleDarkModeChange}
+          />
+          <label htmlFor="darkMode-night">At Night</label>
         </div>
       </div>
     );
