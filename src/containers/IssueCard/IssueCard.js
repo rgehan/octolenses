@@ -3,7 +3,7 @@ import { chain } from 'lodash';
 import cx from 'classnames';
 import timeago from 'timeago.js';
 
-import { LabelBadge } from '../LabelBadge';
+import { LabelBadge } from '../../components/LabelBadge';
 
 import './IssueCard.scss';
 
@@ -25,38 +25,44 @@ export const IssueCard = ({ issue }) => {
   const repoUrl = parseRepoUrl(issue.repository_url);
 
   return (
-    <div className="IssueCard">
-      <div className="IssueCard__Header">
-        <div className="IssueCard__Header-Title">
+    <div className="p-6">
+      <div className="flex items-start">
+        <div className="flex-1 flex mb-1 min-w-0">
           <i
             className={cx(
-              'IssueCard__Header-Title-Icon',
-              'fas',
-              isPR ? 'fa-code-branch' : 'fa-exclamation-circle',
-              isOpen
-                ? 'IssueCard__Header-Title-Icon--open'
-                : 'IssueCard__Header-Title-Icon--closed'
+              'mr-2',
+              isPR ? 'fas fa-code-branch' : 'fas fa-exclamation-circle',
+              isOpen ? 'text-green' : 'text-red'
             )}
           />
-          <a className="IssueCard__Header-Title-Repo" href={repoUrl}>
+          <a className="text-blue text-lg mr-2 hover:underline" href={repoUrl}>
             {fullRepoName}
           </a>
-          <a className="IssueCard__Header-Title-Issue" href={issue.html_url}>
+          <a
+            className="text-blue text-lg pb-1 truncate hover:underline"
+            href={issue.html_url}
+          >
             {issue.title}
           </a>
         </div>
-        <a href={issue.html_url} className="IssueCard__Header-Comments">
+        <a
+          href={issue.html_url}
+          className="flex items-center ml-2 cursor-pointer text-grey-dark hover:text-grey-darker"
+        >
           {issue.comments}
-          <i className="far fa-comment-alt" />
+          <i className="far fa-comment-alt ml-2" />
         </a>
       </div>
-      <div className="IssueCard__Metadata">
-        Opened {timeago().format(issue.created_at)} by{' '}
-        <a href={issue.user.html_url} className="IssueCard__Metadata-Author">
+      <div className="text-grey-darker text-xs">
+        {timeago().format(issue.created_at)} by{' '}
+        <a
+          href={issue.user.html_url}
+          className="text-grey-darker no-underline hover:underline"
+        >
           {issue.user.login}
         </a>
       </div>
-      <div className="IssueCard__Labels">
+      <div className="flex mt-3">
         {issue.labels.map(label => (
           <LabelBadge key={label.id} label={label} />
         ))}

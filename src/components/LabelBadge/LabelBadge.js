@@ -2,8 +2,6 @@ import React from 'React';
 import cx from 'classnames';
 import contrast from 'contrast';
 
-import './LabelBadge.scss';
-
 export const LabelBadge = ({ label }) => {
   const background = `#${label.color}`;
 
@@ -12,8 +10,8 @@ export const LabelBadge = ({ label }) => {
   return (
     <div
       className={cx(
-        'LabelBadge',
-        isDark ? 'LabelBadge--dark' : 'LabelBadge--light'
+        'text-xs py-1 px-2 rounded mr-2',
+        isDark ? 'text-white' : 'text-black'
       )}
       style={{ background }}
     >

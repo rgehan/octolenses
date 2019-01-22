@@ -32,10 +32,12 @@
     "eslint-plugin-prettier": "^2.6.2",
     "eslint-plugin-react": "^7.10.0",
     "node-sass": "^4.9.2",
+    "normalize.css": "^8.0.1",
     "parcel-bundler": "^1.9.7",
     "prettier": "^1.14.2",
     "rimraf": "^2.6.2",
-    "semver": "^5.5.0"
+    "semver": "^5.5.0",
+    "tailwindcss": "^0.7.3"
   },
   "scripts": {
     "clean": "rimraf dist/",

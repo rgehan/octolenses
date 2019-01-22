@@ -1,9 +1,10 @@
 import React from 'react';
+import cx from 'classnames';
 
 import './Loader.scss';
 
-export const Loader = ({ size = 50, strokeWidth = 10 }) => (
-  <div className="Loader">
+export const Loader = ({ size = 50, strokeWidth = 10, className }) => (
+  <div className={cx('Loader', className)}>
     <svg
       width={`${size}px`}
       height={`${size}px`}

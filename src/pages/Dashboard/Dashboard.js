@@ -1,14 +1,11 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { find, isUndefined, findIndex, size, chain } from 'lodash';
+import ExtendableError from 'es6-error';
+import cx from 'classnames';
 
-import { IssueCard } from '../../components/IssueCard';
-import { FilterLink } from '../../components/FilterLink';
-import { FilterEditModal } from '../../components/FilterEditModal';
-import { Loader } from '../../components/Loader';
-
-import './Dashboard.scss';
-import ExtendableError from '../../../node_modules/es6-error';
+import { IssueCard } from '../../containers/IssueCard';
+import { FilterLink, FilterEditModal, Loader } from '../../components';
 
 @inject('filters')
 @observer
@@ -115,9 +112,37 @@ export class Dashboard extends React.Component {
 
     const selectedFilter = this.getSelectedFilter();
 
+    const LINKS = [
+      {
+        handler: this.handleOpenFilterModal('adding'),
+        text: 'Add',
+        icon: 'far fa-plus-square',
+      },
+      {
+        handler: this.handleOpenFilterModal('editing'),
+        text: 'Edit',
+        icon: 'far fa-edit',
+      },
+      {
+        handler: this.handleCloneFilter,
+        text: 'Clone',
+        icon: 'far fa-clone',
+      },
+      {
+        handler: this.handleRefreshFilter,
+        text: 'Refresh',
+        icon: 'fas fa-sync-alt',
+      },
+      {
+        handler: this.handleDeleteFilter,
+        text: 'Delete',
+        icon: 'far fa-trash-alt',
+      },
+    ];
+
     return (
-      <div className="Dashboard">
-        <div className="Dashboard__Filters">
+      <div className="Dashboard flex items-start w-full h-full pt-20">
+        <div className="flex flex-col w-48">
           {filters.data.map(filter => (
             <FilterLink
               key={filter.id}
@@ -126,26 +151,21 @@ export class Dashboard extends React.Component {
               onClick={() => this.handleFilterSelected(filter.id)}
             />
           ))}
-          <div className="Dashboard__Filters-Actions">
-            <div onClick={this.handleOpenFilterModal('adding')}>
-              Add <i className="far fa-plus-square" />
-            </div>
-            <div />
-            <div onClick={this.handleOpenFilterModal('editing')}>
-              Edit <i className="far fa-edit" />
-            </div>
-            <div onClick={this.handleCloneFilter}>
-              Clone <i className="far fa-clone" />
-            </div>
-            <div onClick={this.handleRefreshFilter}>
-              Refresh <i className="fas fa-sync-alt" />
-            </div>
-            <div onClick={this.handleDeleteFilter}>
-              Delete <i className="far fa-trash-alt" />
-            </div>
+          <div className="flex flex-col items-end pr-5 mt-10">
+            {LINKS.map(({ handler, text, icon }) => (
+              <div
+                onClick={handler}
+                key={text}
+                className="mb-3 text-grey-dark hover:text-black cursor-pointer select-none"
+              >
+                {text} <i className={cx(icon, 'ml-1 w-6 opacity-75')} />
+              </div>
+            ))}
           </div>
         </div>
-        <div className="Dashboard__Results">{this.renderResults()}</div>
+        <div className="flex-1 flex flex-col bg-white shadow-xl rounded-lg overflow-hidden mb-16">
+          {this.renderResults()}
+        </div>
         {filterModal.isOpen && (
           <FilterEditModal
             filter={filterModal.mode === 'editing' ? selectedFilter : null}
@@ -165,7 +185,7 @@ export class Dashboard extends React.Component {
     }
 
     if (selectedFilter.loading) {
-      return <Loader size={50} />;
+      return <Loader size={50} className="my-10" />;
     }
 
     if (selectedFilter.error) {
@@ -175,8 +195,8 @@ export class Dashboard extends React.Component {
           : 'Something failed, sorry.';
 
       return (
-        <div className="Dashboard__Results-NoResults">
-          <i className="fas fa-exclamation-triangle" />
+        <div className="flex-1 flex items-center justify-center select-none text-2xl my-10 mx-0 text-grey">
+          <i className="fas fa-exclamation-triangle mr-2" />
           {errorMessage}
         </div>
       );
@@ -184,8 +204,8 @@ export class Dashboard extends React.Component {
 
     if (size(selectedFilter.data) === 0) {
       return (
-        <div className="Dashboard__Results-NoResults">
-          <i className="fa fa-search" />
+        <div className="flex-1 flex items-center justify-center select-none text-2xl my-10 mx-0 text-grey">
+          <i className="fa fa-search mr-2" />
           No results.
         </div>
       );

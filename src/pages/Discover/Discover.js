@@ -1,7 +1,8 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 
-import { RepoCard, Loader, Dropdown } from '../../components';
+import { RepoCard } from '../../containers';
+import { Loader, Dropdown } from '../../components';
 import { DATES } from '../../constants/dates';
 import { LANGUAGES } from '../../constants/languages';
 
@@ -34,7 +35,7 @@ export class Discover extends React.Component {
             onChange={this.handleOptionChange}
           />
         </div>
-        <div className="Discover__ReposList">
+        <div className="Discover__ReposList -ml-6">
           {trends.loading ? (
             <Loader />
           ) : (

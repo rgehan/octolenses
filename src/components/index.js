@@ -1,5 +1,5 @@
-export { RepoCard } from './RepoCard';
 export { Dropdown } from './Dropdown';
 export { Loader } from './Loader';
 export { Header } from './Header';
-export { IssueCard } from './IssueCard';
+export { FilterLink } from './FilterLink';
+export { FilterEditModal } from './FilterEditModal';

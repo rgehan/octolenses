@@ -6,6 +6,8 @@ import { Provider } from 'mobx-react';
 import { App } from './App';
 import { bootstrap, navigation, settings, trends, filters } from './store';
 
+import 'normalize.css';
+
 bootstrap();
 
 ReactDOM.render(
