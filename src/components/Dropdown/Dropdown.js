@@ -25,7 +25,7 @@ export class Dropdown extends React.Component {
     const { items, value } = this.props;
 
     return (
-      <div className="Dropdown">
+      <div className="Dropdown shadow-xl">
         <select onChange={this.handleChange} value={value}>
           {items.map(item => (
             <option key={item.value} value={item.value}>

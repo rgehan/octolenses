@@ -32,7 +32,7 @@ a:visited {
 
 #container {
   @apply min-h-full mx-auto;
-  max-width: config('screens.lg');
+  max-width: config('screens.xl');
 
   .App {
     @apply min-h-full flex flex-col;
