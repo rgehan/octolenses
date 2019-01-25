@@ -1,23 +1,21 @@
-.dark {
-  .FilterPredicate {
-    &__Label {
-      background: #565656;
+.FilterPredicate--dark {
+  .FilterPredicate__Label {
+    background: config('colors.grey-darker');
+    color: white;
+  }
+
+  .FilterPredicate__Value {
+    background: none;
+    border: 1px solid config('colors.grey-darker');
+    border-left: none;
+
+    > input,
+    > select {
       color: white;
     }
+  }
 
-    &__Value {
-      background: none;
-      border: 1px solid #565656;
-      border-left: none;
-
-      > input,
-      > select {
-        color: white;
-      }
-    }
-
-    &__Actions > i:hover {
-      color: white;
-    }
+  .FilterPredicate__Actions > i:hover {
+    color: white;
   }
 }

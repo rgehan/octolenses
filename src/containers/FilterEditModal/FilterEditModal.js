@@ -110,6 +110,7 @@ export class FilterEditModal extends React.Component {
                 {...predicate}
                 onChange={this.handlePredicateChange(index)}
                 onDelete={this.handlePredicateDeletion(index)}
+                dark={settings.isDark}
               />
             ))}
             <select

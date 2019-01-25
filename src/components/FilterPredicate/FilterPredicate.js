@@ -14,6 +14,7 @@ export class FilterPredicate extends React.Component {
     negated: PropTypes.bool.isRequired,
     onDelete: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
+    dark: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -49,10 +50,14 @@ export class FilterPredicate extends React.Component {
   };
 
   render() {
-    const { negated } = this.props;
+    const { negated, dark } = this.props;
     return (
       <div
-        className={cx('FilterPredicate', negated && 'FilterPredicate--negated')}
+        className={cx(
+          'FilterPredicate',
+          dark && 'FilterPredicate--dark',
+          negated && 'FilterPredicate--negated'
+        )}
       >
         {this.renderLabel()}
         {this.renderValue()}
