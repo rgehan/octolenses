@@ -149,6 +149,7 @@ export class Dashboard extends React.Component {
               filter={filter}
               isSelected={filter.id === selectedFilterId}
               onClick={() => this.handleFilterSelected(filter.id)}
+              dark={settings.isDark}
             />
           ))}
           <div className="flex flex-col items-end pr-5 mt-10">

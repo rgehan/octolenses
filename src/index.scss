@@ -38,3 +38,7 @@ a:visited {
     @apply min-h-full flex flex-col;
   }
 }
+
+.rtl {
+  direction: rtl;
+}
