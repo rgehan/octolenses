@@ -8,6 +8,7 @@ body {
   @apply text-black font-open;
   @apply m-0 min-h-screen;
   @apply bg-grey-lightest;
+  font-size: 100%;
 
   &.dark {
     @apply bg-black text-white;
