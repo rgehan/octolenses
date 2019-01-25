@@ -1,4 +1,4 @@
-import { observable, action, autorun } from 'mobx';
+import { observable, action, autorun, computed } from 'mobx';
 import { persist } from 'mobx-persist';
 
 import { LANGUAGES } from '../constants/languages';
@@ -29,6 +29,11 @@ class SettingsStore {
   @action.bound
   updateSettings(key, value) {
     this[key] = value;
+  }
+
+  @computed
+  get isDark() {
+    return this.darkMode === DARK_MODE.ENABLED;
   }
 }
 

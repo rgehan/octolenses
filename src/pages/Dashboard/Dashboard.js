@@ -7,7 +7,7 @@ import cx from 'classnames';
 import { IssueCard } from '../../containers/IssueCard';
 import { FilterLink, FilterEditModal, Loader } from '../../components';
 
-@inject('filters')
+@inject('filters', 'settings')
 @observer
 export class Dashboard extends React.Component {
   state = {
@@ -107,7 +107,7 @@ export class Dashboard extends React.Component {
   }
 
   render() {
-    const { filters } = this.props;
+    const { filters, settings } = this.props;
     const { selectedFilterId, filterModal } = this.state;
 
     const selectedFilter = this.getSelectedFilter();
@@ -141,7 +141,7 @@ export class Dashboard extends React.Component {
     ];
 
     return (
-      <div className="Dashboard flex items-start w-full h-full pt-20">
+      <div className="flex items-start w-full h-full pt-20">
         <div className="flex flex-col w-48">
           {filters.data.map(filter => (
             <FilterLink
@@ -156,14 +156,22 @@ export class Dashboard extends React.Component {
               <div
                 onClick={handler}
                 key={text}
-                className="mb-3 text-grey-dark hover:text-black cursor-pointer select-none"
+                className={cx(
+                  'mb-3 cursor-pointer select-none text-grey-dark',
+                  settings.isDark ? 'hover:text-grey' : 'hover:text-black'
+                )}
               >
                 {text} <i className={cx(icon, 'ml-1 w-6 opacity-75')} />
               </div>
             ))}
           </div>
         </div>
-        <div className="flex-1 flex flex-col bg-white shadow-xl rounded-lg overflow-hidden mb-16">
+        <div
+          className={cx(
+            'flex-1 flex flex-col shadow-xl rounded-lg overflow-hidden mb-16',
+            settings.isDark ? 'bg-grey-darkest text-white' : 'bg-white'
+          )}
+        >
           {this.renderResults()}
         </div>
         {filterModal.isOpen && (
