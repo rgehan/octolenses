@@ -8,6 +8,12 @@
   outline: 0;
   cursor: pointer;
 
+  &,
+  &:hover,
+  &:active {
+    outline: none;
+  }
+
   &--primary {
     background: #298fee;
     color: white;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 
 import { Modal } from '../../components/Modal';
 import { Button } from '../../components/Button';
@@ -178,6 +179,7 @@ export class SettingsModal extends React.Component {
   }
 
   renderTokenSettings() {
+    const { settings } = this.props;
     const { token } = this.state;
 
     return (
@@ -190,6 +192,12 @@ export class SettingsModal extends React.Component {
           type="password"
           value={token}
           onChange={this.handleTokenChange}
+          className={cx(
+            'rounded shadow-inner outline-none',
+            settings.isDark
+              ? 'bg-grey-darker text-white'
+              : 'border border-grey-light'
+          )}
         />
         <div className="SettingsModal__Form-HelpText">
           <p>
