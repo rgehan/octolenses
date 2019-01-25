@@ -20,13 +20,14 @@ export class Discover extends React.Component {
     const { trends, settings } = this.props;
 
     return (
-      <div className="Discover">
-        <div className="Discover__Actions">
+      <div className="Discover h-full w-full flex flex-col">
+        <div className="flex items-end justify-end pb-4 h-16">
           <Dropdown
             name="language"
             items={LANGUAGES}
             value={settings.language}
             onChange={this.handleOptionChange}
+            className="mr-4"
           />
           <Dropdown
             name="dateRange"

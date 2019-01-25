@@ -24,13 +24,14 @@ export class Dropdown extends React.Component {
   };
 
   render() {
-    const { items, value, settings } = this.props;
+    const { items, value, settings, className } = this.props;
 
     return (
       <div
         className={cx(
           'w-48 flex relative rounded shadow-xl',
-          settings.isDark ? 'bg-grey-darkest text-white' : 'bg-white'
+          settings.isDark ? 'bg-grey-darkest text-white' : 'bg-white',
+          className
         )}
       >
         <select

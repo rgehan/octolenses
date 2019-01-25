@@ -141,7 +141,7 @@ export class Dashboard extends React.Component {
     ];
 
     return (
-      <div className="flex items-start w-full h-full pt-20">
+      <div className="flex items-start w-full h-full pt-16">
         <div className="flex flex-col w-48">
           {filters.data.map(filter => (
             <FilterLink
