@@ -357,7 +357,7 @@ autoprefixer@^6.3.1:
     postcss "^5.2.16"
     postcss-value-parser "^3.2.3"
 
-autoprefixer@^9.3.1:
+autoprefixer@^9.3.1, autoprefixer@^9.4.6:
   version "9.4.6"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-9.4.6.tgz#0ace275e33b37de16b09a5547dbfe73a98c1d446"
   integrity sha512-Yp51mevbOEdxDUy5WjiKtpQaecqYq9OqZSL04rSoCiry7Tc5I9FEyo3bfxiTJc1DfHeKwSFCUYbBAiOQ2VGfiw==
