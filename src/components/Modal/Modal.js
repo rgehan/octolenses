@@ -24,7 +24,10 @@ export class Modal extends React.Component {
     return (
       <div className={cx('fixed pin z-50', className)}>
         <div
-          className="absolute pin bg-black opacity-25 -z-1"
+          className={cx(
+            'absolute pin bg-black -z-1',
+            dark ? 'opacity-50' : 'opacity-25'
+          )}
           onClick={onClose}
         />
         <Overlay
