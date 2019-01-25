@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
 import cx from 'classnames';
 
-import './Dropdown.scss';
-
 @inject('settings')
 @observer
 export class Dropdown extends React.Component {

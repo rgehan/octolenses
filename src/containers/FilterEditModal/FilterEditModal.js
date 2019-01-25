@@ -2,15 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import produce from 'immer';
 import { omit } from 'lodash';
+import { inject, observer } from 'mobx-react';
+import cx from 'classnames';
 
 import { EMPTY_FILTER_PAYLOAD } from '../../store/filters';
 import { PREDICATES } from '../../lib/filters';
-import { FilterPredicate } from '../FilterPredicate';
-import { Button } from '../Button';
-import { Modal } from '../Modal';
+import { FilterPredicate } from '../../components/FilterPredicate';
+import { Button } from '../../components/Button';
+import { Modal } from '../../components/Modal';
 
-import './FilterEditModal.scss';
-
+@inject('settings')
+@observer
 export class FilterEditModal extends React.Component {
   static propTypes = {
     onClose: PropTypes.func.isRequired,
@@ -77,21 +79,31 @@ export class FilterEditModal extends React.Component {
   };
 
   render() {
-    const { onClose } = this.props;
+    const { onClose, settings } = this.props;
     const { filter } = this.state;
 
     return (
-      <Modal onClose={onClose} className="FilterEditModal">
+      <Modal
+        onClose={onClose}
+        className="FilterEditModal"
+        dark={settings.isDark}
+      >
         <Modal.Header>
           <input
             type="text"
             value={filter.label}
             onChange={this.handleTitleChange}
-            className="FilterEditModal__TitleInput"
+            className={cx(
+              'text-lg bg-transparent border-none outline-none w-full pr-4',
+              settings.isDark
+                ? 'text-grey hover:text-grey-light'
+                : 'text-grey-darkest hover:text-black'
+            )}
+            autoFocus
           />
         </Modal.Header>
         <Modal.Body>
-          <div className="FilterEditModal__Predicates">
+          <div className="mb-4 p-4">
             {filter.predicates.map((predicate, index) => (
               <FilterPredicate
                 key={index}
@@ -103,7 +115,10 @@ export class FilterEditModal extends React.Component {
             <select
               value=""
               onChange={this.handleAddPredicate}
-              className="FilterEditModal__AddPredicateButton"
+              className={cx(
+                'text-sm bg-transparent appearance-none border-none outline-none cursor-pointer',
+                settings.isDark ? 'text-grey' : 'text-black'
+              )}
             >
               <option key="__default" value="">
                 + Add a predicate
@@ -117,7 +132,7 @@ export class FilterEditModal extends React.Component {
           </div>
         </Modal.Body>
         <Modal.Actions>
-          <Button onClick={onClose} type="default">
+          <Button onClick={onClose} type="default" className="mr-3">
             Cancel
           </Button>
           <Button onClick={this.handleSubmit} type="primary">

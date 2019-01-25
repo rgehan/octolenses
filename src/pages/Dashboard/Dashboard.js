@@ -4,8 +4,8 @@ import { find, isUndefined, findIndex, size, chain } from 'lodash';
 import ExtendableError from 'es6-error';
 import cx from 'classnames';
 
-import { IssueCard } from '../../containers/IssueCard';
-import { FilterLink, FilterEditModal, Loader } from '../../components';
+import { IssueCard, FilterEditModal } from '../../containers';
+import { FilterLink, Loader } from '../../components';
 
 @inject('filters', 'settings')
 @observer

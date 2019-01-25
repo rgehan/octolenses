@@ -2,12 +2,12 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 
-import { Modal } from '../Modal';
-import { Button } from '../Button';
+import { Modal } from '../../components/Modal';
+import { Button } from '../../components/Button';
 import { refreshAllData } from '../../store';
+import { DARK_MODE } from '../../constants/darkMode';
 
 import './SettingsModal.scss';
-import { DARK_MODE } from '../../constants/darkMode';
 
 const CREATE_TOKEN_URL =
   'https://github.com/settings/tokens/new?scopes=repo&description=octolenses-browser-extension';

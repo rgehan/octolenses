@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import { capitalize } from 'lodash';
 
-import { SettingsModal } from '../SettingsModal';
+import { SettingsModal } from '../../containers';
 
 import './Header.scss';
 
