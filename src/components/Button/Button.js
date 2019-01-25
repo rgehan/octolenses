@@ -3,8 +3,11 @@ import cx from 'classnames';
 
 import './Button.scss';
 
-export const Button = ({ type, onClick, children }) => (
-  <button className={cx('Button', `Button--${type}`)} onClick={onClick}>
+export const Button = ({ type, onClick, children, className }) => (
+  <button
+    className={cx('Button', `Button--${type}`, className)}
+    onClick={onClick}
+  >
     {children}
   </button>
 );

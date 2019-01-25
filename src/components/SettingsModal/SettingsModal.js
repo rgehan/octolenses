@@ -70,10 +70,10 @@ export class SettingsModal extends React.Component {
   };
 
   render() {
-    const { onClose } = this.props;
+    const { onClose, settings } = this.props;
 
     return (
-      <Modal onClose={onClose} className="SettingsModal">
+      <Modal onClose={onClose} className="SettingsModal" dark={settings.isDark}>
         <Modal.Header>Settings</Modal.Header>
         <Modal.Body>
           <div className="SettingsModal__Form">
@@ -83,7 +83,7 @@ export class SettingsModal extends React.Component {
           </div>
         </Modal.Body>
         <Modal.Actions>
-          <Button onClick={onClose} type="default">
+          <Button onClick={onClose} type="default" className="mr-3">
             Cancel
           </Button>
           <Button onClick={this.handleSave} type="primary">
