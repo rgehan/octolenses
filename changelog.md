@@ -1,3 +1,20 @@
+### v0.4.0
+- Fix image placehold bg color to avoid weird border in dark mode [Renan GEHAN]
+- Fix dark mode so that it automatically toggles at night [Renan GEHAN]
+- Fix font size [Renan GEHAN]
+- Reskin FilterLink & Button components [Renan GEHAN]
+- Fix alignment of different pages [Renan GEHAN]
+- Darken modal backdrop in dark mode [Renan GEHAN]
+- Minor UI tweaks in the Settings modal [Renan GEHAN]
+- Adapt FilterPredicate to dark mode [Renan GEHAN]
+- Reskin FilterEditModal [Renan GEHAN]
+- Reskin settings modal [Renan GEHAN]
+- Reskin dropdown [Renan GEHAN]
+- Add dark mode support in reskined components [Renan GEHAN]
+- Reskin app completely [Renan GEHAN]
+- Setup tailwindcss [Renan GEHAN]
+- Update compress script to add version to filename [Renan GEHAN]
+
 ### v0.3.0
 - Showcase dark mode in the README [Renan GEHAN]
 - Improve Loader style in dark mode [Renan GEHAN]
