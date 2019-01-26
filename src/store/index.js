@@ -20,12 +20,12 @@ const performOnboarding = async () => {
   }
 
   filters.saveFilter({
-    label: 'React PRs',
+    label: 'OctoLenses Issues',
     data: [],
     loading: false,
     predicates: [
-      { type: 'type', value: 'pr' },
-      { type: 'repo', value: 'facebook/react' },
+      { type: 'type', value: 'issues' },
+      { type: 'repo', value: 'rgehan/octolenses-browser-extension' },
       { type: 'status', value: 'open' },
     ],
   });
@@ -47,7 +47,4 @@ export const bootstrap = async () => {
   await refreshAllData();
 };
 
-export { navigation };
-export { filters };
-export { trends };
-export { settings };
+export { navigation, filters, trends, settings };
