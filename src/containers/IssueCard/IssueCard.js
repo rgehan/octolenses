@@ -30,10 +30,14 @@ const _IssueCard = ({ issue, settings }) => {
   return (
     <div className="p-6 flex">
       <div className="flex items-center justify-center flex-no-shrink pr-4">
-        <img
-          className="w-16 h-16 rounded-full bg-grey-light overflow-hidden"
-          src={issue.user.avatar_url}
-        />
+        <div
+          className={cx(
+            'w-16 h-16 rounded-full overflow-hidden',
+            settings.isDark ? 'bg-grey-darker' : 'bg-grey-light'
+          )}
+        >
+          <img src={issue.user.avatar_url} />
+        </div>
       </div>
       <div className="min-w-0">
         <div className="flex items-start">
