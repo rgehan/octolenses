@@ -16,6 +16,9 @@ out all the information you need in order to be as productive as possible.
 
 ## Installation
 
+[![](.github/chrome_logo.png)](https://chrome.google.com/webstore/detail/octolenses/ghlblfakaklgkdmfejdlffbmpcaidoci)
+[![](.github/firefox_logo.png)](https://addons.mozilla.org/fr/firefox/addon/github-octolenses/)
+
 Simply download it on your favorite browser's extensions store.
 
 It is available on both [Google Chrome](https://chrome.google.com/webstore/detail/octolenses/ghlblfakaklgkdmfejdlffbmpcaidoci) and [Firefox](https://addons.mozilla.org/fr/firefox/addon/github-octolenses/).
