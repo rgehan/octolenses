@@ -12,6 +12,8 @@ out all the information you need in order to be as productive as possible.
 
 ![](.github/filter_editor_screenshot.png)
 
+![](.github/discover_screenshot.png)
+
 ## Installation
 
 Simply download it on your favorite browser's extensions store.
@@ -37,7 +39,7 @@ all it can do. It can do much more, such as:
   labelled `Good first issue` or `Help wanted`
 - Helping you stay up to date with your favorite framework changes
 - Allowing you to discover trendy repositories in your favorite language
-  (similar to what [GitHunt](https://github.com/kamranahmedse/githunt) allows)
+  (similar to what [GitHunt](https://github.com/kamranahmedse/githunt) does)
 
 ## Miscellaneous
 
@@ -45,6 +47,8 @@ Because being flashed bright lights in the eyes at night is the worst thing
 ever, I even included a pretty cool dark mode.
 
 ![](.github/dashboard_dark_screenshot.png)
+
+![](.github/discover_dark_screenshot.png)
 
 ## Permissions asked
 
