@@ -1,4 +1,4 @@
-import { observable, action, autorun, computed } from 'mobx';
+import { observable, action, autorun } from 'mobx';
 import { persist } from 'mobx-persist';
 
 import { LANGUAGES } from '../constants/languages';
@@ -26,14 +26,27 @@ class SettingsStore {
   @observable
   darkMode = DARK_MODE.DISABLED;
 
+  @observable
+  isDark = false;
+
+  applyDarkMode() {
+    const hours = new Date().getHours();
+    const isNightTime = hours >= 19 || hours <= 7;
+
+    if (this.darkMode === DARK_MODE.ENABLED) {
+      this.isDark = true;
+    } else if (this.darkMode === DARK_MODE.AT_NIGHT && isNightTime) {
+      this.isDark = true;
+    } else {
+      this.isDark = false;
+    }
+
+    document.body.className = this.isDark ? 'dark' : 'light';
+  }
+
   @action.bound
   updateSettings(key, value) {
     this[key] = value;
-  }
-
-  @computed
-  get isDark() {
-    return this.darkMode === DARK_MODE.ENABLED;
   }
 }
 
@@ -41,25 +54,10 @@ export const settings = new SettingsStore();
 
 // Apply darkMode on the page whenever it changes
 autorun(() => {
-  applyDarkMode(settings.darkMode);
+  settings.applyDarkMode();
 });
 
 // Update dark mode periodically in case it's now the night
 setInterval(() => {
-  applyDarkMode(settings.darkMode);
+  settings.applyDarkMode();
 }, 1000);
-
-/**
- * Update dark mode using the user settings.
- * @param {string} darkMode What dark mode setting is used by the user
- */
-function applyDarkMode(darkMode) {
-  const hours = new Date().getHours();
-  const isNightTime = hours >= 19 || hours <= 7;
-
-  const isDark =
-    darkMode === DARK_MODE.ENABLED ||
-    (darkMode === DARK_MODE.AT_NIGHT && isNightTime);
-
-  document.body.className = isDark ? 'dark' : 'light';
-}
