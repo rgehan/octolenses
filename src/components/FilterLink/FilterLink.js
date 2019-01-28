@@ -19,7 +19,7 @@ export const FilterLink = observer(({ filter, isSelected, onClick, dark }) => {
     >
       <span
         className={cx(
-          'rounded-full flex items-center justify-center text-xs h-4 w-8 ml-2',
+          'rounded-full flex-no-shrink flex items-center justify-center text-xs h-4 w-8 ml-2',
           dark ? 'bg-grey-darkest' : 'bg-grey-light'
         )}
       >
