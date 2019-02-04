@@ -182,6 +182,8 @@ export class Dashboard extends React.Component {
             onFilterSelected={this.handleFilterSelected}
             dark={settings.isDark}
             onSortEnd={this.reorderFilters}
+            lockAxis="y"
+            lockToContainerEdges
             useDragHandle
           />
           <div className="flex flex-col items-end pr-5 mt-10">
