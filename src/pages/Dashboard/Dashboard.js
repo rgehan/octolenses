@@ -9,7 +9,7 @@ import { IssueCard, FilterEditModal } from '../../containers';
 import { FilterLink, Loader } from '../../components';
 
 const FilterLinkContainer = SortableContainer(
-  ({ links, selectedFilterId, dark = false }) => (
+  ({ links, selectedFilterId, onFilterSelected, dark = false }) => (
     <div>
       {links.map((link, index) => (
         <FilterLink
@@ -17,7 +17,7 @@ const FilterLinkContainer = SortableContainer(
           index={index}
           filter={link}
           isSelected={link.id === selectedFilterId}
-          onClick={() => this.handleFilterSelected(link.id)}
+          onClick={() => onFilterSelected(link.id)}
           dark={dark}
         />
       ))}
@@ -127,6 +127,11 @@ export class Dashboard extends React.Component {
   reorderFilters = ({ oldIndex, newIndex }) => {
     const { filters } = this.props;
 
+    // Do nothing if the user cancelled the drag
+    if (oldIndex === newIndex) {
+      return;
+    }
+
     // Select the filter we want to move...
     this.handleFilterSelected(filters.data[oldIndex].id);
 
@@ -174,6 +179,7 @@ export class Dashboard extends React.Component {
           <FilterLinkContainer
             links={filters.data}
             selectedFilterId={selectedFilterId}
+            onFilterSelected={this.handleFilterSelected}
             dark={settings.isDark}
             onSortEnd={this.reorderFilters}
             useDragHandle
