@@ -32,7 +32,9 @@ const handleErrorResponse = async response => {
   }
 
   if (status === 403 && message.includes('API rate limit')) {
-    throw new RateLimitError();
+    const rateLimitReset = response.headers.get('X-RateLimit-Reset');
+    const remainingRateLimit = rateLimitReset - Date.now() / 1000;
+    throw new RateLimitError(remainingRateLimit);
   }
 
   if (

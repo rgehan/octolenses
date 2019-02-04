@@ -5,6 +5,8 @@ import uuidv1 from 'uuid/v1';
 
 import { fetchFilter } from '../lib/github';
 import { settings } from './settings';
+import { toast } from '../components/ToastManager';
+import { RateLimitError } from '../errors';
 
 class Filter {
   @persist
@@ -21,9 +23,6 @@ class Filter {
 
   @observable
   data = [];
-
-  @observable
-  error = null;
 
   @observable
   loading = false;
@@ -92,10 +91,15 @@ class FiltersStore {
     try {
       const data = await fetchFilter({ filter, token: settings.token });
       this.data[index].data = data;
-      this.data[index].error = null;
     } catch (error) {
-      this.data[index].error = error;
-      this.data[index].data = [];
+      const message =
+        error instanceof RateLimitError
+          ? `You've just hit GitHub rate limiting. Please try again in ${
+              error.remainingRateLimit
+            } seconds.`
+          : 'Something failed while fetching your filter.';
+
+      toast(message, 'error');
     }
 
     this.data[index].loading = false;
@@ -109,7 +113,6 @@ class FiltersStore {
 function formatFilter(filter) {
   return defaults({}, filter, {
     data: [],
-    error: null,
     loading: false,
     id: uuidv1(),
   });

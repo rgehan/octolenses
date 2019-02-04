@@ -1,1 +1,1 @@
-export { ToastManager } from './ToastManager';
+export { ToastManager, toast } from './ToastManager';
