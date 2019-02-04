@@ -1,3 +1,19 @@
+### v0.4.2
+- Fix FilterLink observer [Renan GEHAN]
+- Prevent dragging from too far [Renan GEHAN]
+- Fix filter selection [Renan GEHAN]
+- Select the moved filter [Renan GEHAN]
+- Make filters reorderable [Renan GEHAN]
+- Update font-awesome to 5.6 [Renan GEHAN]
+- Install react-sortable-hoc [Renan GEHAN]
+- Allow removing toast by clicking on it [Renan GEHAN]
+- Fix toast colors [Renan GEHAN]
+- Show proper error when getting rate-limited [Renan GEHAN]
+- To rebase toast [Renan GEHAN]
+- Add global ToastManager to the tree [Renan GEHAN]
+- Create ToastManager for handling notifications [Renan GEHAN]
+- Ignore bundled zips [Renan GEHAN]
+
 ### v0.4.1
 - Fix FilterLink count badge size [Renan GEHAN]
 - Add browser icons in the README.md to guide the user to the link [Renan GEHAN]
