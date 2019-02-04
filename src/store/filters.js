@@ -2,6 +2,7 @@ import { observable, action, computed } from 'mobx';
 import { persist } from 'mobx-persist';
 import { findIndex, defaults } from 'lodash';
 import uuidv1 from 'uuid/v1';
+import { arrayMove } from 'react-sortable-hoc';
 
 import { fetchFilter } from '../lib/github';
 import { settings } from './settings';
@@ -81,6 +82,11 @@ class FiltersStore {
   removeFilter(id) {
     const index = findIndex(this.data, { id });
     this.data.splice(index, 1);
+  }
+
+  @action.bound
+  swapFilters(oldIndex, newIndex) {
+    this.data = arrayMove(this.data, oldIndex, newIndex);
   }
 
   @action.bound

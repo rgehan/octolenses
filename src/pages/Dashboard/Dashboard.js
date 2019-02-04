@@ -3,9 +3,27 @@ import { inject, observer } from 'mobx-react';
 import { find, isUndefined, findIndex, size, chain } from 'lodash';
 import ExtendableError from 'es6-error';
 import cx from 'classnames';
+import { SortableContainer } from 'react-sortable-hoc';
 
 import { IssueCard, FilterEditModal } from '../../containers';
 import { FilterLink, Loader } from '../../components';
+
+const FilterLinkContainer = SortableContainer(
+  ({ links, selectedFilterId, dark = false }) => (
+    <div>
+      {links.map((link, index) => (
+        <FilterLink
+          key={link.id}
+          index={index}
+          filter={link}
+          isSelected={link.id === selectedFilterId}
+          onClick={() => this.handleFilterSelected(link.id)}
+          dark={dark}
+        />
+      ))}
+    </div>
+  )
+);
 
 @inject('filters', 'settings')
 @observer
@@ -106,6 +124,10 @@ export class Dashboard extends React.Component {
     return find(filters.data, { id: this.state.selectedFilterId });
   }
 
+  reorderFilters = ({ oldIndex, newIndex }) => {
+    this.props.filters.swapFilters(oldIndex, newIndex);
+  };
+
   render() {
     const { filters, settings } = this.props;
     const { selectedFilterId, filterModal } = this.state;
@@ -143,15 +165,13 @@ export class Dashboard extends React.Component {
     return (
       <div className="flex items-start w-full h-full pt-16">
         <div className="flex flex-col w-48">
-          {filters.data.map(filter => (
-            <FilterLink
-              key={filter.id}
-              filter={filter}
-              isSelected={filter.id === selectedFilterId}
-              onClick={() => this.handleFilterSelected(filter.id)}
-              dark={settings.isDark}
-            />
-          ))}
+          <FilterLinkContainer
+            links={filters.data}
+            selectedFilterId={selectedFilterId}
+            dark={settings.isDark}
+            onSortEnd={this.reorderFilters}
+            useDragHandle
+          />
           <div className="flex flex-col items-end pr-5 mt-10">
             {LINKS.map(({ handler, text, icon }) => (
               <div
