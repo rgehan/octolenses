@@ -1,3 +1,9 @@
+### v0.4.1
+- Fix FilterLink count badge size [Renan GEHAN]
+- Add browser icons in the README.md to guide the user to the link [Renan GEHAN]
+- Update screenshots & README.md [Renan GEHAN]
+- Change default filter [Renan GEHAN]
+
 ### v0.4.0
 - Fix image placehold bg color to avoid weird border in dark mode [Renan GEHAN]
 - Fix dark mode so that it automatically toggles at night [Renan GEHAN]
