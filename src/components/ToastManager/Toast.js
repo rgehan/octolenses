@@ -8,8 +8,8 @@ const TYPES_TO_ICON = {
 };
 
 const TYPES_TO_THEME = {
-  info: 'bg-blue',
-  error: 'bg-red-light',
+  info: 'bg-blue text-white',
+  error: 'bg-red-light text-white',
 };
 
 const TOAST_DURATION = 3000;

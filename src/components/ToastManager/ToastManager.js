@@ -42,7 +42,7 @@ export class ToastManager extends React.Component {
   render() {
     const { notifications } = this.state;
     return (
-      <div className="fixed pin-t pin-x flex flex-col items-center">
+      <div className="fixed pin-t pin-x flex flex-col items-center pointer-events-none">
         {notifications.map(notification => (
           <Toast
             key={notification.id}
