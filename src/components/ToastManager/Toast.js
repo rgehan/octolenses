@@ -12,7 +12,7 @@ const TYPES_TO_THEME = {
   error: 'bg-red-light',
 };
 
-const TOAST_DURATION = 5000;
+const TOAST_DURATION = 3000;
 const TOAST_FADE_DURATION = 200;
 
 export const ToastTypes = Object.keys(TYPES_TO_ICON);
