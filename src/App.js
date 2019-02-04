@@ -1,8 +1,8 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
 
-import { Header } from './components/Header';
 import { Discover, Dashboard } from './pages';
+import { Header, ToastManager } from './components';
 
 const PAGES = {
   discover: Discover,
@@ -20,6 +20,7 @@ export class App extends React.Component {
       <div className="App">
         <Header navigation={navigation} />
         <Page />
+        <ToastManager />
       </div>
     );
   }
