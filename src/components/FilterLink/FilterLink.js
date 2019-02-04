@@ -15,8 +15,8 @@ const DragHandle = SortableHandle(({ dark }) => (
   />
 ));
 
-export const FilterLink = observer(
-  SortableElement(({ filter, isSelected, onClick, dark }) => {
+export const FilterLink = SortableElement(
+  observer(({ filter, isSelected, onClick, dark }) => {
     const { loading, error } = filter;
     const activeColor = dark ? 'text-grey' : 'text-grey-darkest';
     return (
