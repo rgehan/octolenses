@@ -125,7 +125,13 @@ export class Dashboard extends React.Component {
   }
 
   reorderFilters = ({ oldIndex, newIndex }) => {
-    this.props.filters.swapFilters(oldIndex, newIndex);
+    const { filters } = this.props;
+
+    // Select the filter we want to move...
+    this.handleFilterSelected(filters.data[oldIndex].id);
+
+    // ...and move it
+    filters.swapFilters(oldIndex, newIndex);
   };
 
   render() {
