@@ -82,7 +82,7 @@ const _IssueCard = ({ issue, settings }) => {
           >
             {issue.user.login}
           </a>
-          <ContextualDropdown issue={issue} />
+          <ContextualDropdown issue={issue} dark={settings.isDark} />
         </div>
         <div className="flex mt-3">
           {issue.labels.map(label => (

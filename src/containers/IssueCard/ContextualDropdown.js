@@ -24,7 +24,7 @@ const Overlay = styled.div`
     content: '';
     height: 0px;
     width: 1px;
-    border-bottom: 4px solid #606f7b;
+    border-bottom: 4px solid ${({ dark }) => (dark ? '#606f7b' : 'white')};
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
     position: absolute;
@@ -50,7 +50,7 @@ const makeActions = issue => {
   ];
 };
 
-export const ContextualDropdown = ({ issue }) => {
+export const ContextualDropdown = ({ issue, dark = false }) => {
   useEffect(() => {
     const clipboard = new ClipboardJS('[data-clipboard-text]');
     return () => clipboard.destroy();
@@ -62,9 +62,11 @@ export const ContextualDropdown = ({ issue }) => {
     <Wrapper className="inline-block relative">
       <i className="fa fa-caret-down  py-1 px-2 -mt-1" />
       <Overlay
+        dark={dark}
         className={[
           'overlay',
-          'absolute bg-grey-darker py-1',
+          'absolute py-1',
+          dark ? 'bg-grey-darker' : 'bg-white border border-grey-lighter',
           'whitespace-no-wrap rounded shadow',
           'flex flex-col',
         ]}
