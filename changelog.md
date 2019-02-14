@@ -1,3 +1,10 @@
+### v0.4.3
+- Adapt ContextualDropdown to theme [Renan Gehan]
+- Use ContextualDropdown in IssueCard [Renan Gehan]
+- Implement ContextualDropdown [Renan Gehan]
+- Install clipboard dependency [Renan Gehan]
+- Upgrade to React 16.8 [Renan Gehan]
+
 ### v0.4.2
 - Fix FilterLink observer [Renan GEHAN]
 - Prevent dragging from too far [Renan GEHAN]
