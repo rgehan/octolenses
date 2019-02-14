@@ -6,6 +6,8 @@ import { inject, observer } from 'mobx-react';
 
 import { LabelBadge } from '../../components/LabelBadge';
 
+import { ContextualDropdown } from './ContextualDropdown';
+
 const parseRepoName = url =>
   chain(url)
     .split('/')
@@ -80,6 +82,7 @@ const _IssueCard = ({ issue, settings }) => {
           >
             {issue.user.login}
           </a>
+          <ContextualDropdown issue={issue} />
         </div>
         <div className="flex mt-3">
           {issue.labels.map(label => (
