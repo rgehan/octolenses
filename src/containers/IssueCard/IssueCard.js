@@ -8,22 +8,20 @@ import { LabelBadge } from '../../components/LabelBadge';
 
 import { ContextualDropdown } from './ContextualDropdown';
 
-const parseRepoName = url =>
-  chain(url)
-    .split('/')
-    .slice(-2)
-    .join('/')
-    .value();
+const StatusIndicator = ({ status }) => {
+  if (!status) {
+    return null;
+  }
 
-const parseRepoUrl = apiUrl =>
-  apiUrl.replace('api.github.com/repos/', 'github.com/');
+  const icon =
+    status === 'SUCCESS' ? 'fa-check text-green' : 'fa-times text-red';
+
+  return <i className={cx('fa text-sm ml-2', icon)} />;
+};
 
 const _IssueCard = ({ issue, settings }) => {
-  const isPR = issue.pull_request;
+  const isPR = issue.type === 'PullRequest';
   const isOpen = issue.state === 'open';
-
-  const fullRepoName = parseRepoName(issue.repository_url);
-  const repoUrl = parseRepoUrl(issue.repository_url);
 
   const linkStyle = settings.isDark
     ? 'text-blue-light'
@@ -38,7 +36,7 @@ const _IssueCard = ({ issue, settings }) => {
             settings.isDark ? 'bg-grey-darker' : 'bg-grey-light'
           )}
         >
-          <img src={issue.user.avatar_url} />
+          <img src={issue.author.avatarUrl} />
         </div>
       </div>
       <div className="min-w-0">
@@ -51,19 +49,25 @@ const _IssueCard = ({ issue, settings }) => {
                 isOpen ? 'text-green' : 'text-red'
               )}
             />
+
             <span className={cx('truncate pb-1 min-w-0', linkStyle)}>
-              <a className={cx('hover:underline', linkStyle)} href={repoUrl}>
-                {fullRepoName}
+              <a
+                className={cx('hover:underline', linkStyle)}
+                href={issue.repository.url}
+              >
+                {issue.repository.nameWithOwner}
               </a>
               <span className="mx-1">•</span>
               <a
                 className={cx('text-lg hover:underline', linkStyle)}
-                href={issue.html_url}
+                href={issue.url}
                 title={issue.title}
               >
                 {issue.title}
               </a>
             </span>
+
+            <StatusIndicator status={issue.status} />
           </div>
         </div>
         <div
@@ -72,21 +76,21 @@ const _IssueCard = ({ issue, settings }) => {
             settings.isDark ? 'text-grey' : 'text-grey-darker'
           )}
         >
-          {timeago().format(issue.created_at)} by{' '}
+          #{issue.number} opened {timeago().format(issue.createdAt)} by{' '}
           <a
-            href={issue.user.html_url}
+            href={issue.author.url}
             className={cx(
               'no-underline hover:underline',
               settings.isDark ? 'text-grey' : 'text-grey-darker'
             )}
           >
-            {issue.user.login}
+            {issue.author.login}
           </a>
           <ContextualDropdown issue={issue} dark={settings.isDark} />
         </div>
         <div className="flex mt-3">
           {issue.labels.map(label => (
-            <LabelBadge key={label.id} label={label} />
+            <LabelBadge key={label.name} label={label} />
           ))}
         </div>
       </div>

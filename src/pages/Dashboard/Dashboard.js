@@ -203,7 +203,7 @@ export class Dashboard extends React.Component {
         </div>
         <div
           className={cx(
-            'flex-1 flex flex-col shadow-xl rounded-lg overflow-hidden mb-16',
+            'flex-1 flex flex-col shadow-xl rounded-lg mb-16',
             settings.isDark ? 'bg-grey-darkest text-white' : 'bg-white'
           )}
         >
@@ -255,7 +255,7 @@ export class Dashboard extends React.Component {
     }
 
     return selectedFilter.data.map(issue => (
-      <IssueCard key={issue.id} issue={issue} />
+      <IssueCard key={issue.number} issue={issue} />
     ));
   }
 }

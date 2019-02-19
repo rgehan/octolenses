@@ -9,7 +9,8 @@ const makeSimplePredicate = (name, { label, placeholder }) => ({
   label: label || capitalize(name),
   placeholder,
   type: 'text',
-  serialize: ({ value, negated }) => `${negated ? '-' : ''}${name}:"${value}"`,
+  serialize: ({ value, negated }) =>
+    `${negated ? '-' : ''}${name}:\\"${value}\\"`,
 });
 
 export const PREDICATES = sortBy(
