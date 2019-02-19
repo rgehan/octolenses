@@ -255,7 +255,7 @@ export class Dashboard extends React.Component {
     }
 
     return selectedFilter.data.map(issue => (
-      <IssueCard key={issue.id} issue={issue} />
+      <IssueCard key={issue.number} issue={issue} />
     ));
   }
 }
