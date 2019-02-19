@@ -26,6 +26,10 @@ class SettingsStore {
   @observable
   darkMode = DARK_MODE.DISABLED;
 
+  @persist
+  @observable
+  schemaVersion = undefined;
+
   @observable
   isDark = false;
 
