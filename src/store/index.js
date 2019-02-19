@@ -5,9 +5,13 @@ import { navigation } from './navigation';
 import { filters } from './filters';
 import { trends } from './trends';
 import { settings } from './settings';
+import { getStorage } from '../lib/storage';
 
 const hydrateStores = async () => {
-  const hydrate = create({});
+  const hydrate = create({
+    storage: getStorage(),
+  });
+
   await Promise.all([
     hydrate('navigationStore', navigation),
     hydrate('settingsStore', settings),
