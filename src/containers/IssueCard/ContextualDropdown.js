@@ -60,7 +60,7 @@ export const ContextualDropdown = ({ issue, dark = false }) => {
 
   return (
     <Wrapper className="inline-block relative">
-      <i className="fa fa-caret-down  py-1 px-2 -mt-1" />
+      <i className="fa fa-caret-down py-1 px-2 -mt-1 cursor-pointer" />
       <Overlay
         dark={dark}
         className={[
