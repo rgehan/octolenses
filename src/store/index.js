@@ -1,4 +1,5 @@
 import { create } from 'mobx-persist';
+import { isUndefined } from 'lodash';
 
 import { navigation } from './navigation';
 import { filters } from './filters';
@@ -12,6 +13,20 @@ const hydrateStores = async () => {
     hydrate('settingsStore', settings),
     hydrate('filtersStore', filters),
   ]);
+};
+
+const migrateData = async () => {
+  // If there was no notion of schemaVersion, start at 1
+  if (isUndefined(settings.schemaVersion)) {
+    console.log('Migrating schema to v1');
+    settings.updateSettings('schemaVersion', 1);
+  }
+
+  // Example for migrating from v1 to v2
+  // if (settings.schemaVersion === 1) {
+  //   doSomethingOnTheStoredData();
+  //   settings.updateSettings('schemaVersion', 2);
+  // }
 };
 
 const performOnboarding = async () => {
@@ -43,6 +58,7 @@ export const refreshAllData = async () => {
 
 export const bootstrap = async () => {
   await hydrateStores();
+  await migrateData();
   await performOnboarding();
   await refreshAllData();
 };
