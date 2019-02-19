@@ -8,6 +8,17 @@ import { LabelBadge } from '../../components/LabelBadge';
 
 import { ContextualDropdown } from './ContextualDropdown';
 
+const StatusIndicator = ({ status }) => {
+  if (!status) {
+    return null;
+  }
+
+  const icon =
+    status === 'SUCCESS' ? 'fa-check text-green' : 'fa-times text-red';
+
+  return <i className={cx('fa text-sm ml-2', icon)} />;
+};
+
 const _IssueCard = ({ issue, settings }) => {
   const isPR = issue.type === 'PullRequest';
   const isOpen = issue.state === 'open';
@@ -38,6 +49,7 @@ const _IssueCard = ({ issue, settings }) => {
                 isOpen ? 'text-green' : 'text-red'
               )}
             />
+
             <span className={cx('truncate pb-1 min-w-0', linkStyle)}>
               <a
                 className={cx('hover:underline', linkStyle)}
@@ -54,6 +66,8 @@ const _IssueCard = ({ issue, settings }) => {
                 {issue.title}
               </a>
             </span>
+
+            <StatusIndicator status={issue.status} />
           </div>
         </div>
         <div
