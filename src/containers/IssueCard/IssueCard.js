@@ -76,7 +76,7 @@ const _IssueCard = ({ issue, settings }) => {
             settings.isDark ? 'text-grey' : 'text-grey-darker'
           )}
         >
-          {timeago().format(issue.createdAt)} by{' '}
+          #{issue.number} opened {timeago().format(issue.createdAt)} by{' '}
           <a
             href={issue.author.url}
             className={cx(
