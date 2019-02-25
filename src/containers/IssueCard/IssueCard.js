@@ -1,5 +1,4 @@
 import React from 'react';
-import { chain } from 'lodash';
 import cx from 'classnames';
 import timeago from 'timeago.js';
 import { inject, observer } from 'mobx-react';
@@ -8,7 +7,7 @@ import { LabelBadge } from '../../components/LabelBadge';
 
 import { ContextualDropdown } from './ContextualDropdown';
 
-const STATE_COLORS = {
+const ISSUE_STATUS_COLORS = {
   OPEN: 'text-green',
   CLOSED: 'text-red',
   MERGED: 'text-purple',
@@ -21,7 +20,7 @@ const IssueStatusIndicator = ({ type, state }) => (
       type === 'PullRequest'
         ? 'fas fa-code-branch'
         : 'fas fa-exclamation-circle',
-      STATE_COLORS[state]
+      ISSUE_STATUS_COLORS[state]
     )}
   />
 );
