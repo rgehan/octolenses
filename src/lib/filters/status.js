@@ -5,6 +5,8 @@ export const status = {
   choices: [
     { value: 'open', label: 'Open' },
     { value: 'closed', label: 'Closed' },
+    { value: 'merged', label: 'Merged' },
+    { value: 'unmerged', label: 'Unmerged' },
   ],
   negatable: false,
   serialize: ({ value }) => `is:${value}`,
