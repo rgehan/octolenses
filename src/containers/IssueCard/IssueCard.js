@@ -25,7 +25,7 @@ const IssueStatusIndicator = ({ type, state }) => (
   />
 );
 
-const CIStatusIndicator = ({ status }) => {
+const CheckStatusIndicator = ({ status }) => {
   if (!status) {
     return null;
   }
@@ -75,7 +75,7 @@ const _IssueCard = ({ issue, settings }) => {
               </a>
             </span>
 
-            <CIStatusIndicator status={issue.status} />
+            <CheckStatusIndicator status={issue.status} />
           </div>
         </div>
         <div
