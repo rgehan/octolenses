@@ -8,6 +8,24 @@ import { LabelBadge } from '../../components/LabelBadge';
 
 import { ContextualDropdown } from './ContextualDropdown';
 
+const STATE_COLORS = {
+  OPEN: 'text-green',
+  CLOSED: 'text-red',
+  MERGED: 'text-purple',
+};
+
+const IssueStatusIndicator = ({ type, state }) => (
+  <i
+    className={cx(
+      'mr-2',
+      type === 'PullRequest'
+        ? 'fas fa-code-branch'
+        : 'fas fa-exclamation-circle',
+      STATE_COLORS[state]
+    )}
+  />
+);
+
 const CIStatusIndicator = ({ status }) => {
   if (!status) {
     return null;
@@ -20,9 +38,6 @@ const CIStatusIndicator = ({ status }) => {
 };
 
 const _IssueCard = ({ issue, settings }) => {
-  const isPR = issue.type === 'PullRequest';
-  const isOpen = issue.state === 'open';
-
   const linkStyle = settings.isDark
     ? 'text-blue-light'
     : 'text-blue hover:text-blue-dark';
@@ -42,13 +57,7 @@ const _IssueCard = ({ issue, settings }) => {
       <div className="min-w-0">
         <div className="flex items-start">
           <div className="flex-1 flex items-center mb-1 min-w-0">
-            <i
-              className={cx(
-                'mr-2',
-                isPR ? 'fas fa-code-branch' : 'fas fa-exclamation-circle',
-                isOpen ? 'text-green' : 'text-red'
-              )}
-            />
+            <IssueStatusIndicator type={issue.type} state={issue.state} />
 
             <span className={cx('truncate pb-1 min-w-0', linkStyle)}>
               <a
