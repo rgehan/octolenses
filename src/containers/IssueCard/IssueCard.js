@@ -8,7 +8,7 @@ import { LabelBadge } from '../../components/LabelBadge';
 
 import { ContextualDropdown } from './ContextualDropdown';
 
-const StatusIndicator = ({ status }) => {
+const CIStatusIndicator = ({ status }) => {
   if (!status) {
     return null;
   }
@@ -67,7 +67,7 @@ const _IssueCard = ({ issue, settings }) => {
               </a>
             </span>
 
-            <StatusIndicator status={issue.status} />
+            <CIStatusIndicator status={issue.status} />
           </div>
         </div>
         <div
