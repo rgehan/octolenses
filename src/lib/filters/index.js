@@ -2,6 +2,7 @@ import { find, capitalize, sortBy } from 'lodash';
 
 import { type } from './type';
 import { status } from './status';
+import { mergeStatus } from './mergeStatus';
 import { review } from './review';
 
 const makeSimplePredicate = (name, { label, placeholder }) => ({
@@ -46,6 +47,7 @@ export const PREDICATES = sortBy(
     }),
     type,
     status,
+    mergeStatus,
     review,
   ],
   'label'
