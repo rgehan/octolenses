@@ -46,12 +46,13 @@ const fetchFilterWithGraphqlAPI = async ({ filter, token }) => {
 const fetchFilterWithRestAPI = async ({ filter }) => {
   const filterString = chain(filter.predicates)
     .map(serializePredicatePayload)
+    .map(encodeURIComponent)
     .join('+')
     .value();
 
   const { items: issues = [] } = await githubClient({
     endpoint: '/search/issues',
-    qs: `per_page=100&q="${filterString}"`,
+    qs: `per_page=100&q=${filterString}`,
   });
 
   return formatRestResponse(issues);
