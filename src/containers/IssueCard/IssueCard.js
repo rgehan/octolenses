@@ -8,9 +8,9 @@ import { LabelBadge } from '../../components/LabelBadge';
 import { ContextualDropdown } from './ContextualDropdown';
 
 const ISSUE_STATUS_COLORS = {
-  OPEN: 'text-green',
-  CLOSED: 'text-red',
-  MERGED: 'text-purple',
+  open: 'text-green',
+  closed: 'text-red',
+  merged: 'text-purple',
 };
 
 const IssueStatusIndicator = ({ type, state }) => (
@@ -20,7 +20,7 @@ const IssueStatusIndicator = ({ type, state }) => (
       type === 'PullRequest'
         ? 'fas fa-code-branch'
         : 'fas fa-exclamation-circle',
-      ISSUE_STATUS_COLORS[state]
+      ISSUE_STATUS_COLORS[state.toLowerCase()]
     )}
   />
 );
