@@ -53,8 +53,8 @@ const _IssueCard = ({ issue, settings }) => {
           <img src={issue.author.avatarUrl} />
         </div>
       </div>
-      <div className="min-w-0">
-        <div className="flex items-start">
+      <div className="flex-1 min-w-0">
+        <div className="flex-1 flex justify-between items-center">
           <div className="flex-1 flex items-center mb-1 min-w-0">
             <IssueStatusIndicator type={issue.type} state={issue.state} />
 
@@ -71,12 +71,16 @@ const _IssueCard = ({ issue, settings }) => {
                 href={issue.url}
                 title={issue.title}
               >
-                {issue.title}
+                {issue.title}{' '}
               </a>
             </span>
 
             <CheckStatusIndicator status={issue.status} />
           </div>
+          <a href={issue.url} className="ml-2 text-grey-dark hover:text-grey">
+            <i className="far fa-comment-alt" />{' '}
+            {issue.comments.totalCount + issue.reviews.totalCount}
+          </a>
         </div>
         <div
           className={cx(
