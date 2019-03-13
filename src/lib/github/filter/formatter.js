@@ -46,6 +46,7 @@ export const formatRestResponse = response => {
       url: parseRestRepoUrl(issue.repository_url),
     },
     labels: extractRestLabels(issue),
+    type: issue.pull_request ? 'PullRequest' : 'Issue',
   }));
 };
 
