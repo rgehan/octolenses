@@ -45,7 +45,7 @@
   },
   "scripts": {
     "clean": "rimraf dist/",
-    "start": "parcel serve src/index.html",
+    "start": "parcel serve --no-hmr src/index.html",
     "copyManifest": "cp manifest.json dist/manifest.json",
     "copyIcons": "cp -r icons/ dist/icons/",
     "syncManifestVersion": "version=$(jq -r .version package.json) && sed -i '' \"s/<version>/$version/\" dist/manifest.json && echo \"Updated manifest with version: $version\"",
