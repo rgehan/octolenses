@@ -21,6 +21,9 @@ const commonFields = `
     nameWithOwner
     url
   }
+  comments {
+    totalCount
+  }
 `;
 
 const issueFragment = `
@@ -31,6 +34,9 @@ const issueFragment = `
 const pullRequestFragment = `
   fragment PullRequestFragment on PullRequest {
     ${commonFields}
+    reviews {
+      totalCount
+    }
     commits(last: 1) {
       edges {
         node {
