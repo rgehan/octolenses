@@ -47,6 +47,8 @@ export const formatRestResponse = response => {
     },
     labels: extractRestLabels(issue),
     type: issue.pull_request ? 'PullRequest' : 'Issue',
+    comments: { totalCount: issue.comments },
+    reviews: { totalCount: 0 },
   }));
 };
 
