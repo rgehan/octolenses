@@ -11,10 +11,12 @@ export enum ProviderType {
   GITHUB = 'github',
 }
 
+type PredicateIdentifier = string;
+
 // Template predicate, as returned by providers
 interface BasePredicate {
   type: PredicateType;
-  name: string;
+  name: PredicateIdentifier;
   label: string;
   negatable?: boolean;
   serialize?: (payload: { value: string; negated?: boolean }) => string;
@@ -36,7 +38,7 @@ export type Predicate = TextPredicate | DropdownPredicate;
 
 // A predicate once it's been stored and configured
 export interface StoredPredicate {
-  type: PredicateType;
+  type: PredicateIdentifier;
   value: string;
   negated?: boolean;
 }
