@@ -5,6 +5,7 @@ import { navigation } from './navigation';
 import { filters } from './filters';
 import { trends } from './trends';
 import { settings } from './settings';
+import { ProviderType } from '../providers';
 
 const hydrateStores = async () => {
   const hydrate = create({});
@@ -36,6 +37,7 @@ const performOnboarding = async () => {
 
   filters.saveFilter({
     label: 'OctoLenses Issues',
+    provider: ProviderType.GITHUB,
     data: [],
     loading: false,
     predicates: [

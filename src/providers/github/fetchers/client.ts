@@ -4,15 +4,26 @@ import {
   InvalidCredentials,
   RateLimitError,
   NeedTokenError,
-} from '../../errors';
+} from '../../../errors';
 
-export const githubClient = async ({
+interface ClientParams {
+  endpoint: string;
+  token?: string;
+  qs?: string;
+  body?: string;
+  method?: 'GET' | 'POST';
+}
+
+/**
+ * Fetch data from GitHub API
+ */
+export const client = async ({
   endpoint,
   token,
   qs,
   body,
   method = 'GET',
-}) => {
+}: ClientParams) => {
   const url = `https://api.github.com${endpoint}?${qs || ''}`;
 
   const response = await fetch(url, {
@@ -31,7 +42,10 @@ export const githubClient = async ({
   return await response.json();
 };
 
-const handleErrorResponse = async response => {
+/**
+ * Handle an error response from GitHub API
+ */
+const handleErrorResponse = async (response: Response) => {
   const status = response.status;
   const { message = '', errors = [] } = await response.json();
 
@@ -43,7 +57,7 @@ const handleErrorResponse = async response => {
 
   if (status === 403 && message.includes('API rate limit')) {
     const rateLimitReset = response.headers.get('X-RateLimit-Reset');
-    const remainingRateLimit = rateLimitReset - Date.now() / 1000;
+    const remainingRateLimit = Number(rateLimitReset) - Date.now() / 1000;
     throw new RateLimitError(remainingRateLimit);
   }
 

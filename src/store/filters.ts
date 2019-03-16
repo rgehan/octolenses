@@ -1,41 +1,50 @@
-import { observable, action, computed } from 'mobx';
+import { defaults, findIndex } from 'lodash';
+import { action, computed, observable } from 'mobx';
 import { persist } from 'mobx-persist';
-import { findIndex, defaults } from 'lodash';
-import uuidv1 from 'uuid/v1';
 import { arrayMove } from 'react-sortable-hoc';
+import uuidv1 from 'uuid/v1';
 
-import { fetchFilter } from '../lib/github';
-import { settings } from './settings';
 import { toast } from '../components/ToastManager';
-import { RateLimitError } from '../errors';
+import { StoredPredicate, ProviderType, providers } from '../providers';
 
-class Filter {
+type FilterIdentifier = string;
+
+export class Filter {
+  @persist
+  public provider: ProviderType;
+
   @persist
   @observable
-  id;
+  public id: FilterIdentifier;
 
   @persist
   @observable
-  label = '';
+  public label = '';
 
   @persist('list')
   @observable
-  predicates = [];
+  public predicates: StoredPredicate[] = [];
 
   @observable
-  data = [];
+  public data: any[] = []; // TODO
 
   @observable
-  loading = false;
+  public loading = false;
+
+  public serializePredicate(payload: StoredPredicate): string {
+    const provider = providers[this.provider];
+    const predicate = provider.findPredicate(payload.type);
+    return predicate.serialize(payload);
+  }
 }
 
 class FiltersStore {
   @persist('list', Filter)
   @observable
-  data = [];
+  private data: Filter[] = [];
 
   @computed
-  get firstFilterId() {
+  get firstFilterId(): FilterIdentifier {
     if (this.count === 0) {
       return null;
     }
@@ -49,7 +58,7 @@ class FiltersStore {
   }
 
   @action.bound
-  saveFilter(filter) {
+  saveFilter(filter: Filter) {
     const filterWithDefaults = formatFilter(filter);
 
     const index = findIndex(this.data, { id: filterWithDefaults.id });
@@ -63,7 +72,7 @@ class FiltersStore {
   }
 
   @action.bound
-  cloneFilter(id) {
+  cloneFilter(id: FilterIdentifier) {
     const index = findIndex(this.data, { id });
     const filter = this.data[index];
 
@@ -79,33 +88,28 @@ class FiltersStore {
   }
 
   @action.bound
-  removeFilter(id) {
+  removeFilter(id: FilterIdentifier) {
     const index = findIndex(this.data, { id });
     this.data.splice(index, 1);
   }
 
   @action.bound
-  swapFilters(oldIndex, newIndex) {
+  swapFilters(oldIndex: number, newIndex: number) {
     this.data = arrayMove(this.data, oldIndex, newIndex);
   }
 
   @action.bound
-  async fetchFilter(filter) {
+  async fetchFilter(filter: Filter) {
     const index = findIndex(this.data, { id: filter.id });
     this.data[index].loading = true;
 
     try {
-      const data = await fetchFilter({ filter, token: settings.token });
-      this.data[index].data = data;
+      const result = await providers[filter.provider].fetchFilter(filter);
+      this.data[index].data = result;
     } catch (error) {
-      const message =
-        error instanceof RateLimitError
-          ? `You've just hit GitHub rate limiting. Please try again in ${
-              error.remainingRateLimit
-            } seconds.`
-          : 'Something failed while fetching your filter.';
-
-      toast(message, 'error');
+      // TODO Handle various errors (RateLimitError for now)
+      toast('Oops, something failed with your filter!', 'error');
+      console.log(error);
     }
 
     this.data[index].loading = false;
@@ -116,7 +120,7 @@ class FiltersStore {
   }
 }
 
-function formatFilter(filter) {
+function formatFilter(filter: Filter) {
   return defaults({}, filter, {
     data: [],
     loading: false,
@@ -124,6 +128,7 @@ function formatFilter(filter) {
   });
 }
 
+// TODO Handle provider here...
 export const EMPTY_FILTER_PAYLOAD = {
   label: 'Unnamed filter',
   predicates: [{ type: 'status', value: 'open' }],
