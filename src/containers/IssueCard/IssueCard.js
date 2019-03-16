@@ -2,6 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import timeago from 'timeago.js';
 import { inject, observer } from 'mobx-react';
+import { get } from 'lodash';
 
 import { LabelBadge } from '../../components/LabelBadge';
 
@@ -41,6 +42,12 @@ const _IssueCard = ({ issue, settings }) => {
     ? 'text-blue-light'
     : 'text-blue hover:text-blue-dark';
 
+  function getTotalCommentsCount() {
+    return (
+      get(issue, 'reviews.totalCount', 0) + get(issue, 'comments.totalCount', 0)
+    );
+  }
+
   return (
     <div className="p-6 flex">
       <div className="flex items-center justify-center flex-no-shrink pr-4">
@@ -78,8 +85,7 @@ const _IssueCard = ({ issue, settings }) => {
             <CheckStatusIndicator status={issue.status} />
           </div>
           <a href={issue.url} className="ml-2 text-grey-dark hover:text-grey">
-            <i className="far fa-comment-alt" />{' '}
-            {issue.comments.totalCount + issue.reviews.totalCount}
+            <i className="far fa-comment-alt" /> {getTotalCommentsCount()}
           </a>
         </div>
         <div
