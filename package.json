@@ -26,6 +26,9 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.123",
+    "@types/react-sortable-hoc": "^0.6.5",
+    "@types/uuid": "^3.4.4",
     "autoprefixer": "^9.4.6",
     "babel-eslint": "^8.2.6",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -41,7 +44,9 @@
     "prettier": "^1.14.2",
     "rimraf": "^2.6.2",
     "semver": "^5.5.0",
-    "tailwindcss": "^0.7.3"
+    "tailwindcss": "^0.7.3",
+    "tslint": "^5.14.0",
+    "typescript": "^3.3.3333"
   },
   "scripts": {
     "clean": "rimraf dist/",
