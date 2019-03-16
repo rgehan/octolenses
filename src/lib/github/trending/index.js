@@ -1,4 +1,4 @@
-import { githubClient } from '../client';
+import { client } from '../../../providers/github/fetchers/client';
 
 /**
  * Fetch the trending repositories from GitHub
@@ -11,7 +11,7 @@ export const fetchTrendingRepos = async ({ language, date, token }) => {
     query += ` and language:${language}`;
   }
 
-  const { items: repos } = await githubClient({
+  const { items: repos } = await client({
     endpoint: '/search/repositories',
     qs: `per_page=100&q=${query}&sort=stars&order=desc`,
     token,

@@ -50,7 +50,7 @@ const pullRequestFragment = `
     }
   }`;
 
-export const makeQuery = filterString => `
+export const makeQuery = (filterString: string) => `
   ${pullRequestFragment}
   ${issueFragment}
   query results {
