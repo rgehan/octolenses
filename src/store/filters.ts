@@ -1,4 +1,4 @@
-import { defaults, findIndex } from 'lodash';
+import { findIndex } from 'lodash';
 import { action, computed, observable } from 'mobx';
 import { persist } from 'mobx-persist';
 import { arrayMove } from 'react-sortable-hoc';
@@ -10,6 +10,17 @@ import { StoredPredicate, ProviderType, providers } from '../providers';
 type FilterIdentifier = string;
 
 export class Filter {
+  static fromAttributes({ provider, label, predicates, id }: any) {
+    const filter = new Filter();
+    filter.provider = provider;
+    filter.label = label;
+    filter.predicates = predicates;
+    filter.id = id || uuidv1();
+    filter.data = [];
+    filter.loading = false;
+    return filter;
+  }
+
   @persist
   public provider: ProviderType;
 
@@ -36,6 +47,14 @@ export class Filter {
     const predicate = provider.findPredicate(payload.type);
     return predicate.serialize(payload);
   }
+
+  public clone(): Filter {
+    return Filter.fromAttributes({
+      provider: this.provider,
+      label: `${this.label} (Copy)`,
+      predicates: this.predicates,
+    });
+  }
 }
 
 class FiltersStore {
@@ -57,18 +76,19 @@ class FiltersStore {
     return this.data.length;
   }
 
+  // TODO Any
   @action.bound
-  saveFilter(filter: Filter) {
-    const filterWithDefaults = formatFilter(filter);
+  saveFilter(filterPayload: any) {
+    const filter = Filter.fromAttributes(filterPayload);
 
-    const index = findIndex(this.data, { id: filterWithDefaults.id });
+    const index = findIndex(this.data, { id: filter.id });
     if (index === -1) {
-      this.data.push(filterWithDefaults);
+      this.data.push(filter);
     } else {
-      this.data[index] = filterWithDefaults;
+      this.data[index] = filter;
     }
 
-    this.fetchFilter(filterWithDefaults);
+    this.fetchFilter(filter);
   }
 
   @action.bound
@@ -76,11 +96,7 @@ class FiltersStore {
     const index = findIndex(this.data, { id });
     const filter = this.data[index];
 
-    const clonedFilter = formatFilter({
-      ...filter,
-      label: `${filter.label} (Copy)`,
-      id: undefined,
-    });
+    const clonedFilter = filter.clone();
 
     this.data.splice(index + 1, 0, clonedFilter);
 
@@ -120,16 +136,8 @@ class FiltersStore {
   }
 }
 
-function formatFilter(filter: Filter) {
-  return defaults({}, filter, {
-    data: [],
-    loading: false,
-    id: uuidv1(),
-  });
-}
-
-// TODO Handle provider here...
 export const EMPTY_FILTER_PAYLOAD = {
+  provider: ProviderType.GITHUB,
   label: 'Unnamed filter',
   predicates: [{ type: 'status', value: 'open' }],
 };
