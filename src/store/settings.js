@@ -6,29 +6,55 @@ import { DATES } from '../constants/dates';
 import { DARK_MODE } from '../constants/darkMode';
 
 class SettingsStore {
+  /**
+   * Generic store for the providers settings
+   */
+  @persist('object')
+  @observable
+  providerSettings = {};
+
+  /**
+   * Language used in the "Discover" page
+   */
   @persist
   @observable
   language = LANGUAGES[0].value;
 
+  /**
+   * How far in the past to find repos in the "Discover" page
+   */
   @persist
   @observable
   dateRange = DATES[0].value;
 
+  /**
+   * DEPRECATED. Legacy place where the GitHub token was stored.
+   */
   @persist
   @observable
   token = undefined;
 
-  @persist
-  @observable
-  wasOnboarded = false;
-
+  /**
+   * Current dark mode state. Whether it's always on/off, or only at night.
+   */
   @persist
   @observable
   darkMode = DARK_MODE.DISABLED;
 
+  /**
+   * Whether the "onboarding" was run
+   */
   @persist
   @observable
-  schemaVersion = undefined;
+  wasOnboarded = false;
+
+  /**
+   * Version of the current settings schema. It is used to determine which
+   * migrations to run.
+   */
+  @persist
+  @observable
+  schemaVersion = 2;
 
   @observable
   isDark = false;
