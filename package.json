@@ -26,6 +26,8 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "@types/chrome": "^0.0.81",
+    "@types/classnames": "^2.2.7",
     "@types/lodash": "^4.14.123",
     "@types/react-sortable-hoc": "^0.6.5",
     "@types/uuid": "^3.4.4",
