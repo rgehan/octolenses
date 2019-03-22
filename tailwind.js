@@ -192,6 +192,14 @@ module.exports = {
   fonts: {
     open: ['Open Sans', 'sans-serif'],
     roboto: ['Roboto', 'sans-serif'],
+    mono: [
+      'Menlo',
+      'Monaco',
+      'Consolas',
+      'Liberation Mono',
+      'Courier New',
+      'monospace',
+    ],
   },
 
   /*
@@ -445,6 +453,7 @@ module.exports = {
     '10': '2.5rem',
     '12': '3rem',
     '16': '4rem',
+    '20': '5rem',
     '24': '6rem',
     '32': '8rem',
     '48': '12rem',
@@ -494,6 +503,7 @@ module.exports = {
     '12': '3rem',
     '16': '4rem',
     '24': '6rem',
+    '28': '7rem',
     '32': '8rem',
     '48': '12rem',
     '64': '16rem',
