@@ -6,6 +6,7 @@ import uuidv1 from 'uuid/v1';
 
 import { toast } from '../components/ToastManager';
 import { StoredPredicate, ProviderType, providers } from '../providers';
+import { settings } from './settings';
 
 type FilterIdentifier = string;
 
@@ -57,7 +58,7 @@ export class Filter {
   }
 }
 
-class FiltersStore {
+export class FiltersStore {
   @persist('list', Filter)
   @observable
   private data: Filter[] = [];
@@ -119,8 +120,11 @@ class FiltersStore {
     const index = findIndex(this.data, { id: filter.id });
     this.data[index].loading = true;
 
+    const provider = providers[filter.provider];
+    const providerSettings = settings.getProviderSettings(filter.provider);
+
     try {
-      const result = await providers[filter.provider].fetchFilter(filter);
+      const result = await provider.fetchFilter(filter, providerSettings);
       this.data[index].data = result;
     } catch (error) {
       // TODO Handle various errors (RateLimitError for now)
