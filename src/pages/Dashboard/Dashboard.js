@@ -7,6 +7,7 @@ import { SortableContainer } from 'react-sortable-hoc';
 
 import { IssueCard, FilterEditModal } from '../../containers';
 import { FilterLink, Loader } from '../../components';
+import { providers } from '../../providers';
 
 const FilterLinkContainer = SortableContainer(
   ({ links, selectedFilterId, onFilterSelected, dark = false }) => (
@@ -254,8 +255,10 @@ export class Dashboard extends React.Component {
       );
     }
 
-    return selectedFilter.data.map(issue => (
-      <IssueCard key={issue.number} issue={issue} />
+    const CardComponent = providers[selectedFilter.provider].cardComponent;
+
+    return selectedFilter.data.map((itemData, index) => (
+      <CardComponent key={index} data={itemData} />
     ));
   }
 }

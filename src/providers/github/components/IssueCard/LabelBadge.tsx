@@ -2,7 +2,14 @@ import React from 'React';
 import cx from 'classnames';
 import contrast from 'contrast';
 
-export const LabelBadge = ({ label }) => {
+interface IProps {
+  label: {
+    name: string;
+    color: string;
+  };
+}
+
+export const LabelBadge = ({ label }: IProps) => {
   const background = `#${label.color}`;
 
   const isDark = contrast(background) === 'dark';

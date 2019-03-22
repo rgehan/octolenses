@@ -1,14 +1,21 @@
 import { Filter } from '../store/filters';
+import { SettingsStore } from '../store/settings';
 
 export interface Provider {
   label: string;
+  settingsComponent: ({ settings }: SettingsComponentProps) => JSX.Element;
+  cardComponent: ({ data }: any) => JSX.Element;
   getAvailablePredicates: () => Predicate[];
   findPredicate: (name: string) => Predicate;
-  fetchFilter: (filter: Filter) => Promise<any[]>; // TODO
+  fetchFilter: (filter: Filter, providerSettings: any) => Promise<any[]>;
 }
 
 export enum ProviderType {
   GITHUB = 'github',
+}
+
+interface SettingsComponentProps {
+  settings: SettingsStore;
 }
 
 type PredicateIdentifier = string;

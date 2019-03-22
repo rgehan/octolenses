@@ -1,6 +1,7 @@
 import { find } from 'lodash';
 
 import { Provider } from '../types';
+import { Filter } from '../../store/filters';
 import {
   makeSimplePredicate,
   mergeStatus,
@@ -8,11 +9,15 @@ import {
   status,
   type,
 } from './predicates';
-import { Filter } from '../../store/filters';
 import { fetchFilter } from './fetchers';
+import { Settings } from './components/Settings';
+import { IssueCard } from './components/IssueCard';
 
 class GithubProvider implements Provider {
+  public id = 'github';
   public label = 'GitHub';
+  public settingsComponent = Settings;
+  public cardComponent = IssueCard;
 
   public getAvailablePredicates() {
     return [
@@ -93,13 +98,12 @@ class GithubProvider implements Provider {
     ];
   }
 
-  findPredicate(name: string) {
+  public findPredicate(name: string) {
     return find(this.getAvailablePredicates(), { name });
   }
 
-  // TODO Not use any
-  public async fetchFilter(filter: Filter): Promise<any[]> {
-    return fetchFilter(filter);
+  public async fetchFilter(filter: Filter, settings: any): Promise<any[]> {
+    return fetchFilter(filter, settings);
   }
 }
 

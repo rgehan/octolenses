@@ -1,44 +1,54 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import cx from 'classnames';
 import timeago from 'timeago.js';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 import { get } from 'lodash';
 
-import { LabelBadge } from '../../components/LabelBadge';
+import { IsDarkContext } from '../../../../contexts/isDark';
 
+import { LabelBadge } from './LabelBadge';
 import { ContextualDropdown } from './ContextualDropdown';
+import { CheckStatusIndicator } from './CheckStatusIndicator';
+import { IssueStatusIndicator } from './IssueStatusIndicator';
 
-const ISSUE_STATUS_COLORS = {
-  open: 'text-green',
-  closed: 'text-red',
-  merged: 'text-purple',
-};
+export interface Issue {
+  type: 'PullRequest' | 'Issue';
+  title: string;
+  url: string;
+  html_url: string;
+  state: 'open' | 'closed' | 'merged';
+  status: 'EXPECTED' | 'ERROR' | 'FAILURE' | 'PENDING' | 'SUCCESS';
+  number: number;
+  createdAt: string;
+  pull_request?: {
+    url: string;
+  };
+  author: {
+    url: string;
+    login: string;
+    avatarUrl: string;
+  };
+  repository: {
+    url: string;
+    nameWithOwner: string;
+  };
+  reviews?: {
+    totalCount: number;
+  };
+  comments?: {
+    totalCount: number;
+  };
+  labels: Array<{ color: string; name: string }>;
+}
 
-const IssueStatusIndicator = ({ type, state }) => (
-  <i
-    className={cx(
-      'mr-2',
-      type === 'PullRequest'
-        ? 'fas fa-code-branch'
-        : 'fas fa-exclamation-circle',
-      ISSUE_STATUS_COLORS[state.toLowerCase()]
-    )}
-  />
-);
+interface IProps {
+  data: Issue;
+}
 
-const CheckStatusIndicator = ({ status }) => {
-  if (!status) {
-    return null;
-  }
+export const IssueCard = observer(({ data: issue }: IProps) => {
+  const isDark = useContext(IsDarkContext);
 
-  const icon =
-    status === 'SUCCESS' ? 'fa-check text-green' : 'fa-times text-red';
-
-  return <i className={cx('fa text-sm ml-2', icon)} />;
-};
-
-const _IssueCard = ({ issue, settings }) => {
-  const linkStyle = settings.isDark
+  const linkStyle = isDark
     ? 'text-blue-light'
     : 'text-blue hover:text-blue-dark';
 
@@ -54,7 +64,7 @@ const _IssueCard = ({ issue, settings }) => {
         <div
           className={cx(
             'w-16 h-16 rounded-full overflow-hidden',
-            settings.isDark ? 'bg-grey-darker' : 'bg-grey-light'
+            isDark ? 'bg-grey-darker' : 'bg-grey-light'
           )}
         >
           <img src={issue.author.avatarUrl} />
@@ -89,22 +99,19 @@ const _IssueCard = ({ issue, settings }) => {
           </a>
         </div>
         <div
-          className={cx(
-            'text-xs',
-            settings.isDark ? 'text-grey' : 'text-grey-darker'
-          )}
+          className={cx('text-xs', isDark ? 'text-grey' : 'text-grey-darker')}
         >
           #{issue.number} opened {timeago().format(issue.createdAt)} by{' '}
           <a
             href={issue.author.url}
             className={cx(
               'no-underline hover:underline',
-              settings.isDark ? 'text-grey' : 'text-grey-darker'
+              isDark ? 'text-grey' : 'text-grey-darker'
             )}
           >
             {issue.author.login}
           </a>
-          <ContextualDropdown issue={issue} dark={settings.isDark} />
+          <ContextualDropdown issue={issue} />
         </div>
         <div className="flex mt-3">
           {issue.labels.map(label => (
@@ -114,6 +121,4 @@ const _IssueCard = ({ issue, settings }) => {
       </div>
     </div>
   );
-};
-
-export const IssueCard = inject('settings')(observer(_IssueCard));
+});

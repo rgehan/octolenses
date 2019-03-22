@@ -1,11 +1,12 @@
 import { observable, action, autorun } from 'mobx';
 import { persist } from 'mobx-persist';
+import { set } from 'lodash';
 
 import { LANGUAGES } from '../constants/languages';
 import { DATES } from '../constants/dates';
 import { DARK_MODE } from '../constants/darkMode';
 
-class SettingsStore {
+export class SettingsStore {
   /**
    * Generic store for the providers settings
    */
@@ -77,6 +78,15 @@ class SettingsStore {
   @action.bound
   updateSettings(key, value) {
     this[key] = value;
+  }
+
+  @action.bound
+  setProviderSetting(providerKey, path, value) {
+    set(this.providerSettings, `${providerKey}.${path}`, value);
+  }
+
+  getProviderSettings(providerKey) {
+    return this.providerSettings[providerKey] || {};
   }
 }
 

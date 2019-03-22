@@ -1,8 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import ClipboardJS from 'clipboard';
+import cx from 'classnames';
 
-import { toast } from '../../components/ToastManager/ToastManager';
+import { toast } from '../../../../components/ToastManager/ToastManager';
+import { Issue } from './IssueCard';
+import { IsDarkContext } from '../../../../contexts/isDark';
 
 const Wrapper = styled.div`
   .overlay {
@@ -16,7 +19,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Overlay = styled.div`
+const Overlay = styled.div<{ dark: boolean }>`
   top: 16px;
   left: 2px;
 
@@ -33,7 +36,7 @@ const Overlay = styled.div`
   }
 `;
 
-const makeActions = issue => {
+const makeActions = (issue: Issue) => {
   const type = issue.pull_request ? 'Pull request' : 'Issue';
 
   return [
@@ -50,7 +53,13 @@ const makeActions = issue => {
   ];
 };
 
-export const ContextualDropdown = ({ issue, dark = false }) => {
+interface IProps {
+  issue: Issue;
+}
+
+export const ContextualDropdown = ({ issue }: IProps) => {
+  const isDark = useContext(IsDarkContext);
+
   useEffect(() => {
     const clipboard = new ClipboardJS('[data-clipboard-text]');
     return () => clipboard.destroy();
@@ -62,27 +71,24 @@ export const ContextualDropdown = ({ issue, dark = false }) => {
     <Wrapper className="inline-block relative">
       <i className="fa fa-caret-down py-1 px-2 -mt-1 cursor-pointer" />
       <Overlay
-        dark={dark}
-        className={[
+        dark={isDark}
+        className={cx([
           'overlay',
           'absolute py-1',
-          dark ? 'bg-grey-darker' : 'bg-white border border-grey-lighter',
+          isDark ? 'bg-grey-darker' : 'bg-white border border-grey-lighter',
           'whitespace-no-wrap rounded shadow',
           'flex flex-col',
-        ]}
+        ])}
       >
-        {actions.map(
-          ({ isAvailable = true, label, ...otherProps }) =>
-            isAvailable && (
-              <div
-                className="text-sm px-4 py-1 cursor-pointer hover:underline"
-                key={label}
-                {...otherProps}
-              >
-                {label}
-              </div>
-            )
-        )}
+        {actions.map(({ label, ...otherProps }) => (
+          <div
+            className="text-sm px-4 py-1 cursor-pointer hover:underline"
+            key={label}
+            {...otherProps}
+          >
+            {label}
+          </div>
+        ))}
       </Overlay>
     </Wrapper>
   );
