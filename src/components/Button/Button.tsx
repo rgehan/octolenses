@@ -1,12 +1,29 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import cx from 'classnames';
 
-const TYPE_TO_CLASSES = {
+export enum ButtonType {
+  PRIMARY = 'primary',
+  DEFAULT = 'default',
+}
+
+const TYPE_TO_CLASSES: Record<ButtonType, string> = {
   primary: 'bg-blue hover:bg-blue-dark text-white',
   default: 'bg-grey-lighter hover:bg-grey-light',
 };
 
-export const Button = ({ type = 'default', onClick, children, className }) => (
+interface IProps {
+  type?: ButtonType;
+  onClick: () => void;
+  children: ReactNode;
+  className?: string;
+}
+
+export const Button = ({
+  type = ButtonType.DEFAULT,
+  onClick,
+  children,
+  className = '',
+}: IProps) => (
   <button
     className={cx(
       'min-w-24 px-3 py-2 rounded cursor-pointer',
