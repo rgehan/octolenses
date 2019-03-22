@@ -16,6 +16,7 @@
     "mobx": "^5.0.3",
     "mobx-persist": "^0.4.1",
     "mobx-react": "^5.2.5",
+    "mobx-react-lite": "^1.1.1",
     "moment": "^2.22.2",
     "prop-types": "^15.6.2",
     "react": "^16.8.0",
@@ -28,8 +29,10 @@
   "devDependencies": {
     "@types/chrome": "^0.0.81",
     "@types/classnames": "^2.2.7",
+    "@types/clipboard": "^2.0.1",
     "@types/lodash": "^4.14.123",
     "@types/react-sortable-hoc": "^0.6.5",
+    "@types/styled-components": "^4.1.12",
     "@types/uuid": "^3.4.4",
     "autoprefixer": "^9.4.6",
     "babel-eslint": "^8.2.6",

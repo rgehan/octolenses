@@ -159,6 +159,11 @@
   resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-2.2.7.tgz#fb68cc9be8487e6ea5b13700e759bfbab7e0fefd"
   integrity sha512-rzOhiQ55WzAiFgXRtitP/ZUT8iVNyllEpylJ5zHzR4vArUvMB39GTk+Zon/uAM0JxEFAWnwsxC2gH8s+tZ3Myg==
 
+"@types/clipboard@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@types/clipboard/-/clipboard-2.0.1.tgz#75a74086c293d75b12bc93ff13bc7797fef05a40"
+  integrity sha512-gJJX9Jjdt3bIAePQRRjYWG20dIhAgEqonguyHxXuqALxsoDsDLimihqrSg8fXgVTJ4KZCzkfglKtwsh/8dLfbA==
+
 "@types/filesystem@*":
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/filesystem/-/filesystem-0.0.29.tgz#ee3748eb5be140dcf980c3bd35f11aec5f7a3748"
@@ -191,6 +196,14 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.0.tgz#4c48fed958d6dcf9487195a0ef6456d5f6e0163a"
   integrity sha512-eItQyV43bj4rR3JPV0Skpl1SncRCdziTEK9/v8VwXmV6d/qOUO8/EuWeHBbCZcsfSHfzI5UyMJLCSXtxxznyZg==
 
+"@types/react-native@*":
+  version "0.57.41"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.57.41.tgz#bf355f38d8cfe5eac68de977e210ae0805cd053a"
+  integrity sha512-y7XML8Fbg09sAuPk69WFXmh3x8EQzJ4Ta+lyluOILk40RMsz/w2YJeKr4LHW7x/Th0EPD8OPIG1Ei4rg5gd6Mw==
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/react" "*"
+
 "@types/react-sortable-hoc@^0.6.5":
   version "0.6.5"
   resolved "https://registry.yarnpkg.com/@types/react-sortable-hoc/-/react-sortable-hoc-0.6.5.tgz#3f40611427b4dd1ed06f99678a5df7c0f950de29"
@@ -204,6 +217,15 @@
   integrity sha512-xwEvyet96u7WnB96kqY0yY7qxx/pEpU51QeACkKFtrgjjXITQn0oO1iwPEraXVgh10ZFPix7gs1R4OJXF7P5sg==
   dependencies:
     "@types/prop-types" "*"
+    csstype "^2.2.0"
+
+"@types/styled-components@^4.1.12":
+  version "4.1.12"
+  resolved "https://registry.yarnpkg.com/@types/styled-components/-/styled-components-4.1.12.tgz#62c19bd1aa37b1a904d36c179a0fec66c24ac99c"
+  integrity sha512-Du0bltHm5sWkDnXzYi6cMNhnSKWHQW6//at359DtRJNfjeG1SdtqQPX6jiVtrUkBJ1JsjxqT18DssYBLJ/fg/A==
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
     csstype "^2.2.0"
 
 "@types/uuid@^3.4.4":
@@ -4206,6 +4228,11 @@ mobx-persist@^0.4.1:
   integrity sha512-cPxVuZTY5neesxOV/Z25SF4+/NbC6wfHOe9HT5XoSEkAALNxNE41yDK48peJQ3iK14m0G2ywQRklCXeV3wftnQ==
   dependencies:
     serializr "^1.1.11"
+
+mobx-react-lite@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/mobx-react-lite/-/mobx-react-lite-1.1.1.tgz#a8c1d813b5c1485861c2e5081ea6863772865c0a"
+  integrity sha512-RQeiJmRLMX/dFCwgJxaZUT/ly9jP2vxrsONCKKhgILf1MKShGNwllN12E0+7+GlbYK4+qkfux2Bg1GSDrKrFrA==
 
 mobx-react@^5.2.5:
   version "5.2.5"
