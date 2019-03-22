@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { isUndefined } from 'lodash';
 
-import { findPredicate } from '../../lib/filters';
-
 import './FilterPredicate.scss';
 
 export class FilterPredicate extends React.Component {
@@ -22,8 +20,8 @@ export class FilterPredicate extends React.Component {
   };
 
   getPredicate() {
-    const { type } = this.props;
-    return findPredicate(type);
+    const { provider, type } = this.props;
+    return provider.findPredicate(type);
   }
 
   getCurrentPayload() {
