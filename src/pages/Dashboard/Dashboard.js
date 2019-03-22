@@ -5,7 +5,7 @@ import ExtendableError from 'es6-error';
 import cx from 'classnames';
 import { SortableContainer } from 'react-sortable-hoc';
 
-import { IssueCard, FilterEditModal } from '../../containers';
+import { FilterEditModal } from '../../containers';
 import { FilterLink, Loader } from '../../components';
 import { providers } from '../../providers';
 
@@ -212,7 +212,9 @@ export class Dashboard extends React.Component {
         </div>
         {filterModal.isOpen && (
           <FilterEditModal
-            filter={filterModal.mode === 'editing' ? selectedFilter : null}
+            initialFilter={
+              filterModal.mode === 'editing' ? selectedFilter : null
+            }
             onClose={this.handleCloseFilterModal}
             onSave={this.handleSaveFilterModal}
           />
