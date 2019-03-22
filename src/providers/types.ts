@@ -12,6 +12,7 @@ export interface Provider {
 
 export enum ProviderType {
   GITHUB = 'github',
+  JIRA = 'jira',
 }
 
 interface SettingsComponentProps {
