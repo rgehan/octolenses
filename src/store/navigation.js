@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx';
 import { persist } from 'mobx-persist';
 
-class NavigationStore {
+export class NavigationStore {
   @persist
   @observable
   page = 'dashboard';
