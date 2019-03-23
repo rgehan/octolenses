@@ -27,7 +27,7 @@ class JiraProvider implements Provider {
   }
 
   public async fetchFilter(filter: Filter, settings: any): Promise<any[]> {
-    const site = '<site-id>'; // TODO
+    const site = '6345a5ad-6568-4d1a-8862-cfb76845117d'; // TODO
     const token = settings.auth.access_token;
 
     const filterString = chain(filter.predicates)
