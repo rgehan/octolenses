@@ -41,6 +41,12 @@ export abstract class AbstractProvider<T = {}> {
   public settings: T = {} as T;
 
   /**
+   * Called after the app has been booted, so that we can perform initial
+   * data fetching and initialization tasks.
+   */
+  public async initialize(): Promise<void> {}
+
+  /**
    * Returns an array of available predicates for the provider
    */
   public abstract getAvailablePredicates(): Predicate[];

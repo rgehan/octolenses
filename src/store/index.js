@@ -23,9 +23,16 @@ const hydrateStores = async () => {
   await Promise.all(
     chain(providers)
       .values()
-      .map(provider => {
-        hydrate(`${provider.id}Provider`, provider);
-      })
+      .map(provider => hydrate(`${provider.id}Provider`, provider))
+      .value()
+  );
+};
+
+const initializeProviders = async () => {
+  await Promise.all(
+    chain(providers)
+      .values()
+      .map(provider => provider.initialize())
       .value()
   );
 };
@@ -61,6 +68,7 @@ export const refreshAllData = async () => {
 export const bootstrap = async () => {
   await migrateData();
   await hydrateStores();
+  await initializeProviders();
   await performOnboarding();
   await refreshAllData();
 };
