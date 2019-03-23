@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import cx from 'classnames';
+import { observer } from 'mobx-react-lite';
 
 import { GithubProfile } from '..';
 import { IsDarkContext } from '../../../contexts/isDark';
@@ -8,12 +9,12 @@ interface IProps {
   profile: GithubProfile;
 }
 
-export const ProfileCard = ({ profile }: IProps) => {
+export const ProfileCard = observer(({ profile }: IProps) => {
+  const isDark = useContext(IsDarkContext);
+
   if (!profile) {
     return null;
   }
-
-  const isDark = useContext(IsDarkContext);
 
   return (
     <div className="flex mb-8">
@@ -37,4 +38,4 @@ export const ProfileCard = ({ profile }: IProps) => {
       </div>
     </div>
   );
-};
+});
