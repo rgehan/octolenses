@@ -3,13 +3,13 @@ import cx from 'classnames';
 
 import { Button, ButtonType } from '../../components/Button';
 import { FilterPredicate } from '../../components/FilterPredicate';
-import { Provider, StoredPredicate } from '../../providers';
+import { AbstractProvider, StoredPredicate } from '../../providers';
 import { IsDarkContext } from '../../contexts/isDark';
 
 interface IProps {
   label: string;
   predicates: any[]; // TODO
-  provider: Provider;
+  provider: AbstractProvider;
   setLabel: (name: string) => void;
   setPredicates: (predicates: any[]) => void; // TODO
   previous: () => void;
