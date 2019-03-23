@@ -1,3 +1,6 @@
+import { observable } from 'mobx';
+import { persist } from 'mobx-persist';
+
 import { SettingsStore } from '../store/settings';
 import { Filter } from '../store/filters';
 import { Predicate } from './types';
@@ -9,7 +12,7 @@ interface SettingsComponentProps {
 type SettingsComponent = ({ settings }: SettingsComponentProps) => JSX.Element;
 type CardComponent = ({ data }: any) => JSX.Element;
 
-export abstract class AbstractProvider {
+export abstract class AbstractProvider<T = {}> {
   /**
    * Unique identifier of the provider
    */
@@ -31,6 +34,13 @@ export abstract class AbstractProvider {
   public cardComponent: CardComponent;
 
   /**
+   * A place for the provider to store its specific settings
+   */
+  @persist('object')
+  @observable
+  public settings: T = {} as T;
+
+  /**
    * Returns an array of available predicates for the provider
    */
   public abstract getAvailablePredicates(): Predicate[];
@@ -46,8 +56,5 @@ export abstract class AbstractProvider {
    * @param filter
    * @param providerSettings
    */
-  public abstract fetchFilter(
-    filter: Filter,
-    providerSettings: any
-  ): Promise<any[]>;
+  public abstract fetchFilter(filter: Filter): Promise<any[]>;
 }
