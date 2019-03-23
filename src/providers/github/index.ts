@@ -1,12 +1,12 @@
 import { find } from 'lodash';
 
-import { Provider } from '../types';
+import { AbstractProvider } from '../AbstractProvider';
 import { availablePredicates } from './predicates';
 import { fetchFilter } from './fetchers';
 import { Settings } from './components/Settings';
 import { IssueCard } from './components/IssueCard';
 
-class GithubProvider implements Provider {
+class GithubProvider extends AbstractProvider {
   public id = 'github';
   public label = 'GitHub';
   public settingsComponent = Settings;

@@ -1,12 +1,12 @@
 import { find } from 'lodash';
 
-import { Provider } from '../types';
+import { AbstractProvider } from '../AbstractProvider';
 import { availablePredicates } from './predicates';
 import { Settings } from './components/Settings';
 import { IssueCard } from './components/IssueCard';
 import { fetchFilter } from './fetchers';
 
-class JiraProvider implements Provider {
+class JiraProvider extends AbstractProvider {
   public id = 'jira';
   public label = 'Jira';
   public settingsComponent = Settings;

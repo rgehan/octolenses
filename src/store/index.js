@@ -1,5 +1,4 @@
 import { create } from 'mobx-persist';
-import { isUndefined } from 'lodash';
 
 import { navigation } from './navigation';
 import { filters } from './filters';
