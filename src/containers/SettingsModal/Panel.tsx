@@ -1,7 +1,6 @@
 import React from 'react';
 import { chain } from 'lodash';
 
-import { settings } from '../../store/settings';
 import { SETTINGS_VIEWS } from './SettingsModal';
 
 interface IProps {
@@ -14,5 +13,5 @@ export const Panel = ({ selectedTab }: IProps) => {
     .get('component')
     .value();
 
-  return <Component settings={settings} />;
+  return <Component />;
 };
