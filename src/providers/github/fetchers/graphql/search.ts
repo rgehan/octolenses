@@ -1,14 +1,14 @@
 import { chain, omit, get } from 'lodash';
 
-import { Filter } from '../../../store/filters';
-import { makeQuery } from './graphqlQuery';
-import { client } from './client';
+import { Filter } from '../../../../store/filters';
+import { makeQuery } from './query';
+import { client } from '../client';
 
 /**
- * Fetcha filter using the shiny GraphQL API
+ * Fetch a filter using the shiny GraphQL API
  * @param {object} options.filter
  */
-export const graphqlFetcher = async (filter: Filter, token: string) => {
+export const search = async (filter: Filter, token: string) => {
   const filterString = chain(filter.predicates)
     .map(predicate => filter.serializePredicate(predicate))
     .join(' ')
