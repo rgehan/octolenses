@@ -16,10 +16,10 @@ export interface JiraSettings {
   };
 }
 
-class JiraProvider extends AbstractProvider<JiraSettings> {
+export class JiraProvider extends AbstractProvider<JiraSettings> {
   public id = 'jira';
   public label = 'Jira';
-  public settingsComponent = () => <Settings settings={this.settings} />;
+  public settingsComponent = () => <Settings provider={this} />;
   public cardComponent = IssueCard;
 
   public async fetchFilter(filter: Filter) {

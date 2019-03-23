@@ -4,19 +4,19 @@ import cx from 'classnames';
 
 import { Button, ButtonType } from '../../../components/Button';
 import { IsDarkContext } from '../../../contexts/isDark';
-import { JiraSettings } from '..';
+import { JiraProvider, JiraSettings } from '..';
 
 interface IProps {
-  settings: JiraSettings;
+  provider: JiraProvider;
 }
 
-export const Settings = ({ settings }: IProps) => {
+export const Settings = ({ provider }: IProps) => {
   const isDark = useContext(IsDarkContext);
 
   async function handleLogin() {
     try {
       const data = await initJiraOauthFlow();
-      settings.auth = data as JiraSettings['auth'];
+      provider.settings.auth = data as JiraSettings['auth'];
       console.log('SUCCESS', data);
     } catch (error) {
       console.log('ERROR /!\\', error);

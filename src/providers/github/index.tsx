@@ -12,10 +12,10 @@ export interface GithubSettings {
   token: string;
 }
 
-class GithubProvider extends AbstractProvider<GithubSettings> {
+export class GithubProvider extends AbstractProvider<GithubSettings> {
   public id = 'github';
   public label = 'GitHub';
-  public settingsComponent = () => <Settings settings={this.settings} />;
+  public settingsComponent = () => <Settings provider={this} />;
   public cardComponent = IssueCard;
 
   public async fetchFilter(filter: Filter) {
