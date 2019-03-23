@@ -1,10 +1,12 @@
 import React, { useState, useContext } from 'react';
 import cx from 'classnames';
 import styled from 'styled-components';
+import { observer } from 'mobx-react-lite';
 
 import { Button, ButtonType } from '../../../components/Button';
 import { IsDarkContext } from '../../../contexts/isDark';
 import { GithubProvider } from '..';
+import { ProfileCard } from './ProfileCard';
 
 const CREATE_TOKEN_URL =
   'https://github.com/settings/tokens/new?scopes=repo&description=octolenses-browser-extension';
@@ -20,7 +22,7 @@ interface IProps {
   provider: GithubProvider;
 }
 
-export const Settings = ({ provider }: IProps) => {
+export const Settings = observer(({ provider }: IProps) => {
   const isDark = useContext(IsDarkContext);
 
   const [token, setToken] = useState(provider.settings.token || '');
@@ -31,6 +33,7 @@ export const Settings = ({ provider }: IProps) => {
 
   return (
     <div className="flex-1 flex flex-col items-stretch">
+      <ProfileCard profile={provider.profile} />
       <div className="font-medium">Github Personal Access Token</div>
       <div className="mt-4 leading-normal">
         <p>
@@ -77,4 +80,4 @@ export const Settings = ({ provider }: IProps) => {
       </div>
     </div>
   );
-};
+});
