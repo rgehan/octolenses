@@ -1,6 +1,6 @@
 import React from 'react';
 import { find } from 'lodash';
-import { action } from 'mobx';
+import { action, observable } from 'mobx';
 
 import { AbstractProvider } from '../AbstractProvider';
 import { availablePredicates } from './predicates';
@@ -27,11 +27,22 @@ export class GithubProvider extends AbstractProvider<GithubSettings> {
   public settingsComponent = () => <Settings provider={this} />;
   public cardComponent = IssueCard;
 
+  @observable
   public profile: GithubProfile = null;
 
   @action.bound
   public async initialize() {
     await this.fetchProfile();
+  }
+
+  public async fetchFilter(filter: Filter) {
+    return fetchFilter(filter, this.settings);
+  }
+
+  public getAvailablePredicates = () => availablePredicates;
+
+  public findPredicate(name: string) {
+    return find(this.getAvailablePredicates(), { name });
   }
 
   @action.bound
@@ -43,14 +54,15 @@ export class GithubProvider extends AbstractProvider<GithubSettings> {
     this.profile = await fetchProfile(this.settings.token);
   }
 
-  public async fetchFilter(filter: Filter) {
-    return fetchFilter(filter, this.settings);
-  }
+  @action.bound
+  public setToken(token: string) {
+    this.settings.token = token;
 
-  public getAvailablePredicates = () => availablePredicates;
-
-  public findPredicate(name: string) {
-    return find(this.getAvailablePredicates(), { name });
+    if (token) {
+      this.fetchProfile();
+    } else {
+      this.profile = null;
+    }
   }
 }
 

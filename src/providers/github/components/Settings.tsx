@@ -28,7 +28,7 @@ export const Settings = observer(({ provider }: IProps) => {
   const [token, setToken] = useState(provider.settings.token || '');
 
   function handleSubmit() {
-    provider.settings.token = token;
+    provider.setToken(token);
   }
 
   return (
