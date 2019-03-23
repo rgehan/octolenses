@@ -8,13 +8,6 @@ import { DARK_MODE } from '../constants/darkMode';
 
 export class SettingsStore {
   /**
-   * Generic store for the providers settings
-   */
-  @persist('object')
-  @observable
-  providerSettings = {};
-
-  /**
    * Language used in the "Discover" page
    */
   @persist
@@ -78,15 +71,6 @@ export class SettingsStore {
   @action.bound
   updateSettings(key, value) {
     this[key] = value;
-  }
-
-  @action.bound
-  setProviderSetting(providerKey, path, value) {
-    set(this.providerSettings, `${providerKey}.${path}`, value);
-  }
-
-  getProviderSettings(providerKey) {
-    return this.providerSettings[providerKey] || {};
   }
 }
 

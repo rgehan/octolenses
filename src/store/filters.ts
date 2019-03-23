@@ -120,11 +120,8 @@ export class FiltersStore {
     const index = findIndex(this.data, { id: filter.id });
     this.data[index].loading = true;
 
-    const provider = providers[filter.provider];
-    const providerSettings = settings.getProviderSettings(filter.provider);
-
     try {
-      const result = await provider.fetchFilter(filter, providerSettings);
+      const result = await providers[filter.provider].fetchFilter(filter);
       this.data[index].data = result;
     } catch (error) {
       // TODO Handle various errors (RateLimitError for now)
