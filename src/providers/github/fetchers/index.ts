@@ -1,12 +1,12 @@
 import { Filter } from '../../../store/filters';
-import { graphqlFetcher } from './graphqlFetcher';
-import { restFetcher } from './restFetcher';
+import { search as graphqlSearch } from './graphql/search';
+import { search as restSearch } from './rest/search';
 import { GithubSettings } from '..';
 
 export const fetchFilter = async (filter: Filter, settings: GithubSettings) => {
   if (settings.token) {
-    return graphqlFetcher(filter, settings.token);
+    return graphqlSearch(filter, settings.token);
   }
 
-  return restFetcher(filter);
+  return restSearch(filter);
 };

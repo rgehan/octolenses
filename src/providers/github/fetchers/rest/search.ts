@@ -1,7 +1,7 @@
 import { chain, map, pick } from 'lodash';
 
-import { Filter } from '../../../store/filters';
-import { client } from './client';
+import { Filter } from '../../../../store/filters';
+import { client } from '../client';
 
 /**
  * Fetch a filter on the old REST API. This is only supposed to be
@@ -9,7 +9,7 @@ import { client } from './client';
  * value we need (for example there are no build status).
  * @param {object} options.filter
  */
-export const restFetcher = async (filter: Filter) => {
+export const search = async (filter: Filter) => {
   const filterString = chain(filter.predicates)
     .map(predicate => filter.serializePredicate(predicate))
     .map(encodeURIComponent)
