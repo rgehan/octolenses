@@ -2,17 +2,21 @@ import React, { useContext } from 'react';
 import { chain } from 'lodash';
 import cx from 'classnames';
 
-import { Button } from '../../../components/Button';
+import { Button, ButtonType } from '../../../components/Button';
 import { IsDarkContext } from '../../../contexts/isDark';
+import { JiraSettings } from '..';
 
-// TODO Not use any
-export const Settings = ({ settings }: any) => {
+interface IProps {
+  settings: JiraSettings;
+}
+
+export const Settings = ({ settings }: IProps) => {
   const isDark = useContext(IsDarkContext);
 
   async function handleLogin() {
     try {
       const data = await initJiraOauthFlow();
-      settings.setProviderSetting('jira', 'auth', data);
+      settings.auth = data as JiraSettings['auth'];
       console.log('SUCCESS', data);
     } catch (error) {
       console.log('ERROR /!\\', error);
@@ -26,7 +30,11 @@ export const Settings = ({ settings }: any) => {
         Click on the button below to connect OctoLenses to your Atlassian
         account.
       </p>
-      <Button onClick={handleLogin} type="primary" className="self-start mt-4">
+      <Button
+        onClick={handleLogin}
+        type={ButtonType.PRIMARY}
+        className="self-start mt-4"
+      >
         <i className="fas fa-sign-in-alt" /> Connect your account
       </Button>
       <p
