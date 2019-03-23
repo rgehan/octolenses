@@ -9,7 +9,8 @@ import { IsDarkContext } from '../../contexts/isDark';
 const Wrapper = styled.div`
   width: 200px;
   font-family: Roboto;
-  padding-right: 20px;
+  padding-right: 30px;
+  flex-shrink: 0;
 `;
 
 const ItemHeader = styled.div`
