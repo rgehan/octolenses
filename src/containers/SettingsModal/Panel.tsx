@@ -1,17 +1,21 @@
 import React from 'react';
-import { chain } from 'lodash';
+import { find } from 'lodash';
 
 import { SETTINGS_VIEWS } from './SettingsModal';
+import { settings } from '../../store/settings';
 
 interface IProps {
   selectedTab: string;
 }
 
 export const Panel = ({ selectedTab }: IProps) => {
-  const Component = chain(SETTINGS_VIEWS)
-    .find({ id: selectedTab })
-    .get('component')
-    .value();
+  const view = find(SETTINGS_VIEWS, { id: selectedTab });
 
-  return <Component />;
+  if (!view) {
+    return null;
+  }
+
+  const Component = view.component;
+
+  return <Component settings={view.isProvider ? undefined : settings} />;
 };
