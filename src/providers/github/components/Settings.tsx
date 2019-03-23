@@ -1,11 +1,10 @@
 import React, { useState, useContext } from 'react';
 import cx from 'classnames';
-import { get } from 'lodash';
 import styled from 'styled-components';
 
-import { Button } from '../../../components/Button';
-import { SettingsStore } from '../../../store/settings';
+import { Button, ButtonType } from '../../../components/Button';
 import { IsDarkContext } from '../../../contexts/isDark';
+import { GithubSettings } from '..';
 
 const CREATE_TOKEN_URL =
   'https://github.com/settings/tokens/new?scopes=repo&description=octolenses-browser-extension';
@@ -18,18 +17,16 @@ const Input = styled.input<{ dark?: boolean }>`
 `;
 
 interface IProps {
-  settings: SettingsStore;
+  settings: GithubSettings;
 }
 
 export const Settings = ({ settings }: IProps) => {
   const isDark = useContext(IsDarkContext);
 
-  const [token, setToken] = useState(
-    get(settings, 'providerSettings.github.token', '')
-  );
+  const [token, setToken] = useState(settings.token || '');
 
   function handleSubmit() {
-    settings.setProviderSetting('github', 'token', token);
+    settings.token = token;
   }
 
   return (
@@ -74,7 +71,7 @@ export const Settings = ({ settings }: IProps) => {
         />
       </div>
       <div className="mt-8 flex justify-end">
-        <Button onClick={handleSubmit} type="primary">
+        <Button onClick={handleSubmit} type={ButtonType.PRIMARY}>
           Save
         </Button>
       </div>
