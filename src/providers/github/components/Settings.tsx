@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { Button, ButtonType } from '../../../components/Button';
 import { IsDarkContext } from '../../../contexts/isDark';
-import { GithubSettings } from '..';
+import { GithubProvider } from '..';
 
 const CREATE_TOKEN_URL =
   'https://github.com/settings/tokens/new?scopes=repo&description=octolenses-browser-extension';
@@ -17,16 +17,16 @@ const Input = styled.input<{ dark?: boolean }>`
 `;
 
 interface IProps {
-  settings: GithubSettings;
+  provider: GithubProvider;
 }
 
-export const Settings = ({ settings }: IProps) => {
+export const Settings = ({ provider }: IProps) => {
   const isDark = useContext(IsDarkContext);
 
-  const [token, setToken] = useState(settings.token || '');
+  const [token, setToken] = useState(provider.settings.token || '');
 
   function handleSubmit() {
-    settings.token = token;
+    provider.settings.token = token;
   }
 
   return (
