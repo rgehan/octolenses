@@ -9,12 +9,14 @@ import { IssueCard } from './components/IssueCard';
 import { fetchFilter } from './fetchers';
 import { Filter } from '../../store/filters';
 import { fetchResources } from './fetchers/resources';
+import { refreshToken } from './fetchers/refreshToken';
+import { SwapResult } from './fetchers/swapToken';
 
 export interface JiraSettings {
   auth: {
     access_token: string;
     refresh_token: string;
-    scope: string;
+    expires_at: number;
   };
 }
 
@@ -35,7 +37,7 @@ export class JiraProvider extends AbstractProvider<JiraSettings> {
   public resources: JiraResource[] = [];
 
   public async initialize() {
-    await this.fetchResources();
+    await this.refreshToken();
   }
 
   public async fetchFilter(filter: Filter) {
@@ -49,6 +51,35 @@ export class JiraProvider extends AbstractProvider<JiraSettings> {
   }
 
   @action.bound
+  public async refreshToken() {
+    const refresh_token = get(this.settings, 'auth.refresh_token');
+
+    if (!refresh_token) {
+      return;
+    }
+
+    const { access_token, expires_in } = await refreshToken(refresh_token);
+    this.setAuth({ access_token, expires_in, refresh_token });
+  }
+
+  @action.bound
+  public setAuth({ access_token, expires_in, refresh_token }: SwapResult) {
+    this.settings.auth = {
+      refresh_token,
+      access_token,
+      expires_at: Date.now() + expires_in,
+    };
+
+    this.fetchResources();
+  }
+
+  @action.bound
+  public disconnect() {
+    this.settings.auth = null;
+    this.resources = [];
+  }
+
+  @action.bound
   public async fetchResources() {
     const token = get(this.settings, 'auth.access_token');
 
@@ -57,18 +88,6 @@ export class JiraProvider extends AbstractProvider<JiraSettings> {
     }
 
     this.resources = await fetchResources(token);
-  }
-
-  @action.bound
-  public connect(auth: JiraSettings['auth']) {
-    this.settings.auth = auth;
-    this.fetchResources();
-  }
-
-  @action.bound
-  public disconnect() {
-    this.settings.auth = null;
-    this.resources = [];
   }
 }
 
