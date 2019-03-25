@@ -60,6 +60,12 @@ export class JiraProvider extends AbstractProvider<JiraSettings> {
   }
 
   @action.bound
+  public connect(auth: JiraSettings['auth']) {
+    this.settings.auth = auth;
+    this.fetchResources();
+  }
+
+  @action.bound
   public disconnect() {
     this.settings.auth = null;
     this.resources = [];
