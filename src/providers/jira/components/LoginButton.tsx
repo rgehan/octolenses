@@ -77,10 +77,9 @@ export const LoginButton = observer(({ provider }: IProps) => {
  */
 async function initJiraOauthFlow() {
   const CLIENT_ID = 'A9UecfzAAARFGbwj3lVgfw8WJ2M4O78f';
+  const TOKEN_SWAP_URL = 'https://octolenses-jira-auth.now.sh/api/swap';
   const REDIRECT_URI = chrome.identity.getRedirectURL('provider_cb');
   const REDIRECT_REGEXP = new RegExp(REDIRECT_URI + '[#?](.*)');
-
-  const TOKEN_SWAP_URL = 'http://localhost:3000';
 
   return new Promise((resolve, reject) => {
     const options = {
