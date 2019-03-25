@@ -5,8 +5,8 @@ import { observer } from 'mobx-react-lite';
 
 import { Button, ButtonType } from '../../../components/Button';
 import { IsDarkContext } from '../../../contexts/isDark';
-import { JiraProvider, JiraSettings } from '..';
-import { swapToken } from '../fetchers/swapToken';
+import { JiraProvider } from '..';
+import { swapToken, SwapResult } from '../fetchers/swapToken';
 
 const CLIENT_ID = 'A9UecfzAAARFGbwj3lVgfw8WJ2M4O78f';
 
@@ -20,7 +20,7 @@ export const LoginButton = observer(({ provider }: IProps) => {
   async function handleLogin() {
     try {
       const data = await initJiraOauthFlow();
-      provider.connect(data as JiraSettings['auth']);
+      provider.setAuth(data);
     } catch (error) {
       console.error('Could not connect the Jira account', error);
     }
@@ -77,7 +77,7 @@ export const LoginButton = observer(({ provider }: IProps) => {
  * API. An external (privately hosted by me) token swap service is then used
  * to obtain access/refresh tokens.
  */
-async function initJiraOauthFlow() {
+async function initJiraOauthFlow(): Promise<SwapResult> {
   const redirectUri = chrome.identity.getRedirectURL('provider_cb');
   const redirectRegexp = new RegExp(redirectUri + '[#?](.*)');
 
@@ -115,7 +115,7 @@ async function initJiraOauthFlow() {
 
       // Swap the authorization code for an access and refresh token.
       swapToken(authCode, redirectUri)
-        .then(({ data }) => {
+        .then(data => {
           resolve(data);
         })
         .catch(err => {
