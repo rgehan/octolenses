@@ -4,20 +4,22 @@ import styled, { keyframes } from 'styled-components';
 
 import { IsDarkContext } from '../../contexts/isDark';
 
-const enter = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(100%);
-  }
+const fadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
+`;
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+const Backdrop = styled.div`
+  animation: ${fadeIn} 0.25s ease;
+`;
+
+const slideBottom = keyframes`
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
 `;
 
 const Wrapper = styled.div`
-  animation: ${enter} 0.25s ease;
+  animation: ${slideBottom} 0.25s ease;
 `;
 
 interface IProps {
@@ -43,7 +45,7 @@ export const Modal = ({ children, onClose }: IProps) => {
   );
 
   return (
-    <Wrapper
+    <Backdrop
       className={cx(
         'fixed z-50 pin font-roboto text-lg',
         isDark ? 'bg-black' : 'bg-white'
@@ -61,7 +63,7 @@ export const Modal = ({ children, onClose }: IProps) => {
         <span className="mr-2">Close</span>
         <i className="fa fa-times" />
       </div>
-      {children}
-    </Wrapper>
+      <Wrapper>{children}</Wrapper>
+    </Backdrop>
   );
 };
