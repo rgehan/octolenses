@@ -6,6 +6,9 @@ import { observer } from 'mobx-react-lite';
 import { Button, ButtonType } from '../../../components/Button';
 import { IsDarkContext } from '../../../contexts/isDark';
 import { JiraProvider, JiraSettings } from '..';
+import { swapToken } from '../fetchers/swapToken';
+
+const CLIENT_ID = 'A9UecfzAAARFGbwj3lVgfw8WJ2M4O78f';
 
 interface IProps {
   provider: JiraProvider;
@@ -76,10 +79,8 @@ export const LoginButton = observer(({ provider }: IProps) => {
  * to obtain access/refresh tokens.
  */
 async function initJiraOauthFlow() {
-  const CLIENT_ID = 'A9UecfzAAARFGbwj3lVgfw8WJ2M4O78f';
-  const TOKEN_SWAP_URL = 'https://octolenses-jira-auth.now.sh/api/swap';
-  const REDIRECT_URI = chrome.identity.getRedirectURL('provider_cb');
-  const REDIRECT_REGEXP = new RegExp(REDIRECT_URI + '[#?](.*)');
+  const redirectUri = chrome.identity.getRedirectURL('provider_cb');
+  const redirectRegexp = new RegExp(redirectUri + '[#?](.*)');
 
   return new Promise((resolve, reject) => {
     const options = {
@@ -89,7 +90,7 @@ async function initJiraOauthFlow() {
         '?audience=api.atlassian.com' +
         `&client_id=${CLIENT_ID}` +
         '&scope=read%3Ajira-user%20read%3Ajira-work%20offline_access' +
-        `&redirect_uri=${encodeURIComponent(REDIRECT_URI)}` +
+        `&redirect_uri=${encodeURIComponent(redirectUri)}` +
         `&response_type=code` +
         `&prompt=consent`,
     };
@@ -101,7 +102,7 @@ async function initJiraOauthFlow() {
       }
 
       // Unable to extract an authorization code from the response
-      const authCode = chain(response.match(REDIRECT_REGEXP))
+      const authCode = chain(response.match(redirectRegexp))
         .get(1)
         .split('=')
         .get(1)
@@ -114,15 +115,7 @@ async function initJiraOauthFlow() {
       }
 
       // Swap the authorization code for an access and refresh token.
-      fetch(TOKEN_SWAP_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          code: authCode,
-          redirect_uri: REDIRECT_URI,
-        }),
-      })
-        .then(res => res.json())
+      swapToken(authCode, redirectUri)
         .then(({ data }) => {
           resolve(data);
         })
