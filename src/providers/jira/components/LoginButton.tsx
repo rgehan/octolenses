@@ -20,10 +20,9 @@ export const LoginButton = observer(({ provider }: IProps) => {
   async function handleLogin() {
     try {
       const data = await initJiraOauthFlow();
-      provider.settings.auth = data as JiraSettings['auth'];
-      console.log('SUCCESS', data);
+      provider.connect(data as JiraSettings['auth']);
     } catch (error) {
-      console.log('ERROR /!\\', error);
+      console.error('Could not connect the Jira account', error);
     }
   }
 
