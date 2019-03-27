@@ -12,6 +12,7 @@ export const search = async (filter: Filter, token: string) => {
   const filterString = chain(filter.predicates)
     .map(predicate => filter.serializePredicate(predicate))
     .join(' ')
+    .replace(/"/g, '\\"')
     .value();
 
   const response = await client({
