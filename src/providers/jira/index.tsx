@@ -45,7 +45,7 @@ export class JiraProvider extends AbstractProvider<JiraSettings> {
   }
 
   public async fetchFilter(filter: Filter) {
-    return fetchFilter(filter, this.settings);
+    return fetchFilter(filter, this.settings, this.resources[0]);
   }
 
   public getAvailablePredicates = () => availablePredicates;
