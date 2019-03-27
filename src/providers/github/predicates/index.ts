@@ -25,7 +25,7 @@ export const makeSimplePredicate = ({
   label: label || capitalize(name),
   placeholder,
   type: PredicateType.TEXT,
-  serialize: ({ value, negated }) => `${negated ? '-' : ''}${name}:${value}`,
+  serialize: ({ value, negated }) => `${negated ? '-' : ''}${name}:"${value}"`,
 });
 
 export const availablePredicates: Predicate[] = [
