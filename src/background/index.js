@@ -6,3 +6,7 @@ chrome.tabs.onCreated.addListener(overrideNewTabPage);
 
 // On click of the extension's icon, open OctoLenses in a new tab.
 chrome.browserAction.onClicked.addListener(openInNewTab);
+
+navigator.serviceWorker.register('./worker.js').then(() => {
+  console.log('ok');
+});

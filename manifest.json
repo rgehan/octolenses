@@ -5,7 +5,7 @@
   "version": "<version>",
   "short_name": "OctoLenses Browser Extension",
   "description": "Watch your repos and discover awesome things directly from your New Tab page.",
-  "permissions": ["tabs", "identity"],
+  "permissions": ["tabs", "identity", "*://*.github.com/*"],
   "background": {
     "scripts": ["background.js"]
   },
