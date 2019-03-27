@@ -41,27 +41,3 @@ self.addEventListener('activate', event => {
       .then(() => self.clients.claim())
   );
 });
-
-// Here we get a chance to intercept every fetch request made by the app.
-self.addEventListener('fetch', event => {
-  async function handleFetchRequest(request) {
-    const cachedResponse = await caches.match(request);
-
-    if (cachedResponse) {
-      return cachedResponse;
-    }
-
-    const runtimeCache = await caches.open(RUNTIME);
-    const liveResponse = await fetch(request);
-    await runtimeCache.put(request, liveResponse.clone());
-    return liveResponse;
-  }
-
-  // skip requests from other chrome extensions
-  if (event.request.url.indexOf('chrome-extension') === -1) {
-    event.respondWith(handleFetchRequest(event.request));
-  } else {
-    // not caching
-    return fetch(event.request).then(response => response);
-  }
-});
