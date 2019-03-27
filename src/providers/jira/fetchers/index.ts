@@ -1,13 +1,14 @@
 import { chain, get } from 'lodash';
 
 import { Filter } from '../../../store/filters';
-import { JiraSettings } from '..';
+import { JiraSettings, JiraResource } from '..';
 
 export async function fetchFilter(
   filter: Filter,
-  settings: JiraSettings
+  settings: JiraSettings,
+  resource: JiraResource
 ): Promise<any[]> {
-  const site = '6345a5ad-6568-4d1a-8862-cfb76845117d'; // TODO
+  const site = resource.id;
   const token = get(settings, 'auth.access_token');
 
   const filterString = chain(filter.predicates)
