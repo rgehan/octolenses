@@ -42,6 +42,8 @@ export class JiraProvider extends AbstractProvider<JiraSettings> {
     if (this.shouldRefreshToken) {
       await this.refreshToken();
     }
+
+    await this.fetchResources();
   }
 
   public async fetchFilter(filter: Filter) {
