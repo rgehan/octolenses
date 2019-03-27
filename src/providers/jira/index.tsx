@@ -1,6 +1,6 @@
 import React from 'react';
 import { find, get } from 'lodash';
-import { action, observable } from 'mobx';
+import { action, observable, computed } from 'mobx';
 
 import { AbstractProvider } from '../AbstractProvider';
 import { availablePredicates } from './predicates';
@@ -11,6 +11,8 @@ import { Filter } from '../../store/filters';
 import { fetchResources } from './fetchers/resources';
 import { refreshToken } from './fetchers/refreshToken';
 import { SwapResult } from './fetchers/swapToken';
+
+const FIVE_MINUTES = 5 * 60 * 1000; // ms
 
 export interface JiraSettings {
   auth: {
@@ -37,7 +39,9 @@ export class JiraProvider extends AbstractProvider<JiraSettings> {
   public resources: JiraResource[] = [];
 
   public async initialize() {
-    await this.refreshToken();
+    if (this.shouldRefreshToken) {
+      await this.refreshToken();
+    }
   }
 
   public async fetchFilter(filter: Filter) {
@@ -50,14 +54,16 @@ export class JiraProvider extends AbstractProvider<JiraSettings> {
     return find(this.getAvailablePredicates(), { name });
   }
 
+  @computed
+  private get shouldRefreshToken() {
+    const refresh_token = get(this.settings, 'auth.refresh_token');
+    const expires_at = get(this.settings, 'auth.expires_at');
+    return refresh_token && expires_at - FIVE_MINUTES <= Date.now();
+  }
+
   @action.bound
   public async refreshToken() {
-    const refresh_token = get(this.settings, 'auth.refresh_token');
-
-    if (!refresh_token) {
-      return;
-    }
-
+    const { refresh_token } = this.settings.auth;
     const { access_token, expires_in } = await refreshToken(refresh_token);
     this.setAuth({ access_token, expires_in, refresh_token });
   }
@@ -67,7 +73,7 @@ export class JiraProvider extends AbstractProvider<JiraSettings> {
     this.settings.auth = {
       refresh_token,
       access_token,
-      expires_at: Date.now() + expires_in,
+      expires_at: Date.now() + expires_in * 1000,
     };
 
     this.fetchResources();
