@@ -1,6 +1,7 @@
 import React from 'react';
 import { find, get } from 'lodash';
 import { action, observable, computed } from 'mobx';
+import hash from 'object-hash';
 
 import { AbstractProvider } from '../AbstractProvider';
 import { availablePredicates } from './predicates';
@@ -11,6 +12,7 @@ import { Filter } from '../../store/filters';
 import { fetchResources } from './fetchers/resources';
 import { refreshToken } from './fetchers/refreshToken';
 import { SwapResult } from './fetchers/swapToken';
+import { Cache } from '../../lib/cache';
 
 const FIVE_MINUTES = 5 * 60 * 1000; // ms
 
@@ -95,7 +97,10 @@ export class JiraProvider extends AbstractProvider<JiraSettings> {
       return;
     }
 
-    this.resources = await fetchResources(token);
+    const cacheKey = `jira.resources.${hash(token)}`;
+    this.resources = await Cache.remember(cacheKey, 5 * 60, () =>
+      fetchResources(token)
+    );
   }
 }
 
