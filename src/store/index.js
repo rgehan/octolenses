@@ -8,6 +8,7 @@ import { settings } from './settings';
 import { providers, ProviderType } from '../providers';
 
 import { migrateData } from './migrations';
+import { Cache } from '../lib/cache';
 
 const hydrateStores = async () => {
   const hydrate = create({});
@@ -71,6 +72,7 @@ export const bootstrap = async () => {
   await initializeProviders();
   await performOnboarding();
   await refreshAllData();
+  Cache.flushExpired();
 };
 
 export { navigation, filters, trends, settings };
