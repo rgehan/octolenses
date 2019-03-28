@@ -70,18 +70,23 @@ export class Cache {
    * @param key Key at which the item is stored
    */
   public static forget(key: string) {
-    localStorage.removeItem(
-      Cache.isPrefixed(key) ? key : Cache.getPrefixedKey(key)
-    );
+    localStorage.removeItem(Cache.getPrefixedKey(key));
   }
 
+  /**
+   * Flush the whole cache
+   */
   public static flush() {
-    const prefixToForget = `${Cache.prefix}:`;
-    chain(localStorage)
-      .keys()
-      .filter(key => startsWith(key, prefixToForget))
-      .forEach(Cache.forget)
-      .value();
+    Cache.getCacheKeys().forEach(Cache.forget);
+  }
+
+  /**
+   * Flush all the expired entries from the cache
+   */
+  public static flushExpired() {
+    Cache.getCacheKeys()
+      .filter(key => Cache.get(key).expiresAt < Date.now())
+      .forEach(Cache.forget);
   }
 
   /**
@@ -89,6 +94,10 @@ export class Cache {
    * @param key
    */
   private static getPrefixedKey(key: string) {
+    if (Cache.isPrefixed(key)) {
+      return key;
+    }
+
     return `${Cache.prefix}:${key}`;
   }
 
@@ -98,5 +107,16 @@ export class Cache {
    */
   private static isPrefixed(key: string) {
     return startsWith(key, `${Cache.prefix}:`);
+  }
+
+  /**
+   * Return all the keys stored in the cache
+   */
+  private static getCacheKeys() {
+    const cachePrefix = `${Cache.prefix}:`;
+    return chain(localStorage)
+      .keys()
+      .filter(key => startsWith(key, cachePrefix))
+      .value();
   }
 }
