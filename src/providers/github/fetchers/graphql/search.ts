@@ -3,6 +3,7 @@ import { chain, omit, get } from 'lodash';
 import { Filter } from '../../../../store/filters';
 import { makeQuery } from './query';
 import { client } from '../client';
+import { Cache } from '../../../../lib/cache';
 
 /**
  * Fetch a filter using the shiny GraphQL API
@@ -15,12 +16,16 @@ export const search = async (filter: Filter, token: string) => {
     .replace(/"/g, '\\"')
     .value();
 
-  const response = await client({
-    endpoint: '/graphql',
-    method: 'POST',
-    body: JSON.stringify({ query: makeQuery(filterString) }),
-    token,
-  });
+  const cacheKey = `github.graphql.${filter.hash}`;
+
+  const response = await Cache.remember(cacheKey, 60, async () =>
+    client({
+      endpoint: '/graphql',
+      method: 'POST',
+      body: JSON.stringify({ query: makeQuery(filterString) }),
+      token,
+    })
+  );
 
   return formatResponse(response);
 };
