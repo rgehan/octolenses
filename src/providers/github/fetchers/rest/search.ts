@@ -2,6 +2,7 @@ import { chain, map, pick } from 'lodash';
 
 import { Filter } from '../../../../store/filters';
 import { client } from '../client';
+import { Cache } from '../../../../lib/cache';
 
 /**
  * Fetch a filter on the old REST API. This is only supposed to be
@@ -16,10 +17,14 @@ export const search = async (filter: Filter) => {
     .join('+')
     .value();
 
-  const { items: issues = [] } = await client({
-    endpoint: '/search/issues',
-    qs: `per_page=100&q=${filterString}`,
-  });
+  const cacheKey = `github.rest.${filter.hash}`;
+
+  const { items: issues = [] } = await Cache.remember(cacheKey, 60, async () =>
+    client({
+      endpoint: '/search/issues',
+      qs: `per_page=100&q=${filterString}`,
+    })
+  );
 
   return formatResponse(issues);
 };
