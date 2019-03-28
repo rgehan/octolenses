@@ -1,9 +1,13 @@
+import { chain, startsWith } from 'lodash';
+
 interface CacheEntry<T> {
   expiresAt: number;
   value: T;
 }
 
 export class Cache {
+  static prefix = 'cache';
+
   /**
    * Remember the result of an expensive computation or data fetching, during a
    * certain period. The result is identified by a unique key.
@@ -61,11 +65,38 @@ export class Cache {
     );
   }
 
+  /**
+   * Forget a cached item
+   * @param key Key at which the item is stored
+   */
   public static forget(key: string) {
-    localStorage.removeItem(Cache.getPrefixedKey(key));
+    localStorage.removeItem(
+      Cache.isPrefixed(key) ? key : Cache.getPrefixedKey(key)
+    );
   }
 
+  public static flush() {
+    const prefixToForget = `${Cache.prefix}:`;
+    chain(localStorage)
+      .keys()
+      .filter(key => startsWith(key, prefixToForget))
+      .forEach(Cache.forget)
+      .value();
+  }
+
+  /**
+   * Return a prefixed key
+   * @param key
+   */
   private static getPrefixedKey(key: string) {
-    return `cache:${key}`;
+    return `${Cache.prefix}:${key}`;
+  }
+
+  /**
+   * Return whether a key is already prefixed or not
+   * @param key
+   */
+  private static isPrefixed(key: string) {
+    return startsWith(key, `${Cache.prefix}:`);
   }
 }
