@@ -18,7 +18,7 @@ export class Filter {
     filter.predicates = predicates;
     filter.id = id || uuidv1();
     filter.data = [];
-    filter.loading = false;
+    filter.loading = true;
     return filter;
   }
 
@@ -41,7 +41,7 @@ export class Filter {
   public data: any[] = []; // TODO
 
   @observable
-  public loading = false;
+  public loading = true;
 
   @observable
   public lastModified: number = 0;
