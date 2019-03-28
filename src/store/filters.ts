@@ -43,6 +43,9 @@ export class Filter {
   @observable
   public loading = false;
 
+  @observable
+  public lastModified: number = 0;
+
   public serializePredicate(payload: StoredPredicate): string {
     const provider = providers[this.provider];
     const predicate = provider.findPredicate(payload.type);
@@ -57,10 +60,15 @@ export class Filter {
     });
   }
 
+  public invalidateCache() {
+    this.lastModified = Date.now();
+  }
+
   @computed
   public get hash(): string {
     return hash({
       id: this.id,
+      lastModified: this.lastModified,
       predicates: this.predicates,
     });
   }
