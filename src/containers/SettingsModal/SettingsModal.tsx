@@ -6,7 +6,7 @@ import { Modal } from '../../components/Modal';
 import { providers } from '../../providers';
 import { Sidebar } from './Sidebar';
 import { Panel } from './Panel';
-import { Behavior, NightMode } from './tabs';
+import { Behavior, NightMode, CacheSettings } from './tabs';
 
 export interface SettingView {
   id: string;
@@ -25,6 +25,11 @@ export const SETTINGS_VIEWS: SettingView[] = [
     id: 'night_mode',
     label: 'Night mode',
     component: NightMode,
+  },
+  {
+    id: 'cache',
+    label: 'Cache',
+    component: CacheSettings,
   },
   ...map(providers, ({ label, settingsComponent }, key) => ({
     id: key,
