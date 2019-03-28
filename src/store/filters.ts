@@ -3,10 +3,10 @@ import { action, computed, observable } from 'mobx';
 import { persist } from 'mobx-persist';
 import { arrayMove } from 'react-sortable-hoc';
 import uuidv1 from 'uuid/v1';
+import hash from 'object-hash';
 
 import { toast } from '../components/ToastManager';
 import { StoredPredicate, ProviderType, providers } from '../providers';
-import { settings } from './settings';
 
 type FilterIdentifier = string;
 
@@ -53,6 +53,14 @@ export class Filter {
     return Filter.fromAttributes({
       provider: this.provider,
       label: `${this.label} (Copy)`,
+      predicates: this.predicates,
+    });
+  }
+
+  @computed
+  public get hash(): string {
+    return hash({
+      id: this.id,
       predicates: this.predicates,
     });
   }
