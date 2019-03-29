@@ -1,4 +1,4 @@
-import { set } from 'lodash';
+/* tslint:disable no-console */
 
 import { ProviderType } from '../providers';
 import { Filter } from '../store/filters';
@@ -27,6 +27,7 @@ export default class implements Migration {
   private defaultFiltersProviderToGithub() {
     const filters = getFromLocalStorage('filtersStore');
 
+    console.log('[migration] Defaulting all filters providers to "github"');
     filters.data.forEach((filter: Filter) => {
       filter.provider = filter.provider || ProviderType.GITHUB;
     });
@@ -42,6 +43,7 @@ export default class implements Migration {
       return;
     }
 
+    console.log('[migration] Moving set token to github provider settings');
     saveToLocalStorage('githubProvider', {
       settings: { token: settings.token },
     });
@@ -50,6 +52,7 @@ export default class implements Migration {
   private upgradeSchemaVersion() {
     const settings = getFromLocalStorage('settingsStore');
     settings.schemaVersion = 2;
+    console.log('[migration] Upgrading schema version to 2');
     saveToLocalStorage('settingsStore', settings);
   }
 }

@@ -1,3 +1,5 @@
+/* tslint:disable no-console */
+
 import { Migration } from './index';
 import { getFromLocalStorage, saveToLocalStorage } from './utils';
 
@@ -17,6 +19,7 @@ export default class implements Migration {
   public run() {
     const settings = getFromLocalStorage('settingsStore');
     settings.schemaVersion = 1;
+    console.log('[migration] Upgrading schema version to 1');
     saveToLocalStorage('settingsStore', settings);
   }
 }
