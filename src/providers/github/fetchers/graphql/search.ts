@@ -1,9 +1,9 @@
-import { chain, omit, get } from 'lodash';
+import { chain, get, omit } from 'lodash';
 
-import { Filter } from '../../../../store/filters';
-import { makeQuery } from './query';
-import { client } from '../client';
 import { Cache } from '../../../../lib/cache';
+import { Filter } from '../../../../store/filters';
+import { client } from '../client';
+import { makeQuery } from './query';
 
 /**
  * Fetch a filter using the shiny GraphQL API

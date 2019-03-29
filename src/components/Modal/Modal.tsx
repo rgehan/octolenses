@@ -1,5 +1,5 @@
-import React, { useContext, ReactNode, useEffect } from 'react';
 import cx from 'classnames';
+import React, { ReactNode, useContext, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 import { IsDarkContext } from '../../contexts/isDark';

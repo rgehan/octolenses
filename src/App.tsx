@@ -1,11 +1,11 @@
+import { inject, observer } from 'mobx-react';
 import React from 'react';
-import { observer, inject } from 'mobx-react';
 
-import { Discover, Dashboard } from './pages';
 import { Header, ToastManager } from './components';
 import { IsDarkContext } from './contexts/isDark';
-import { SettingsStore } from './store/settings';
+import { Dashboard, Discover } from './pages';
 import { NavigationStore } from './store/navigation';
+import { SettingsStore } from './store/settings';
 
 const PAGES = {
   discover: Discover,
@@ -20,7 +20,7 @@ interface IProps {
 @inject('navigation', 'settings')
 @observer
 export class App extends React.Component<IProps> {
-  render() {
+  public render() {
     const { navigation, settings } = this.props;
     const Page = PAGES[navigation.page];
 

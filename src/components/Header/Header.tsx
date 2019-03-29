@@ -1,12 +1,12 @@
-import React, { useState, useContext } from 'react';
 import cx from 'classnames';
 import { capitalize } from 'lodash';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
+import React, { useContext, useState } from 'react';
 
 import { SettingsModal } from '../../containers';
-import { NavigationStore } from '../../store/navigation';
 import { IsDarkContext } from '../../contexts/isDark';
+import { NavigationStore } from '../../store/navigation';
 import { TabLink } from './TabLink';
 
 interface IProps {

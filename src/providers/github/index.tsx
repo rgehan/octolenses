@@ -1,14 +1,14 @@
-import React from 'react';
 import { find } from 'lodash';
 import { action, observable } from 'mobx';
+import React from 'react';
 
-import { AbstractProvider } from '../AbstractProvider';
-import { availablePredicates } from './predicates';
-import { fetchFilter } from './fetchers';
-import { Settings } from './components/Settings';
-import { IssueCard } from './components/IssueCard';
 import { Filter } from '../../store/filters';
+import { AbstractProvider } from '../AbstractProvider';
+import { IssueCard } from './components/IssueCard';
+import { Settings } from './components/Settings';
+import { fetchFilter } from './fetchers';
 import { fetchProfile } from './fetchers/rest/profile';
+import { availablePredicates } from './predicates';
 
 export interface GithubSettings {
   token: string;

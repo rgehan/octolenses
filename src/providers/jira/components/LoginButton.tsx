@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
-import { chain } from 'lodash';
 import cx from 'classnames';
+import { chain } from 'lodash';
 import { observer } from 'mobx-react-lite';
+import React, { useContext } from 'react';
 
+import { JiraProvider } from '..';
 import { Button, ButtonType } from '../../../components/Button';
 import { IsDarkContext } from '../../../contexts/isDark';
-import { JiraProvider } from '..';
-import { swapToken, SwapResult } from '../fetchers/swapToken';
+import { SwapResult, swapToken } from '../fetchers/swapToken';
 
 const CLIENT_ID = '4WgiRI4XRQ2OTWof5i7yCKmlekkIldH0';
 

@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
 import { map } from 'lodash';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { Modal } from '../../components/Modal';
 import { providers } from '../../providers';
-import { Sidebar } from './Sidebar';
 import { Panel } from './Panel';
-import { Behavior, NightMode, CacheSettings } from './tabs';
+import { Sidebar } from './Sidebar';
+import { Behavior, CacheSettings, NightMode } from './tabs';
 
 export interface SettingView {
   id: string;

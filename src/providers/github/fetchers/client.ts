@@ -1,9 +1,9 @@
-import { pickBy, get } from 'lodash';
+import { get, pickBy } from 'lodash';
 
 import {
   InvalidCredentials,
-  RateLimitError,
   NeedTokenError,
+  RateLimitError,
 } from '../../../errors';
 
 interface ClientParams {

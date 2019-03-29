@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
 import cx from 'classnames';
+import React, { useContext } from 'react';
 
 import { IsDarkContext } from '../../contexts/isDark';
 

@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
-import { partition } from 'lodash';
-import styled from 'styled-components';
 import cx from 'classnames';
+import { partition } from 'lodash';
+import React, { useContext } from 'react';
+import styled from 'styled-components';
 
-import { SETTINGS_VIEWS, SettingView } from './SettingsModal';
 import { IsDarkContext } from '../../contexts/isDark';
+import { SETTINGS_VIEWS, SettingView } from './SettingsModal';
 
 const Wrapper = styled.div`
   width: 200px;

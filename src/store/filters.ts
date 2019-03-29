@@ -1,17 +1,17 @@
 import { findIndex } from 'lodash';
 import { action, computed, observable } from 'mobx';
 import { persist } from 'mobx-persist';
+import hash from 'object-hash';
 import { arrayMove } from 'react-sortable-hoc';
 import uuidv1 from 'uuid/v1';
-import hash from 'object-hash';
 
 import { toast } from '../components/ToastManager';
-import { StoredPredicate, ProviderType, providers } from '../providers';
+import { providers, ProviderType, StoredPredicate } from '../providers';
 
 type FilterIdentifier = string;
 
 export class Filter {
-  static fromAttributes({ provider, label, predicates, id }: any) {
+  public static fromAttributes({ provider, label, predicates, id }: any) {
     const filter = new Filter();
     filter.provider = provider;
     filter.label = label;
@@ -95,7 +95,7 @@ export class FiltersStore {
 
   // TODO Any
   @action.bound
-  saveFilter(filterPayload: any) {
+  public saveFilter(filterPayload: any) {
     const filter = Filter.fromAttributes(filterPayload);
 
     const index = findIndex(this.data, { id: filter.id });
@@ -109,7 +109,7 @@ export class FiltersStore {
   }
 
   @action.bound
-  cloneFilter(id: FilterIdentifier) {
+  public cloneFilter(id: FilterIdentifier) {
     const index = findIndex(this.data, { id });
     const filter = this.data[index];
 
@@ -121,18 +121,18 @@ export class FiltersStore {
   }
 
   @action.bound
-  removeFilter(id: FilterIdentifier) {
+  public removeFilter(id: FilterIdentifier) {
     const index = findIndex(this.data, { id });
     this.data.splice(index, 1);
   }
 
   @action.bound
-  swapFilters(oldIndex: number, newIndex: number) {
+  public swapFilters(oldIndex: number, newIndex: number) {
     this.data = arrayMove(this.data, oldIndex, newIndex);
   }
 
   @action.bound
-  async fetchFilter(filter: Filter) {
+  public async fetchFilter(filter: Filter) {
     const index = findIndex(this.data, { id: filter.id });
     this.data[index].loading = true;
 
@@ -148,7 +148,7 @@ export class FiltersStore {
     this.data[index].loading = false;
   }
 
-  async fetchAllFilters() {
+  public async fetchAllFilters() {
     await Promise.all(this.data.map(this.fetchFilter));
   }
 }

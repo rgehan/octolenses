@@ -1,9 +1,9 @@
 import { chain, get } from 'lodash';
 import hash from 'object-hash';
 
-import { Filter } from '../../../store/filters';
-import { JiraSettings, JiraResource } from '..';
+import { JiraResource, JiraSettings } from '..';
 import { Cache } from '../../../lib/cache';
+import { Filter } from '../../../store/filters';
 
 export async function fetchFilter(
   filter: Filter,

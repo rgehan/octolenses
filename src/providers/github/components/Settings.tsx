@@ -1,11 +1,11 @@
-import React, { useState, useContext } from 'react';
 import cx from 'classnames';
-import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
+import React, { useContext, useState } from 'react';
+import styled from 'styled-components';
 
+import { GithubProvider } from '..';
 import { Button, ButtonType } from '../../../components/Button';
 import { IsDarkContext } from '../../../contexts/isDark';
-import { GithubProvider } from '..';
 import { ProfileCard } from './ProfileCard';
 
 const CREATE_TOKEN_URL =

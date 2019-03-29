@@ -1,11 +1,11 @@
-import React, { useEffect, useContext } from 'react';
-import styled from 'styled-components';
-import ClipboardJS from 'clipboard';
 import cx from 'classnames';
+import ClipboardJS from 'clipboard';
+import React, { useContext, useEffect } from 'react';
+import styled from 'styled-components';
 
 import { toast } from '../../../../components/ToastManager/ToastManager';
-import { Issue } from './IssueCard';
 import { IsDarkContext } from '../../../../contexts/isDark';
+import { Issue } from './IssueCard';
 
 const Wrapper = styled.div`
   .overlay {

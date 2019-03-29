@@ -1,15 +1,15 @@
-import React, { useContext } from 'react';
 import cx from 'classnames';
-import timeago from 'timeago.js';
-import { observer } from 'mobx-react-lite';
 import { get } from 'lodash';
+import { observer } from 'mobx-react-lite';
+import React, { useContext } from 'react';
+import timeago from 'timeago.js';
 
 import { IsDarkContext } from '../../../../contexts/isDark';
 
-import { LabelBadge } from './LabelBadge';
-import { ContextualDropdown } from './ContextualDropdown';
 import { CheckStatusIndicator } from './CheckStatusIndicator';
+import { ContextualDropdown } from './ContextualDropdown';
 import { IssueStatusIndicator } from './IssueStatusIndicator';
+import { LabelBadge } from './LabelBadge';
 
 export interface Issue {
   type: 'PullRequest' | 'Issue';

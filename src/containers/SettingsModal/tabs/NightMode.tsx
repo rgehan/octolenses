@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { DARK_MODE } from '../../../constants/darkMode';
 import { RadioCard } from '../../../components/RadioCard';
+import { DARK_MODE } from '../../../constants/darkMode';
 import { SettingsStore } from '../../../store/settings';
 
 interface IProps {

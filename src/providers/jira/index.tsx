@@ -1,18 +1,18 @@
-import React from 'react';
 import { find, get } from 'lodash';
-import { action, observable, computed } from 'mobx';
+import { action, computed, observable } from 'mobx';
 import hash from 'object-hash';
+import React from 'react';
 
-import { AbstractProvider } from '../AbstractProvider';
-import { availablePredicates } from './predicates';
-import { Settings } from './components/Settings';
-import { IssueCard } from './components/IssueCard';
-import { fetchFilter } from './fetchers';
-import { Filter } from '../../store/filters';
-import { fetchResources } from './fetchers/resources';
-import { refreshToken } from './fetchers/refreshToken';
-import { SwapResult } from './fetchers/swapToken';
 import { Cache } from '../../lib/cache';
+import { Filter } from '../../store/filters';
+import { AbstractProvider } from '../AbstractProvider';
+import { IssueCard } from './components/IssueCard';
+import { Settings } from './components/Settings';
+import { fetchFilter } from './fetchers';
+import { refreshToken } from './fetchers/refreshToken';
+import { fetchResources } from './fetchers/resources';
+import { SwapResult } from './fetchers/swapToken';
+import { availablePredicates } from './predicates';
 
 const FIVE_MINUTES = 5 * 60 * 1000; // ms
 

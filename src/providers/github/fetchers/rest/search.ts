@@ -1,8 +1,8 @@
 import { chain, map, pick } from 'lodash';
 
+import { Cache } from '../../../../lib/cache';
 import { Filter } from '../../../../store/filters';
 import { client } from '../client';
-import { Cache } from '../../../../lib/cache';
 
 /**
  * Fetch a filter on the old REST API. This is only supposed to be

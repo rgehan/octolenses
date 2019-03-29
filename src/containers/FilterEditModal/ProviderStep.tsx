@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { Button, ButtonType } from '../../components/Button';
-import { ProviderType } from '../../providers';
 import { RadioCard } from '../../components/RadioCard';
+import { ProviderType } from '../../providers';
 
 interface IProps {
   provider: ProviderType;

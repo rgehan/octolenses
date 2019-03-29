@@ -1,8 +1,8 @@
-import React from 'react';
 import { observer } from 'mobx-react-lite';
+import React from 'react';
 
-import { Button, ButtonType } from '../../../components/Button';
 import { JiraProvider } from '..';
+import { Button, ButtonType } from '../../../components/Button';
 
 interface IProps {
   provider: JiraProvider;

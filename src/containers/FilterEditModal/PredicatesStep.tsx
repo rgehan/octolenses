@@ -1,10 +1,10 @@
-import React, { useContext, ChangeEvent } from 'react';
 import cx from 'classnames';
+import React, { ChangeEvent, useContext } from 'react';
 
 import { Button, ButtonType } from '../../components/Button';
 import { FilterPredicate } from '../../components/FilterPredicate';
-import { AbstractProvider, StoredPredicate } from '../../providers';
 import { IsDarkContext } from '../../contexts/isDark';
+import { AbstractProvider, StoredPredicate } from '../../providers';
 
 interface IProps {
   label: string;

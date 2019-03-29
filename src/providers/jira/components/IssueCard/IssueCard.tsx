@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
 import cx from 'classnames';
+import React, { useContext } from 'react';
 import timeago from 'timeago.js';
 
 import { IsDarkContext } from '../../../../contexts/isDark';

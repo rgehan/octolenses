@@ -1,8 +1,8 @@
-import React from 'react';
 import { find } from 'lodash';
+import React from 'react';
 
-import { SETTINGS_VIEWS } from './SettingsModal';
 import { settings } from '../../store/settings';
+import { SETTINGS_VIEWS } from './SettingsModal';
 
 interface IProps {
   selectedTab: string;

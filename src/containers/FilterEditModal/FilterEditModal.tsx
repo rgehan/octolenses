@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
 import { pick } from 'lodash';
 import { toJS } from 'mobx';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
 import { Modal } from '../../components/Modal';
 
-import { ProviderStep } from './ProviderStep';
-import { PredicatesStep } from './PredicatesStep';
-import { ProviderType, providers } from '../../providers';
-import { Filter, FiltersStore } from '../../store/filters';
 import { inject } from 'mobx-react';
+import { providers, ProviderType } from '../../providers';
+import { Filter, FiltersStore } from '../../store/filters';
+import { PredicatesStep } from './PredicatesStep';
+import { ProviderStep } from './ProviderStep';
 
 const Container = styled.div`
   width: 650px;

@@ -1,8 +1,8 @@
 import { observable } from 'mobx';
 import { persist } from 'mobx-persist';
 
-import { SettingsStore } from '../store/settings';
 import { Filter } from '../store/filters';
+import { SettingsStore } from '../store/settings';
 import { Predicate } from './types';
 
 interface SettingsComponentProps {

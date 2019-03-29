@@ -6,7 +6,7 @@ interface CacheEntry<T> {
 }
 
 export class Cache {
-  static prefix = 'cache';
+  public static prefix = 'cache';
 
   /**
    * Remember the result of an expensive computation or data fetching, during a
