@@ -6,8 +6,7 @@ import { filters } from './filters';
 import { trends } from './trends';
 import { settings } from './settings';
 import { providers, ProviderType } from '../providers';
-
-import { migrateData } from './migrations';
+import { migrator } from '../migrations';
 import { Cache } from '../lib/cache';
 
 const hydrateStores = async () => {
@@ -67,7 +66,7 @@ export const refreshAllData = async () => {
 };
 
 export const bootstrap = async () => {
-  await migrateData();
+  await migrator.migrate();
   await hydrateStores();
   await initializeProviders();
   await performOnboarding();
