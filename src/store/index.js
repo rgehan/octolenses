@@ -50,7 +50,7 @@ const performOnboarding = async () => {
     loading: false,
     predicates: [
       { type: 'type', value: 'issues' },
-      { type: 'repo', value: 'rgehan/octolenses-browser-extension' },
+      { type: 'repo', value: 'rgehan/octolenses' },
       { type: 'status', value: 'open' },
     ],
   });

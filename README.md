@@ -73,8 +73,8 @@ Then you can follow this process to develop/build the extension:
 
 ```sh
 # Clone the repository
-git clone git@github.com:rgehan/octolenses-browser-extension.git && \
-cd octolenses-browser-extension
+git clone git@github.com:rgehan/octolenses.git && \
+cd octolenses
 
 # Install the dependencies
 yarn
@@ -89,7 +89,7 @@ yarn build
 The built extension (located in the `dist/` folder), can then be loaded inside
 your browser as an _unpacked extension_, provided you're in developer mode.
 
-[https://github.com/rgehan/octolenses-browser-extension](rgehan/octolenses-browser-extension)
+[https://github.com/rgehan/octolenses](rgehan/octolenses)
 
 ## Releasing
 
@@ -105,7 +105,7 @@ The archive can then be uploaded on the Chrome Store dashboard.
 
 ## Contributing
 
-1. Fork it (<https://github.com/rgehan/octolenses-browser-extension/fork>)
+1. Fork it (<https://github.com/rgehan/octolenses/fork>)
 2. Create your feature branch (`git checkout -b feature/fooBar`)
 3. Commit your changes (`git commit -am 'Add some fooBar'`)
 4. Push to the branch (`git push origin feature/fooBar`)

@@ -64,7 +64,7 @@
     "build:app": "parcel build src/index.html",
     "build:background": "parcel build src/background/index.js --out-file background.js",
     "build:unpacked": "yarn clean && yarn build:app && yarn build:background && yarn copyManifest && yarn copyIcons && yarn syncManifestVersion",
-    "compress": "cd dist/ && zip -rq ../octolenses-browser-extension-$(jq -r .version ../package.json).zip *",
+    "compress": "cd dist/ && zip -rq ../octolenses-$(jq -r .version ../package.json).zip *",
     "build": "yarn build:unpacked && yarn compress",
     "release": "./scripts/release"
   }

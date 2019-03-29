@@ -9,7 +9,7 @@ import { GithubProvider } from '..';
 import { ProfileCard } from './ProfileCard';
 
 const CREATE_TOKEN_URL =
-  'https://github.com/settings/tokens/new?scopes=repo&description=octolenses-browser-extension';
+  'https://github.com/settings/tokens/new?scopes=repo&description=octolenses';
 
 const Input = styled.input<{ dark?: boolean }>`
   ::placeholder {
