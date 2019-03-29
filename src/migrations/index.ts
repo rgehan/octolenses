@@ -3,6 +3,8 @@
 import v0_to_v1 from './v0-to-v1';
 import v1_to_v2 from './v1-to-v2';
 
+import './testing-utils';
+
 export interface Migration {
   name: string;
   shouldRun(): boolean;
