@@ -10,21 +10,6 @@
     align-items: center;
   }
 
-  &__Title {
-    font-size: 36px;
-    text-shadow: 0 1px 0 white;
-
-    > i {
-      margin-right: 15px;
-    }
-
-    @media screen and (max-width: 600px) {
-      span {
-        display: none;
-      }
-    }
-  }
-
   &__Tabs {
     flex: 1;
     display: flex;

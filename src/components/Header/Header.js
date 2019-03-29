@@ -26,10 +26,13 @@ export class Header extends React.Component {
       <React.Fragment>
         <div className="Header">
           <div>
-            <h1 className="Header__Title">
-              <i className="fab fa-github" />
+            <a
+              href="https://github.com/rgehan/octolenses"
+              className="font-roboto text-4xl text-black font-bold mt-4"
+            >
+              <i className="fab fa-github mr-3" />
               <span>OctoLenses</span>
-            </h1>
+            </a>
             <div className="Header__Tabs">
               {this.renderLink('dashboard')}
               {this.renderLink('discover')}
