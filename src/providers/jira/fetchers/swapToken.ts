@@ -8,7 +8,7 @@ export const swapToken = async (
   authCode: string,
   redirectUri: string
 ): Promise<SwapResult> => {
-  const url = 'https://octolenses-jira-auth.now.sh/api/swap';
+  const url = 'https://octolenses.now.sh/api/swap';
 
   const { data } = await fetch(url, {
     method: 'POST',

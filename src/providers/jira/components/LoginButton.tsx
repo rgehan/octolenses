@@ -8,7 +8,7 @@ import { IsDarkContext } from '../../../contexts/isDark';
 import { JiraProvider } from '..';
 import { swapToken, SwapResult } from '../fetchers/swapToken';
 
-const CLIENT_ID = 'A9UecfzAAARFGbwj3lVgfw8WJ2M4O78f';
+const CLIENT_ID = '4WgiRI4XRQ2OTWof5i7yCKmlekkIldH0';
 
 interface IProps {
   provider: JiraProvider;

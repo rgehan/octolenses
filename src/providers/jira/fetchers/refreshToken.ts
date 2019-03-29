@@ -6,7 +6,7 @@ interface RefreshResult {
 export const refreshToken = async (
   refreshToken: string
 ): Promise<RefreshResult> => {
-  const url = 'https://octolenses-jira-auth.now.sh/api/refresh';
+  const url = 'https://octolenses.now.sh/api/refresh';
 
   const { data } = await fetch(url, {
     method: 'POST',
