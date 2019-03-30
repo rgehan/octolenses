@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import { get } from 'lodash';
-import React, { ChangeEvent, useContext } from 'react';
+import React, { ChangeEvent, useContext, useEffect } from 'react';
 
 import { Button, ButtonType } from '../../components/Button';
 import { FilterPredicate } from '../../components/FilterPredicate';
@@ -27,6 +27,21 @@ export const PredicatesStep = ({
   next,
 }: IProps) => {
   const isDark = useContext(IsDarkContext);
+
+  // Save on Enter
+  useEffect(
+    () => {
+      function handleKeyDown(event: KeyboardEvent) {
+        if (event.key === 'Enter') {
+          next();
+        }
+      }
+
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    },
+    [next]
+  );
 
   /**
    * Add a new predicate to the list of predicates

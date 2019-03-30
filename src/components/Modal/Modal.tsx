@@ -35,7 +35,9 @@ export const Modal = ({ children, onClose }: IProps) => {
   useEffect(
     () => {
       function handleKeyDown(event: KeyboardEvent) {
-        event.key === 'Escape' && onClose();
+        if (event.key === 'Escape') {
+          onClose();
+        }
       }
 
       window.addEventListener('keydown', handleKeyDown);
