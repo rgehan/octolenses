@@ -1,5 +1,7 @@
-import React from 'react';
+import cx from 'classnames';
+import React, { useContext } from 'react';
 
+import { IsDarkContext } from '../../contexts/isDark';
 import { Predicate, PredicateType } from '../../providers';
 
 interface IProps {
@@ -9,6 +11,13 @@ interface IProps {
 }
 
 export const ValueSelector = ({ predicate, value, onChange }: IProps) => {
+  const isDark = useContext(IsDarkContext);
+
+  const baseStyle = cx(
+    'h-full flex-1 bg-transparent outline-none',
+    isDark ? 'text-white' : 'text-grey-darkest'
+  );
+
   if (predicate.type === PredicateType.TEXT) {
     return (
       <input
@@ -16,7 +25,7 @@ export const ValueSelector = ({ predicate, value, onChange }: IProps) => {
         value={value}
         onChange={event => onChange(event.target.value)}
         placeholder={predicate.placeholder}
-        className="h-full flex-1 bg-transparent text-grey-darkest outline-none pl-3"
+        className={cx(baseStyle, 'pl-3')}
       />
     );
   }
@@ -26,7 +35,7 @@ export const ValueSelector = ({ predicate, value, onChange }: IProps) => {
       <select
         value={value}
         onChange={event => onChange(event.target.value)}
-        className="h-full flex-1 bg-transparent text-grey-darkest outline-none ml-2 mr-3"
+        className={cx(baseStyle, 'ml-2 mr-3')}
       >
         <option key="__default" value="">
           Choose...

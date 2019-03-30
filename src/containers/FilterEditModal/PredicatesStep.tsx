@@ -82,7 +82,10 @@ export const PredicatesStep = ({
       <input
         type="text"
         value={label}
-        className="text-2xl outline-none"
+        className={cx(
+          'w-full text-2xl bg-transparent outline-none',
+          isDark && 'text-white'
+        )}
         onChange={event => setLabel(event.target.value)}
       />
       <div className="text-base text-grey font-medium tracking-wide mt-8 mb-2">

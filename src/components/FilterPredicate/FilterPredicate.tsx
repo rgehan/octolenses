@@ -1,8 +1,10 @@
-import React from 'react';
+import cx from 'classnames';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 import { AbstractProvider } from '../../providers';
 
+import { IsDarkContext } from '../../contexts/isDark';
 import { OperatorSelector } from './OperatorSelector';
 import { ValueSelector } from './ValueSelector';
 
@@ -35,6 +37,7 @@ export const FilterPredicate = ({
   onDelete,
   onChange,
 }: IProps) => {
+  const isDark = useContext(IsDarkContext);
   const predicate = provider.findPredicate(type);
 
   const handleChange = (key: string) => (newValue: string) =>
@@ -47,8 +50,18 @@ export const FilterPredicate = ({
 
   return (
     <Wrapper className="flex relative mb-3">
-      <div className="flex-1 flex items-stretch rounded overflow-hidden bg-grey-lighter text-lg">
-        <div className="bg-grey-dark text-white py-2 px-3">
+      <div
+        className={cx(
+          'flex-1 flex items-stretch rounded overflow-hidden text-lg',
+          isDark ? 'bg-grey-darkest' : 'bg-grey-lighter'
+        )}
+      >
+        <div
+          className={cx(
+            'text-white py-2 px-3',
+            isDark ? 'bg-grey-darker' : 'bg-grey-dark'
+          )}
+        >
           <span>{predicate.label}</span>
           <OperatorSelector
             predicate={predicate}
@@ -69,7 +82,10 @@ export const FilterPredicate = ({
         style={{ left: '100%' }}
       >
         <i
-          className="action-icon far fa-trash-alt cursor-pointer text-grey-dark hover:text-grey-darkest"
+          className={cx(
+            'action-icon far fa-trash-alt cursor-pointer text-grey-dark',
+            isDark ? 'hover:text-grey' : 'hover:text-grey-darkest'
+          )}
           onClick={onDelete}
         />
       </div>
