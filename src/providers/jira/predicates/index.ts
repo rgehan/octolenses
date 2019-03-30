@@ -8,6 +8,13 @@ interface SimplePredicatePayload {
   label?: string;
 }
 
+enum JiraOperators {
+  EQUAL = '=',
+  NOT_EQUAL = '!=',
+  IN = 'IN',
+  NOT_IN = 'NOT IN',
+}
+
 /**
  * Makes a simple text predicate
  * @param options Options configuring the predicate
@@ -21,7 +28,13 @@ export const makeSimplePredicate = ({
   label: label || capitalize(name),
   placeholder,
   type: PredicateType.TEXT,
-  serialize: ({ value, negated }) => `${name} ${negated ? '!=' : '='} ${value}`,
+  operators: [
+    { value: JiraOperators.EQUAL, label: '=' },
+    { value: JiraOperators.NOT_EQUAL, label: '!=' },
+    { value: JiraOperators.IN, label: 'IN' },
+    { value: JiraOperators.NOT_IN, label: 'NOT IN' },
+  ],
+  serialize: ({ value, operator }) => `${name} ${operator} ${value}`,
 });
 
 export const availablePredicates: Predicate[] = [

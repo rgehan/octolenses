@@ -1,4 +1,5 @@
 import cx from 'classnames';
+import { get } from 'lodash';
 import React, { ChangeEvent, useContext } from 'react';
 
 import { Button, ButtonType } from '../../components/Button';
@@ -31,13 +32,20 @@ export const PredicatesStep = ({
    * Add a new predicate to the list of predicates
    */
   function handleAddPredicate(event: ChangeEvent<HTMLSelectElement>) {
-    const type = event.target.value;
+    const predicate = provider.findPredicate(event.target.value);
 
-    if (!type) {
+    if (!predicate) {
       return;
     }
 
-    setPredicates([...predicates, { type, value: '' }]);
+    setPredicates([
+      ...predicates,
+      {
+        type: predicate.name,
+        operator: get(predicate, 'operators.0.value'),
+        value: '',
+      },
+    ]);
   }
 
   /**
@@ -46,11 +54,11 @@ export const PredicatesStep = ({
    */
   const handlePredicateChange = (index: number) => ({
     value,
-    negated,
+    operator,
   }: StoredPredicate) => {
     setPredicates([
       ...predicates.slice(0, index),
-      { ...predicates[index], value, negated },
+      { ...predicates[index], value, operator },
       ...predicates.slice(index + 1),
     ]);
   };

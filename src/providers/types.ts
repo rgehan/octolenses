@@ -10,8 +10,8 @@ interface BasePredicate {
   type: PredicateType;
   name: PredicateIdentifier;
   label: string;
-  negatable?: boolean;
-  serialize?: (payload: { value: string; negated?: boolean }) => string;
+  operators: PredicateOperator[];
+  serialize?: (payload: { value: string; operator: string }) => string;
 }
 
 // A simple text predicate
@@ -32,10 +32,15 @@ export type Predicate = TextPredicate | DropdownPredicate;
 export interface StoredPredicate {
   type: PredicateIdentifier;
   value: string;
-  negated?: boolean;
+  operator?: string;
 }
 
 export enum PredicateType {
   TEXT = 'text',
   DROPDOWN = 'dropdown',
+}
+
+interface PredicateOperator {
+  value: string;
+  label: string;
 }

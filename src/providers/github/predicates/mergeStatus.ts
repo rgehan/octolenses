@@ -8,6 +8,6 @@ export const mergeStatus: DropdownPredicate = {
     { value: 'merged', label: 'Merged' },
     { value: 'unmerged', label: 'Unmerged' },
   ],
-  negatable: false,
+  operators: [],
   serialize: ({ value }) => `is:${value}`,
 };

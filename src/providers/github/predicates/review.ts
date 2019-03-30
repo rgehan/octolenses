@@ -10,6 +10,6 @@ export const review: DropdownPredicate = {
     { value: 'approved', label: 'Approved' },
     { value: 'changes_requested', label: 'Changes Requested' },
   ],
-  negatable: false,
+  operators: [],
   serialize: ({ value }) => `review:${value}`,
 };

@@ -8,6 +8,6 @@ export const status: DropdownPredicate = {
     { value: 'open', label: 'Open' },
     { value: 'closed', label: 'Closed' },
   ],
-  negatable: false,
+  operators: [],
   serialize: ({ value }) => `is:${value}`,
 };

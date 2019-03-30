@@ -5,6 +5,6 @@ export const type: DropdownPredicate = {
   label: 'Type',
   type: PredicateType.DROPDOWN,
   choices: [{ value: 'pr', label: 'PRs' }, { value: 'issue', label: 'Issues' }],
-  negatable: false,
-  serialize: ({ value, negated }) => `${negated ? '-' : ''}type:${value}`,
+  operators: [],
+  serialize: ({ value }) => `type:${value}`,
 };

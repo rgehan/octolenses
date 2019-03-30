@@ -6,6 +6,11 @@ import { review } from './review';
 import { status } from './status';
 import { type } from './type';
 
+enum GithubOperators {
+  EQUAL = 'equal',
+  NOT_EQUAL = 'not_equal',
+}
+
 interface SimplePredicatePayload {
   name: string;
   placeholder: string;
@@ -25,7 +30,14 @@ export const makeSimplePredicate = ({
   label: label || capitalize(name),
   placeholder,
   type: PredicateType.TEXT,
-  serialize: ({ value, negated }) => `${negated ? '-' : ''}${name}:"${value}"`,
+  operators: [
+    { value: GithubOperators.EQUAL, label: '=' },
+    { value: GithubOperators.NOT_EQUAL, label: '!=' },
+  ],
+  serialize: ({ value, operator }) => {
+    const modifier = operator === GithubOperators.NOT_EQUAL ? '-' : '';
+    return `${modifier}${name}:"${value}"`;
+  },
 });
 
 export const availablePredicates: Predicate[] = [
