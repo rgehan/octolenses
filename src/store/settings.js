@@ -48,7 +48,7 @@ export class SettingsStore {
    */
   @persist
   @observable
-  schemaVersion = 2;
+  schemaVersion = 3;
 
   @observable
   isDark = false;
