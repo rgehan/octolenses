@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { get } from 'lodash';
+import { get, chain } from 'lodash';
 import React, { ChangeEvent, useContext, useEffect } from 'react';
 
 import { Button, ButtonType } from '../../components/Button';
@@ -129,11 +129,14 @@ export const PredicatesStep = ({
           <option key="__default" value="">
             + Add a predicate
           </option>
-          {provider.getAvailablePredicates().map(({ name, label }) => (
-            <option key={name} value={name}>
-              {label}
-            </option>
-          ))}
+          {chain(provider.getAvailablePredicates())
+            .orderBy('label')
+            .map(({ name, label: predicateLabel }) => (
+              <option key={name} value={name}>
+                {predicateLabel}
+              </option>
+            ))
+            .value()}
         </select>
       </div>
       <div className="flex justify-end mt-10">
