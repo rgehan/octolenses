@@ -17,11 +17,11 @@ out all the information you need in order to be as productive as possible.
 ## Installation
 
 [![](.github/chrome_logo.png)](https://chrome.google.com/webstore/detail/octolenses/ghlblfakaklgkdmfejdlffbmpcaidoci)
-[![](.github/firefox_logo.png)](https://addons.mozilla.org/fr/firefox/addon/github-octolenses/)
+[![](.github/firefox_logo.png)](https://addons.mozilla.org/firefox/addon/github-octolenses/)
 
 Simply download it on your favorite browser's extensions store.
 
-It is available on both [Google Chrome](https://chrome.google.com/webstore/detail/octolenses/ghlblfakaklgkdmfejdlffbmpcaidoci) and [Firefox](https://addons.mozilla.org/fr/firefox/addon/github-octolenses/).
+It is available on both [Google Chrome](https://chrome.google.com/webstore/detail/octolenses/ghlblfakaklgkdmfejdlffbmpcaidoci) and [Firefox](https://addons.mozilla.org/firefox/addon/github-octolenses/).
 
 By default, it overrides your browser's default "New Tab" page, but this can be
 disabled so that it only opens when you click on the extension's icon.
