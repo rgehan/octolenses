@@ -1,9 +1,10 @@
-import { chain, get, omit } from 'lodash';
+import { chain, omit } from 'lodash';
 
 import { Cache } from '../../../../lib/cache';
 import { Filter } from '../../../../store/filters';
 import { client } from '../client';
 import { makeQuery } from './query';
+import { extractGraphqlLabels, extractGraphqlStatus } from './utils';
 
 /**
  * Fetch a filter using the shiny GraphQL API
@@ -43,13 +44,4 @@ export const formatResponse = (response: any) =>
       status: extractGraphqlStatus(issue),
       labels: extractGraphqlLabels(issue),
     }))
-    .value();
-
-const extractGraphqlStatus = (issue: any) =>
-  get(issue, 'commits.edges.0.node.commit.status.state');
-
-const extractGraphqlLabels = (issue: any) =>
-  chain(issue)
-    .get('labels.edges')
-    .map('node')
     .value();
