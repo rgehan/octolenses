@@ -11,13 +11,20 @@ import { ContextualDropdown } from './ContextualDropdown';
 import { IssueStatusIndicator } from './IssueStatusIndicator';
 import { LabelBadge } from './LabelBadge';
 
+export enum IssueStatus {
+  UNKNOWN = 'UNKNOWN',
+  PENDING = 'PENDING',
+  FAILURE = 'FAILURE',
+  SUCCESS = 'SUCCESS',
+}
+
 export interface Issue {
   type: 'PullRequest' | 'Issue';
   title: string;
   url: string;
   html_url: string;
   state: 'open' | 'closed' | 'merged';
-  status: 'EXPECTED' | 'ERROR' | 'FAILURE' | 'PENDING' | 'SUCCESS';
+  status: IssueStatus;
   number: number;
   createdAt: string;
   pull_request?: {
