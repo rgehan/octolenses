@@ -10,13 +10,7 @@ import { CheckStatusIndicator } from './CheckStatusIndicator';
 import { ContextualDropdown } from './ContextualDropdown';
 import { IssueStatusIndicator } from './IssueStatusIndicator';
 import { LabelBadge } from './LabelBadge';
-
-export enum IssueStatus {
-  UNKNOWN = 'UNKNOWN',
-  PENDING = 'PENDING',
-  FAILURE = 'FAILURE',
-  SUCCESS = 'SUCCESS',
-}
+import { IssueStatus } from './types';
 
 export interface Issue {
   type: 'PullRequest' | 'Issue';

@@ -1,7 +1,8 @@
 import cx from 'classnames';
 import React from 'react';
 
-import { Issue, IssueStatus } from './IssueCard';
+import { Issue } from './IssueCard';
+import { IssueStatus } from './types';
 
 interface IProps {
   status: Issue['status'];

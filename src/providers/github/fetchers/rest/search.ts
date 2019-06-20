@@ -2,7 +2,7 @@ import { chain, map, pick } from 'lodash';
 
 import { Cache } from '../../../../lib/cache';
 import { Filter } from '../../../../store/filters';
-import { IssueStatus } from '../../components/IssueCard/IssueCard';
+import { IssueStatus } from '../../components/IssueCard/types';
 import { client } from '../client';
 
 /**

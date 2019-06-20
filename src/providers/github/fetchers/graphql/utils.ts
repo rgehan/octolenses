@@ -1,6 +1,6 @@
 import { chain, get } from 'lodash';
 
-import { IssueStatus } from '../../components/IssueCard/IssueCard';
+import { IssueStatus } from '../../components/IssueCard/types';
 
 export const COMMIT_STATUS_TO_STATUS: Record<any, IssueStatus> = {
   EXPECTED: IssueStatus.UNKNOWN,
