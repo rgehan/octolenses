@@ -32,6 +32,7 @@ export const client = async ({
     headers: pickBy({
       'User-Agent': 'OctoLenses Github Dashboard',
       Authorization: token && `Bearer ${token}`,
+      Accept: 'application/vnd.github.antiope-preview+json', // Allow access to Previews API
     }),
   });
 
