@@ -38,11 +38,18 @@ const pullRequestFragment = `
       totalCount
     }
     commits(last: 1) {
-      edges {
-        node {
-          commit {
-            status {
-              state
+      nodes {
+        commit {
+          status {
+            state
+          }
+          checkSuites(first: 1) {
+            nodes {
+              status
+              conclusion
+              app {
+                name
+              }
             }
           }
         }
