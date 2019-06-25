@@ -1,3 +1,8 @@
+### v1.1.0
+- Add title to the check status [Renan Gehan]
+- Show whether a PR is conflicting with an icon [Renan Gehan]
+- Retrieve MergeableStatus from PRs (graphql) [Renan Gehan]
+
 ### v1.0.0
 - Move IssueStatus enum to its own file [Renan GEHAN]
 - Default IssueStatus to Unknown when using Github REST fetcher [Renan Gehan]
