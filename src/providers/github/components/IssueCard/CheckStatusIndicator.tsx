@@ -14,12 +14,19 @@ const STATUS_TO_ICON = {
   [IssueStatus.PENDING]: 'fas fa-circle text-orange',
 };
 
+const STATUS_TO_LABEL = {
+  [IssueStatus.SUCCESS]: 'All checks passed',
+  [IssueStatus.FAILURE]: 'Some checks have failed',
+  [IssueStatus.PENDING]: 'Checks are running',
+};
+
 export const CheckStatusIndicator = ({ status }: IProps) => {
   if (status === IssueStatus.UNKNOWN) {
     return null;
   }
 
   const icon = STATUS_TO_ICON[status];
+  const label = STATUS_TO_LABEL[status];
 
-  return <i className={cx('text-sm ml-2', icon)} />;
+  return <i className={cx('text-sm ml-2', icon)} title={label} />;
 };
