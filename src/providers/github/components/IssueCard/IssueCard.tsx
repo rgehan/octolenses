@@ -7,6 +7,7 @@ import timeago from 'timeago.js';
 import { IsDarkContext } from '../../../../contexts/isDark';
 
 import { CheckStatusIndicator } from './CheckStatusIndicator';
+import { ConflictIndicator } from './ConflictIndicator';
 import { ContextualDropdown } from './ContextualDropdown';
 import { IssueStatusIndicator } from './IssueStatusIndicator';
 import { LabelBadge } from './LabelBadge';
@@ -95,6 +96,8 @@ export const IssueCard = observer(({ data: issue }: IProps) => {
             </span>
 
             <CheckStatusIndicator status={issue.status} />
+
+            <ConflictIndicator conflicting={issue.conflicting} />
           </div>
           <a href={issue.url} className="ml-2 text-grey-dark hover:text-grey">
             <i className="far fa-comment-alt" /> {getTotalCommentsCount()}
