@@ -21,6 +21,7 @@ export interface Issue {
   status: IssueStatus;
   number: number;
   createdAt: string;
+  conflicting: boolean;
   pull_request?: {
     url: string;
   };

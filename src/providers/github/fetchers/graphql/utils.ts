@@ -48,3 +48,7 @@ export function extractGraphqlLabels(issue: any) {
     .map('node')
     .value();
 }
+
+export function extractConflictStatus(issue: any) {
+  return issue.mergeable === 'CONFLICTING';
+}

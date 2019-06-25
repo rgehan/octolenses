@@ -4,7 +4,11 @@ import { Cache } from '../../../../lib/cache';
 import { Filter } from '../../../../store/filters';
 import { client } from '../client';
 import { makeQuery } from './query';
-import { extractGraphqlLabels, extractGraphqlStatus } from './utils';
+import {
+  extractConflictStatus,
+  extractGraphqlLabels,
+  extractGraphqlStatus,
+} from './utils';
 
 /**
  * Fetch a filter using the shiny GraphQL API
@@ -39,9 +43,10 @@ export const formatResponse = (response: any) =>
     .get('data.search.edges')
     .map('node')
     .map(issue => ({
-      ...omit(issue, ['commits', '__typename']),
+      ...omit(issue, ['commits', '__typename', 'mergeable']),
       type: issue.__typename,
       status: extractGraphqlStatus(issue),
       labels: extractGraphqlLabels(issue),
+      conflicting: extractConflictStatus(issue),
     }))
     .value();
