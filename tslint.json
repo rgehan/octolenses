@@ -13,7 +13,8 @@
     "ban-types": false,
     "member-ordering": false,
     "max-classes-per-file": false,
-    "jsx-no-lambda": false
+    "jsx-no-lambda": false,
+    "no-console": false
   },
   "linterOptions": {
     "exclude": ["*.js", "scripts/*"]
