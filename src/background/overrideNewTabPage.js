@@ -1,11 +1,15 @@
 import { isNewTabUrl } from './utils';
+import { NEW_TAB_SETTING_LS_KEY } from '../constants/newTab';
 
 /**
  * If no setting is explicitely set (most probably on first start),
  * use the new tab page, else respect the setting value.
  */
 const shouldUseNewTabPage = () => {
-  const useNewTabPage = JSON.parse(localStorage.getItem('useNewTabPage'));
+  const useNewTabPage = JSON.parse(
+    localStorage.getItem(NEW_TAB_SETTING_LS_KEY)
+  );
+
   return useNewTabPage !== null ? useNewTabPage : true;
 };
 

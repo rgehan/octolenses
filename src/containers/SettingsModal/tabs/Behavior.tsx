@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { RadioCard } from '../../../components/RadioCard';
+import { NEW_TAB_SETTING_LS_KEY } from '../../../constants/newTab';
 
 export const Behavior = () => {
   const [useNewTab, setUseNewTab] = useState(getNewTabSetting());
@@ -37,5 +38,5 @@ function getNewTabSetting() {
 }
 
 function saveNewTabSetting(useNewTab: boolean) {
-  localStorage.setItem('useNewTab', JSON.stringify(useNewTab));
+  localStorage.setItem(NEW_TAB_SETTING_LS_KEY, JSON.stringify(useNewTab));
 }
