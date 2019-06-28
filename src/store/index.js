@@ -48,7 +48,7 @@ const performOnboarding = async () => {
     data: [],
     loading: false,
     predicates: [
-      { type: 'type', value: 'issues' },
+      { type: 'type', value: 'issue' },
       { type: 'repo', value: 'rgehan/octolenses' },
       { type: 'status', value: 'open' },
     ],
