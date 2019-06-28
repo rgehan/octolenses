@@ -37,7 +37,8 @@ a:visited {
 
 #container {
   @apply min-h-full mx-auto;
-  max-width: theme('screens.xl');
+  @apply px-8;
+  max-width: 1180px;
 
   .App {
     @apply min-h-full flex flex-col;

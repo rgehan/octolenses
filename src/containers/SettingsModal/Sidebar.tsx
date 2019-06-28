@@ -41,10 +41,11 @@ export const Sidebar = ({ selectedTab, selectTab }: IProps) => {
   function renderItems(items: SettingView[]) {
     return items.map(({ label, id }) => (
       <Item
+        key={id}
         onClick={() => selectTab(id)}
         className={cx(
           selectedTab === id && 'text-white bg-blue-500 font-medium rounded',
-          isDark && 'text-gray-500'
+          isDark && 'text-gray-300'
         )}
       >
         {label}
@@ -52,7 +53,7 @@ export const Sidebar = ({ selectedTab, selectTab }: IProps) => {
     ));
   }
 
-  const headerClass = isDark ? 'text-gray-700' : 'text-gray-500';
+  const headerClass = isDark ? 'text-gray-600' : 'text-gray-500';
 
   return (
     <Wrapper>
