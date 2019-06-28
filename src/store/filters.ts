@@ -43,6 +43,7 @@ export class Filter {
   @observable
   public loading = true;
 
+  @persist
   @observable
   public lastModified: number = 0;
 
