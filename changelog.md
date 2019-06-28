@@ -1,3 +1,6 @@
+### v1.1.1
+- Fix useNewTabPage setting not being taken into account [Renan Gehan]
+
 ### v1.1.0
 - Add title to the check status [Renan Gehan]
 - Show whether a PR is conflicting with an icon [Renan Gehan]
