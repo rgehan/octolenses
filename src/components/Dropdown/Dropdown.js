@@ -29,7 +29,7 @@ export class Dropdown extends React.Component {
     return (
       <div
         className={cx(
-          'w-48 flex relative rounded shadow-xl',
+          'w-48 flex relative rounded shadow-lg',
           settings.isDark ? 'bg-gray-800 text-white' : 'bg-white',
           className
         )}

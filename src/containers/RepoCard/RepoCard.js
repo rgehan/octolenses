@@ -19,7 +19,7 @@ export const _RepoCard = ({ repo, settings }) => {
     <div className="w-1/3 pl-6 mb-6">
       <div
         className={cx(
-          'h-64 flex flex-col px-5 py-4 shadow-xl rounded-lg text-gray-900',
+          'h-64 flex flex-col px-5 py-4 shadow-lg rounded-lg text-gray-900',
           settings.isDark ? 'bg-gray-800 text-white' : 'bg-white'
         )}
       >
