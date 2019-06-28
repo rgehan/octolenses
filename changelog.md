@@ -1,3 +1,14 @@
+### v1.2.0
+- Ensure cache invalidation is persistent across hard refreshes [Renan GEHAN]
+- Alter Filter model to compute count of new items since last refresh [Renan GEHAN]
+- Add method on provider to resolve UID for filter items [Renan GEHAN]
+- Add notification badge to FilterLink [Renan GEHAN]
+- Make initialize method on AbstractProvider, abstract [Renan GEHAN]
+- Slightly decouple FiltersStore and Filter model [Renan GEHAN]
+- Add .editorconfig [Renan GEHAN]
+- Allow console.log in tslint.json [Renan GEHAN]
+- Persist the selectedFilterId [Renan Gehan]
+
 ### v1.1.1
 - Fix useNewTabPage setting not being taken into account [Renan Gehan]
 
