@@ -1,9 +1,10 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { find, isUndefined, findIndex, size, chain } from 'lodash';
+import { find, isUndefined, findIndex, size, chain, get } from 'lodash';
 import ExtendableError from 'es6-error';
 import cx from 'classnames';
 import { SortableContainer } from 'react-sortable-hoc';
+import { computed } from 'mobx';
 
 import { FilterEditModal } from '../../containers';
 import { FilterLink, Loader } from '../../components';
@@ -30,69 +31,60 @@ const FilterLinkContainer = SortableContainer(
 @observer
 export class Dashboard extends React.Component {
   state = {
-    selectedFilterId: null,
     filterModal: { isOpen: false, mode: 'adding' },
   };
 
-  static getDerivedStateFromProps(props, state) {
-    const { selectedFilterId } = state;
-    const { filters } = props;
-
-    // If no filter is selected, but there are filters available,
-    // select the first one
-    if (selectedFilterId === null && filters.count > 0) {
-      return {
-        selectedFilterId: filters.firstFilterId,
-      };
-    }
-
-    return null;
+  @computed
+  get selectedFilter() {
+    const { settings, filters } = this.props;
+    const filter = find(filters.data, { id: settings.selectedFilterId });
+    const firstFilter = find(filters.data, { id: filters.firstFilterId });
+    return filter || firstFilter;
   }
 
   handleFilterSelected = filterId => {
-    this.setState({ selectedFilterId: filterId });
+    const { settings } = this.props;
+    settings.selectedFilterId = filterId;
   };
 
   handleCloneFilter = () => {
-    const filter = this.getSelectedFilter();
-    const { id } = this.props.filters.cloneFilter(filter.id);
+    const { filters } = this.props;
+    const { id } = filters.cloneFilter(this.selectedFilter.id);
     this.handleFilterSelected(id);
   };
 
   handleRefreshFilter = () => {
-    const filter = this.getSelectedFilter();
-    filter.invalidateCache();
-    this.props.filters.fetchFilter(filter);
+    this.selectedFilter.invalidateCache();
+    this.props.filters.fetchFilter(this.selectedFilter);
   };
 
   handleDeleteFilter = () => {
-    const { filters } = this.props;
-    const { selectedFilterId } = this.state;
+    const { filters, settings } = this.props;
 
-    if (isUndefined(selectedFilterId) || filters.count === 1) {
+    if (!this.selectedFilter || filters.count === 1) {
       return;
     }
 
-    // Find the id of the filter just above
+    // Find out the index (in the list) of the filter
     const currentFilterIndex = findIndex(filters.data, {
-      id: selectedFilterId,
+      id: this.selectedFilter.id,
     });
 
-    const newlySelectedFilterIndex =
-      currentFilterIndex === filters.count - 1
-        ? currentFilterIndex - 1
-        : currentFilterIndex;
+    // Find out which filter we'll have to select once removed
+    const isDeletingLastFilter = currentFilterIndex === filters.count - 1;
+    const newlySelectedFilterIndex = isDeletingLastFilter
+      ? currentFilterIndex - 1
+      : currentFilterIndex;
 
+    // Find the actual UUID of the filter
     const realIndex = chain(filters.data)
-      .filter(({ id }) => id !== selectedFilterId)
+      .filter(({ id }) => id !== this.selectedFilter.id)
       .get([newlySelectedFilterIndex, 'id'])
       .value();
 
-    this.setState({
-      selectedFilterId: realIndex,
-    });
-
-    this.props.filters.removeFilter(selectedFilterId);
+    // Remove the filter, then select the next one
+    filters.removeFilter(this.selectedFilter.id);
+    settings.selectedFilterId = realIndex;
   };
 
   /*
@@ -121,11 +113,6 @@ export class Dashboard extends React.Component {
     this.props.filters.saveFilter(filter);
   };
 
-  getSelectedFilter() {
-    const { filters } = this.props;
-    return find(filters.data, { id: this.state.selectedFilterId });
-  }
-
   reorderFilters = ({ oldIndex, newIndex }) => {
     const { filters } = this.props;
 
@@ -143,9 +130,7 @@ export class Dashboard extends React.Component {
 
   render() {
     const { filters, settings } = this.props;
-    const { selectedFilterId, filterModal } = this.state;
-
-    const selectedFilter = this.getSelectedFilter();
+    const { filterModal } = this.state;
 
     const LINKS = [
       {
@@ -180,7 +165,7 @@ export class Dashboard extends React.Component {
         <div className="flex flex-col w-48">
           <FilterLinkContainer
             links={filters.data}
-            selectedFilterId={selectedFilterId}
+            selectedFilterId={get(this.selectedFilter, 'id')}
             onFilterSelected={this.handleFilterSelected}
             dark={settings.isDark}
             onSortEnd={this.reorderFilters}
@@ -214,7 +199,7 @@ export class Dashboard extends React.Component {
         {filterModal.isOpen && (
           <FilterEditModal
             initialFilter={
-              filterModal.mode === 'editing' ? selectedFilter : null
+              filterModal.mode === 'editing' ? this.selectedFilter : null
             }
             onClose={this.handleCloseFilterModal}
             onSave={this.handleSaveFilterModal}
@@ -225,20 +210,18 @@ export class Dashboard extends React.Component {
   }
 
   renderResults() {
-    const selectedFilter = this.getSelectedFilter();
-
-    if (!selectedFilter) {
+    if (!this.selectedFilter) {
       return null;
     }
 
-    if (selectedFilter.loading) {
+    if (this.selectedFilter.loading) {
       return <Loader size={50} className="my-10" />;
     }
 
-    if (selectedFilter.error) {
+    if (this.selectedFilter.error) {
       const errorMessage =
-        selectedFilter.error instanceof ExtendableError
-          ? selectedFilter.error.message
+        this.selectedFilter.error instanceof ExtendableError
+          ? this.selectedFilter.error.message
           : 'Something failed, sorry.';
 
       return (
@@ -249,7 +232,7 @@ export class Dashboard extends React.Component {
       );
     }
 
-    if (size(selectedFilter.data) === 0) {
+    if (size(this.selectedFilter.data) === 0) {
       return (
         <div className="flex-1 flex items-center justify-center select-none text-2xl my-10 mx-0 text-grey">
           <i className="fa fa-search mr-2" />
@@ -258,9 +241,9 @@ export class Dashboard extends React.Component {
       );
     }
 
-    const CardComponent = providers[selectedFilter.provider].cardComponent;
+    const CardComponent = providers[this.selectedFilter.provider].cardComponent;
 
-    return selectedFilter.data.map((itemData, index) => (
+    return this.selectedFilter.data.map((itemData, index) => (
       <CardComponent key={index} data={itemData} />
     ));
   }

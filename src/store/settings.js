@@ -43,6 +43,13 @@ export class SettingsStore {
   wasOnboarded = false;
 
   /**
+   * Id of the filter that is selected in the sidebar
+   */
+  @persist
+  @observable
+  selectedFilterId = null;
+
+  /**
    * Version of the current settings schema. It is used to determine which
    * migrations to run.
    */
