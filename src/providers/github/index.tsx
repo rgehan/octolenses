@@ -39,6 +39,10 @@ export class GithubProvider extends AbstractProvider<GithubSettings> {
     return fetchFilter(filter, this.settings);
   }
 
+  public resolveFilterItemIdentifier(item: any) {
+    return item.number;
+  }
+
   public getAvailablePredicates = () => availablePredicates;
 
   public findPredicate(name: string) {

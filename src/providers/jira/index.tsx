@@ -52,6 +52,10 @@ export class JiraProvider extends AbstractProvider<JiraSettings> {
     return fetchFilter(filter, this.settings, this.resources[0]);
   }
 
+  public resolveFilterItemIdentifier(item: any): string {
+    return item.key;
+  }
+
   public getAvailablePredicates = () => availablePredicates;
 
   public findPredicate(name: string) {
