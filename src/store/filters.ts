@@ -1,4 +1,4 @@
-import { findIndex } from 'lodash';
+import { chain, findIndex, map } from 'lodash';
 import { action, computed, observable } from 'mobx';
 import { persist } from 'mobx-persist';
 import hash from 'object-hash';
@@ -46,6 +46,13 @@ export class Filter {
   @observable
   public lastModified: number = 0;
 
+  @persist('list')
+  @observable
+  private previousItemsIdentifiers: string[] = [];
+
+  @observable
+  public newItemsCount = 0;
+
   public serializePredicate(payload: StoredPredicate): string {
     const provider = providers[this.provider];
     const predicate = provider.findPredicate(payload.type);
@@ -80,7 +87,24 @@ export class Filter {
 
   @action.bound
   public setData(data: any) {
+    const newItemsIdentifiers = this.getItemsIdentifiers(data);
+
+    // Update the data
     this.data = data;
+
+    // Compute the number of new items
+    this.newItemsCount = chain(newItemsIdentifiers)
+      .difference(this.previousItemsIdentifiers)
+      .size()
+      .value();
+
+    // Store the IDs of these items, for comparison next time we update the data
+    this.previousItemsIdentifiers = newItemsIdentifiers;
+  }
+
+  private getItemsIdentifiers(items: any[]) {
+    const provider = providers[this.provider];
+    return map(items, item => provider.resolveFilterItemIdentifier(item));
   }
 }
 
