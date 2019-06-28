@@ -53,13 +53,13 @@ export const FilterPredicate = ({
       <div
         className={cx(
           'flex-1 flex items-stretch rounded overflow-hidden text-lg',
-          isDark ? 'bg-grey-darkest' : 'bg-grey-lighter'
+          isDark ? 'bg-gray-800' : 'bg-gray-200'
         )}
       >
         <div
           className={cx(
             'text-white py-2 px-3',
-            isDark ? 'bg-grey-darker' : 'bg-grey-dark'
+            isDark ? 'bg-gray-700' : 'bg-gray-600'
           )}
         >
           <span>{predicate.label}</span>
@@ -78,13 +78,13 @@ export const FilterPredicate = ({
         </div>
       </div>
       <div
-        className="absolute pin-y flex items-center px-4"
+        className="absolute inset-y-0 flex items-center px-4"
         style={{ left: '100%' }}
       >
         <i
           className={cx(
-            'action-icon far fa-trash-alt cursor-pointer text-grey-dark',
-            isDark ? 'hover:text-grey' : 'hover:text-grey-darkest'
+            'action-icon far fa-trash-alt cursor-pointer text-gray-600',
+            isDark ? 'hover:text-gray-500' : 'hover:text-gray-800'
           )}
           onClick={onDelete}
         />

@@ -25,14 +25,14 @@ export const AvailableResources = observer(({ resources }: IProps) => {
           <div
             className={cx(
               'w-16 h-16 rounded-full overflow-hidden mr-3',
-              isDark ? 'bg-grey-darker' : 'bg-grey-light'
+              isDark ? 'bg-gray-700' : 'bg-gray-400'
             )}
           >
             <img src={resource.avatarUrl} />
           </div>
           <div className="pt-2">
-            <div className="text-grey-darkest">{resource.name}</div>
-            <div className="text-sm text-grey-dark mt-1">{resource.id}</div>
+            <div className="text-gray-800">{resource.name}</div>
+            <div className="text-sm text-gray-600 mt-1">{resource.id}</div>
           </div>
         </div>
       ))}

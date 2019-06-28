@@ -52,8 +52,8 @@ export const IssueCard = observer(({ data: issue }: IProps) => {
   const isDark = useContext(IsDarkContext);
 
   const linkStyle = isDark
-    ? 'text-blue-light'
-    : 'text-blue hover:text-blue-dark';
+    ? 'text-blue-400'
+    : 'text-blue-500 hover:text-blue-600';
 
   function getTotalCommentsCount() {
     return (
@@ -63,11 +63,11 @@ export const IssueCard = observer(({ data: issue }: IProps) => {
 
   return (
     <div className="p-6 flex">
-      <div className="flex items-center justify-center flex-no-shrink pr-4">
+      <div className="flex items-center justify-center flex-shrink-0 pr-4">
         <div
           className={cx(
             'w-16 h-16 rounded-full overflow-hidden',
-            isDark ? 'bg-grey-darker' : 'bg-grey-light'
+            isDark ? 'bg-gray-700' : 'bg-gray-400'
           )}
         >
           <img src={issue.author.avatarUrl} />
@@ -99,19 +99,19 @@ export const IssueCard = observer(({ data: issue }: IProps) => {
 
             <ConflictIndicator conflicting={issue.conflicting} />
           </div>
-          <a href={issue.url} className="ml-2 text-grey-dark hover:text-grey">
+          <a href={issue.url} className="ml-2 text-gray-600 hover:text-gray">
             <i className="far fa-comment-alt" /> {getTotalCommentsCount()}
           </a>
         </div>
         <div
-          className={cx('text-xs', isDark ? 'text-grey' : 'text-grey-darker')}
+          className={cx('text-xs', isDark ? 'text-gray-500' : 'text-gray-700')}
         >
           #{issue.number} opened {timeago().format(issue.createdAt)} by{' '}
           <a
             href={issue.author.url}
             className={cx(
               'no-underline hover:underline',
-              isDark ? 'text-grey' : 'text-grey-darker'
+              isDark ? 'text-gray-500' : 'text-gray-700'
             )}
           >
             {issue.author.login}

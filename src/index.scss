@@ -1,17 +1,21 @@
-@tailwind preflight;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,500');
 
+html {
+  line-height: 1.15;
+}
+
 body {
-  @apply text-black font-open;
+  @apply text-gray-900 font-open;
   @apply m-0 min-h-screen;
-  @apply bg-grey-lightest;
+  @apply bg-gray-100;
   font-size: 100%;
 
   &.dark {
-    @apply bg-black text-white;
+    @apply bg-gray-900 text-white;
   }
 }
 
@@ -33,7 +37,7 @@ a:visited {
 
 #container {
   @apply min-h-full mx-auto;
-  max-width: config('screens.xl');
+  max-width: theme('screens.xl');
 
   .App {
     @apply min-h-full flex flex-col;

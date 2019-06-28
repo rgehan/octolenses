@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { get, chain } from 'lodash';
+import { chain, get } from 'lodash';
 import React, { ChangeEvent, useContext, useEffect } from 'react';
 
 import { Button, ButtonType } from '../../components/Button';
@@ -91,7 +91,7 @@ export const PredicatesStep = ({
 
   return (
     <div>
-      <div className="text-base text-grey font-medium tracking-wide">
+      <div className="text-base text-gray-500 font-medium tracking-wider">
         Filter name
       </div>
       <input
@@ -99,11 +99,11 @@ export const PredicatesStep = ({
         value={label}
         className={cx(
           'w-full text-2xl bg-transparent outline-none',
-          isDark && 'text-white'
+          isDark ? 'text-white' : 'text-black'
         )}
         onChange={event => setLabel(event.target.value)}
       />
-      <div className="text-base text-grey font-medium tracking-wide mt-8 mb-2">
+      <div className="text-base text-gray-500 font-medium tracking-wider mt-8 mb-2">
         Predicates
       </div>
       <div>
@@ -123,7 +123,7 @@ export const PredicatesStep = ({
           onChange={handleAddPredicate}
           className={cx(
             'bg-transparent appearance-none border-none outline-none cursor-pointer',
-            isDark ? 'text-grey' : 'text-black'
+            isDark ? 'text-gray-500' : 'text-gray-900'
           )}
         >
           <option key="__default" value="">

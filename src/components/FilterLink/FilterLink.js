@@ -10,7 +10,7 @@ const DragHandle = SortableHandle(({ dark }) => (
   <i
     className={cx(
       'fas fa-grip-horizontal text-sm mr-1',
-      dark ? 'text-grey-darker' : 'text-grey'
+      dark ? 'text-gray-700' : 'text-gray-500'
     )}
   />
 ));
@@ -18,21 +18,21 @@ const DragHandle = SortableHandle(({ dark }) => (
 export const FilterLink = SortableElement(
   observer(({ filter, isSelected, onClick, dark }) => {
     const { loading, error } = filter;
-    const activeColor = dark ? 'text-grey' : 'text-grey-darkest';
+    const activeColor = dark ? 'text-gray-500' : 'text-gray-800';
     return (
       <div
         key={filter.id}
         className={cx(
           'flex items-center text-right rtl pr-4 mb-3 cursor-pointer whitespace-no-wrap select-none',
           `hover:${activeColor}`,
-          isSelected ? activeColor : 'text-grey-dark'
+          isSelected ? activeColor : 'text-gray-600'
         )}
         onClick={onClick}
       >
         <span
           className={cx(
-            'rounded-full flex-no-shrink flex items-center justify-center text-xs h-4 w-8 ml-2 relative',
-            dark ? 'bg-grey-darkest' : 'bg-grey-light'
+            'rounded-full flex-shrink-0 flex items-center justify-center text-xs h-4 w-8 ml-2 relative',
+            dark ? 'bg-gray-800' : 'bg-gray-400'
           )}
         >
           {loading && <Loader size={13} color="#abacb9" strokeWidth={12} />}
@@ -40,7 +40,7 @@ export const FilterLink = SortableElement(
           {!loading && !error && size(filter.data)}
           {filter.newItemsCount > 0 &&
             !filter.loading && (
-              <div className="absolute pin-r pin-t w-4 h-4 -mr-2 -mt-2 bg-red-dark text-white rounded-full flex items-center justify-center">
+              <div className="absolute right-0 top-0 w-4 h-4 -mr-2 -mt-2 bg-red-600 text-white rounded-full flex items-center justify-center">
                 {filter.newItemsCount <= 99 ? (
                   <span className="text-2xs">{filter.newItemsCount}</span>
                 ) : (

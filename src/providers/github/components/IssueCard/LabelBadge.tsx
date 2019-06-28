@@ -18,7 +18,7 @@ export const LabelBadge = ({ label }: IProps) => {
     <div
       className={cx(
         'text-xs py-1 px-2 rounded mr-2',
-        isDark ? 'text-white' : 'text-black'
+        isDark ? 'text-white' : 'text-gray-900'
       )}
       style={{ background }}
     >

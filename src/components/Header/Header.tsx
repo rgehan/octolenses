@@ -34,7 +34,7 @@ const _Header = ({ navigation }: IProps) => {
             href="https://github.com/rgehan/octolenses"
             className={cx(
               'font-roboto text-4xl font-bold mt-4',
-              isDark ? 'text-white' : 'text-black'
+              isDark ? 'text-white' : 'text-gray-900'
             )}
           >
             <i className="fab fa-github mr-3" />

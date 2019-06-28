@@ -59,16 +59,16 @@ export const IssueCard = ({ data: issue }: IProps) => {
   const url = `${origin}/browse/${issue.key}`;
 
   const linkStyle = isDark
-    ? 'text-blue-light'
-    : 'text-blue hover:text-blue-dark';
+    ? 'text-blue-400'
+    : 'text-blue-500 hover:text-blue-600';
 
   return (
     <div className="p-6 flex">
-      <div className="flex items-center justify-center flex-no-shrink pr-4">
+      <div className="flex items-center justify-center flex-shrink-0 pr-4">
         <div
           className={cx(
             'w-12 h-12 rounded-full overflow-hidden',
-            isDark ? 'bg-grey-darker' : 'bg-grey-light'
+            isDark ? 'bg-gray-700' : 'bg-gray-400'
           )}
         >
           {issue.fields.assignee && (
@@ -93,7 +93,7 @@ export const IssueCard = ({ data: issue }: IProps) => {
           </div>
         </div>
         <div
-          className={cx('text-xs', isDark ? 'text-grey' : 'text-grey-darker')}
+          className={cx('text-xs', isDark ? 'text-gray-500' : 'text-gray-700')}
         >
           {issue.key} opened {timeago().format(issue.fields.created)}
         </div>

@@ -75,7 +75,7 @@ export const ContextualDropdown = ({ issue }: IProps) => {
         className={cx([
           'overlay',
           'absolute py-1',
-          isDark ? 'bg-grey-darker' : 'bg-white border border-grey-lighter',
+          isDark ? 'bg-gray-700' : 'bg-white border border-gray-200',
           'whitespace-no-wrap rounded shadow',
           'flex flex-col',
         ])}

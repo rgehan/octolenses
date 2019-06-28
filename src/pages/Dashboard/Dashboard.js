@@ -179,8 +179,10 @@ export class Dashboard extends React.Component {
                 onClick={handler}
                 key={text}
                 className={cx(
-                  'mb-3 cursor-pointer select-none text-grey-dark',
-                  settings.isDark ? 'hover:text-grey' : 'hover:text-black'
+                  'mb-3 cursor-pointer select-none text-gray-600',
+                  settings.isDark
+                    ? 'hover:text-gray-500'
+                    : 'hover:text-gray-900'
                 )}
               >
                 {text} <i className={cx(icon, 'ml-1 w-6 opacity-75')} />
@@ -191,7 +193,7 @@ export class Dashboard extends React.Component {
         <div
           className={cx(
             'flex-1 flex flex-col shadow-xl rounded-lg mb-16 min-w-0',
-            settings.isDark ? 'bg-grey-darkest text-white' : 'bg-white'
+            settings.isDark ? 'bg-gray-800 text-white' : 'bg-white'
           )}
         >
           {this.renderResults()}
@@ -225,7 +227,7 @@ export class Dashboard extends React.Component {
           : 'Something failed, sorry.';
 
       return (
-        <div className="flex-1 flex items-center justify-center select-none text-2xl my-10 mx-0 text-grey">
+        <div className="flex-1 flex items-center justify-center select-none text-2xl my-10 mx-0 text-gray">
           <i className="fas fa-exclamation-triangle mr-2" />
           {errorMessage}
         </div>
@@ -234,7 +236,7 @@ export class Dashboard extends React.Component {
 
     if (size(this.selectedFilter.data) === 0) {
       return (
-        <div className="flex-1 flex items-center justify-center select-none text-2xl my-10 mx-0 text-grey">
+        <div className="flex-1 flex items-center justify-center select-none text-2xl my-10 mx-0 text-gray">
           <i className="fa fa-search mr-2" />
           No results.
         </div>

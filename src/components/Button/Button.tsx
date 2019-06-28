@@ -7,8 +7,8 @@ export enum ButtonType {
 }
 
 const TYPE_TO_CLASSES: Record<ButtonType, string> = {
-  primary: 'bg-blue hover:bg-blue-dark text-white',
-  default: 'bg-grey-lighter hover:bg-grey-light',
+  primary: 'bg-blue-500 hover:bg-blue-600 text-white',
+  default: 'bg-gray-200 hover:bg-gray-400 text-black',
 };
 
 interface IProps {

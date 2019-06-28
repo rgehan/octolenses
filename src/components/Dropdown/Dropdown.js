@@ -30,7 +30,7 @@ export class Dropdown extends React.Component {
       <div
         className={cx(
           'w-48 flex relative rounded shadow-xl',
-          settings.isDark ? 'bg-grey-darkest text-white' : 'bg-white',
+          settings.isDark ? 'bg-gray-800 text-white' : 'bg-white',
           className
         )}
       >
@@ -48,7 +48,7 @@ export class Dropdown extends React.Component {
             </option>
           ))}
         </select>
-        <i className="fa fa-caret-down absolute pin-r mt-2 mr-3" />
+        <i className="fa fa-caret-down absolute right-0 mt-2 mr-3" />
       </div>
     );
   }

@@ -43,7 +43,7 @@ export const LoginButton = observer(({ provider }: IProps) => {
       <p
         className={cx(
           'text-base mt-4',
-          isDark ? ' text-grey-dark' : ' text-grey'
+          isDark ? 'text-gray-600' : 'text-gray-500'
         )}
       >
         The only way to connect your Atlassian account is using the OAuth flow.
@@ -53,7 +53,7 @@ export const LoginButton = observer(({ provider }: IProps) => {
       <p
         className={cx(
           'text-base mt-4',
-          isDark ? ' text-grey-dark' : ' text-grey'
+          isDark ? 'text-gray-600' : 'text-gray-500'
         )}
       >
         During the authentication flow, a token swap service (whose source code

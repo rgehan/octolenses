@@ -4,9 +4,9 @@ import React from 'react';
 import { Issue } from './IssueCard';
 
 const ISSUE_STATUS_COLORS: Record<Issue['state'], string> = {
-  open: 'text-green',
-  closed: 'text-red',
-  merged: 'text-purple',
+  open: 'text-green-500',
+  closed: 'text-red-500',
+  merged: 'text-purple-500',
 };
 
 interface IProps {

@@ -6,11 +6,11 @@ import { IsDarkContext } from '../../contexts/isDark';
 const COLORS = {
   dark: {
     active: 'text-white',
-    inactive: 'text-grey-light hover:text-white',
+    inactive: 'text-gray-400 hover:text-white',
   },
   light: {
-    active: 'text-grey-darkest',
-    inactive: 'text-grey-dark hover:text-grey-darkest',
+    active: 'text-gray-800',
+    inactive: 'text-gray-600 hover:text-gray-800',
   },
 };
 

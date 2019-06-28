@@ -11,7 +11,7 @@ export const ConflictIndicator = ({ conflicting }: IProps) => {
 
   return (
     <i
-      className="fas fa-exclamation-triangle text-red text-sm ml-2"
+      className="fas fa-exclamation-triangle text-red-500 text-sm ml-2"
       title="There are conflicts on this PR"
     />
   );
