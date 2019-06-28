@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import { GithubProvider } from '..';
 import { Button, ButtonType } from '../../../components/Button';
+import { toast } from '../../../components/ToastManager';
 import { IsDarkContext } from '../../../contexts/isDark';
 import { ProfileCard } from './ProfileCard';
 
@@ -29,6 +30,7 @@ export const Settings = observer(({ provider }: IProps) => {
 
   function handleSubmit() {
     provider.setToken(token);
+    toast('Token was saved', 'info');
   }
 
   return (
