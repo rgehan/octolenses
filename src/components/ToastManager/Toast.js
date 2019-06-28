@@ -8,8 +8,8 @@ const TYPES_TO_ICON = {
 };
 
 const TYPES_TO_THEME = {
-  info: 'bg-blue text-white',
-  error: 'bg-red-light text-white',
+  info: 'bg-blue-500 text-white',
+  error: 'bg-red-400 text-white',
 };
 
 const TOAST_DURATION = 3000;
@@ -51,7 +51,7 @@ export class Toast extends React.Component {
       <Wrapper
         onClick={this.removeToast}
         className={cx(
-          'bg-grey-darkest px-4 py-3 rounded shadow-md mt-3 select-none pointer-events-auto cursor-pointer',
+          'bg-gray-800 px-4 py-3 rounded shadow-md mt-3 select-none pointer-events-auto cursor-pointer',
           TYPES_TO_THEME[type],
           !visible && 'opacity-0'
         )}

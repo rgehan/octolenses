@@ -14,12 +14,12 @@ interface IProps {
 
 const COLORS = {
   dark: {
-    active: 'bg-grey-darkest border-blue',
-    inactive: 'bg-grey-darkest border-grey-darker',
+    active: 'bg-gray-800 border-blue-500',
+    inactive: 'bg-gray-800 border-gray-800',
   },
   light: {
-    active: 'border-blue bg-blue-lightest text-blue-darker',
-    inactive: 'border-grey bg-grey-lightest text-grey-darkest',
+    active: 'border-blue-500 bg-blue-100 text-blue-800',
+    inactive: 'border-gray bg-gray-100 text-gray-800',
   },
 };
 
@@ -46,7 +46,7 @@ export const RadioCard = ({ title, text, selected, icon, onClick }: IProps) => {
           <i
             className={cx(
               'text-5xl',
-              selected ? 'text-blue' : 'text-grey-light',
+              selected ? 'text-blue-500' : 'text-gray-400',
               icon
             )}
           />

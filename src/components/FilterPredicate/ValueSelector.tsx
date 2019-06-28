@@ -15,7 +15,7 @@ export const ValueSelector = ({ predicate, value, onChange }: IProps) => {
 
   const baseStyle = cx(
     'h-full flex-1 bg-transparent outline-none',
-    isDark ? 'text-white' : 'text-grey-darkest'
+    isDark ? 'text-white' : 'text-gray-800'
   );
 
   if (predicate.type === PredicateType.TEXT) {

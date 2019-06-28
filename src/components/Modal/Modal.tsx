@@ -49,17 +49,17 @@ export const Modal = ({ children, onClose }: IProps) => {
   return (
     <Backdrop
       className={cx(
-        'fixed z-50 pin font-roboto text-lg',
-        isDark ? 'bg-black' : 'bg-white'
+        'fixed z-50 inset-0 font-roboto text-lg',
+        isDark ? 'bg-gray-900' : 'bg-white'
       )}
     >
       <div
         onClick={onClose}
         className={cx(
-          'flex items-center absolute pin-t pin-r mt-4 mr-4 cursor-pointer py-1 px-2 rounded-full',
+          'flex items-center absolute top-0 right-0 mt-4 mr-4 cursor-pointer py-1 px-2 rounded-full',
           isDark
-            ? 'text-grey hover:bg-grey-darkest'
-            : 'text-grey-darker hover:bg-grey-lighter'
+            ? 'text-gray-500 hover:bg-gray-800'
+            : 'text-gray-700 hover:bg-gray-200'
         )}
       >
         <span className="mr-2">Close</span>

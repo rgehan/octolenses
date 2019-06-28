@@ -43,8 +43,8 @@ export const Sidebar = ({ selectedTab, selectTab }: IProps) => {
       <Item
         onClick={() => selectTab(id)}
         className={cx(
-          selectedTab === id && 'text-white bg-blue font-medium rounded',
-          isDark && 'text-grey'
+          selectedTab === id && 'text-white bg-blue-500 font-medium rounded',
+          isDark && 'text-gray-500'
         )}
       >
         {label}
@@ -52,7 +52,7 @@ export const Sidebar = ({ selectedTab, selectTab }: IProps) => {
     ));
   }
 
-  const headerClass = isDark ? 'text-grey-darker' : 'text-grey';
+  const headerClass = isDark ? 'text-gray-700' : 'text-gray-500';
 
   return (
     <Wrapper>

@@ -15,7 +15,7 @@ export const OperatorSelector = ({ predicate, value, onChange }: IProps) => {
 
   return (
     <select
-      className="ml-2 outline-none"
+      className="ml-2 outline-none text-black"
       value={value}
       onChange={event => onChange(event.target.value)}
     >

@@ -9,9 +9,9 @@ interface IProps {
 }
 
 const STATUS_TO_ICON = {
-  [IssueStatus.SUCCESS]: 'fas fa-check text-green',
-  [IssueStatus.FAILURE]: 'fas fa-times text-red',
-  [IssueStatus.PENDING]: 'fas fa-circle text-orange',
+  [IssueStatus.SUCCESS]: 'fas fa-check text-green-500',
+  [IssueStatus.FAILURE]: 'fas fa-times text-red-500',
+  [IssueStatus.PENDING]: 'fas fa-circle text-orange-500',
 };
 
 const STATUS_TO_LABEL = {

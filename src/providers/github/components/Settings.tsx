@@ -46,7 +46,7 @@ export const Settings = observer(({ provider }: IProps) => {
           <span
             className={cx(
               'font-mono px-2 rounded',
-              isDark ? 'bg-grey-darkest' : 'bg-grey-lightest'
+              isDark ? 'bg-gray-800' : 'bg-gray-100'
             )}
           >
             repo
@@ -62,14 +62,14 @@ export const Settings = observer(({ provider }: IProps) => {
           placeholder="xxxxx-xxxxx-xxxxx-xxxxx-xxxxx-xxxxx"
           dark={isDark}
           className={cx(
-            'w-full rounded outline-none pl-10 pr-3 py-2 text-grey-dark tracking-wide font-mono',
-            isDark ? 'bg-grey-darkest' : 'bg-grey-lightest'
+            'w-full rounded outline-none pl-10 pr-3 py-2 text-gray-600 tracking-wider font-mono',
+            isDark ? 'bg-gray-800' : 'bg-gray-100'
           )}
         />
         <i
           className={cx(
-            'fas fa-key absolute pin-l ml-3',
-            isDark ? 'text-grey-dark' : 'text-grey'
+            'fas fa-key absolute left-0 ml-3',
+            isDark ? 'text-gray-600' : 'text-gray-500'
           )}
         />
       </div>

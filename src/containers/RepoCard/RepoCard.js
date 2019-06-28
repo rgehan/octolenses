@@ -19,8 +19,8 @@ export const _RepoCard = ({ repo, settings }) => {
     <div className="w-1/3 pl-6 mb-6">
       <div
         className={cx(
-          'h-64 flex flex-col px-5 py-4 shadow-xl rounded-lg text-black',
-          settings.isDark ? 'bg-grey-darkest text-white' : 'bg-white'
+          'h-64 flex flex-col px-5 py-4 shadow-xl rounded-lg text-gray-900',
+          settings.isDark ? 'bg-gray-800 text-white' : 'bg-white'
         )}
       >
         <div className="flex items-center min-h-10">
@@ -34,8 +34,8 @@ export const _RepoCard = ({ repo, settings }) => {
             className={cx(
               'min-w-0 truncate hover:underline text-2xl py-2',
               settings.isDark
-                ? 'text-blue-light'
-                : 'text-blue hover:text-blue-dark'
+                ? 'text-blue-400'
+                : 'text-blue-500 hover:text-blue-600'
             )}
             href={html_url}
             target="__blank"
@@ -47,7 +47,7 @@ export const _RepoCard = ({ repo, settings }) => {
         <div
           className={cx(
             'flex-1 min-h-6 flex items-end mt-2',
-            settings.isDark ? 'text-grey' : 'text-grey-darker'
+            settings.isDark ? 'text-gray-500' : 'text-gray-700'
           )}
         >
           {language && <div className="mr-5">{language}</div>}
