@@ -3,7 +3,7 @@ const tailwindcss = require('tailwindcss');
 // prettier-ignore
 module.exports = {
   plugins: [
-    tailwindcss('./tailwind.js'),
+    tailwindcss(),
     require('autoprefixer'),
   ],
 };
