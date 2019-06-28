@@ -27,16 +27,13 @@ export class Toast extends React.Component {
   };
 
   componentDidMount() {
-    // Trigger the fade-out a bit before it expires
-    setTimeout(() => {
-      this.setState({ visible: false });
-    }, TOAST_DURATION - TOAST_FADE_DURATION);
-
-    // Remove the toast once it's expired
-    setTimeout(() => {
-      this.removeToast();
-    }, TOAST_DURATION);
+    setTimeout(this.discardToast, TOAST_DURATION);
   }
+
+  discardToast = () => {
+    this.setState({ visible: false });
+    setTimeout(this.removeToast, TOAST_FADE_DURATION);
+  };
 
   removeToast = () => {
     const { id, onRemove } = this.props;
@@ -49,7 +46,7 @@ export class Toast extends React.Component {
 
     return (
       <Wrapper
-        onClick={this.removeToast}
+        onClick={this.discardToast}
         className={cx(
           'bg-gray-800 px-4 py-3 rounded shadow-md mt-3 select-none pointer-events-auto cursor-pointer',
           TYPES_TO_THEME[type],
