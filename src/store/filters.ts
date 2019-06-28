@@ -72,6 +72,16 @@ export class Filter {
       predicates: this.predicates,
     });
   }
+
+  @action.bound
+  public setLoading(loading: boolean) {
+    this.loading = loading;
+  }
+
+  @action.bound
+  public setData(data: any) {
+    this.data = data;
+  }
 }
 
 export class FiltersStore {
@@ -133,19 +143,18 @@ export class FiltersStore {
 
   @action.bound
   public async fetchFilter(filter: Filter) {
-    const index = findIndex(this.data, { id: filter.id });
-    this.data[index].loading = true;
+    filter.setLoading(true);
 
     try {
       const result = await providers[filter.provider].fetchFilter(filter);
-      this.data[index].data = result;
+      filter.setData(result);
     } catch (error) {
       // TODO Handle various errors (RateLimitError for now)
       toast('Oops, something failed with your filter!', 'error');
       console.log(error);
     }
 
-    this.data[index].loading = false;
+    filter.loading = false;
   }
 
   public async fetchAllFilters() {
