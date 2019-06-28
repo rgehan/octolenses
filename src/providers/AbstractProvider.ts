@@ -63,4 +63,10 @@ export abstract class AbstractProvider<T = {}> {
    * @param providerSettings
    */
   public abstract fetchFilter(filter: Filter): Promise<any[]>;
+
+  /**
+   * Resolve the unique identifier associated to a filter item
+   * @param item A filter item
+   */
+  public abstract resolveFilterItemIdentifier(item: any): string;
 }
