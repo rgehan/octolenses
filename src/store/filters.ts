@@ -1,4 +1,4 @@
-import { chain, findIndex, map } from 'lodash';
+import { difference, findIndex, map } from 'lodash';
 import { action, computed, observable } from 'mobx';
 import { persist } from 'mobx-persist';
 import hash from 'object-hash';
@@ -52,7 +52,7 @@ export class Filter {
   private previousItemsIdentifiers: string[] = [];
 
   @observable
-  public newItemsCount = 0;
+  private newItemsIdentifiers: string[] = [];
 
   public serializePredicate(payload: StoredPredicate): string {
     const provider = providers[this.provider];
@@ -68,10 +68,6 @@ export class Filter {
     });
   }
 
-  public invalidateCache() {
-    this.lastModified = Date.now();
-  }
-
   @computed
   public get hash(): string {
     return hash({
@@ -81,6 +77,16 @@ export class Filter {
     });
   }
 
+  @computed
+  public get newItemsCount() {
+    return this.newItemsIdentifiers.length;
+  }
+
+  @action.bound
+  public invalidateCache() {
+    this.lastModified = Date.now();
+  }
+
   @action.bound
   public setLoading(loading: boolean) {
     this.loading = loading;
@@ -88,19 +94,19 @@ export class Filter {
 
   @action.bound
   public setData(data: any) {
-    const newItemsIdentifiers = this.getItemsIdentifiers(data);
+    const currentItemsIdentifiers = this.getItemsIdentifiers(data);
 
     // Update the data
     this.data = data;
 
-    // Compute the number of new items
-    this.newItemsCount = chain(newItemsIdentifiers)
-      .difference(this.previousItemsIdentifiers)
-      .size()
-      .value();
+    // Store the IDs of the items that weren't previously known
+    this.newItemsIdentifiers = difference(
+      currentItemsIdentifiers,
+      this.previousItemsIdentifiers
+    );
 
-    // Store the IDs of these items, for comparison next time we update the data
-    this.previousItemsIdentifiers = newItemsIdentifiers;
+    // Store the IDs of the current items, for later comparison
+    this.previousItemsIdentifiers = currentItemsIdentifiers;
   }
 
   private getItemsIdentifiers(items: any[]) {
