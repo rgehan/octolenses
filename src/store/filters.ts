@@ -1,4 +1,4 @@
-import { find, findIndex } from 'lodash';
+import { find, findIndex, merge } from 'lodash';
 import { action, computed, observable } from 'mobx';
 import { persist } from 'mobx-persist';
 import { arrayMove } from 'react-sortable-hoc';
@@ -42,13 +42,16 @@ export class FiltersStore {
   // TODO Any
   @action.bound
   public saveFilter(filterPayload: any) {
-    const filter = Filter.fromAttributes(filterPayload);
+    const index = findIndex(this.data, { id: filterPayload.id });
 
-    const index = findIndex(this.data, { id: filter.id });
+    let filter;
+
     if (index === -1) {
+      filter = Filter.fromAttributes(filterPayload);
       this.data.push(filter);
     } else {
-      this.data[index] = filter;
+      filter = this.data[index];
+      merge(filter, filterPayload);
     }
 
     this.fetchFilter(filter);
