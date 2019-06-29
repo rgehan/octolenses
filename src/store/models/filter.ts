@@ -4,6 +4,7 @@ import { persist } from 'mobx-persist';
 import hash from 'object-hash';
 import uuidv1 from 'uuid/v1';
 
+import { toast } from '../../components/ToastManager';
 import { providers, ProviderType, StoredPredicate } from '../../providers';
 
 export type FilterIdentifier = string;
@@ -107,18 +108,24 @@ export class Filter {
    */
 
   @action.bound
+  public async fetchFilter() {
+    this.loading = true;
+    this.error = null;
+
+    try {
+      const result = await providers[this.provider].fetchFilter(this);
+      this.setData(result);
+    } catch (error) {
+      toast('Oops, something failed with your filter!', 'error');
+      this.error = error;
+    }
+
+    this.loading = false;
+  }
+
+  @action.bound
   public invalidateCache() {
     this.lastModified = Date.now();
-  }
-
-  @action.bound
-  public setLoading(loading: boolean) {
-    this.loading = loading;
-  }
-
-  @action.bound
-  public setError(error: Error) {
-    this.error = error;
   }
 
   @action.bound

@@ -54,7 +54,7 @@ export class FiltersStore {
       merge(filter, filterPayload);
     }
 
-    this.fetchFilter(filter);
+    filter.fetchFilter();
   }
 
   @action.bound
@@ -80,24 +80,8 @@ export class FiltersStore {
     this.data = arrayMove(this.data, oldIndex, newIndex);
   }
 
-  @action.bound
-  public async fetchFilter(filter: Filter) {
-    filter.setLoading(true);
-    filter.setError(null);
-
-    try {
-      const result = await providers[filter.provider].fetchFilter(filter);
-      filter.setData(result);
-    } catch (error) {
-      toast('Oops, something failed with your filter!', 'error');
-      filter.setError(error);
-    }
-
-    filter.loading = false;
-  }
-
   public async fetchAllFilters() {
-    await Promise.all(this.data.map(this.fetchFilter));
+    await Promise.all(this.data.map(filter => filter.fetchFilter()));
   }
 }
 
