@@ -11,7 +11,7 @@ interface BasePredicate {
   name: PredicateIdentifier;
   label: string;
   operators: PredicateOperator[];
-  serialize?: (payload: { value: string; operator: string }) => string;
+  serialize?: (payload: { value: string; operator?: string }) => string;
 }
 
 // A simple text predicate
