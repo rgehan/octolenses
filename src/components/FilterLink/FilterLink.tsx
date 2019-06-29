@@ -23,7 +23,8 @@ export const FilterLink = SortableElement(
     const { loading, error } = filter;
     const activeColor = settingsStore.isDark
       ? 'text-gray-500'
-      : 'text-gray-800';
+      : 'text-gray-900';
+
     return (
       <div
         key={filter.id}
