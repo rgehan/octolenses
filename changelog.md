@@ -1,3 +1,10 @@
+### v1.2.2
+- Update README with new screenshots [Renan GEHAN]
+- Fix text color on dark RepoCard [Renan GEHAN]
+- Add a few data-* attributes to make navigation easier with Puppeteer [Renan GEHAN]
+- Add a script for automatically taking Chrome Store formatted screenshots [Renan GEHAN]
+- Fix editorconfig again [Renan GEHAN]
+
 ### v1.2.1
 - Fix color on active FilterLink in light mode [Renan GEHAN]
 - Remove IsDarkContext, directly import settingsStore instead [Renan GEHAN]
