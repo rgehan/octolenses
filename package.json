@@ -45,6 +45,7 @@
     "jest-localstorage-mock": "^2.4.0",
     "parcel-bundler": "^1.12.3",
     "prettier": "^1.14.2",
+    "puppeteer": "^1.18.1",
     "rimraf": "^2.6.2",
     "sass": "^1.17.3",
     "tailwindcss": "^1.0.4",
@@ -67,6 +68,7 @@
     "compress": "cd dist/ && zip -rq ../octolenses-$(jq -r .version ../package.json).zip *",
     "build": "yarn build:unpacked && yarn compress",
     "release": "./scripts/release",
+    "screenshots": "./scripts/screenshots",
     "test": "jest"
   }
 }
