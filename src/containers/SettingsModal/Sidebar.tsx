@@ -1,9 +1,10 @@
 import cx from 'classnames';
 import { partition } from 'lodash';
-import React, { useContext } from 'react';
+import { observer } from 'mobx-react';
+import React from 'react';
 import styled from 'styled-components';
 
-import { IsDarkContext } from '../../contexts/isDark';
+import { settingsStore } from '../../store';
 import { SETTINGS_VIEWS, SettingView } from './SettingsModal';
 
 const Wrapper = styled.div`
@@ -34,9 +35,8 @@ interface IProps {
   selectTab: Function;
 }
 
-export const Sidebar = ({ selectedTab, selectTab }: IProps) => {
+export const Sidebar = observer(({ selectedTab, selectTab }: IProps) => {
   const [providerItems, staticItems] = partition(SETTINGS_VIEWS, 'isProvider');
-  const isDark = useContext(IsDarkContext);
 
   function renderItems(items: SettingView[]) {
     return items.map(({ label, id }) => (
@@ -45,7 +45,7 @@ export const Sidebar = ({ selectedTab, selectTab }: IProps) => {
         onClick={() => selectTab(id)}
         className={cx(
           selectedTab === id && 'text-white bg-blue-500 font-medium rounded',
-          isDark && 'text-gray-300'
+          settingsStore.isDark && 'text-gray-300'
         )}
       >
         {label}
@@ -53,7 +53,7 @@ export const Sidebar = ({ selectedTab, selectTab }: IProps) => {
     ));
   }
 
-  const headerClass = isDark ? 'text-gray-600' : 'text-gray-500';
+  const headerClass = settingsStore.isDark ? 'text-gray-600' : 'text-gray-500';
 
   return (
     <Wrapper>
@@ -63,4 +63,4 @@ export const Sidebar = ({ selectedTab, selectTab }: IProps) => {
       {renderItems(providerItems)}
     </Wrapper>
   );
-};
+});

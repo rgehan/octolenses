@@ -1,12 +1,12 @@
 import cx from 'classnames';
 import { observer } from 'mobx-react';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { GithubProvider } from '..';
 import { Button, ButtonType } from '../../../components/Button';
 import { toast } from '../../../components/ToastManager';
-import { IsDarkContext } from '../../../contexts/isDark';
+import { settingsStore } from '../../../store';
 import { ProfileCard } from './ProfileCard';
 
 const CREATE_TOKEN_URL =
@@ -24,8 +24,6 @@ interface IProps {
 }
 
 export const Settings = observer(({ provider }: IProps) => {
-  const isDark = useContext(IsDarkContext);
-
   const [token, setToken] = useState(provider.settings.token || '');
 
   function handleSubmit() {
@@ -48,7 +46,7 @@ export const Settings = observer(({ provider }: IProps) => {
           <span
             className={cx(
               'font-mono px-2 rounded',
-              isDark ? 'bg-gray-800' : 'bg-gray-100'
+              settingsStore.isDark ? 'bg-gray-800' : 'bg-gray-100'
             )}
           >
             repo
@@ -62,16 +60,16 @@ export const Settings = observer(({ provider }: IProps) => {
           value={token}
           onChange={event => setToken(event.target.value)}
           placeholder="xxxxx-xxxxx-xxxxx-xxxxx-xxxxx-xxxxx"
-          dark={isDark}
+          dark={settingsStore.isDark}
           className={cx(
             'w-full rounded outline-none pl-10 pr-3 py-2 text-gray-600 tracking-wider font-mono',
-            isDark ? 'bg-gray-800' : 'bg-gray-100'
+            settingsStore.isDark ? 'bg-gray-800' : 'bg-gray-100'
           )}
         />
         <i
           className={cx(
             'fas fa-key absolute left-0 ml-3',
-            isDark ? 'text-gray-600' : 'text-gray-500'
+            settingsStore.isDark ? 'text-gray-600' : 'text-gray-500'
           )}
         />
       </div>

@@ -1,10 +1,11 @@
 import cx from 'classnames';
 import ClipboardJS from 'clipboard';
-import React, { useContext, useEffect } from 'react';
+import { observer } from 'mobx-react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { toast } from '../../../../components/ToastManager/ToastManager';
-import { IsDarkContext } from '../../../../contexts/isDark';
+import { settingsStore } from '../../../../store';
 import { Issue } from './IssueCard';
 
 const Wrapper = styled.div`
@@ -57,9 +58,7 @@ interface IProps {
   issue: Issue;
 }
 
-export const ContextualDropdown = ({ issue }: IProps) => {
-  const isDark = useContext(IsDarkContext);
-
+export const ContextualDropdown = observer(({ issue }: IProps) => {
   useEffect(() => {
     const clipboard = new ClipboardJS('[data-clipboard-text]');
     return () => clipboard.destroy();
@@ -71,11 +70,13 @@ export const ContextualDropdown = ({ issue }: IProps) => {
     <Wrapper className="inline-block relative">
       <i className="fa fa-caret-down py-1 px-2 -mt-1 cursor-pointer" />
       <Overlay
-        dark={isDark}
+        dark={settingsStore.isDark}
         className={cx([
           'overlay',
           'absolute py-1',
-          isDark ? 'bg-gray-700' : 'bg-white border border-gray-200',
+          settingsStore.isDark
+            ? 'bg-gray-700'
+            : 'bg-white border border-gray-200',
           'whitespace-no-wrap rounded shadow-lg',
           'flex flex-col',
         ])}
@@ -92,4 +93,4 @@ export const ContextualDropdown = ({ issue }: IProps) => {
       </Overlay>
     </Wrapper>
   );
-};
+});

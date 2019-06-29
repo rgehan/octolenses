@@ -1,8 +1,9 @@
 import cx from 'classnames';
-import React, { useContext } from 'react';
+import { observer } from 'mobx-react';
+import React from 'react';
 import timeago from 'timeago.js';
 
-import { IsDarkContext } from '../../../../contexts/isDark';
+import { settingsStore } from '../../../../store';
 import { StatusBadge } from './StatusBadge';
 
 export interface JiraIssue {
@@ -48,9 +49,7 @@ interface IProps {
   isNew: boolean;
 }
 
-export const IssueCard = ({ data: issue, isNew }: IProps) => {
-  const isDark = useContext(IsDarkContext);
-
+export const IssueCard = observer(({ data: issue, isNew }: IProps) => {
   // The API doesn't seem to return the URL to the actual issue on the web
   // interface, so we have to resort to a hack to generate it. It seems icons
   // are hosted on the same domain as the web interface. This is an assumption
@@ -59,7 +58,7 @@ export const IssueCard = ({ data: issue, isNew }: IProps) => {
   const origin = new URL(issue.fields.issuetype.iconUrl).origin;
   const url = `${origin}/browse/${issue.key}`;
 
-  const linkStyle = isDark
+  const linkStyle = settingsStore.isDark
     ? 'text-blue-400'
     : 'text-blue-500 hover:text-blue-600';
 
@@ -74,7 +73,7 @@ export const IssueCard = ({ data: issue, isNew }: IProps) => {
         <div
           className={cx(
             'w-12 h-12 rounded-full overflow-hidden',
-            isDark ? 'bg-gray-700' : 'bg-gray-400'
+            settingsStore.isDark ? 'bg-gray-700' : 'bg-gray-400'
           )}
         >
           {issue.fields.assignee && (
@@ -99,11 +98,14 @@ export const IssueCard = ({ data: issue, isNew }: IProps) => {
           </div>
         </div>
         <div
-          className={cx('text-xs', isDark ? 'text-gray-500' : 'text-gray-700')}
+          className={cx(
+            'text-xs',
+            settingsStore.isDark ? 'text-gray-500' : 'text-gray-700'
+          )}
         >
           {issue.key} opened {timeago().format(issue.fields.created)}
         </div>
       </div>
     </div>
   );
-};
+});

@@ -1,8 +1,9 @@
 import cx from 'classnames';
-import React, { useContext } from 'react';
+import { observer } from 'mobx-react';
+import React from 'react';
 
-import { IsDarkContext } from '../../contexts/isDark';
 import { Predicate, PredicateType } from '../../providers';
+import { settingsStore } from '../../store';
 
 interface IProps {
   predicate: Predicate;
@@ -10,44 +11,44 @@ interface IProps {
   onChange: (value: string) => void;
 }
 
-export const ValueSelector = ({ predicate, value, onChange }: IProps) => {
-  const isDark = useContext(IsDarkContext);
-
-  const baseStyle = cx(
-    'h-full flex-1 bg-transparent outline-none',
-    isDark ? 'text-white' : 'text-gray-800'
-  );
-
-  if (predicate.type === PredicateType.TEXT) {
-    return (
-      <input
-        type="text"
-        value={value}
-        onChange={event => onChange(event.target.value)}
-        placeholder={predicate.placeholder}
-        className={cx(baseStyle, 'pl-3')}
-      />
+export const ValueSelector = observer(
+  ({ predicate, value, onChange }: IProps) => {
+    const baseStyle = cx(
+      'h-full flex-1 bg-transparent outline-none',
+      settingsStore.isDark ? 'text-white' : 'text-gray-800'
     );
-  }
 
-  if (predicate.type === PredicateType.DROPDOWN) {
-    return (
-      <select
-        value={value}
-        onChange={event => onChange(event.target.value)}
-        className={cx(baseStyle, 'ml-2 mr-3')}
-      >
-        <option key="__default" value="">
-          Choose...
-        </option>
-        {predicate.choices.map(choice => (
-          <option key={choice.value} value={choice.value}>
-            {choice.label}
+    if (predicate.type === PredicateType.TEXT) {
+      return (
+        <input
+          type="text"
+          value={value}
+          onChange={event => onChange(event.target.value)}
+          placeholder={predicate.placeholder}
+          className={cx(baseStyle, 'pl-3')}
+        />
+      );
+    }
+
+    if (predicate.type === PredicateType.DROPDOWN) {
+      return (
+        <select
+          value={value}
+          onChange={event => onChange(event.target.value)}
+          className={cx(baseStyle, 'ml-2 mr-3')}
+        >
+          <option key="__default" value="">
+            Choose...
           </option>
-        ))}
-      </select>
-    );
-  }
+          {predicate.choices.map(choice => (
+            <option key={choice.value} value={choice.value}>
+              {choice.label}
+            </option>
+          ))}
+        </select>
+      );
+    }
 
-  return null;
-};
+    return null;
+  }
+);

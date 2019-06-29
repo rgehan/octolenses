@@ -1,17 +1,15 @@
 import cx from 'classnames';
 import { observer } from 'mobx-react';
-import React, { useContext } from 'react';
+import React from 'react';
 
-import { JiraResource } from '..';
-import { IsDarkContext } from '../../../contexts/isDark';
+import { settingsStore } from '../../../store';
+import { JiraResource } from '../index';
 
 interface IProps {
   resources: JiraResource[];
 }
 
 export const AvailableResources = observer(({ resources }: IProps) => {
-  const isDark = useContext(IsDarkContext);
-
   if (!resources || !resources.length) {
     return null;
   }
@@ -20,12 +18,12 @@ export const AvailableResources = observer(({ resources }: IProps) => {
     <div className="mt-8">
       <div className="font-medium mb-3">Available resources</div>
 
-      {resources.map(resource => (
-        <div className="flex mb-8">
+      {resources.map((resource, index) => (
+        <div key={index} className="flex mb-8">
           <div
             className={cx(
               'w-16 h-16 rounded-full overflow-hidden mr-3',
-              isDark ? 'bg-gray-700' : 'bg-gray-400'
+              settingsStore.isDark ? 'bg-gray-700' : 'bg-gray-400'
             )}
           >
             <img src={resource.avatarUrl} />

@@ -1,16 +1,14 @@
 import cx from 'classnames';
 import { capitalize } from 'lodash';
 import { observer } from 'mobx-react';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 
 import { SettingsModal } from '../../containers';
-import { IsDarkContext } from '../../contexts/isDark';
-import { navigationStore } from '../../store';
+import { navigationStore, settingsStore } from '../../store';
 import { TabLink } from './TabLink';
 
 export const Header = observer(() => {
   const [modalOpen, setModalOpen] = useState(false);
-  const isDark = useContext(IsDarkContext);
 
   function renderLink(name: string) {
     const { page, navigateTo } = navigationStore;
@@ -29,7 +27,7 @@ export const Header = observer(() => {
             href="https://github.com/rgehan/octolenses"
             className={cx(
               'font-roboto text-4xl font-bold mt-4',
-              isDark ? 'text-white' : 'text-gray-900'
+              settingsStore.isDark ? 'text-white' : 'text-gray-900'
             )}
           >
             <i className="fab fa-github mr-3" />

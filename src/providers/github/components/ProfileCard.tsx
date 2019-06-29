@@ -1,17 +1,15 @@
 import cx from 'classnames';
 import { observer } from 'mobx-react';
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { GithubProfile } from '..';
-import { IsDarkContext } from '../../../contexts/isDark';
+import { settingsStore } from '../../../store';
 
 interface IProps {
   profile: GithubProfile;
 }
 
 export const ProfileCard = observer(({ profile }: IProps) => {
-  const isDark = useContext(IsDarkContext);
-
   if (!profile) {
     return null;
   }
@@ -21,7 +19,7 @@ export const ProfileCard = observer(({ profile }: IProps) => {
       <div
         className={cx(
           'w-16 h-16 rounded-full overflow-hidden mr-3',
-          isDark ? 'bg-gray-700' : 'bg-gray-400'
+          settingsStore.isDark ? 'bg-gray-700' : 'bg-gray-400'
         )}
       >
         <img src={profile.avatar_url} />

@@ -1,11 +1,10 @@
 import cx from 'classnames';
 import { get } from 'lodash';
 import { observer } from 'mobx-react';
-import React, { useContext } from 'react';
+import React from 'react';
 import timeago from 'timeago.js';
 
-import { IsDarkContext } from '../../../../contexts/isDark';
-
+import { settingsStore } from '../../../../store';
 import { CheckStatusIndicator } from './CheckStatusIndicator';
 import { ConflictIndicator } from './ConflictIndicator';
 import { ContextualDropdown } from './ContextualDropdown';
@@ -50,9 +49,7 @@ interface IProps {
 }
 
 export const IssueCard = observer(({ data: issue, isNew }: IProps) => {
-  const isDark = useContext(IsDarkContext);
-
-  const linkStyle = isDark
+  const linkStyle = settingsStore.isDark
     ? 'text-blue-400'
     : 'text-blue-500 hover:text-blue-600';
 
@@ -73,7 +70,7 @@ export const IssueCard = observer(({ data: issue, isNew }: IProps) => {
         <div
           className={cx(
             'w-16 h-16 rounded-full overflow-hidden',
-            isDark ? 'bg-gray-700' : 'bg-gray-400'
+            settingsStore.isDark ? 'bg-gray-700' : 'bg-gray-400'
           )}
         >
           <img src={issue.author.avatarUrl} />
@@ -113,14 +110,17 @@ export const IssueCard = observer(({ data: issue, isNew }: IProps) => {
           </a>
         </div>
         <div
-          className={cx('text-xs', isDark ? 'text-gray-500' : 'text-gray-700')}
+          className={cx(
+            'text-xs',
+            settingsStore.isDark ? 'text-gray-500' : 'text-gray-700'
+          )}
         >
           #{issue.number} opened {timeago().format(issue.createdAt)} by{' '}
           <a
             href={issue.author.url}
             className={cx(
               'no-underline hover:underline',
-              isDark ? 'text-gray-500' : 'text-gray-700'
+              settingsStore.isDark ? 'text-gray-500' : 'text-gray-700'
             )}
           >
             {issue.author.login}

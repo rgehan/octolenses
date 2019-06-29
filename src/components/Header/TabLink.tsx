@@ -1,7 +1,8 @@
 import cx from 'classnames';
-import React, { ReactNode, useContext } from 'react';
+import { observer } from 'mobx-react';
+import React, { ReactNode } from 'react';
 
-import { IsDarkContext } from '../../contexts/isDark';
+import { settingsStore } from '../../store';
 
 const COLORS = {
   dark: {
@@ -20,18 +21,18 @@ interface IProps {
   active?: boolean;
 }
 
-export const TabLink = ({ children, onClick, active = false }: IProps) => {
-  const isDark = useContext(IsDarkContext);
-
-  return (
+export const TabLink = observer(
+  ({ children, onClick, active = false }: IProps) => (
     <a
       className={cx(
         'font-roboto ml-4 py-2 cursor-pointer',
-        COLORS[isDark ? 'dark' : 'light'][active ? 'active' : 'inactive']
+        COLORS[settingsStore.isDark ? 'dark' : 'light'][
+          active ? 'active' : 'inactive'
+        ]
       )}
       onClick={onClick}
     >
       {children}
     </a>
-  );
-};
+  )
+);

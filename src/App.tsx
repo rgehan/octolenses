@@ -2,9 +2,8 @@ import { observer } from 'mobx-react';
 import React from 'react';
 
 import { Header, ToastManager } from './components';
-import { IsDarkContext } from './contexts/isDark';
 import { Dashboard, Discover } from './pages';
-import { navigationStore, settingsStore } from './store';
+import { navigationStore } from './store';
 
 const PAGES = {
   discover: Discover,
@@ -18,11 +17,9 @@ export const App = observer(() => {
 
   return (
     <div className="App">
-      <IsDarkContext.Provider value={settingsStore.isDark}>
-        <Header />
-        <Page />
-        <ToastManager />
-      </IsDarkContext.Provider>
+      <Header />
+      <Page />
+      <ToastManager />
     </div>
   );
 });

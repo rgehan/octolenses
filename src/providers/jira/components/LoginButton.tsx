@@ -1,11 +1,11 @@
 import cx from 'classnames';
 import { chain } from 'lodash';
 import { observer } from 'mobx-react';
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { JiraProvider } from '..';
 import { Button, ButtonType } from '../../../components/Button';
-import { IsDarkContext } from '../../../contexts/isDark';
+import { settingsStore } from '../../../store';
 import { SwapResult, swapToken } from '../fetchers/swapToken';
 
 const CLIENT_ID = '4WgiRI4XRQ2OTWof5i7yCKmlekkIldH0';
@@ -15,8 +15,6 @@ interface IProps {
 }
 
 export const LoginButton = observer(({ provider }: IProps) => {
-  const isDark = useContext(IsDarkContext);
-
   async function handleLogin() {
     try {
       const data = await initJiraOauthFlow();
@@ -43,7 +41,7 @@ export const LoginButton = observer(({ provider }: IProps) => {
       <p
         className={cx(
           'text-base mt-4',
-          isDark ? 'text-gray-600' : 'text-gray-500'
+          settingsStore.isDark ? 'text-gray-600' : 'text-gray-500'
         )}
       >
         The only way to connect your Atlassian account is using the OAuth flow.
@@ -53,7 +51,7 @@ export const LoginButton = observer(({ provider }: IProps) => {
       <p
         className={cx(
           'text-base mt-4',
-          isDark ? 'text-gray-600' : 'text-gray-500'
+          settingsStore.isDark ? 'text-gray-600' : 'text-gray-500'
         )}
       >
         During the authentication flow, a token swap service (whose source code

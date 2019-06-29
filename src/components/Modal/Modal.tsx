@@ -1,8 +1,9 @@
 import cx from 'classnames';
-import React, { ReactNode, useContext, useEffect } from 'react';
+import { observer } from 'mobx-react';
+import React, { ReactNode, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 
-import { IsDarkContext } from '../../contexts/isDark';
+import { settingsStore } from '../../store';
 
 const fadeIn = keyframes`
   from { opacity: 0; }
@@ -28,9 +29,7 @@ interface IProps {
   className?: string;
 }
 
-export const Modal = ({ children, onClose }: IProps) => {
-  const isDark = useContext(IsDarkContext);
-
+export const Modal = observer(({ children, onClose }: IProps) => {
   // Close the modal on ESC
   useEffect(
     () => {
@@ -50,14 +49,14 @@ export const Modal = ({ children, onClose }: IProps) => {
     <Backdrop
       className={cx(
         'fixed z-50 inset-0 font-roboto text-lg',
-        isDark ? 'bg-gray-900' : 'bg-white'
+        settingsStore.isDark ? 'bg-gray-900' : 'bg-white'
       )}
     >
       <div
         onClick={onClose}
         className={cx(
           'flex items-center absolute top-0 right-0 mt-4 mr-4 cursor-pointer py-1 px-2 rounded-full',
-          isDark
+          settingsStore.isDark
             ? 'text-gray-500 hover:bg-gray-800'
             : 'text-gray-700 hover:bg-gray-200'
         )}
@@ -68,4 +67,4 @@ export const Modal = ({ children, onClose }: IProps) => {
       <Wrapper>{children}</Wrapper>
     </Backdrop>
   );
-};
+});

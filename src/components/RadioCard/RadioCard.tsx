@@ -1,7 +1,8 @@
 import cx from 'classnames';
-import React, { useContext } from 'react';
+import { observer } from 'mobx-react';
+import React from 'react';
 
-import { IsDarkContext } from '../../contexts/isDark';
+import { settingsStore } from '../../store';
 
 interface IProps {
   title: string;
@@ -23,15 +24,15 @@ const COLORS = {
   },
 };
 
-export const RadioCard = ({ title, text, selected, icon, onClick }: IProps) => {
-  const isDark = useContext(IsDarkContext);
-
-  return (
+export const RadioCard = observer(
+  ({ title, text, selected, icon, onClick }: IProps) => (
     <div
       onClick={onClick}
       className={cx(
         'h-28 flex border px-3 py-2 rounded cursor-pointer select-none mb-3',
-        COLORS[isDark ? 'dark' : 'light'][selected ? 'active' : 'inactive']
+        COLORS[settingsStore.isDark ? 'dark' : 'light'][
+          selected ? 'active' : 'inactive'
+        ]
       )}
     >
       <div className="pr-2 pt-px">
@@ -53,5 +54,5 @@ export const RadioCard = ({ title, text, selected, icon, onClick }: IProps) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+);
