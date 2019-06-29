@@ -82,7 +82,14 @@ async function screenshotDashboard(page, screenshotFolder) {
   console.log('Capturing screenshot of the Dashboard page...');
 
   await page.waitForFunction(() => !document.querySelector('[data-id=loader]'));
+
   await page.waitFor(300);
+
+  await page.evaluate(() => {
+    const filter = window.stores.filtersStore.data[0];
+    const identifiers = filter.data.slice(0, 2).map(filter => filter.number);
+    filter.newItemsIdentifiers = identifiers;
+  });
 
   await page.screenshot({
     path: path.resolve(screenshotFolder, './dashboard.png'),
