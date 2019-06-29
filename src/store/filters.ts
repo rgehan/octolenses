@@ -3,8 +3,8 @@ import { action, computed, observable } from 'mobx';
 import { persist } from 'mobx-persist';
 import { arrayMove } from 'react-sortable-hoc';
 
-import { toast } from '../components/ToastManager';
-import { providers, ProviderType } from '../providers';
+import { ProviderType } from '../providers';
+import { settingsStore } from './index';
 import { Filter, FilterIdentifier } from './models/filter';
 
 export { Filter };
@@ -55,6 +55,7 @@ export class FiltersStore {
     const filter = Filter.fromAttributes(filterPayload);
     this.data.push(filter);
     filter.fetchFilter();
+    settingsStore.selectedFilterId = filter.id;
   }
 
   @action.bound
