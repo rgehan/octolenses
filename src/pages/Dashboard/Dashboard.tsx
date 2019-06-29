@@ -1,64 +1,54 @@
-import React from 'react';
-import { inject, observer } from 'mobx-react';
-import { find, isUndefined, findIndex, size, chain, get } from 'lodash';
-import ExtendableError from 'es6-error';
 import cx from 'classnames';
-import { SortableContainer } from 'react-sortable-hoc';
+import ExtendableError from 'es6-error';
+import { get, size } from 'lodash';
 import { computed } from 'mobx';
+import { inject, observer } from 'mobx-react';
+import React from 'react';
 
+import { Loader } from '../../components';
 import { FilterEditModal } from '../../containers';
-import { FilterLink, Loader } from '../../components';
 import { providers } from '../../providers';
+import { Filter, FiltersStore } from '../../store/filters';
+import { SettingsStore } from '../../store/settings';
+import { FilterLinkContainer } from './FilterLinkContainer';
 
-const FilterLinkContainer = SortableContainer(
-  ({ links, selectedFilterId, onFilterSelected, dark = false }) => (
-    <div>
-      {links.map((link, index) => (
-        <FilterLink
-          key={link.id}
-          index={index}
-          filter={link}
-          isSelected={link.id === selectedFilterId}
-          onClick={() => onFilterSelected(link.id)}
-          dark={dark}
-        />
-      ))}
-    </div>
-  )
-);
+interface IProps {
+  settings?: SettingsStore;
+  filters?: FiltersStore;
+}
 
 @inject('filters', 'settings')
 @observer
-export class Dashboard extends React.Component {
-  state = {
+export class Dashboard extends React.Component<IProps> {
+  public state = {
     filterModal: { isOpen: false, mode: 'adding' },
   };
 
   @computed
   get selectedFilter() {
     const { settings, filters } = this.props;
-    const filter = find(filters.data, { id: settings.selectedFilterId });
-    const firstFilter = find(filters.data, { id: filters.firstFilterId });
+    const filter = filters.findFilter(settings.selectedFilterId);
+    const firstFilter = filters.getFirstFilter();
     return filter || firstFilter;
   }
 
-  handleFilterSelected = filterId => {
+  public handleFilterSelected = (filterId: string) => {
     const { settings } = this.props;
     settings.selectedFilterId = filterId;
   };
 
-  handleCloneFilter = () => {
+  public handleCloneFilter = () => {
     const { filters } = this.props;
     const { id } = filters.cloneFilter(this.selectedFilter.id);
     this.handleFilterSelected(id);
   };
 
-  handleRefreshFilter = () => {
+  public handleRefreshFilter = () => {
     this.selectedFilter.invalidateCache();
     this.props.filters.fetchFilter(this.selectedFilter);
   };
 
-  handleDeleteFilter = () => {
+  public handleDeleteFilter = () => {
     const { filters, settings } = this.props;
 
     if (!this.selectedFilter || filters.count === 1) {
@@ -66,21 +56,16 @@ export class Dashboard extends React.Component {
     }
 
     // Find out the index (in the list) of the filter
-    const currentFilterIndex = findIndex(filters.data, {
-      id: this.selectedFilter.id,
-    });
+    const currentFilterIndex = filters.findFilterIndex(this.selectedFilter.id);
 
     // Find out which filter we'll have to select once removed
     const isDeletingLastFilter = currentFilterIndex === filters.count - 1;
     const newlySelectedFilterIndex = isDeletingLastFilter
       ? currentFilterIndex - 1
-      : currentFilterIndex;
+      : currentFilterIndex + 1;
 
     // Find the actual UUID of the filter
-    const realIndex = chain(filters.data)
-      .filter(({ id }) => id !== this.selectedFilter.id)
-      .get([newlySelectedFilterIndex, 'id'])
-      .value();
+    const realIndex = filters.getFilterAt(newlySelectedFilterIndex).id;
 
     // Remove the filter, then select the next one
     filters.removeFilter(this.selectedFilter.id);
@@ -91,7 +76,7 @@ export class Dashboard extends React.Component {
    * Modal logic
    */
 
-  handleOpenFilterModal = mode => () => {
+  public handleOpenFilterModal = (mode: string) => () => {
     this.setState({
       filterModal: {
         isOpen: true,
@@ -100,7 +85,7 @@ export class Dashboard extends React.Component {
     });
   };
 
-  handleCloseFilterModal = () => {
+  public handleCloseFilterModal = () => {
     this.setState({
       filterModal: {
         isOpen: false,
@@ -108,12 +93,12 @@ export class Dashboard extends React.Component {
     });
   };
 
-  handleSaveFilterModal = filter => {
+  public handleSaveFilterModal = (filter: Filter) => {
     this.handleCloseFilterModal();
     this.props.filters.saveFilter(filter);
   };
 
-  reorderFilters = ({ oldIndex, newIndex }) => {
+  public reorderFilters = ({ oldIndex, newIndex }: any) => {
     const { filters } = this.props;
 
     // Do nothing if the user cancelled the drag
@@ -122,13 +107,13 @@ export class Dashboard extends React.Component {
     }
 
     // Select the filter we want to move...
-    this.handleFilterSelected(filters.data[oldIndex].id);
+    this.handleFilterSelected(filters.getFilterAt(oldIndex).id);
 
     // ...and move it
     filters.swapFilters(oldIndex, newIndex);
   };
 
-  render() {
+  public render() {
     const { filters, settings } = this.props;
     const { filterModal } = this.state;
 
@@ -164,7 +149,7 @@ export class Dashboard extends React.Component {
       <div className="flex items-start w-full h-full pt-16">
         <div className="flex flex-col w-48 sticky top-4">
           <FilterLinkContainer
-            links={filters.data}
+            links={filters.getFilters()}
             selectedFilterId={get(this.selectedFilter, 'id')}
             onFilterSelected={this.handleFilterSelected}
             dark={settings.isDark}
@@ -204,14 +189,13 @@ export class Dashboard extends React.Component {
               filterModal.mode === 'editing' ? this.selectedFilter : null
             }
             onClose={this.handleCloseFilterModal}
-            onSave={this.handleSaveFilterModal}
           />
         )}
       </div>
     );
   }
 
-  renderResults() {
+  public renderResults() {
     if (!this.selectedFilter) {
       return null;
     }
@@ -227,7 +211,7 @@ export class Dashboard extends React.Component {
           : 'Something failed, sorry.';
 
       return (
-        <div className="flex-1 flex items-center justify-center select-none text-2xl my-10 mx-0 text-gray">
+        <div className="flex-1 flex items-center justify-center select-none text-2xl my-10 mx-0 text-gray-500">
           <i className="fas fa-exclamation-triangle mr-2" />
           {errorMessage}
         </div>
@@ -236,7 +220,7 @@ export class Dashboard extends React.Component {
 
     if (size(this.selectedFilter.data) === 0) {
       return (
-        <div className="flex-1 flex items-center justify-center select-none text-2xl my-10 mx-0 text-gray">
+        <div className="flex-1 flex items-center justify-center select-none text-2xl my-10 mx-0 text-gray-500">
           <i className="fa fa-search mr-2" />
           No results.
         </div>

@@ -105,7 +105,10 @@ export const IssueCard = observer(({ data: issue, isNew }: IProps) => {
 
             <ConflictIndicator conflicting={issue.conflicting} />
           </div>
-          <a href={issue.url} className="ml-2 text-gray-600 hover:text-gray">
+          <a
+            href={issue.url}
+            className="ml-2 text-gray-600 hover:text-gray-500"
+          >
             <i className="far fa-comment-alt" /> {getTotalCommentsCount()}
           </a>
         </div>

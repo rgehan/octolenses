@@ -12,6 +12,8 @@ const PAGES = {
   dashboard: Dashboard,
 };
 
+type PageName = keyof typeof PAGES;
+
 interface IProps {
   navigation: NavigationStore;
   settings: SettingsStore;
@@ -22,7 +24,7 @@ interface IProps {
 export class App extends React.Component<IProps> {
   public render() {
     const { navigation, settings } = this.props;
-    const Page = PAGES[navigation.page];
+    const Page = PAGES[navigation.page as PageName];
 
     return (
       <div className="App">

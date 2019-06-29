@@ -1,4 +1,4 @@
-import { difference, findIndex, map } from 'lodash';
+import { difference, find, findIndex, map } from 'lodash';
 import { action, computed, observable } from 'mobx';
 import { persist } from 'mobx-persist';
 import hash from 'object-hash';
@@ -43,6 +43,9 @@ export class Filter {
   @observable
   public loading = true;
 
+  @observable
+  public error: Error = null;
+
   @persist
   @observable
   public lastModified: number = 0;
@@ -53,6 +56,10 @@ export class Filter {
 
   @observable
   private newItemsIdentifiers: string[] = [];
+
+  /*
+   * Public API
+   */
 
   public serializePredicate(payload: StoredPredicate): string {
     const provider = providers[this.provider];
@@ -73,6 +80,10 @@ export class Filter {
     return this.newItemsIdentifiers.includes(identifier);
   }
 
+  /*
+   * Computed
+   */
+
   @computed
   public get hash(): string {
     return hash({
@@ -87,6 +98,10 @@ export class Filter {
     return this.newItemsIdentifiers.length;
   }
 
+  /*
+   * Actions
+   */
+
   @action.bound
   public invalidateCache() {
     this.lastModified = Date.now();
@@ -95,6 +110,11 @@ export class Filter {
   @action.bound
   public setLoading(loading: boolean) {
     this.loading = loading;
+  }
+
+  @action.bound
+  public setError(error: Error) {
+    this.error = error;
   }
 
   @action.bound
@@ -130,17 +150,28 @@ export class FiltersStore {
   private data: Filter[] = [];
 
   @computed
-  get firstFilterId(): FilterIdentifier {
-    if (this.count === 0) {
-      return null;
-    }
-
-    return this.data[0].id;
-  }
-
-  @computed
   get count() {
     return this.data.length;
+  }
+
+  public findFilter(id: string) {
+    return find(this.data, { id });
+  }
+
+  public findFilterIndex(id: string) {
+    return findIndex(this.data, { id });
+  }
+
+  public getFilters() {
+    return this.data;
+  }
+
+  public getFilterAt(index: number) {
+    return this.data[index];
+  }
+
+  public getFirstFilter() {
+    return this.data[0] || null;
   }
 
   // TODO Any
@@ -184,14 +215,14 @@ export class FiltersStore {
   @action.bound
   public async fetchFilter(filter: Filter) {
     filter.setLoading(true);
+    filter.setError(null);
 
     try {
       const result = await providers[filter.provider].fetchFilter(filter);
       filter.setData(result);
     } catch (error) {
-      // TODO Handle various errors (RateLimitError for now)
       toast('Oops, something failed with your filter!', 'error');
-      console.log(error);
+      filter.setError(error);
     }
 
     filter.loading = false;

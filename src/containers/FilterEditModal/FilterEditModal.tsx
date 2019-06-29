@@ -23,7 +23,7 @@ enum STEPS {
 interface IProps {
   initialFilter?: Filter;
   onClose: () => void;
-  filters: FiltersStore;
+  filters?: FiltersStore;
 }
 
 export const FilterEditModal = inject('filters')(
