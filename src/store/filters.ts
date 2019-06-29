@@ -68,6 +68,11 @@ export class Filter {
     });
   }
 
+  public isItemNew(item: any) {
+    const identifier = this.getItemIdentifier(item);
+    return this.newItemsIdentifiers.includes(identifier);
+  }
+
   @computed
   public get hash(): string {
     return hash({
@@ -110,9 +115,13 @@ export class Filter {
   }
 
   private getItemsIdentifiers(items: any[]) {
-    const provider = providers[this.provider];
-    return map(items, item => provider.resolveFilterItemIdentifier(item));
+    return map(items, this.getItemIdentifier);
   }
+
+  private getItemIdentifier = (item: any) => {
+    const provider = providers[this.provider];
+    return provider.resolveFilterItemIdentifier(item);
+  };
 }
 
 export class FiltersStore {

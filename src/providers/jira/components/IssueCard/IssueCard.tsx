@@ -45,9 +45,10 @@ export interface JiraIssue {
 
 interface IProps {
   data: JiraIssue;
+  isNew: boolean;
 }
 
-export const IssueCard = ({ data: issue }: IProps) => {
+export const IssueCard = ({ data: issue, isNew }: IProps) => {
   const isDark = useContext(IsDarkContext);
 
   // The API doesn't seem to return the URL to the actual issue on the web
@@ -63,7 +64,12 @@ export const IssueCard = ({ data: issue }: IProps) => {
     : 'text-blue-500 hover:text-blue-600';
 
   return (
-    <div className="p-6 flex">
+    <div
+      className={cx(
+        'p-6 flex border-l-4',
+        isNew ? 'border-blue-500' : 'border-transparent'
+      )}
+    >
       <div className="flex items-center justify-center flex-shrink-0 pr-4">
         <div
           className={cx(

@@ -46,9 +46,10 @@ export interface Issue {
 
 interface IProps {
   data: Issue;
+  isNew: boolean;
 }
 
-export const IssueCard = observer(({ data: issue }: IProps) => {
+export const IssueCard = observer(({ data: issue, isNew }: IProps) => {
   const isDark = useContext(IsDarkContext);
 
   const linkStyle = isDark
@@ -62,7 +63,12 @@ export const IssueCard = observer(({ data: issue }: IProps) => {
   }
 
   return (
-    <div className="p-6 flex">
+    <div
+      className={cx(
+        'p-6 flex border-l-4',
+        isNew ? 'border-blue-500' : 'border-transparent'
+      )}
+    >
       <div className="flex items-center justify-center flex-shrink-0 pr-4">
         <div
           className={cx(

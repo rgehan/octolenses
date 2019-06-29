@@ -246,7 +246,11 @@ export class Dashboard extends React.Component {
     const CardComponent = providers[this.selectedFilter.provider].cardComponent;
 
     return this.selectedFilter.data.map((itemData, index) => (
-      <CardComponent key={index} data={itemData} />
+      <CardComponent
+        key={index}
+        data={itemData}
+        isNew={this.selectedFilter.isItemNew(itemData)}
+      />
     ));
   }
 }
