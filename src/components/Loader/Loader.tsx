@@ -1,10 +1,18 @@
-import React from 'react';
 import cx from 'classnames';
+import React from 'react';
 
-import './Loader.scss';
+import { settings } from '../../store';
 
-export const Loader = ({ size = 50, strokeWidth = 10, className }) => (
-  <div className={cx('Loader', className)}>
+interface IProps {
+  size?: number;
+  strokeWidth?: number;
+  className?: string;
+}
+
+export const Loader = ({ size = 50, strokeWidth = 10, className }: IProps) => (
+  <div
+    className={cx('flex items-center justify-center h-full w-full', className)}
+  >
     <svg
       width={`${size}px`}
       height={`${size}px`}
@@ -18,6 +26,7 @@ export const Loader = ({ size = 50, strokeWidth = 10, className }) => (
         cx="50"
         cy="50"
         fill="none"
+        stroke={settings.isDark ? '#606f7b' : '#678bc2'}
         strokeWidth={strokeWidth}
         r="35"
         strokeDasharray="164.93361431346415 56.97787143782138"

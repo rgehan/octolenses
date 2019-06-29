@@ -1,24 +1,27 @@
-import React from 'react';
-import { observer } from 'mobx-react';
 import cx from 'classnames';
 import { size } from 'lodash';
+import { observer } from 'mobx-react';
+import React from 'react';
 import { SortableElement, SortableHandle } from 'react-sortable-hoc';
 
+import { settings } from '../../store';
 import { Loader } from '../Loader';
 
-const DragHandle = SortableHandle(({ dark }) => (
-  <i
-    className={cx(
-      'fas fa-grip-horizontal text-sm mr-1',
-      dark ? 'text-gray-700' : 'text-gray-500'
-    )}
-  />
-));
+const DragHandle = SortableHandle(
+  observer(() => (
+    <i
+      className={cx(
+        'fas fa-grip-horizontal text-sm mr-1',
+        settings.isDark ? 'text-gray-700' : 'text-gray-500'
+      )}
+    />
+  ))
+);
 
 export const FilterLink = SortableElement(
-  observer(({ filter, isSelected, onClick, dark }) => {
+  observer(({ filter, isSelected, onClick }) => {
     const { loading, error } = filter;
-    const activeColor = dark ? 'text-gray-500' : 'text-gray-800';
+    const activeColor = settings.isDark ? 'text-gray-500' : 'text-gray-800';
     return (
       <div
         key={filter.id}
@@ -32,10 +35,10 @@ export const FilterLink = SortableElement(
         <span
           className={cx(
             'rounded-full flex-shrink-0 flex items-center justify-center text-xs h-4 w-8 ml-2 relative',
-            dark ? 'bg-gray-800' : 'bg-gray-400'
+            settings.isDark ? 'bg-gray-800' : 'bg-gray-400'
           )}
         >
-          {loading && <Loader size={13} color="#abacb9" strokeWidth={12} />}
+          {loading && <Loader size={13} strokeWidth={12} />}
           {!loading && error && <i className="fa fa-times" />}
           {!loading && !error && size(filter.data)}
           {filter.newItemsCount > 0 &&
@@ -50,7 +53,7 @@ export const FilterLink = SortableElement(
             )}
         </span>
         <bdi>{filter.label}</bdi>
-        <DragHandle dark={dark} />
+        <DragHandle />
       </div>
     );
   })
