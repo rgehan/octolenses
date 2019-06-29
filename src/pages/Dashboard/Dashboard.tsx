@@ -36,7 +36,6 @@ export class Dashboard extends React.Component {
 
   public handleRefreshFilter = () => {
     this.selectedFilter.invalidateCache();
-    this.selectedFilter.fetchFilter();
   };
 
   public handleDeleteFilter = () => {

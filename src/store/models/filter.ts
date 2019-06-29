@@ -1,5 +1,5 @@
 import { difference, map, merge } from 'lodash';
-import { action, computed, observable } from 'mobx';
+import { action, computed, observable, reaction } from 'mobx';
 import { persist } from 'mobx-persist';
 import hash from 'object-hash';
 import uuidv1 from 'uuid/v1';
@@ -44,6 +44,11 @@ export class Filter {
 
   @observable
   private newItemsIdentifiers: string[] = [];
+
+  constructor() {
+    // When the hash of the filter changes, re-fetch it
+    reaction(() => this.hash, this.fetchFilter);
+  }
 
   /*
    * Static

@@ -44,16 +44,16 @@ export class FiltersStore {
   public saveFilter(filterPayload: any) {
     const index = findIndex(this.data, { id: filterPayload.id });
 
-    let filter;
-
-    if (index === -1) {
-      filter = Filter.fromAttributes(filterPayload);
-      this.data.push(filter);
-    } else {
-      filter = this.data[index];
-      merge(filter, filterPayload);
+    // If we're saving a filter that already exists, we only need to update
+    // some of its attributes
+    if (index !== -1) {
+      merge(this.data[index], filterPayload);
+      return;
     }
 
+    // Else create a new filter
+    const filter = Filter.fromAttributes(filterPayload);
+    this.data.push(filter);
     filter.fetchFilter();
   }
 
@@ -81,7 +81,7 @@ export class FiltersStore {
   }
 
   public async fetchAllFilters() {
-    await Promise.all(this.data.map(filter => filter.fetchFilter()));
+    await Promise.all(this.data.map(filter => filter.invalidateCache()));
   }
 }
 
