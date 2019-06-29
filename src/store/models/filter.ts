@@ -1,4 +1,4 @@
-import { difference, map } from 'lodash';
+import { difference, map, merge } from 'lodash';
 import { action, computed, observable } from 'mobx';
 import { persist } from 'mobx-persist';
 import hash from 'object-hash';
@@ -9,17 +9,6 @@ import { providers, ProviderType, StoredPredicate } from '../../providers';
 export type FilterIdentifier = string;
 
 export class Filter {
-  public static fromAttributes({ provider, label, predicates, id }: any) {
-    const filter = new Filter();
-    filter.provider = provider;
-    filter.label = label;
-    filter.predicates = predicates;
-    filter.id = id || uuidv1();
-    filter.data = [];
-    filter.loading = true;
-    return filter;
-  }
-
   @persist
   public provider: ProviderType;
 
@@ -56,8 +45,19 @@ export class Filter {
   private newItemsIdentifiers: string[] = [];
 
   /*
-     * Public API
-     */
+   * Static
+   */
+
+  public static fromAttributes({ id, ...otherAttributes }: any) {
+    const filter = new Filter();
+    filter.id = id || uuidv1();
+    merge(filter, otherAttributes);
+    return filter;
+  }
+
+  /*
+   * Public API
+   */
 
   public serializePredicate(payload: StoredPredicate): string {
     const provider = providers[this.provider];
@@ -70,6 +70,12 @@ export class Filter {
       provider: this.provider,
       label: `${this.label} (Copy)`,
       predicates: this.predicates,
+      data: this.data,
+      loading: this.loading,
+      error: this.error,
+      lastModified: this.lastModified,
+      previousItemsIdentifiers: this.previousItemsIdentifiers,
+      newItemsIdentifiers: this.newItemsIdentifiers,
     });
   }
 
@@ -79,8 +85,8 @@ export class Filter {
   }
 
   /*
-     * Computed
-     */
+   * Computed
+   */
 
   @computed
   public get hash(): string {
@@ -97,8 +103,8 @@ export class Filter {
   }
 
   /*
-     * Actions
-     */
+   * Actions
+   */
 
   @action.bound
   public invalidateCache() {
