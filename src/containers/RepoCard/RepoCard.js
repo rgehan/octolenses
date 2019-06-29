@@ -21,8 +21,10 @@ export const RepoCard = observer(({ repo }) => {
     <div className="w-1/3 pl-6 mb-6">
       <div
         className={cx(
-          'h-64 flex flex-col px-5 py-4 shadow-lg rounded-lg text-gray-900',
-          settingsStore.isDark ? 'bg-gray-800 text-white' : 'bg-white'
+          'h-64 flex flex-col px-5 py-4 shadow-lg rounded-lg',
+          settingsStore.isDark
+            ? 'bg-gray-800 text-white'
+            : 'bg-white text-gray-900'
         )}
       >
         <div className="flex items-center min-h-10">
