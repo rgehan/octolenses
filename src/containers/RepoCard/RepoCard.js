@@ -1,9 +1,11 @@
 import React from 'react';
 import humanFormat from 'human-format';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import cx from 'classnames';
 
-export const _RepoCard = ({ repo, settings }) => {
+import { settingsStore } from '../../store';
+
+export const RepoCard = observer(({ repo }) => {
   const {
     name,
     description,
@@ -20,7 +22,7 @@ export const _RepoCard = ({ repo, settings }) => {
       <div
         className={cx(
           'h-64 flex flex-col px-5 py-4 shadow-lg rounded-lg text-gray-900',
-          settings.isDark ? 'bg-gray-800 text-white' : 'bg-white'
+          settingsStore.isDark ? 'bg-gray-800 text-white' : 'bg-white'
         )}
       >
         <div className="flex items-center min-h-10">
@@ -33,7 +35,7 @@ export const _RepoCard = ({ repo, settings }) => {
           <a
             className={cx(
               'min-w-0 truncate hover:underline text-2xl py-2',
-              settings.isDark
+              settingsStore.isDark
                 ? 'text-blue-400'
                 : 'text-blue-500 hover:text-blue-600'
             )}
@@ -47,7 +49,7 @@ export const _RepoCard = ({ repo, settings }) => {
         <div
           className={cx(
             'flex-1 min-h-6 flex items-end mt-2',
-            settings.isDark ? 'text-gray-500' : 'text-gray-700'
+            settingsStore.isDark ? 'text-gray-500' : 'text-gray-700'
           )}
         >
           {language && <div className="mr-5">{language}</div>}
@@ -67,6 +69,4 @@ export const _RepoCard = ({ repo, settings }) => {
       </div>
     </div>
   );
-};
-
-export const RepoCard = inject('settings')(observer(_RepoCard));
+});

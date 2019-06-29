@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import { get } from 'lodash';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
 import React, { useContext } from 'react';
 import timeago from 'timeago.js';
 

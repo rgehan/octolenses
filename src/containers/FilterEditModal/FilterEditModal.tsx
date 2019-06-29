@@ -1,13 +1,13 @@
 import { pick } from 'lodash';
 import { toJS } from 'mobx';
+import { observer } from 'mobx-react';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { Modal } from '../../components/Modal';
 
-import { inject } from 'mobx-react';
 import { providers, ProviderType } from '../../providers';
-import { Filter, FiltersStore } from '../../store/filters';
+import { Filter, filtersStore } from '../../store/filters';
 import { PredicatesStep } from './PredicatesStep';
 import { ProviderStep } from './ProviderStep';
 
@@ -23,11 +23,10 @@ enum STEPS {
 interface IProps {
   initialFilter?: Filter;
   onClose: () => void;
-  filters?: FiltersStore;
 }
 
-export const FilterEditModal = inject('filters')(
-  ({ initialFilter, filters, onClose }: IProps) => {
+export const FilterEditModal = observer(
+  ({ initialFilter, onClose }: IProps) => {
     const [step, setStep] = useState(
       initialFilter ? STEPS.PREDICATES : STEPS.PROVIDERS
     );
@@ -39,7 +38,7 @@ export const FilterEditModal = inject('filters')(
     const [predicates, setPredicates] = useState(defaultedFilter.predicates);
 
     function handleSave() {
-      filters.saveFilter({
+      filtersStore.saveFilter({
         id: defaultedFilter.id,
         provider,
         label,

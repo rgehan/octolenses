@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 

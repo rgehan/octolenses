@@ -104,4 +104,4 @@ export const EMPTY_FILTER_PAYLOAD = {
   predicates: [{ type: 'status', value: 'open' }],
 };
 
-export const filters = new FiltersStore();
+export const filtersStore = new FiltersStore();

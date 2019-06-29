@@ -1,7 +1,7 @@
 import { find } from 'lodash';
 import React from 'react';
 
-import { settings } from '../../store/settings';
+import { settingsStore } from '../../store/settings';
 import { SETTINGS_VIEWS } from './SettingsModal';
 
 interface IProps {
@@ -17,5 +17,5 @@ export const Panel = ({ selectedTab }: IProps) => {
 
   const Component = view.component;
 
-  return <Component settings={view.isProvider ? undefined : settings} />;
+  return <Component settings={view.isProvider ? undefined : settingsStore} />;
 };

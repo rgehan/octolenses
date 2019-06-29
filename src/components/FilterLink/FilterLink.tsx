@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import React from 'react';
 import { SortableElement, SortableHandle } from 'react-sortable-hoc';
 
-import { settings } from '../../store';
+import { settingsStore } from '../../store';
 import { Loader } from '../Loader';
 
 const DragHandle = SortableHandle(
@@ -12,7 +12,7 @@ const DragHandle = SortableHandle(
     <i
       className={cx(
         'fas fa-grip-horizontal text-sm mr-1',
-        settings.isDark ? 'text-gray-700' : 'text-gray-500'
+        settingsStore.isDark ? 'text-gray-700' : 'text-gray-500'
       )}
     />
   ))
@@ -21,7 +21,9 @@ const DragHandle = SortableHandle(
 export const FilterLink = SortableElement(
   observer(({ filter, isSelected, onClick }) => {
     const { loading, error } = filter;
-    const activeColor = settings.isDark ? 'text-gray-500' : 'text-gray-800';
+    const activeColor = settingsStore.isDark
+      ? 'text-gray-500'
+      : 'text-gray-800';
     return (
       <div
         key={filter.id}
@@ -35,7 +37,7 @@ export const FilterLink = SortableElement(
         <span
           className={cx(
             'rounded-full flex-shrink-0 flex items-center justify-center text-xs h-4 w-8 ml-2 relative',
-            settings.isDark ? 'bg-gray-800' : 'bg-gray-400'
+            settingsStore.isDark ? 'bg-gray-800' : 'bg-gray-400'
           )}
         >
           {loading && <Loader size={13} strokeWidth={12} />}

@@ -1,24 +1,19 @@
 import cx from 'classnames';
 import { capitalize } from 'lodash';
-import { inject } from 'mobx-react';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
 import React, { useContext, useState } from 'react';
 
 import { SettingsModal } from '../../containers';
 import { IsDarkContext } from '../../contexts/isDark';
-import { NavigationStore } from '../../store/navigation';
+import { navigationStore } from '../../store';
 import { TabLink } from './TabLink';
 
-interface IProps {
-  navigation: NavigationStore;
-}
-
-const _Header = ({ navigation }: IProps) => {
+export const Header = observer(() => {
   const [modalOpen, setModalOpen] = useState(false);
   const isDark = useContext(IsDarkContext);
 
   function renderLink(name: string) {
-    const { page, navigateTo } = navigation;
+    const { page, navigateTo } = navigationStore;
     return (
       <TabLink onClick={() => navigateTo(name)} active={page === name}>
         {capitalize(name)}
@@ -52,6 +47,4 @@ const _Header = ({ navigation }: IProps) => {
       {modalOpen && <SettingsModal onClose={() => setModalOpen(false)} />}
     </React.Fragment>
   );
-};
-
-export const Header = inject('navigation')(observer(_Header));
+});

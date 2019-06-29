@@ -1,11 +1,10 @@
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import React from 'react';
 
 import { Header, ToastManager } from './components';
 import { IsDarkContext } from './contexts/isDark';
 import { Dashboard, Discover } from './pages';
-import { NavigationStore } from './store/navigation';
-import { SettingsStore } from './store/settings';
+import { navigationStore, settingsStore } from './store';
 
 const PAGES = {
   discover: Discover,
@@ -14,26 +13,16 @@ const PAGES = {
 
 type PageName = keyof typeof PAGES;
 
-interface IProps {
-  navigation: NavigationStore;
-  settings: SettingsStore;
-}
+export const App = observer(() => {
+  const Page = PAGES[navigationStore.page as PageName];
 
-@inject('navigation', 'settings')
-@observer
-export class App extends React.Component<IProps> {
-  public render() {
-    const { navigation, settings } = this.props;
-    const Page = PAGES[navigation.page as PageName];
-
-    return (
-      <div className="App">
-        <IsDarkContext.Provider value={settings.isDark}>
-          <Header navigation={navigation} />
-          <Page />
-          <ToastManager />
-        </IsDarkContext.Provider>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="App">
+      <IsDarkContext.Provider value={settingsStore.isDark}>
+        <Header />
+        <Page />
+        <ToastManager />
+      </IsDarkContext.Provider>
+    </div>
+  );
+});

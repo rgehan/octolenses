@@ -2,74 +2,65 @@ import cx from 'classnames';
 import ExtendableError from 'es6-error';
 import { get, size } from 'lodash';
 import { computed } from 'mobx';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import React from 'react';
 
 import { Loader } from '../../components';
 import { FilterEditModal } from '../../containers';
 import { providers } from '../../providers';
-import { Filter, FiltersStore } from '../../store/filters';
-import { SettingsStore } from '../../store/settings';
+import { filtersStore, settingsStore } from '../../store';
+import { Filter } from '../../store/filters';
 import { FilterLinkContainer } from './FilterLinkContainer';
 
-interface IProps {
-  settings?: SettingsStore;
-  filters?: FiltersStore;
-}
-
-@inject('filters', 'settings')
 @observer
-export class Dashboard extends React.Component<IProps> {
+export class Dashboard extends React.Component {
   public state = {
     filterModal: { isOpen: false, mode: 'adding' },
   };
 
   @computed
   get selectedFilter() {
-    const { settings, filters } = this.props;
-    const filter = filters.findFilter(settings.selectedFilterId);
-    const firstFilter = filters.getFirstFilter();
+    const filter = filtersStore.findFilter(settingsStore.selectedFilterId);
+    const firstFilter = filtersStore.getFirstFilter();
     return filter || firstFilter;
   }
 
   public handleFilterSelected = (filterId: string) => {
-    const { settings } = this.props;
-    settings.selectedFilterId = filterId;
+    settingsStore.selectedFilterId = filterId;
   };
 
   public handleCloneFilter = () => {
-    const { filters } = this.props;
-    const { id } = filters.cloneFilter(this.selectedFilter.id);
+    const { id } = filtersStore.cloneFilter(this.selectedFilter.id);
     this.handleFilterSelected(id);
   };
 
   public handleRefreshFilter = () => {
     this.selectedFilter.invalidateCache();
-    this.props.filters.fetchFilter(this.selectedFilter);
+    filtersStore.fetchFilter(this.selectedFilter);
   };
 
   public handleDeleteFilter = () => {
-    const { filters, settings } = this.props;
-
-    if (!this.selectedFilter || filters.count === 1) {
+    if (!this.selectedFilter || filtersStore.count === 1) {
       return;
     }
 
     // Find out the index (in the list) of the filter
-    const currentFilterIndex = filters.findFilterIndex(this.selectedFilter.id);
+    const currentFilterIndex = filtersStore.findFilterIndex(
+      this.selectedFilter.id
+    );
 
     // Find out which filter we'll have to select once removed
-    const isDeletingLastFilter = currentFilterIndex === filters.count - 1;
+    const isDeletingLastFilter = currentFilterIndex === filtersStore.count - 1;
     const newlySelectedFilterIndex = isDeletingLastFilter
       ? currentFilterIndex - 1
       : currentFilterIndex + 1;
 
     // Find the actual UUID of the filter
-    const realIndex = filters.getFilterAt(newlySelectedFilterIndex).id;
+    const realIndex = filtersStore.getFilterAt(newlySelectedFilterIndex).id;
 
     // Remove the filter, then select the next one
-    filters.removeFilter(this.selectedFilter.id);
-    settings.selectedFilterId = realIndex;
+    filtersStore.removeFilter(this.selectedFilter.id);
+    settingsStore.selectedFilterId = realIndex;
   };
 
   /*
@@ -95,26 +86,23 @@ export class Dashboard extends React.Component<IProps> {
 
   public handleSaveFilterModal = (filter: Filter) => {
     this.handleCloseFilterModal();
-    this.props.filters.saveFilter(filter);
+    filtersStore.saveFilter(filter);
   };
 
   public reorderFilters = ({ oldIndex, newIndex }: any) => {
-    const { filters } = this.props;
-
     // Do nothing if the user cancelled the drag
     if (oldIndex === newIndex) {
       return;
     }
 
     // Select the filter we want to move...
-    this.handleFilterSelected(filters.getFilterAt(oldIndex).id);
+    this.handleFilterSelected(filtersStore.getFilterAt(oldIndex).id);
 
     // ...and move it
-    filters.swapFilters(oldIndex, newIndex);
+    filtersStore.swapFilters(oldIndex, newIndex);
   };
 
   public render() {
-    const { filters, settings } = this.props;
     const { filterModal } = this.state;
 
     const LINKS = [
@@ -149,10 +137,10 @@ export class Dashboard extends React.Component<IProps> {
       <div className="flex items-start w-full h-full pt-16">
         <div className="flex flex-col w-48 sticky top-4">
           <FilterLinkContainer
-            links={filters.getFilters()}
+            links={filtersStore.getFilters()}
             selectedFilterId={get(this.selectedFilter, 'id')}
             onFilterSelected={this.handleFilterSelected}
-            dark={settings.isDark}
+            dark={settingsStore.isDark}
             onSortEnd={this.reorderFilters}
             lockAxis="y"
             lockToContainerEdges
@@ -165,7 +153,7 @@ export class Dashboard extends React.Component<IProps> {
                 key={text}
                 className={cx(
                   'mb-3 cursor-pointer select-none text-gray-600',
-                  settings.isDark
+                  settingsStore.isDark
                     ? 'hover:text-gray-500'
                     : 'hover:text-gray-900'
                 )}
@@ -178,7 +166,7 @@ export class Dashboard extends React.Component<IProps> {
         <div
           className={cx(
             'flex-1 flex flex-col shadow-xl rounded-lg mb-16 min-w-0',
-            settings.isDark ? 'bg-gray-800 text-white' : 'bg-white'
+            settingsStore.isDark ? 'bg-gray-800 text-white' : 'bg-white'
           )}
         >
           {this.renderResults()}

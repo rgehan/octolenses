@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { observer, inject } from 'mobx-react';
+import { observer } from 'mobx-react';
 import cx from 'classnames';
 
-@inject('settings')
+import { settingsStore } from '../../store';
+
 @observer
 export class Dropdown extends React.Component {
   static propTypes = {
@@ -24,13 +25,13 @@ export class Dropdown extends React.Component {
   };
 
   render() {
-    const { items, value, settings, className } = this.props;
+    const { items, value, className } = this.props;
 
     return (
       <div
         className={cx(
           'w-48 flex relative rounded shadow-lg',
-          settings.isDark ? 'bg-gray-800 text-white' : 'bg-white',
+          settingsStore.isDark ? 'bg-gray-800 text-white' : 'bg-white',
           className
         )}
       >
@@ -39,7 +40,7 @@ export class Dropdown extends React.Component {
           value={value}
           className={cx(
             'flex-1 border-none bg-transparent cursor-pointer outline-none appearance-none py-2 px-3',
-            settings.isDark && 'text-white'
+            settingsStore.isDark && 'text-white'
           )}
         >
           {items.map(item => (

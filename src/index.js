@@ -4,16 +4,22 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'mobx-react';
 
 import { App } from './App';
-import { bootstrap, navigation, settings, trends, filters } from './store';
+import {
+  bootstrap,
+  navigationStore,
+  settingsStore,
+  trendsStore,
+  filtersStore,
+} from './store';
 
 bootstrap();
 
 ReactDOM.render(
   <Provider
-    navigation={navigation}
-    settings={settings}
-    trends={trends}
-    filters={filters}
+    navigationStore={navigationStore}
+    settingsStore={settingsStore}
+    trendsStore={trendsStore}
+    filtersStore={filtersStore}
   >
     <App />
   </Provider>,

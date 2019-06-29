@@ -1,22 +1,23 @@
-import { create } from 'mobx-persist';
 import { chain } from 'lodash';
+import { create } from 'mobx-persist';
 
-import { navigation } from './navigation';
-import { filters } from './filters';
-import { trends } from './trends';
-import { settings } from './settings';
-import { providers, ProviderType } from '../providers';
-import { migrator } from '../migrations';
 import { Cache } from '../lib/cache';
+import { migrator } from '../migrations';
+import { providers, ProviderType } from '../providers';
+
+import { filtersStore } from './filters';
+import { navigationStore } from './navigation';
+import { settingsStore } from './settings';
+import { trendsStore } from './trends';
 
 const hydrateStores = async () => {
   const hydrate = create({});
 
   // Re-hydrate the stores
   await Promise.all([
-    hydrate('navigationStore', navigation),
-    hydrate('settingsStore', settings),
-    hydrate('filtersStore', filters),
+    hydrate('navigationStore', navigationStore),
+    hydrate('settingsStore', settingsStore),
+    hydrate('filtersStore', filtersStore),
   ]);
 
   // Re-hydrate the providers
@@ -38,11 +39,11 @@ const initializeProviders = async () => {
 };
 
 const performOnboarding = async () => {
-  if (settings.wasOnboarded) {
+  if (settingsStore.wasOnboarded) {
     return;
   }
 
-  filters.saveFilter({
+  filtersStore.saveFilter({
     label: 'OctoLenses Issues',
     provider: ProviderType.GITHUB,
     data: [],
@@ -54,14 +55,14 @@ const performOnboarding = async () => {
     ],
   });
 
-  settings.updateSettings('wasOnboarded', true);
+  settingsStore.updateSettings('wasOnboarded', true);
 };
 
 export const refreshAllData = async () => {
   // prettier-ignore
   await Promise.all([
-    trends.fetchTrendingRepos(),
-    filters.fetchAllFilters(),
+    trendsStore.fetchTrendingRepos(),
+    filtersStore.fetchAllFilters(),
   ]);
 };
 
@@ -74,4 +75,4 @@ export const bootstrap = async () => {
   Cache.flushExpired();
 };
 
-export { navigation, filters, trends, settings };
+export { navigationStore, filtersStore, trendsStore, settingsStore };

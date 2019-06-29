@@ -1,7 +1,7 @@
 import cx from 'classnames';
 import React from 'react';
 
-import { settings } from '../../store';
+import { settingsStore } from '../../store';
 
 interface IProps {
   size?: number;
@@ -26,7 +26,7 @@ export const Loader = ({ size = 50, strokeWidth = 10, className }: IProps) => (
         cx="50"
         cy="50"
         fill="none"
-        stroke={settings.isDark ? '#606f7b' : '#678bc2'}
+        stroke={settingsStore.isDark ? '#606f7b' : '#678bc2'}
         strokeWidth={strokeWidth}
         r="35"
         strokeDasharray="164.93361431346415 56.97787143782138"

@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import { chain } from 'lodash';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
 import React, { useContext } from 'react';
 
 import { JiraProvider } from '..';
