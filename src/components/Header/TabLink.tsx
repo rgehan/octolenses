@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import { observer } from 'mobx-react';
-import React, { ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 
 import { settingsStore } from '../../store';
 
@@ -17,12 +17,12 @@ const COLORS = {
 
 interface IProps {
   onClick: () => void;
-  children: ReactNode;
+  name: string;
   active?: boolean;
 }
 
-export const TabLink = observer(
-  ({ children, onClick, active = false }: IProps) => (
+export const TabLink: FC<IProps> = observer(
+  ({ children, name, onClick, active = false }) => (
     <a
       className={cx(
         'font-roboto ml-4 py-2 cursor-pointer',
@@ -31,6 +31,7 @@ export const TabLink = observer(
         ]
       )}
       onClick={onClick}
+      data-header-link={name}
     >
       {children}
     </a>

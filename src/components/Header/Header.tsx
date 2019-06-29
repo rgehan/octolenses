@@ -13,7 +13,11 @@ export const Header = observer(() => {
   function renderLink(name: string) {
     const { page, navigateTo } = navigationStore;
     return (
-      <TabLink onClick={() => navigateTo(name)} active={page === name}>
+      <TabLink
+        onClick={() => navigateTo(name)}
+        active={page === name}
+        name={name}
+      >
         {capitalize(name)}
       </TabLink>
     );

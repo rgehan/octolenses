@@ -75,4 +75,5 @@ export const bootstrap = async () => {
   Cache.flushExpired();
 };
 
+window.stores = { navigationStore, filtersStore, trendsStore, settingsStore };
 export { navigationStore, filtersStore, trendsStore, settingsStore };

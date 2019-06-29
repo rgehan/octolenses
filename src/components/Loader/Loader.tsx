@@ -11,6 +11,7 @@ interface IProps {
 
 export const Loader = ({ size = 50, strokeWidth = 10, className }: IProps) => (
   <div
+    data-id="loader"
     className={cx('flex items-center justify-center h-full w-full', className)}
   >
     <svg

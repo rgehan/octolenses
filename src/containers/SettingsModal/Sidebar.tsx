@@ -47,6 +47,7 @@ export const Sidebar = observer(({ selectedTab, selectTab }: IProps) => {
           selectedTab === id && 'text-white bg-blue-500 font-medium rounded',
           settingsStore.isDark && 'text-gray-300'
         )}
+        data-setting-tab={label}
       >
         {label}
       </Item>
