@@ -25,13 +25,17 @@ export const ProfileCard = observer(({ profile }: IProps) => {
         <img src={profile.avatar_url} />
       </div>
       <div className="pt-2">
-        <div className="text-gray-800">{profile.name}</div>
+        <div
+          className={settingsStore.isDark ? 'text-gray-300' : 'text-gray-800'}
+        >
+          {profile.name}
+        </div>
         <a
           href={profile.html_url}
           target="__blank"
           className="text-sm text-gray-600 mt-1"
         >
-          {profile.login}
+          @{profile.login}
         </a>
       </div>
     </div>
