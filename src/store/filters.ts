@@ -47,7 +47,7 @@ export class FiltersStore {
     // If we're saving a filter that already exists, we only need to update
     // some of its attributes
     if (index !== -1) {
-      merge(this.data[index], filterPayload);
+      this.data[index].update(filterPayload);
       return;
     }
 

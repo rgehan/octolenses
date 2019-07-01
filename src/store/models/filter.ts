@@ -94,6 +94,10 @@ export class Filter {
     this.newItemsIdentifiers = [];
   }
 
+  public update(payload: any) {
+    merge(this, payload);
+  }
+
   /*
    * Computed
    */
