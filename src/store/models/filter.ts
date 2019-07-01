@@ -45,6 +45,9 @@ export class Filter {
   @observable
   private newItemsIdentifiers: string[] = [];
 
+  @observable
+  private disableNotificationsOnNextFetch: false;
+
   constructor() {
     // When the hash of the filter changes, re-fetch it
     reaction(() => this.hash, this.fetchFilter);
@@ -95,7 +98,10 @@ export class Filter {
   }
 
   public update(payload: any) {
-    merge(this, payload);
+    merge(this, {
+      disableNotificationsOnNextFetch: true,
+      ...payload,
+    });
   }
 
   /*
@@ -148,11 +154,16 @@ export class Filter {
     // Update the data
     this.data = data;
 
-    // Store the IDs of the items that weren't previously known
-    this.newItemsIdentifiers = difference(
-      currentItemsIdentifiers,
-      this.previousItemsIdentifiers
-    );
+    if (!this.disableNotificationsOnNextFetch) {
+      // Store the IDs of the items that weren't previously known
+      this.newItemsIdentifiers = difference(
+        currentItemsIdentifiers,
+        this.previousItemsIdentifiers
+      );
+    } else {
+      this.newItemsIdentifiers = [];
+      this.disableNotificationsOnNextFetch = false;
+    }
 
     // Store the IDs of the current items, for later comparison
     this.previousItemsIdentifiers = currentItemsIdentifiers;
