@@ -90,6 +90,10 @@ export class Filter {
     return this.newItemsIdentifiers.includes(identifier);
   }
 
+  public clearNewItemsNotifications() {
+    this.newItemsIdentifiers = [];
+  }
+
   /*
    * Computed
    */

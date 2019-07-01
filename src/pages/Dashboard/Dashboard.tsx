@@ -26,6 +26,16 @@ export class Dashboard extends React.Component {
   }
 
   public handleFilterSelected = (filterId: string) => {
+    if (filterId === settingsStore.selectedFilterId) {
+      return;
+    }
+
+    // Clear the notifications of the filter that was selected
+    filtersStore
+      .findFilter(settingsStore.selectedFilterId)
+      .clearNewItemsNotifications();
+
+    // Select the new filter
     settingsStore.selectedFilterId = filterId;
   };
 
