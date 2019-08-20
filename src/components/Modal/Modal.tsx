@@ -64,7 +64,7 @@ export const Modal = observer(({ children, onClose }: IProps) => {
         <span className="mr-2">Close</span>
         <i className="fa fa-times" />
       </div>
-      <Wrapper>{children}</Wrapper>
+      <Wrapper className="h-full overflow-auto">{children}</Wrapper>
     </Backdrop>
   );
 });
