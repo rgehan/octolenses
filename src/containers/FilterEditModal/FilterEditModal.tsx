@@ -50,7 +50,7 @@ export const FilterEditModal = observer(
 
     return (
       <Modal onClose={onClose}>
-        <Container className="mt-32 mx-auto">
+        <Container className="mt-32 mb-16 mx-auto">
           {step === STEPS.PROVIDERS && (
             <ProviderStep
               provider={provider}
