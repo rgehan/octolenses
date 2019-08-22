@@ -20,7 +20,7 @@ out all the information you need in order to be as productive as possible.
 ## Installation
 
 [![](.github/icons/chrome.png)](https://chrome.google.com/webstore/detail/octolenses/ghlblfakaklgkdmfejdlffbmpcaidoci)
-[![](.github/icons/firefox.png)](https://addons.mozilla.org/firefox/addon/github-octolenses/)
+[![](.github/icons/firefox.png)](https://addons.mozilla.org/firefox/addon/github-octolenses/) [![Greenkeeper badge](https://badges.greenkeeper.io/rgehan/octolenses.svg)](https://greenkeeper.io/)
 
 Simply download it on your favorite browser's extensions store.
 
