@@ -24,7 +24,7 @@ export interface JiraIssue {
         '48x48': string;
       };
     };
-    priority: {
+    priority?: {
       iconUrl: string;
       name: string;
     };
@@ -85,6 +85,9 @@ export const IssueCard = observer(({ data: issue, isNew }: IProps) => {
         <div className="flex-1 flex justify-between items-center">
           <div className="flex-1 flex items-center mb-1 min-w-0">
             <img src={issue.fields.issuetype.iconUrl} className="mr-1 mb-1" />
+            {issue.fields.priority && (
+              <img src={issue.fields.priority.iconUrl} className="h-5 mr-1 mb-1" />
+            )}
             <span className={cx('truncate pb-1 min-w-0', linkStyle)}>
               <a
                 className={cx('text-lg hover:underline', linkStyle)}
