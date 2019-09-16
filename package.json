@@ -34,7 +34,7 @@
     "@babel/plugin-proposal-decorators": "^7.4.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
     "@types/chrome": "^0.0.81",
-    "@types/classnames": "^2.2.7",
+    "@types/classnames": "^2.2.9",
     "@types/clipboard": "^2.0.1",
     "@types/jest": "^24.0.18",
     "@types/lodash": "^4.14.137",
