@@ -47,7 +47,7 @@
     "prettier": "^1.14.2",
     "puppeteer": "^1.18.1",
     "rimraf": "^2.6.2",
-    "sass": "^1.17.3",
+    "sass": "^1.22.12",
     "tailwindcss": "^1.0.4",
     "ts-jest": "^24.1.0",
     "tslint": "^5.19.0",
