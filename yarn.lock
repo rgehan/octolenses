@@ -3541,10 +3541,10 @@ https-proxy-agent@^2.2.1:
     agent-base "^4.1.0"
     debug "^3.1.0"
 
-human-format@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/human-format/-/human-format-0.10.0.tgz#0583c91bfcef0e465a31097f1c627db32c7b502f"
-  integrity sha512-EPbU/AVD/r4OGDCFtQhYl0aa3mROx4l4No3MAJrJfUHVsnqjaqNTgbFWY2GQ3pib4k2RvsNxx0vZuzMgXGluzQ==
+human-format@^0.10.1:
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/human-format/-/human-format-0.10.1.tgz#107793f355912e256148d5b5dcf66a0230187ee9"
+  integrity sha512-UzCHToSw3HI9MxH9tYzMr1JbHJbgzr6o0hZCun7sruv59S1leps21bmgpBkkwEvQon5n/2OWKH1iU7BEko02cg==
 
 iconv-lite@0.4.24:
   version "0.4.24"
@@ -4614,7 +4614,7 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
-lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.15, lodash@^4.17.4:
+lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.15, lodash@^4.17.4:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
