@@ -1,1 +1,1 @@
-export { IssueCard } from './IssueCard';
+export { IssueCard, IProps } from './IssueCard';

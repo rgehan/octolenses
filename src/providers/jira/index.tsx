@@ -6,7 +6,7 @@ import React from 'react';
 import { Cache } from '../../lib/cache';
 import { Filter } from '../../store/filters';
 import { AbstractProvider } from '../AbstractProvider';
-import { IssueCard } from './components/IssueCard';
+import { IProps as IIssueCardProps, IssueCard } from './components/IssueCard';
 import { Settings } from './components/Settings';
 import { fetchFilter } from './fetchers';
 import { refreshToken } from './fetchers/refreshToken';
@@ -29,13 +29,16 @@ export interface JiraResource {
   id: string;
   name: string;
   scopes: string[];
+  url: string;
 }
 
 export class JiraProvider extends AbstractProvider<JiraSettings> {
   public id = 'jira';
   public label = 'Jira';
   public settingsComponent = () => <Settings provider={this} />;
-  public cardComponent = IssueCard;
+  public cardComponent = (props: Omit<IIssueCardProps, 'provider'>) => (
+    <IssueCard {...props} provider={this} />
+  );
 
   @observable
   public resources: JiraResource[] = [];
