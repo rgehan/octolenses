@@ -36,7 +36,7 @@
     "@types/chrome": "^0.0.91",
     "@types/classnames": "^2.2.9",
     "@types/clipboard": "^2.0.1",
-    "@types/jest": "^24.0.18",
+    "@types/jest": "^24.0.22",
     "@types/lodash": "^4.14.146",
     "@types/react-sortable-hoc": "^0.7.1",
     "@types/styled-components": "^4.1.20",
