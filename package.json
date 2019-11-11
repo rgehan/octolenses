@@ -37,7 +37,7 @@
     "@types/classnames": "^2.2.9",
     "@types/clipboard": "^2.0.1",
     "@types/jest": "^24.0.18",
-    "@types/lodash": "^4.14.137",
+    "@types/lodash": "^4.14.146",
     "@types/react-sortable-hoc": "^0.7.1",
     "@types/styled-components": "^4.1.20",
     "@types/uuid": "^3.4.4",
