@@ -15,7 +15,7 @@
     "human-format": "^0.10.1",
     "immer": "^1.5.0",
     "lodash": "^4.17.15",
-    "mobx": "^5.10.1",
+    "mobx": "^5.15.0",
     "mobx-persist": "^0.4.1",
     "mobx-react": "^6.1.4",
     "moment": "^2.22.2",
