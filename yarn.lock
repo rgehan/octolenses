@@ -1100,12 +1100,12 @@
     "@types/prop-types" "*"
     "@types/react" "*"
 
-"@types/react-sortable-hoc@^0.6.5":
-  version "0.6.6"
-  resolved "https://registry.yarnpkg.com/@types/react-sortable-hoc/-/react-sortable-hoc-0.6.6.tgz#881c495c2b167c3e7ed8abdab480edf64e5cbbb7"
-  integrity sha512-fo5hG+Y3Hgvl8m0B+PSLRgicTLc5ujfn7Y5NSpuVAhPa2jcmNQSIWUZvZGtqvNaOuC2ogVUdFVtRkmVFQ/4u6Q==
+"@types/react-sortable-hoc@^0.7.1":
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/@types/react-sortable-hoc/-/react-sortable-hoc-0.7.1.tgz#9dc4eb2db1b539e68bc8f6d95bddeb662282d821"
+  integrity sha512-K27j2M0yzi8F1E/UylqImXbGrIh0L6eu31U905gzZpEImJpBUHkmMWWJCO1Aehw31PMV8I1Pqt9LkCbNF685DA==
   dependencies:
-    "@types/react" "*"
+    react-sortable-hoc "*"
 
 "@types/react@*":
   version "16.9.11"
@@ -5941,7 +5941,7 @@ react-is@^16.6.0, react-is@^16.8.1, react-is@^16.8.4:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.11.0.tgz#b85dfecd48ad1ce469ff558a882ca8e8313928fa"
   integrity sha512-gbBVYR2p8mnriqAwWx9LbuUrShnAuSCNnuPGyc7GJrMVQtPDAh8iLpv7FRuMPFb56KkaVZIYSz1PrjI9q0QPCw==
 
-react-sortable-hoc@^1.10.1:
+react-sortable-hoc@*, react-sortable-hoc@^1.10.1:
   version "1.10.1"
   resolved "https://registry.yarnpkg.com/react-sortable-hoc/-/react-sortable-hoc-1.10.1.tgz#c352f26263acbcff9cf266bc755653a56c983a38"
   integrity sha512-eVyv5rrK6qY9bG60bboRY78In7OpdRRg+hxp4QMLIjC/UJaFSU7exTYd0764GtXvBqh+b+faYGzren5/ffRYKw==
