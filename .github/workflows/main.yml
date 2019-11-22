@@ -10,6 +10,7 @@ jobs:
         uses: cypress-io/github-action@v1
         with:
           record: true
+          start: yarn start
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           CYPRESS_GITHUB_TOKEN: ${{ secrets.CYPRESS_GITHUB_TOKEN }}
