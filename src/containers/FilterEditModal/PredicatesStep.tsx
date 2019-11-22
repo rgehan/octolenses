@@ -29,19 +29,16 @@ export const PredicatesStep = observer(
     next,
   }: IProps) => {
     // Save on Enter
-    useEffect(
-      () => {
-        function handleKeyDown(event: KeyboardEvent) {
-          if (event.key === 'Enter') {
-            next();
-          }
+    useEffect(() => {
+      function handleKeyDown(event: KeyboardEvent) {
+        if (event.key === 'Enter') {
+          next();
         }
+      }
 
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-      },
-      [next]
-    );
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [next]);
 
     /**
      * Add a new predicate to the list of predicates
@@ -102,6 +99,7 @@ export const PredicatesStep = observer(
             settingsStore.isDark ? 'text-white' : 'text-black'
           )}
           onChange={event => setLabel(event.target.value)}
+          data-id="filter-label-input"
         />
         <div className="text-base text-gray-500 font-medium tracking-wider mt-8 mb-2">
           Predicates
@@ -125,6 +123,7 @@ export const PredicatesStep = observer(
               'bg-transparent appearance-none border-none outline-none cursor-pointer',
               settingsStore.isDark ? 'text-gray-500' : 'text-gray-900'
             )}
+            data-id="add-predicate-dropdown"
           >
             <option key="__default" value="">
               + Add a predicate

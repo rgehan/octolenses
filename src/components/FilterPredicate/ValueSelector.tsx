@@ -26,6 +26,7 @@ export const ValueSelector = observer(
           onChange={event => onChange(event.target.value)}
           placeholder={predicate.placeholder}
           className={cx(baseStyle, 'pl-3')}
+          data-id="predicate-value-selector"
         />
       );
     }
@@ -36,6 +37,7 @@ export const ValueSelector = observer(
           value={value}
           onChange={event => onChange(event.target.value)}
           className={cx(baseStyle, 'ml-2 mr-3')}
+          data-id="predicate-value-selector"
         >
           <option key="__default" value="">
             Choose...

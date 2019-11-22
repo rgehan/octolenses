@@ -43,7 +43,7 @@ export const FilterPredicate = observer(
       });
 
     return (
-      <Wrapper className="flex relative mb-3">
+      <Wrapper className="flex relative mb-3" data-id={`predicate-${type}`}>
         <div
           className={cx(
             'flex-1 flex items-stretch rounded overflow-hidden text-lg',

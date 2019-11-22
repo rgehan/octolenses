@@ -18,6 +18,7 @@ export const OperatorSelector = ({ predicate, value, onChange }: IProps) => {
       className="ml-2 outline-none text-black"
       value={value}
       onChange={event => onChange(event.target.value)}
+      data-id="operator-dropdown"
     >
       {predicate.operators.map(item => (
         <option key={item.value} value={item.value}>
