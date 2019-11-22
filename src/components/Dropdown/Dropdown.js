@@ -25,7 +25,7 @@ export class Dropdown extends React.Component {
   };
 
   render() {
-    const { items, value, className } = this.props;
+    const { name, items, value, className } = this.props;
 
     return (
       <div
@@ -42,6 +42,7 @@ export class Dropdown extends React.Component {
             'flex-1 border-none bg-transparent cursor-pointer outline-none appearance-none py-2 px-3',
             settingsStore.isDark && 'text-white'
           )}
+          data-id={`dropdown-${name}`}
         >
           {items.map(item => (
             <option key={item.value} value={item.value}>

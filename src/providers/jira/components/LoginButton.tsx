@@ -58,7 +58,7 @@ export const LoginButton = observer(({ provider }: IProps) => {
         is auditable{' '}
         <a
           href="https://github.com/rgehan/octolenses-jira-token-swap-service"
-          target="__blank"
+          target="_blank"
           className="text-blue"
         >
           here

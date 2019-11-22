@@ -12,8 +12,8 @@ interface IProps {
 }
 
 export const FilterLinkContainer = SortableContainer<IProps>(
-  ({ links, selectedFilterId, onFilterSelected, dark = false }) => (
-    <div>
+  ({ links, selectedFilterId, onFilterSelected, dark = false }: IProps) => (
+    <div data-id="filter-links">
       {links.map((link: Filter, index: number) => (
         <FilterLink
           key={link.id}

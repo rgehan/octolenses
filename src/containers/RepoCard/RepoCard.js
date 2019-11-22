@@ -18,7 +18,7 @@ export const RepoCard = observer(({ repo }) => {
   } = repo;
 
   return (
-    <div className="w-1/3 pl-6 mb-6">
+    <div className="w-1/3 pl-6 mb-6" data-id="repo-card">
       <div
         className={cx(
           'h-64 flex flex-col px-5 py-4 shadow-lg rounded-lg',
@@ -42,7 +42,8 @@ export const RepoCard = observer(({ repo }) => {
                 : 'text-blue-500 hover:text-blue-600'
             )}
             href={html_url}
-            target="__blank"
+            target="_blank"
+            data-id="repo-link"
           >
             {name}
           </a>

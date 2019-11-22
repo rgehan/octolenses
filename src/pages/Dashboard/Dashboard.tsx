@@ -177,6 +177,7 @@ export class Dashboard extends React.Component {
             'flex-1 flex flex-col shadow-xl rounded-lg mb-16 min-w-0',
             settingsStore.isDark ? 'bg-gray-800 text-white' : 'bg-white'
           )}
+          data-id="filter-results"
         >
           {this.renderResults()}
         </div>

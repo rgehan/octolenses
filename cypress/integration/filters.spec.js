@@ -2,14 +2,7 @@ const DEFAULT_FILTER_NAME = 'OctoLenses Issues';
 
 context('Filters', () => {
   beforeEach(() => {
-    cy.window().then(window => {
-      window.localStorage.setItem('githubProvider', JSON.stringify({
-        settings: {
-          token: Cypress.env('GITHUB_TOKEN'),
-        },
-      }));
-    });
-
+    cy.injectGithubToken();
     cy.visit(Cypress.env('BASE_URL') + '/');
   });
 
@@ -47,6 +40,53 @@ context('Filters', () => {
     cy.contains('Delete').click();
     cy.contains(DEFAULT_FILTER_NAME).should('not.exist');
   });
+
+  it('can edit a filter', () => {
+    cy.contains(DEFAULT_FILTER_NAME).click();
+    cy.contains('Edit').click();
+
+    // Rename the filter
+    cy.get('[data-id=filter-label-input]')
+      .type('{selectAll}{del}')
+      .type('Laravel PRs');
+
+    // Change the target repository
+    cy.get(`[data-id=predicate-repo] [data-id=predicate-value-selector]`)
+      .type('{selectAll}{del}')
+      .type('laravel/framework');
+
+    // Save
+    cy.contains('Continue').click();
+
+    // Check the edited filter is in the sidebar
+    cy.get('[data-id=filter-links]').contains('Laravel PRs');
+
+    // Check we have cards corresponding to the new filter
+    cy.get('[data-id=filter-results]').contains('laravel/framework');
+  });
+
+  it('can clone a filter', () => {
+    cy.contains(DEFAULT_FILTER_NAME).click();
+    cy.contains('Clone').click();
+
+    cy.get('[data-id=filter-links]').contains(DEFAULT_FILTER_NAME + ' (Copy)');
+  });
+
+  it('can refresh a filter', () => {
+    cy.contains(DEFAULT_FILTER_NAME).click();
+
+    // Waits for results to be displayed
+    cy.get('[data-id=filter-results]').contains('rgehan/octolenses');
+
+    // Refresh
+    cy.contains('Refresh').click();
+
+    // Wait for a loader to appear
+    cy.get('[data-id=loader]');
+
+    // Check we have results again
+    cy.get('[data-id=filter-results]').contains('rgehan/octolenses');
+  });
 });
 
 function createFilter({ name, predicates }) {
@@ -67,11 +107,11 @@ function createFilter({ name, predicates }) {
 
     if (isDropdown) {
       cy.get(
-        `[data-id=predicate-${type}] [data-id=predicate-value-selector`
+        `[data-id=predicate-${type}] [data-id=predicate-value-selector]`
       ).select(value);
     } else {
       cy.get(
-        `[data-id=predicate-${type}] [data-id=predicate-value-selector`
+        `[data-id=predicate-${type}] [data-id=predicate-value-selector]`
       ).type(value);
     }
   });
