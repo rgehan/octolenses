@@ -111,6 +111,19 @@ your browser as an _unpacked extension_, provided you're in developer mode.
 
 [https://github.com/rgehan/octolenses](rgehan/octolenses)
 
+## Testing
+
+The extension is covered by unit tests, and integration tests.
+
+Here is how you can run them:
+```bash
+# Run the unit tests (w/ Jest)
+yarn test
+
+# Open the integration tests runner (w/ Cypress)
+CYPRESS_GITHUB_TOKEN=<github token> yarn e2e
+```
+
 ## Releasing
 
 ```sh

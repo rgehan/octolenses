@@ -70,6 +70,7 @@
     "build": "yarn build:unpacked && yarn compress",
     "release": "./scripts/release",
     "screenshots": "./scripts/screenshots",
-    "test": "jest"
+    "test": "jest",
+    "e2e": "cypress open"
   }
 }
