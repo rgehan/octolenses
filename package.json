@@ -41,6 +41,7 @@
     "@types/react-sortable-hoc": "^0.7.1",
     "@types/styled-components": "^4.1.20",
     "@types/uuid": "^3.4.4",
+    "cypress": "^3.6.1",
     "jest": "^24.5.0",
     "jest-localstorage-mock": "^2.4.0",
     "parcel-bundler": "^1.12.3",
@@ -58,7 +59,7 @@
   },
   "scripts": {
     "clean": "rimraf dist/",
-    "start": "parcel serve --no-hmr src/index.html",
+    "start": "parcel serve --no-hmr --no-autoinstall src/index.html",
     "copyManifest": "cp manifest.json dist/manifest.json",
     "copyIcons": "cp -r icons/ dist/icons/",
     "syncManifestVersion": "version=$(jq -r .version package.json) && sed -i '' \"s/<version>/$version/\" dist/manifest.json && echo \"Updated manifest with version: $version\"",

@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import contrast from 'contrast';
-import React from 'React';
+import React from 'react';
 
 interface IProps {
   label: {

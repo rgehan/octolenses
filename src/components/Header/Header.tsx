@@ -40,7 +40,7 @@ export const Header = observer(() => {
           <div className="tabs flex-1 flex justify-end">
             {renderLink('dashboard')}
             {renderLink('discover')}
-            <TabLink onClick={() => setModalOpen(true)}>
+            <TabLink onClick={() => setModalOpen(true)} name="settings">
               <i className="fa fa-cog" />
             </TabLink>
           </div>

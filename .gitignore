@@ -9,3 +9,5 @@ dist.crx
 dist.pem
 octolenses-browser-extension-*.zip
 octolenses-*.zip
+
+cypress/videos
