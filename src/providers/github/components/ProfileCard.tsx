@@ -32,7 +32,7 @@ export const ProfileCard = observer(({ profile }: IProps) => {
         </div>
         <a
           href={profile.html_url}
-          target="__blank"
+          target="_blank"
           className="text-sm text-gray-600 mt-1"
         >
           @{profile.login}

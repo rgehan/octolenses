@@ -38,7 +38,7 @@ export const Settings = observer(({ provider }: IProps) => {
       <div className="mt-4 leading-normal">
         <p>
           You can generate a Personal Access Token on{' '}
-          <a className="text-blue" href={CREATE_TOKEN_URL} target="__blank">
+          <a className="text-blue" href={CREATE_TOKEN_URL} target="_blank">
             this page
           </a>
           .<br />

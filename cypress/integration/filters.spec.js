@@ -2,17 +2,7 @@ const DEFAULT_FILTER_NAME = 'OctoLenses Issues';
 
 context('Filters', () => {
   beforeEach(() => {
-    cy.window().then(window => {
-      window.localStorage.setItem(
-        'githubProvider',
-        JSON.stringify({
-          settings: {
-            token: Cypress.env('GITHUB_TOKEN'),
-          },
-        })
-      );
-    });
-
+    cy.injectGithubToken();
     cy.visit(Cypress.env('BASE_URL') + '/');
   });
 
