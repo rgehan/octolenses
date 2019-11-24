@@ -1,13 +1,23 @@
 import cx from 'classnames';
 import { capitalize } from 'lodash';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import React, { useState } from 'react';
+import { compose } from 'recompose';
 
 import { SettingsModal } from '../../containers';
-import { navigationStore, settingsStore } from '../../store';
+import { NavigationStore } from '../../store/navigation';
+import { SettingsStore } from '../../store/settings';
 import { TabLink } from './TabLink';
 
-export const Header = observer(() => {
+interface IInnerProps {
+  settingsStore: SettingsStore;
+  navigationStore: NavigationStore;
+}
+
+export const Header = compose<IInnerProps, {}>(
+  inject('settingsStore', 'navigationStore'),
+  observer
+)(({ settingsStore, navigationStore }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   function renderLink(name: string) {

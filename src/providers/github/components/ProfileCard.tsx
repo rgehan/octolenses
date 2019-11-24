@@ -1,15 +1,23 @@
 import cx from 'classnames';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import React from 'react';
+import { compose } from 'recompose';
 
-import { GithubProfile } from '..';
-import { settingsStore } from '../../../store';
+import { GithubProfile } from '../index';
+import { SettingsStore } from '../../../store/settings';
 
 interface IProps {
   profile: GithubProfile;
 }
 
-export const ProfileCard = observer(({ profile }: IProps) => {
+interface IInnerProps extends IProps {
+  settingsStore: SettingsStore;
+}
+
+export const ProfileCard = compose<IInnerProps, IProps>(
+  inject('settingsStore'),
+  observer
+)(({ profile, settingsStore }) => {
   if (!profile) {
     return null;
   }

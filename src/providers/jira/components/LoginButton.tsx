@@ -1,11 +1,12 @@
 import cx from 'classnames';
 import { chain } from 'lodash';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import React from 'react';
+import { compose } from 'recompose';
 
 import { JiraProvider } from '..';
 import { Button, ButtonType } from '../../../components/Button';
-import { settingsStore } from '../../../store';
+import { SettingsStore } from '../../../store/settings';
 import { SwapResult, swapToken } from '../fetchers/swapToken';
 
 const CLIENT_ID = '4WgiRI4XRQ2OTWof5i7yCKmlekkIldH0';
@@ -14,7 +15,14 @@ interface IProps {
   provider: JiraProvider;
 }
 
-export const LoginButton = observer(({ provider }: IProps) => {
+interface IInnerProps extends IProps {
+  settingsStore: SettingsStore;
+}
+
+export const LoginButton = compose<IInnerProps, IProps>(
+  inject('settingsStore'),
+  observer
+)(({ provider, settingsStore }) => {
   async function handleLogin() {
     try {
       const data = await initJiraOauthFlow();

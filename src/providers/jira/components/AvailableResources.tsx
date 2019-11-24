@@ -1,15 +1,23 @@
 import cx from 'classnames';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import React from 'react';
+import { compose } from 'recompose';
 
-import { settingsStore } from '../../../store';
+import { SettingsStore } from '../../../store/settings';
 import { JiraResource } from '../index';
 
 interface IProps {
   resources: JiraResource[];
 }
 
-export const AvailableResources = observer(({ resources }: IProps) => {
+interface IInnerProps extends IProps {
+  settingsStore: SettingsStore;
+}
+
+export const AvailableResources = compose<IInnerProps, IProps>(
+  inject('settingsStore'),
+  observer
+)(({ resources, settingsStore }) => {
   if (!resources || !resources.length) {
     return null;
   }

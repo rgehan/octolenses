@@ -1,9 +1,10 @@
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import React from 'react';
+import { compose } from 'recompose';
 
 import { Header, ToastManager } from './components';
 import { Dashboard, Discover } from './pages';
-import { navigationStore } from './store';
+import { NavigationStore } from './store/navigation';
 
 const PAGES = {
   discover: Discover,
@@ -12,7 +13,14 @@ const PAGES = {
 
 type PageName = keyof typeof PAGES;
 
-export const App = observer(() => {
+interface IInnerProps {
+  navigationStore: NavigationStore;
+}
+
+export const App = compose<IInnerProps, {}>(
+  inject('navigationStore'),
+  observer
+)(({ navigationStore }) => {
   const Page = PAGES[navigationStore.page as PageName];
 
   return (

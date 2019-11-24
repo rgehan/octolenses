@@ -4,7 +4,7 @@ import { getDateFromValue } from '../constants/dates';
 import { fetchTrendingRepos } from '../lib/github';
 import { settingsStore } from './settings';
 
-class TrendsStore {
+export class TrendsStore {
   @observable
   public data: any[] = [];
 

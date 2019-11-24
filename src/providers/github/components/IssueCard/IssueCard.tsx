@@ -1,10 +1,11 @@
 import cx from 'classnames';
 import { get } from 'lodash';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import React from 'react';
+import { compose } from 'recompose';
 import timeago from 'timeago.js';
 
-import { settingsStore } from '../../../../store';
+import { SettingsStore } from '../../../../store/settings';
 import { CheckStatusIndicator } from './CheckStatusIndicator';
 import { ConflictIndicator } from './ConflictIndicator';
 import { ContextualDropdown } from './ContextualDropdown';
@@ -48,7 +49,14 @@ interface IProps {
   isNew: boolean;
 }
 
-export const IssueCard = observer(({ data: issue, isNew }: IProps) => {
+interface IInnerProps extends IProps {
+  settingsStore: SettingsStore;
+}
+
+export const IssueCard = compose<IInnerProps, IProps>(
+  inject('settingsStore'),
+  observer
+)(({ data: issue, isNew, settingsStore }) => {
   const linkStyle = settingsStore.isDark
     ? 'text-blue-400'
     : 'text-blue-500 hover:text-blue-600';

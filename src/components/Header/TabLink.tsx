@@ -1,8 +1,9 @@
 import cx from 'classnames';
-import { observer } from 'mobx-react';
-import React, { FC, ReactNode } from 'react';
+import { inject, observer } from 'mobx-react';
+import React from 'react';
+import { compose } from 'recompose';
 
-import { settingsStore } from '../../store';
+import { SettingsStore } from '../../store/settings';
 
 const COLORS = {
   dark: {
@@ -21,19 +22,24 @@ interface IProps {
   active?: boolean;
 }
 
-export const TabLink: FC<IProps> = observer(
-  ({ children, name, onClick, active = false }) => (
-    <a
-      className={cx(
-        'font-roboto ml-4 py-2 cursor-pointer',
-        COLORS[settingsStore.isDark ? 'dark' : 'light'][
-          active ? 'active' : 'inactive'
-        ]
-      )}
-      onClick={onClick}
-      data-header-link={name}
-    >
-      {children}
-    </a>
-  )
-);
+interface IInnerProps extends IProps {
+  settingsStore: SettingsStore;
+}
+
+export const TabLink = compose<IInnerProps, IProps>(
+  inject('settingsStore'),
+  observer
+)(({ children, name, onClick, active = false, settingsStore }) => (
+  <a
+    className={cx(
+      'font-roboto ml-4 py-2 cursor-pointer',
+      COLORS[settingsStore.isDark ? 'dark' : 'light'][
+        active ? 'active' : 'inactive'
+      ]
+    )}
+    onClick={onClick}
+    data-header-link={name}
+  >
+    {children}
+  </a>
+));
