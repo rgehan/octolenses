@@ -1,4 +1,4 @@
-name: E2E Tests
+name: Lint & Tests
 on: [push]
 jobs:
   lint:
