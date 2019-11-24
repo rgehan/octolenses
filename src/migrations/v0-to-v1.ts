@@ -1,6 +1,6 @@
 /* tslint:disable no-console */
 
-import { Migration } from './index';
+import { Migration } from './types';
 import { getFromLocalStorage, saveToLocalStorage } from './utils';
 
 export default class implements Migration {

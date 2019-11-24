@@ -2,7 +2,7 @@
 
 import { providers, ProviderType } from '../providers';
 import { Filter } from '../store/filters';
-import { Migration } from './index';
+import { Migration } from './types';
 import { getFromLocalStorage, saveToLocalStorage } from './utils';
 
 export default class implements Migration {
