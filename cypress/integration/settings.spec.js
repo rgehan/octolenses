@@ -29,7 +29,7 @@ context('Discover', () => {
     cy.contains('Cache was successfully cleared');
   });
 
-  it.only('sets the GitHub token', () => {
+  it('sets the GitHub token', () => {
     cy.contains('GitHub').click();
     cy.get('input').type('my-token');
     cy.contains('Save').click();
