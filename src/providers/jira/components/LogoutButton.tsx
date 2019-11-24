@@ -9,7 +9,7 @@ interface IProps {
 }
 
 export const LogoutButton = observer(({ provider }: IProps) => {
-  async function handleLogout() {
+  function handleLogout() {
     provider.disconnect();
   }
 

@@ -38,7 +38,7 @@ const initializeProviders = async () => {
   );
 };
 
-const performOnboarding = async () => {
+const performOnboarding = () => {
   if (settingsStore.wasOnboarded) {
     return;
   }
@@ -67,10 +67,10 @@ export const refreshAllData = async () => {
 };
 
 export const bootstrap = async () => {
-  await migrator.migrate();
+  migrator.migrate();
   await hydrateStores();
   await initializeProviders();
-  await performOnboarding();
+  performOnboarding();
   await refreshAllData();
   Cache.flushExpired();
 };

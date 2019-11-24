@@ -44,7 +44,9 @@ export class Cache {
 
     try {
       return JSON.parse(item);
-    } catch (error) {}
+    } catch (error) {
+      // Do nothing
+    }
 
     return null;
   }

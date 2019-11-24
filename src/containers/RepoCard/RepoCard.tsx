@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 
 import cx from 'classnames';
-// @ts-ignore
 import humanFormat from 'human-format';
 import { inject, observer } from 'mobx-react';
 import React from 'react';

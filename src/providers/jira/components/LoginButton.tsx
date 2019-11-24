@@ -108,7 +108,7 @@ async function initJiraOauthFlow(): Promise<ISwapResult> {
       }
 
       // Unable to extract an authorization code from the response
-      const authCode = chain(response.match(redirectRegexp))
+      const authCode = chain(redirectRegexp.exec(response))
         .get(1)
         .split('=')
         .get(1)

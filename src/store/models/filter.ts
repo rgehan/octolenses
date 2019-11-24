@@ -36,7 +36,7 @@ export class Filter {
 
   @persist
   @observable
-  public lastModified: number = 0;
+  public lastModified = 0;
 
   @persist('list')
   @observable
@@ -50,7 +50,12 @@ export class Filter {
 
   constructor() {
     // When the hash of the filter changes, re-fetch it
-    reaction(() => this.hash, this.fetchFilter);
+    reaction(
+      () => this.hash,
+      () => {
+        this.fetchFilter();
+      }
+    );
   }
 
   /*
