@@ -46,7 +46,12 @@ export const Settings = compose<IInnerProps, IProps>(
       <div className="mt-4 leading-normal">
         <p>
           You can generate a Personal Access Token on{' '}
-          <a className="text-blue" href={CREATE_TOKEN_URL} target="_blank">
+          <a
+            className="text-blue"
+            href={CREATE_TOKEN_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             this page
           </a>
           .<br />

@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 import { toast } from '../../../../components/ToastManager/ToastManager';
 import { SettingsStore } from '../../../../store/settings';
-import { Issue } from './IssueCard';
+import { IIssue } from './IssueCard';
 
 const Wrapper = styled.div`
   .overlay {
@@ -38,7 +38,7 @@ const Overlay = styled.div<{ dark: boolean }>`
   }
 `;
 
-const makeActions = (issue: Issue) => {
+const makeActions = (issue: IIssue) => {
   const type = issue.pull_request ? 'Pull request' : 'Issue';
 
   return [
@@ -56,7 +56,7 @@ const makeActions = (issue: Issue) => {
 };
 
 interface IProps {
-  issue: Issue;
+  issue: IIssue;
 }
 
 interface IInnerProps extends IProps {

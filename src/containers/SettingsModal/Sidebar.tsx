@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 import { SettingsStore } from '../../store/settings';
 import { SETTINGS_VIEWS } from './constants';
-import { SettingView } from './types';
+import { ISettingView } from './types';
 
 const Wrapper = styled.div`
   width: 200px;
@@ -47,7 +47,7 @@ export const Sidebar = compose<IInnerProps, IProps>(
 )(({ selectedTab, selectTab, settingsStore }) => {
   const [providerItems, staticItems] = partition(SETTINGS_VIEWS, 'isProvider');
 
-  function renderItems(items: SettingView[]) {
+  function renderItems(items: ISettingView[]) {
     return items.map(({ label, id }) => (
       <Item
         key={id}

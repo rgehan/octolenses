@@ -11,7 +11,7 @@ enum GithubOperators {
   NOT_EQUAL = 'not_equal',
 }
 
-interface SimplePredicatePayload {
+interface ISimplePredicatePayload {
   name: string;
   placeholder: string;
   label?: string;
@@ -25,7 +25,7 @@ export const makeSimplePredicate = ({
   name,
   label,
   placeholder,
-}: SimplePredicatePayload): Predicate => ({
+}: ISimplePredicatePayload): Predicate => ({
   name,
   label: label || capitalize(name),
   placeholder,

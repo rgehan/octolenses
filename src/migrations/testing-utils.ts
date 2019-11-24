@@ -7,6 +7,7 @@ import mocks from './mocks';
 import { hydrateLocalStorageFromObject } from './utils';
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/interface-name-prefix
   interface Window {
     loadTestLocalStorage(name: string): void;
     migrate(): void;

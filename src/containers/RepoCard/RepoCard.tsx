@@ -1,7 +1,6 @@
-// tslint:disable:variable-name
+/* eslint-disable @typescript-eslint/camelcase */
 
 import cx from 'classnames';
-// @ts-ignore
 import humanFormat from 'human-format';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
@@ -58,6 +57,7 @@ export const RepoCard = compose<IInnerProps, IProps>(
             )}
             href={html_url}
             target="_blank"
+            rel="noopener noreferrer"
             data-id="repo-link"
           >
             {name}

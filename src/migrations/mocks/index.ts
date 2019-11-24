@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/camelcase */
+
 import v0 from './v0';
 import v1 from './v1';
 import v1_withoutToken from './v1-without-token';

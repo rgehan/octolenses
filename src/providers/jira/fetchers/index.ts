@@ -1,14 +1,14 @@
 import { chain, get } from 'lodash';
 import hash from 'object-hash';
 
-import { JiraResource, JiraSettings } from '..';
+import { IJiraResource, IJiraSettings } from '..';
 import { Cache } from '../../../lib/cache';
 import { Filter } from '../../../store/filters';
 
 export async function fetchFilter(
   filter: Filter,
-  settings: JiraSettings,
-  resource: JiraResource
+  settings: IJiraSettings,
+  resource: IJiraResource
 ): Promise<any[]> {
   const site = resource.id;
   const token = get(settings, 'auth.access_token');

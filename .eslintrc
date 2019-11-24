@@ -1,29 +1,56 @@
 {
   "extends": [
+    // Enable eslint recommended, and the few overrides necessary to work with TS
     "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:prettier/recommended"
+    "plugin:@typescript-eslint/eslint-recommended",
+
+    // Enable recommended rules specific to TS
+    "plugin:@typescript-eslint/recommended",
+
+    // Enable rules that are types aware
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+
+    // React rules
+    "plugin:react/recommended"
   ],
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
   "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
+    },
+    "project": "./tsconfig.json"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
     }
   },
   "rules": {
-    "no-console": "off",
-    "react/prop-types": "off",
-    "react/no-deprecated": "off",
-    "react/no-unescaped-entities": "off"
-  },
-  "env": {
-    "es6": true,
-    "browser": true,
-    "node": true
-  },
-  "globals": {
-    "chrome": true
+    // Enforce `I` prefix for interfaces, as I like it that way
+    "@typescript-eslint/interface-name-prefix": [
+      "error",
+      {
+        "prefixWithI": "always",
+        "allowUnderscorePrefix": true
+      }
+    ],
+
+    // Allow using `any`, as it's sometimes easier with external API
+    "@typescript-eslint/no-explicit-any": "off",
+
+    // Do not require return types on all functions, as the inference engine is good enough to figure it out
+    "@typescript-eslint/explicit-function-return-type": "off",
+
+    // It is convenient being able to declare functions after they're used
+    "@typescript-eslint/no-use-before-define": "off",
+
+    // It is erroring when declaring global functions on the window object, which is annoying
+    "@typescript-eslint/unbound-method": ["off"],
+
+    "@typescript-eslint/camelcase": ["error", {
+      "ignoreDestructuring": true,
+      "properties": "never"
+    }]
   }
 }

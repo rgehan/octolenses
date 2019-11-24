@@ -1,11 +1,11 @@
 import cx from 'classnames';
 import React from 'react';
 
-import { Issue } from './IssueCard';
+import { IIssue } from './IssueCard';
 import { IssueStatus } from './types';
 
 interface IProps {
-  status: Issue['status'];
+  status: IIssue['status'];
 }
 
 const STATUS_TO_ICON = {

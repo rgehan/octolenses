@@ -6,30 +6,30 @@ export enum ProviderType {
 type PredicateIdentifier = string;
 
 // Template predicate, as returned by providers
-interface BasePredicate {
+interface IBasePredicate {
   type: PredicateType;
   name: PredicateIdentifier;
   label: string;
-  operators: PredicateOperator[];
+  operators: IPredicateOperator[];
   serialize?: (payload: { value: string; operator?: string }) => string;
 }
 
 // A simple text predicate
-interface TextPredicate extends BasePredicate {
+interface ITextPredicate extends IBasePredicate {
   type: PredicateType.TEXT;
   placeholder: string;
 }
 
 // A dropdown predicate, allowing to pick from multiple choices
-export interface DropdownPredicate extends BasePredicate {
+export interface IDropdownPredicate extends IBasePredicate {
   type: PredicateType.DROPDOWN;
   choices: Array<{ value: string; label: string }>;
 }
 
-export type Predicate = TextPredicate | DropdownPredicate;
+export type Predicate = ITextPredicate | IDropdownPredicate;
 
 // A predicate once it's been stored and configured
-export interface StoredPredicate {
+export interface IStoredPredicate {
   type: PredicateIdentifier;
   value: string;
   operator?: string;
@@ -40,7 +40,7 @@ export enum PredicateType {
   DROPDOWN = 'dropdown',
 }
 
-interface PredicateOperator {
+interface IPredicateOperator {
   value: string;
   label: string;
 }

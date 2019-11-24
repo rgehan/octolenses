@@ -3,11 +3,11 @@ import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { compose } from 'recompose';
 
-import { GithubProfile } from '../index';
+import { IGithubProfile } from '../index';
 import { SettingsStore } from '../../../store/settings';
 
 interface IProps {
-  profile: GithubProfile;
+  profile: IGithubProfile;
 }
 
 interface IInnerProps extends IProps {
@@ -41,6 +41,7 @@ export const ProfileCard = compose<IInnerProps, IProps>(
         <a
           href={profile.html_url}
           target="_blank"
+          rel="noopener noreferrer"
           className="text-sm text-gray-600 mt-1"
         >
           @{profile.login}

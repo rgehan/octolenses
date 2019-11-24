@@ -15,7 +15,7 @@ enum JiraOperators {
   NOT_CONTAINS = '!~',
 }
 
-interface SimplePredicatePayload {
+interface ISimplePredicatePayload {
   name: string;
   placeholder?: string;
   label?: string;
@@ -35,7 +35,7 @@ export const makePredicate = ({
   categorical = true,
   numerical = false,
   textual = false,
-}: SimplePredicatePayload): Predicate => ({
+}: ISimplePredicatePayload): Predicate => ({
   name,
   label: label || capitalize(name),
   placeholder,

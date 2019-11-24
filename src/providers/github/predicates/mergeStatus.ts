@@ -1,6 +1,6 @@
-import { DropdownPredicate, PredicateType } from '../../types';
+import { IDropdownPredicate, PredicateType } from '../../types';
 
-export const mergeStatus: DropdownPredicate = {
+export const mergeStatus: IDropdownPredicate = {
   name: 'merge status',
   label: 'Merge Status',
   type: PredicateType.DROPDOWN,

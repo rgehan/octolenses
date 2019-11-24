@@ -5,7 +5,7 @@ import hash from 'object-hash';
 import uuidv1 from 'uuid/v1';
 
 import { toast } from '../../components/ToastManager';
-import { providers, ProviderType, StoredPredicate } from '../../providers';
+import { providers, ProviderType, IStoredPredicate } from '../../providers';
 
 export type FilterIdentifier = string;
 
@@ -23,7 +23,7 @@ export class Filter {
 
   @persist('list')
   @observable
-  public predicates: StoredPredicate[] = [];
+  public predicates: IStoredPredicate[] = [];
 
   @observable
   public data: any[] = []; // TODO
@@ -36,7 +36,7 @@ export class Filter {
 
   @persist
   @observable
-  public lastModified: number = 0;
+  public lastModified = 0;
 
   @persist('list')
   @observable
@@ -50,7 +50,12 @@ export class Filter {
 
   constructor() {
     // When the hash of the filter changes, re-fetch it
-    reaction(() => this.hash, this.fetchFilter);
+    reaction(
+      () => this.hash,
+      () => {
+        this.fetchFilter();
+      }
+    );
   }
 
   /*
@@ -68,7 +73,7 @@ export class Filter {
    * Public API
    */
 
-  public serializePredicate(payload: StoredPredicate): string {
+  public serializePredicate(payload: IStoredPredicate): string {
     const provider = providers[this.provider];
     const predicate = provider.findPredicate(payload.type);
     return predicate.serialize(payload);
