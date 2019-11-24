@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/camelcase */
+
 import { find, get } from 'lodash';
 import { action, computed, observable } from 'mobx';
 import hash from 'object-hash';

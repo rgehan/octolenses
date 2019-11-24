@@ -1,4 +1,4 @@
-/* tslint:disable no-console */
+/* eslint-disable @typescript-eslint/camelcase */
 
 import { Migration } from './types';
 import v0_to_v1 from './v0-to-v1';

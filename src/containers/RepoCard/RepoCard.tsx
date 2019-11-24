@@ -1,4 +1,4 @@
-// tslint:disable:variable-name
+/* eslint-disable @typescript-eslint/camelcase */
 
 import cx from 'classnames';
 // @ts-ignore
