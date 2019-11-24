@@ -1,9 +1,10 @@
 import cx from 'classnames';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import React, { ReactNode, useEffect } from 'react';
+import { compose } from 'recompose';
 import styled, { keyframes } from 'styled-components';
 
-import { settingsStore } from '../../store';
+import { SettingsStore } from '../../store/settings';
 
 const fadeIn = keyframes`
   from { opacity: 0; }
@@ -29,21 +30,25 @@ interface IProps {
   className?: string;
 }
 
-export const Modal = observer(({ children, onClose }: IProps) => {
-  // Close the modal on ESC
-  useEffect(
-    () => {
-      function handleKeyDown(event: KeyboardEvent) {
-        if (event.key === 'Escape') {
-          onClose();
-        }
-      }
+interface IInnerProps extends IProps {
+  settingsStore: SettingsStore;
+}
 
-      window.addEventListener('keydown', handleKeyDown);
-      return () => window.removeEventListener('keydown', handleKeyDown);
-    },
-    [onClose]
-  );
+export const Modal = compose<IInnerProps, IProps>(
+  inject('settingsStore'),
+  observer
+)(({ children, onClose, settingsStore }) => {
+  // Close the modal on ESC
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
 
   return (
     <Backdrop

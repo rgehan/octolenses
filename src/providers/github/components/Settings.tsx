@@ -1,12 +1,13 @@
 import cx from 'classnames';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import React, { useState } from 'react';
+import { compose } from 'recompose';
 import styled from 'styled-components';
 
 import { GithubProvider } from '..';
 import { Button, ButtonType } from '../../../components/Button';
 import { toast } from '../../../components/ToastManager';
-import { settingsStore } from '../../../store';
+import { SettingsStore } from '../../../store/settings';
 import { ProfileCard } from './ProfileCard';
 
 const CREATE_TOKEN_URL =
@@ -23,7 +24,14 @@ interface IProps {
   provider: GithubProvider;
 }
 
-export const Settings = observer(({ provider }: IProps) => {
+interface IInnerProps extends IProps {
+  settingsStore: SettingsStore;
+}
+
+export const Settings = compose<IInnerProps, IProps>(
+  inject('settingsStore'),
+  observer
+)(({ provider, settingsStore }) => {
   const [token, setToken] = useState(provider.settings.token || '');
 
   function handleSubmit() {

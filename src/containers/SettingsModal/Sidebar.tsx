@@ -1,11 +1,13 @@
 import cx from 'classnames';
 import { partition } from 'lodash';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import React from 'react';
+import { compose } from 'recompose';
 import styled from 'styled-components';
 
-import { settingsStore } from '../../store';
-import { SETTINGS_VIEWS, SettingView } from './SettingsModal';
+import { SettingsStore } from '../../store/settings';
+import { SETTINGS_VIEWS } from './constants';
+import { SettingView } from './types';
 
 const Wrapper = styled.div`
   width: 200px;
@@ -35,7 +37,14 @@ interface IProps {
   selectTab: Function;
 }
 
-export const Sidebar = observer(({ selectedTab, selectTab }: IProps) => {
+interface IInnerProps extends IProps {
+  settingsStore: SettingsStore;
+}
+
+export const Sidebar = compose<IInnerProps, IProps>(
+  inject('settingsStore'),
+  observer
+)(({ selectedTab, selectTab, settingsStore }) => {
   const [providerItems, staticItems] = partition(SETTINGS_VIEWS, 'isProvider');
 
   function renderItems(items: SettingView[]) {

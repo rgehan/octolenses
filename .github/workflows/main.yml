@@ -1,7 +1,17 @@
 name: E2E Tests
 on: [push]
 jobs:
-  cypress-run:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: Run Jest
+        uses: stefanoeb/jest-action@1.0.0
+
+  integration-tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

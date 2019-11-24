@@ -2,30 +2,40 @@ import cx from 'classnames';
 import ExtendableError from 'es6-error';
 import { get, size } from 'lodash';
 import { computed } from 'mobx';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import React from 'react';
 
 import { Loader } from '../../components';
 import { FilterEditModal } from '../../containers';
 import { providers } from '../../providers';
-import { filtersStore, settingsStore } from '../../store';
-import { Filter } from '../../store/filters';
+import { FiltersStore } from '../../store/filters';
+import { SettingsStore } from '../../store/settings';
 import { FilterLinkContainer } from './FilterLinkContainer';
 
+interface IProps {
+  filtersStore?: FiltersStore;
+  settingsStore?: SettingsStore;
+}
+
+@inject('filtersStore', 'settingsStore')
 @observer
-export class Dashboard extends React.Component {
+export class Dashboard extends React.Component<IProps> {
   public state = {
     filterModal: { isOpen: false, mode: 'adding' },
   };
 
   @computed
   get selectedFilter() {
+    const { filtersStore, settingsStore } = this.props;
+
     const filter = filtersStore.findFilter(settingsStore.selectedFilterId);
     const firstFilter = filtersStore.getFirstFilter();
     return filter || firstFilter;
   }
 
   public handleFilterSelected = (filterId: string) => {
+    const { filtersStore, settingsStore } = this.props;
+
     if (filterId === settingsStore.selectedFilterId) {
       return;
     }
@@ -40,6 +50,8 @@ export class Dashboard extends React.Component {
   };
 
   public handleCloneFilter = () => {
+    const { filtersStore } = this.props;
+
     const { id } = filtersStore.cloneFilter(this.selectedFilter.id);
     this.handleFilterSelected(id);
   };
@@ -49,6 +61,8 @@ export class Dashboard extends React.Component {
   };
 
   public handleDeleteFilter = () => {
+    const { filtersStore, settingsStore } = this.props;
+
     if (!this.selectedFilter || filtersStore.count === 1) {
       return;
     }
@@ -93,12 +107,9 @@ export class Dashboard extends React.Component {
     });
   };
 
-  public handleSaveFilterModal = (filter: Filter) => {
-    this.handleCloseFilterModal();
-    filtersStore.saveFilter(filter);
-  };
-
   public reorderFilters = ({ oldIndex, newIndex }: any) => {
+    const { filtersStore } = this.props;
+
     // Do nothing if the user cancelled the drag
     if (oldIndex === newIndex) {
       return;
@@ -112,6 +123,7 @@ export class Dashboard extends React.Component {
   };
 
   public render() {
+    const { filtersStore, settingsStore } = this.props;
     const { filterModal } = this.state;
 
     const LINKS = [
@@ -149,7 +161,6 @@ export class Dashboard extends React.Component {
             links={filtersStore.getFilters()}
             selectedFilterId={get(this.selectedFilter, 'id')}
             onFilterSelected={this.handleFilterSelected}
-            dark={settingsStore.isDark}
             onSortEnd={this.reorderFilters}
             lockAxis="y"
             lockToContainerEdges

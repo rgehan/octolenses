@@ -1,11 +1,12 @@
 import cx from 'classnames';
 import ClipboardJS from 'clipboard';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import React, { useEffect } from 'react';
+import { compose } from 'recompose';
 import styled from 'styled-components';
 
 import { toast } from '../../../../components/ToastManager/ToastManager';
-import { settingsStore } from '../../../../store';
+import { SettingsStore } from '../../../../store/settings';
 import { Issue } from './IssueCard';
 
 const Wrapper = styled.div`
@@ -58,7 +59,14 @@ interface IProps {
   issue: Issue;
 }
 
-export const ContextualDropdown = observer(({ issue }: IProps) => {
+interface IInnerProps extends IProps {
+  settingsStore: SettingsStore;
+}
+
+export const ContextualDropdown = compose<IInnerProps, IProps>(
+  inject('settingsStore'),
+  observer
+)(({ issue, settingsStore }) => {
   useEffect(() => {
     const clipboard = new ClipboardJS('[data-clipboard-text]');
     return () => clipboard.destroy();

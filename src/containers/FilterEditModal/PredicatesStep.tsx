@@ -1,12 +1,13 @@
 import cx from 'classnames';
 import { chain, get } from 'lodash';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import React, { ChangeEvent, useEffect } from 'react';
+import { compose } from 'recompose';
 
 import { Button, ButtonType } from '../../components/Button';
 import { FilterPredicate } from '../../components/FilterPredicate';
 import { AbstractProvider, StoredPredicate } from '../../providers';
-import { settingsStore } from '../../store';
+import { SettingsStore } from '../../store/settings';
 
 interface IProps {
   label: string;
@@ -18,7 +19,14 @@ interface IProps {
   next: () => void;
 }
 
-export const PredicatesStep = observer(
+interface IInnerProps extends IProps {
+  settingsStore: SettingsStore;
+}
+
+export const PredicatesStep = compose<IInnerProps, IProps>(
+  inject('settingsStore'),
+  observer
+)(
   ({
     label,
     predicates,
@@ -27,7 +35,8 @@ export const PredicatesStep = observer(
     setPredicates,
     previous,
     next,
-  }: IProps) => {
+    settingsStore,
+  }) => {
     // Save on Enter
     useEffect(() => {
       function handleKeyDown(event: KeyboardEvent) {

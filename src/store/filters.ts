@@ -1,11 +1,11 @@
-import { find, findIndex, merge } from 'lodash';
+import { find, findIndex } from 'lodash';
 import { action, computed, observable } from 'mobx';
 import { persist } from 'mobx-persist';
 import { arrayMove } from 'react-sortable-hoc';
 
 import { ProviderType } from '../providers';
-import { settingsStore } from './index';
 import { Filter, FilterIdentifier } from './models/filter';
+import { settingsStore } from './settings';
 
 export { Filter };
 

@@ -1,16 +1,11 @@
 /* tslint:disable no-console */
 
+import { Migration } from './types';
 import v0_to_v1 from './v0-to-v1';
 import v1_to_v2 from './v1-to-v2';
 import v2_to_v3 from './v2-to-v3';
 
 import './testing-utils';
-
-export interface Migration {
-  name: string;
-  shouldRun(): boolean;
-  run(): void;
-}
 
 class Migrator {
   private migrations: Migration[] = [];

@@ -1,7 +1,9 @@
 import cx from 'classnames';
+import { inject, observer } from 'mobx-react';
 import React from 'react';
+import { compose } from 'recompose';
 
-import { settingsStore } from '../../store';
+import { SettingsStore } from '../../store/settings';
 
 interface IProps {
   size?: number;
@@ -9,7 +11,14 @@ interface IProps {
   className?: string;
 }
 
-export const Loader = ({ size = 50, strokeWidth = 10, className }: IProps) => (
+interface IInnerProps extends IProps {
+  settingsStore: SettingsStore;
+}
+
+export const Loader = compose<IInnerProps, IProps>(
+  inject('settingsStore'),
+  observer
+)(({ size = 50, strokeWidth = 10, className, settingsStore }) => (
   <div
     data-id="loader"
     className={cx('flex items-center justify-center h-full w-full', className)}
@@ -46,4 +55,4 @@ export const Loader = ({ size = 50, strokeWidth = 10, className }: IProps) => (
       </circle>
     </svg>
   </div>
-);
+));

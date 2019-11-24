@@ -1,25 +1,30 @@
-import React from 'react';
 import { reject } from 'lodash';
+import React from 'react';
 
 import { Toast } from './Toast';
+import { INotification, NotificationType } from './types';
 
 // This will contain a ToastManager instance reference so that toasts
 // can be created from anywhere without having to store toasts state
 // inside MobX or having to do weird findDOMNode stuff.
-let manager = null;
+let manager: ToastManager = null;
 
 const generateRandomId = () => Math.floor(Math.random() * 0x10000).toString(16);
 
-export class ToastManager extends React.Component {
-  state = {
+interface IState {
+  notifications: INotification[];
+}
+
+export class ToastManager extends React.Component<{}, IState> {
+  public state: IState = {
     notifications: [],
   };
 
-  componentDidMount() {
+  public componentDidMount() {
     manager = this;
   }
 
-  addNotification(message, type) {
+  public addNotification(message: string, type: NotificationType) {
     const { notifications } = this.state;
 
     const notification = {
@@ -33,13 +38,13 @@ export class ToastManager extends React.Component {
     });
   }
 
-  onRemoveNotification = id => {
+  public onRemoveNotification = (id: string) => {
     this.setState({
       notifications: reject(this.state.notifications, { id }),
     });
   };
 
-  render() {
+  public render() {
     const { notifications } = this.state;
     return (
       <div className="z-50 fixed top-0 inset-x-0 flex flex-col items-center pointer-events-none">
@@ -60,7 +65,7 @@ export class ToastManager extends React.Component {
  * @param {*} message
  * @param {*} type
  */
-export function toast(message, type) {
+export function toast(message: string, type: NotificationType) {
   if (!manager) {
     return;
   }

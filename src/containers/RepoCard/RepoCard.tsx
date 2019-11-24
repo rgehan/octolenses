@@ -1,11 +1,26 @@
-import React from 'react';
-import humanFormat from 'human-format';
-import { observer } from 'mobx-react';
+// tslint:disable:variable-name
+
 import cx from 'classnames';
+// @ts-ignore
+import humanFormat from 'human-format';
+import { inject, observer } from 'mobx-react';
+import React from 'react';
+import { compose } from 'recompose';
 
-import { settingsStore } from '../../store';
+import { SettingsStore } from '../../store/settings';
 
-export const RepoCard = observer(({ repo }) => {
+interface IProps {
+  repo: any;
+}
+
+interface IInnerProps extends IProps {
+  settingsStore: SettingsStore;
+}
+
+export const RepoCard = compose<IInnerProps, IProps>(
+  inject('settingsStore'),
+  observer
+)(({ repo, settingsStore }) => {
   const {
     name,
     description,

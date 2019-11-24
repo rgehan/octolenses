@@ -8,11 +8,10 @@ interface IProps {
   links: Filter[];
   selectedFilterId: string;
   onFilterSelected: (id: string) => void;
-  dark?: boolean;
 }
 
 export const FilterLinkContainer = SortableContainer<IProps>(
-  ({ links, selectedFilterId, onFilterSelected, dark = false }: IProps) => (
+  ({ links, selectedFilterId, onFilterSelected }: IProps) => (
     <div data-id="filter-links">
       {links.map((link: Filter, index: number) => (
         <FilterLink
@@ -21,7 +20,6 @@ export const FilterLinkContainer = SortableContainer<IProps>(
           filter={link}
           isSelected={link.id === selectedFilterId}
           onClick={() => onFilterSelected(link.id)}
-          dark={dark}
         />
       ))}
     </div>

@@ -1,43 +1,10 @@
-import { map } from 'lodash';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { Modal } from '../../components/Modal';
-import { providers } from '../../providers';
+import { SETTINGS_VIEWS } from './constants';
 import { Panel } from './Panel';
 import { Sidebar } from './Sidebar';
-import { Behavior, CacheSettings, NightMode } from './tabs';
-
-export interface SettingView {
-  id: string;
-  label: string;
-  component: any;
-  isProvider?: boolean;
-}
-
-export const SETTINGS_VIEWS: SettingView[] = [
-  {
-    id: 'behavior',
-    label: 'Behavior',
-    component: Behavior,
-  },
-  {
-    id: 'night_mode',
-    label: 'Night mode',
-    component: NightMode,
-  },
-  {
-    id: 'cache',
-    label: 'Cache',
-    component: CacheSettings,
-  },
-  ...map(providers, ({ label, settingsComponent }, key) => ({
-    id: key,
-    label,
-    component: settingsComponent,
-    isProvider: true,
-  })),
-];
 
 const Container = styled.div`
   width: 900px;

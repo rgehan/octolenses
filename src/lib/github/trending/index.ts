@@ -1,14 +1,25 @@
 import hash from 'object-hash';
 
-import { client } from '../../../providers/github/fetchers/client';
 import { Cache } from '../../../lib/cache';
+import { client } from '../../../providers/github/fetchers/client';
+
+interface IFetchTrendingReposParams {
+  language: string;
+  date: string;
+  token?: string;
+}
 
 /**
  * Fetch the trending repositories from GitHub
- * @param {*} language What programming language the user is interested in
- * @param {*} date From which date
+ * @param language What programming language the user is interested in
+ * @param date From which date
+ * @param token Github token of the user
  */
-export const fetchTrendingRepos = async ({ language, date, token }) => {
+export const fetchTrendingRepos = async ({
+  language,
+  date,
+  token,
+}: IFetchTrendingReposParams) => {
   let query = `created:>${date}`;
   if (language !== null) {
     query += ` and language:${language}`;
