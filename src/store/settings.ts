@@ -2,7 +2,7 @@ import { action, autorun, observable } from 'mobx';
 import { persist } from 'mobx-persist';
 
 import { DARK_MODE } from '../constants/darkMode';
-import { DATES } from '../constants/dates';
+import { DATES, DateType } from '../constants/dates';
 import { LANGUAGES } from '../constants/languages';
 
 export class SettingsStore {
@@ -25,7 +25,7 @@ export class SettingsStore {
    */
   @persist
   @observable
-  public token = undefined;
+  public token: string = undefined;
 
   /**
    * Current dark mode state. Whether it's always on/off, or only at night.
@@ -74,10 +74,24 @@ export class SettingsStore {
     document.body.className = this.isDark ? 'dark' : 'light';
   }
 
-  // TODO Do not rely on magic setter
   @action.bound
-  public updateSettings(key: string, value: any) {
-    this[key] = value;
+  public updateDarkMode(darkMode: string) {
+    this.darkMode = darkMode;
+  }
+
+  @action.bound
+  public updateWasOnboarded(wasOnboarded: boolean) {
+    this.wasOnboarded = wasOnboarded;
+  }
+
+  @action.bound
+  public updateLanguage(language: string) {
+    this.language = language;
+  }
+
+  @action.bound
+  public updateDateRange(dateRange: DateType) {
+    this.dateRange = dateRange;
   }
 }
 

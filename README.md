@@ -1,6 +1,8 @@
 [![](.github/icons/chrome.png)](https://chrome.google.com/webstore/detail/octolenses/ghlblfakaklgkdmfejdlffbmpcaidoci)
 [![](.github/icons/firefox.png)](https://addons.mozilla.org/firefox/addon/github-octolenses/)
 
+![](https://github.com/rgehan/octolenses/workflows/Lint%20%26%20Tests/badge.svg)
+
 # OctoLenses Browser Extension
 
 > Watch your repos and discover awesome things directly from your New Tab page.

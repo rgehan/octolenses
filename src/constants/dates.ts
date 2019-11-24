@@ -1,7 +1,7 @@
 import { find } from 'lodash';
 import moment from 'moment';
 
-type DateType =
+export type DateType =
   | 'last_week'
   | 'last_two_weeks'
   | 'last_month'

@@ -2,7 +2,11 @@ import cx from 'classnames';
 import { size } from 'lodash';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
-import { SortableElement, SortableHandle } from 'react-sortable-hoc';
+import {
+  SortableElement,
+  SortableHandle,
+  SortableElementProps,
+} from 'react-sortable-hoc';
 import { compose } from 'recompose';
 
 import { Filter } from '../../store/models/filter';
@@ -20,7 +24,7 @@ const DragHandle = SortableHandle(
   ))
 );
 
-interface IProps {
+interface IProps extends SortableElementProps {
   filter: Filter;
   isSelected: boolean;
   onClick: () => void;

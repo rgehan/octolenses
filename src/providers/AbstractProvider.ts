@@ -10,7 +10,7 @@ interface ISettingsComponentProps {
 }
 
 type SettingsComponent = ({ settings }: ISettingsComponentProps) => JSX.Element;
-type CardComponent = ({ data }: any) => JSX.Element;
+type CardComponent = React.ComponentType<{ data: any }>;
 
 export abstract class AbstractProvider<T = {}> {
   /**

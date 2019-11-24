@@ -1,4 +1,4 @@
-name: E2E Tests
+name: Lint & Tests
 on: [push]
 jobs:
   lint:
@@ -22,6 +22,9 @@ jobs:
 
       - name: Run ESLint
         run: yarn lint
+
+      - name: Run tsc
+        run: tsc --noEmit
 
       - name: Run Jest
         run: yarn test

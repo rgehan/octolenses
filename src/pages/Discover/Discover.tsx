@@ -3,7 +3,7 @@ import React from 'react';
 import { compose } from 'recompose';
 
 import { Dropdown, Loader } from '../../components';
-import { DATES } from '../../constants/dates';
+import { DATES, DateType } from '../../constants/dates';
 import { LANGUAGES } from '../../constants/languages';
 import { RepoCard } from '../../containers';
 import { SettingsStore } from '../../store/settings';
@@ -16,17 +16,17 @@ interface IInnerProps {
   trendsStore?: TrendsStore;
 }
 
-interface IHandleOptionChangeParams {
-  name: string;
-  value: any;
-}
-
 export const Discover = compose<IInnerProps, {}>(
   inject('settingsStore', 'trendsStore'),
   observer
 )(({ settingsStore, trendsStore }) => {
-  function handleOptionChange({ name, value }: IHandleOptionChangeParams) {
-    settingsStore.updateSettings(name, value);
+  function handleChangeLanguage({ value }: { value: string }) {
+    settingsStore.updateLanguage(value);
+    trendsStore.fetchTrendingRepos();
+  }
+
+  function handleChangeDateRange({ value }: { value: string }) {
+    settingsStore.updateDateRange(value as DateType);
     trendsStore.fetchTrendingRepos();
   }
 
@@ -37,14 +37,14 @@ export const Discover = compose<IInnerProps, {}>(
           name="language"
           items={LANGUAGES}
           value={settingsStore.language}
-          onChange={handleOptionChange}
+          onChange={handleChangeLanguage}
           className="mr-4"
         />
         <Dropdown
           name="dateRange"
           items={DATES}
           value={settingsStore.dateRange}
-          onChange={handleOptionChange}
+          onChange={handleChangeDateRange}
         />
       </div>
       <div className="Discover__ReposList -ml-6">
