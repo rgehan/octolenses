@@ -6,7 +6,8 @@ import { compose } from 'recompose';
 import styled from 'styled-components';
 
 import { SettingsStore } from '../../store/settings';
-import { SETTINGS_VIEWS, SettingView } from './SettingsModal';
+import { SETTINGS_VIEWS } from './constants';
+import { SettingView } from './types';
 
 const Wrapper = styled.div`
   width: 200px;

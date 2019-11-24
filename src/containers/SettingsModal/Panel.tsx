@@ -4,7 +4,7 @@ import React from 'react';
 import { compose } from 'recompose';
 
 import { SettingsStore } from '../../store/settings';
-import { SETTINGS_VIEWS } from './SettingsModal';
+import { SETTINGS_VIEWS } from './constants';
 
 interface IProps {
   selectedTab: string;
