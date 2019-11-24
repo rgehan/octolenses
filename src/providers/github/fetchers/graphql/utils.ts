@@ -1,4 +1,4 @@
-import { chain, get } from 'lodash';
+import { get, map } from 'lodash';
 
 import { IssueStatus } from '../../components/IssueCard/types';
 
@@ -43,10 +43,7 @@ export function extractGraphqlStatus(issue: any) {
 }
 
 export function extractGraphqlLabels(issue: any) {
-  return chain(issue)
-    .get('labels.edges')
-    .map('node')
-    .value();
+  return map(issue.labels.edges, 'node');
 }
 
 export function extractConflictStatus(issue: any) {

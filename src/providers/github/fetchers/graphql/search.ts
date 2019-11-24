@@ -1,4 +1,4 @@
-import { chain, omit } from 'lodash';
+import { chain, omit, map } from 'lodash';
 
 import { Cache } from '../../../../lib/cache';
 import { Filter } from '../../../../store/filters';
@@ -38,15 +38,13 @@ export const search = async (filter: Filter, token: string) => {
 /**
  * Format a graphql response so that it's easy to use
  */
-export const formatResponse = (response: any) =>
-  chain(response)
-    .get('data.search.edges')
-    .map('node')
-    .map(issue => ({
-      ...omit(issue, ['commits', '__typename', 'mergeable']),
-      type: issue.__typename,
-      status: extractGraphqlStatus(issue),
-      labels: extractGraphqlLabels(issue),
-      conflicting: extractConflictStatus(issue),
-    }))
-    .value();
+export const formatResponse = (response: any) => {
+  const issues = map(response.data.search.edges, 'node');
+  return issues.map(issue => ({
+    ...omit(issue, ['commits', '__typename', 'mergeable']),
+    type: issue.__typename,
+    status: extractGraphqlStatus(issue),
+    labels: extractGraphqlLabels(issue),
+    conflicting: extractConflictStatus(issue),
+  }));
+};
