@@ -149,7 +149,6 @@ export class Dashboard extends React.Component {
             links={filtersStore.getFilters()}
             selectedFilterId={get(this.selectedFilter, 'id')}
             onFilterSelected={this.handleFilterSelected}
-            dark={settingsStore.isDark}
             onSortEnd={this.reorderFilters}
             lockAxis="y"
             lockToContainerEdges

@@ -1,7 +1,24 @@
-import moment from 'moment';
 import { find } from 'lodash';
+import moment from 'moment';
 
-export const DATES = [
+type DateType =
+  | 'last_week'
+  | 'last_two_weeks'
+  | 'last_month'
+  | 'last_six_months'
+  | 'last_year'
+  | 'anytime';
+
+interface IDatePreset {
+  name: string;
+  value: DateType;
+  data: {
+    amount: any;
+    unit: any;
+  };
+}
+
+export const DATES: IDatePreset[] = [
   { name: 'Last week', value: 'last_week', data: { amount: 1, unit: 'week' } },
   {
     name: 'Last 2 weeks',
@@ -26,7 +43,7 @@ export const DATES = [
  * Returns a formatted date as used in a Github filter from
  * the value of the date object
  */
-export const getDateFromValue = value => {
+export const getDateFromValue = (value: DateType) => {
   const {
     data: { amount, unit },
   } = find(DATES, { value });

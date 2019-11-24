@@ -1,11 +1,14 @@
-import React from 'react';
+// tslint:disable:variable-name
+
+import cx from 'classnames';
+// @ts-ignore
 import humanFormat from 'human-format';
 import { observer } from 'mobx-react';
-import cx from 'classnames';
+import React from 'react';
 
 import { settingsStore } from '../../store';
 
-export const RepoCard = observer(({ repo }) => {
+export const RepoCard = observer(({ repo }: any) => {
   const {
     name,
     description,

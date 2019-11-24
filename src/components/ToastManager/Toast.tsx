@@ -1,6 +1,8 @@
-import React from 'react';
 import cx from 'classnames';
+import React from 'react';
 import styled from 'styled-components';
+
+import { INotification } from './types';
 
 const TYPES_TO_ICON = {
   info: 'fa-info-circle',
@@ -21,26 +23,30 @@ const Wrapper = styled.div`
   transition: opacity 0.2s;
 `;
 
-export class Toast extends React.Component {
-  state = {
+interface IProps extends INotification {
+  onRemove: (id: string) => void;
+}
+
+export class Toast extends React.Component<IProps> {
+  public state = {
     visible: true,
   };
 
-  componentDidMount() {
+  public componentDidMount() {
     setTimeout(this.discardToast, TOAST_DURATION);
   }
 
-  discardToast = () => {
+  public discardToast = () => {
     this.setState({ visible: false });
     setTimeout(this.removeToast, TOAST_FADE_DURATION);
   };
 
-  removeToast = () => {
+  public removeToast = () => {
     const { id, onRemove } = this.props;
     onRemove(id);
   };
 
-  render() {
+  public render() {
     const { message, type } = this.props;
     const { visible } = this.state;
 

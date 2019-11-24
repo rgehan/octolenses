@@ -1,15 +1,15 @@
 import 'babel-polyfill';
+import { Provider } from 'mobx-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'mobx-react';
 
 import { App } from './App';
 import {
   bootstrap,
+  filtersStore,
   navigationStore,
   settingsStore,
   trendsStore,
-  filtersStore,
 } from './store';
 
 bootstrap();

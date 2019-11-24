@@ -1,30 +1,30 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { observer } from 'mobx-react';
 import cx from 'classnames';
+import { observer } from 'mobx-react';
+import React, { ChangeEvent } from 'react';
 
 import { settingsStore } from '../../store';
 
-@observer
-export class Dropdown extends React.Component {
-  static propTypes = {
-    value: PropTypes.any,
-    name: PropTypes.string.isRequired,
-    items: PropTypes.arrayOf(
-      PropTypes.shape({
-        value: PropTypes.any,
-        name: PropTypes.string.isRequired,
-      })
-    ).isRequired,
-    onChange: PropTypes.func.isRequired,
-  };
+interface IProps {
+  value: string;
+  name: string;
+  items: IOption[];
+  onChange: (option: IOption) => void;
+  className?: string;
+}
 
-  handleChange = event => {
+interface IOption {
+  value: string;
+  name: string;
+}
+
+@observer
+export class Dropdown extends React.Component<IProps> {
+  public handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, onChange } = this.props;
     onChange({ name, value: event.target.value });
   };
 
-  render() {
+  public render() {
     const { name, items, value, className } = this.props;
 
     return (

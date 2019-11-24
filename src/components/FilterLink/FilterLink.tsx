@@ -5,6 +5,7 @@ import React from 'react';
 import { SortableElement, SortableHandle } from 'react-sortable-hoc';
 
 import { settingsStore } from '../../store';
+import { Filter } from '../../store/models/filter';
 import { Loader } from '../Loader';
 
 const DragHandle = SortableHandle(
@@ -18,8 +19,14 @@ const DragHandle = SortableHandle(
   ))
 );
 
+interface IProps {
+  filter: Filter;
+  isSelected: boolean;
+  onClick: () => void;
+}
+
 export const FilterLink = SortableElement(
-  observer(({ filter, isSelected, onClick }) => {
+  observer(({ filter, isSelected, onClick }: IProps) => {
     const { loading, error } = filter;
     const activeColor = settingsStore.isDark
       ? 'text-gray-500'
@@ -44,16 +51,15 @@ export const FilterLink = SortableElement(
           {loading && <Loader size={13} strokeWidth={12} />}
           {!loading && error && <i className="fa fa-times" />}
           {!loading && !error && size(filter.data)}
-          {filter.newItemsCount > 0 &&
-            !filter.loading && (
-              <div className="absolute right-0 top-0 w-4 h-4 -mr-2 -mt-2 bg-red-600 text-white rounded-full flex items-center justify-center">
-                {filter.newItemsCount <= 99 ? (
-                  <span className="text-2xs">{filter.newItemsCount}</span>
-                ) : (
-                  <span className="text-base">•</span>
-                )}
-              </div>
-            )}
+          {filter.newItemsCount > 0 && !filter.loading && (
+            <div className="absolute right-0 top-0 w-4 h-4 -mr-2 -mt-2 bg-red-600 text-white rounded-full flex items-center justify-center">
+              {filter.newItemsCount <= 99 ? (
+                <span className="text-2xs">{filter.newItemsCount}</span>
+              ) : (
+                <span className="text-base">•</span>
+              )}
+            </div>
+          )}
         </span>
         <bdi>{filter.label}</bdi>
         <DragHandle />

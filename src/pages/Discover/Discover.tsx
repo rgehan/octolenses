@@ -1,22 +1,27 @@
-import React from 'react';
 import { observer } from 'mobx-react';
+import React from 'react';
 
-import { RepoCard } from '../../containers';
-import { Loader, Dropdown } from '../../components';
+import { Dropdown, Loader } from '../../components';
 import { DATES } from '../../constants/dates';
 import { LANGUAGES } from '../../constants/languages';
-import { trendsStore, settingsStore } from '../../store';
+import { RepoCard } from '../../containers';
+import { settingsStore, trendsStore } from '../../store';
 
 import './Discover.scss';
 
+interface IHandleOptionChangeParams {
+  name: string;
+  value: any;
+}
+
 @observer
 export class Discover extends React.Component {
-  handleOptionChange = ({ name, value }) => {
+  public handleOptionChange = ({ name, value }: IHandleOptionChangeParams) => {
     settingsStore.updateSettings(name, value);
     trendsStore.fetchTrendingRepos();
   };
 
-  render() {
+  public render() {
     return (
       <div className="Discover h-full w-full flex flex-col">
         <div className="flex items-end justify-end pb-4 h-16">
