@@ -67,6 +67,7 @@ export const LoginButton = compose<IInnerProps, IProps>(
         <a
           href="https://github.com/rgehan/octolenses-jira-token-swap-service"
           target="_blank"
+          rel="noopener noreferrer"
           className="text-blue"
         >
           here

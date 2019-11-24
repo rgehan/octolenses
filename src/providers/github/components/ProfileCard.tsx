@@ -41,6 +41,7 @@ export const ProfileCard = compose<IInnerProps, IProps>(
         <a
           href={profile.html_url}
           target="_blank"
+          rel="noopener noreferrer"
           className="text-sm text-gray-600 mt-1"
         >
           @{profile.login}

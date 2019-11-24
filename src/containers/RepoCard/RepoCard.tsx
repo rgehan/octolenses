@@ -58,6 +58,7 @@ export const RepoCard = compose<IInnerProps, IProps>(
             )}
             href={html_url}
             target="_blank"
+            rel="noopener noreferrer"
             data-id="repo-link"
           >
             {name}
