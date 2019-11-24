@@ -1,10 +1,10 @@
 import cx from 'classnames';
 import React from 'react';
 
-import { JiraIssue } from './IssueCard';
+import { IJiraIssue } from './IssueCard';
 
 interface IProps {
-  issue: JiraIssue;
+  issue: IJiraIssue;
 }
 
 type JiraColor = 'green' | 'yellow' | 'blue-gray';

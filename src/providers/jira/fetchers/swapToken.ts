@@ -1,4 +1,4 @@
-export interface SwapResult {
+export interface ISwapResult {
   access_token: string;
   refresh_token: string;
   expires_in: number;
@@ -7,7 +7,7 @@ export interface SwapResult {
 export const swapToken = async (
   authCode: string,
   redirectUri: string
-): Promise<SwapResult> => {
+): Promise<ISwapResult> => {
   const url = 'https://octolenses.now.sh/api/swap';
 
   const { data } = await fetch(url, {

@@ -6,7 +6,7 @@ import {
   RateLimitError,
 } from '../../../errors';
 
-interface ClientParams {
+interface IClientParams {
   endpoint: string;
   token?: string;
   qs?: string;
@@ -23,7 +23,7 @@ export const client = async ({
   qs,
   body,
   method = 'GET',
-}: ClientParams) => {
+}: IClientParams) => {
   const url = `https://api.github.com${endpoint}?${qs || ''}`;
 
   const response = await fetch(url, {

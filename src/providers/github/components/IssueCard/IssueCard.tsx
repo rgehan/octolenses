@@ -13,7 +13,7 @@ import { IssueStatusIndicator } from './IssueStatusIndicator';
 import { LabelBadge } from './LabelBadge';
 import { IssueStatus } from './types';
 
-export interface Issue {
+export interface IIssue {
   type: 'PullRequest' | 'Issue';
   title: string;
   url: string;
@@ -45,7 +45,7 @@ export interface Issue {
 }
 
 interface IProps {
-  data: Issue;
+  data: IIssue;
   isNew: boolean;
 }
 

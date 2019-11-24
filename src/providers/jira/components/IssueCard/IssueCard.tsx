@@ -8,7 +8,7 @@ import { SettingsStore } from '../../../../store/settings';
 import { JiraProvider } from '../../index';
 import { StatusBadge } from './StatusBadge';
 
-export interface JiraIssue {
+export interface IJiraIssue {
   key: string;
   fields: {
     summary: string;
@@ -48,7 +48,7 @@ export interface JiraIssue {
 
 export interface IProps {
   provider: JiraProvider;
-  data: JiraIssue;
+  data: IJiraIssue;
   isNew: boolean;
 }
 

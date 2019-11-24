@@ -1,4 +1,4 @@
-export interface SettingView {
+export interface ISettingView {
   id: string;
   label: string;
   component: any;

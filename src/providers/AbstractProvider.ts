@@ -5,11 +5,11 @@ import { Filter } from '../store/filters';
 import { SettingsStore } from '../store/settings';
 import { Predicate } from './types';
 
-interface SettingsComponentProps {
+interface ISettingsComponentProps {
   settings: SettingsStore;
 }
 
-type SettingsComponent = ({ settings }: SettingsComponentProps) => JSX.Element;
+type SettingsComponent = ({ settings }: ISettingsComponentProps) => JSX.Element;
 type CardComponent = ({ data }: any) => JSX.Element;
 
 export abstract class AbstractProvider<T = {}> {

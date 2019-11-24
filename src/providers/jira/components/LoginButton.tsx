@@ -7,7 +7,7 @@ import { compose } from 'recompose';
 import { JiraProvider } from '..';
 import { Button, ButtonType } from '../../../components/Button';
 import { SettingsStore } from '../../../store/settings';
-import { SwapResult, swapToken } from '../fetchers/swapToken';
+import { ISwapResult, swapToken } from '../fetchers/swapToken';
 
 const CLIENT_ID = '4WgiRI4XRQ2OTWof5i7yCKmlekkIldH0';
 
@@ -84,7 +84,7 @@ export const LoginButton = compose<IInnerProps, IProps>(
  * API. An external (privately hosted by me) token swap service is then used
  * to obtain access/refresh tokens.
  */
-async function initJiraOauthFlow(): Promise<SwapResult> {
+async function initJiraOauthFlow(): Promise<ISwapResult> {
   const redirectUri = chrome.identity.getRedirectURL('provider_cb');
   const redirectRegexp = new RegExp(redirectUri + '[#?](.*)');
 

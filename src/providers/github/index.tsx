@@ -10,25 +10,25 @@ import { fetchFilter } from './fetchers';
 import { fetchProfile } from './fetchers/rest/profile';
 import { availablePredicates } from './predicates';
 
-export interface GithubSettings {
+export interface IGithubSettings {
   token: string;
 }
 
-export interface GithubProfile {
+export interface IGithubProfile {
   login: string;
   name: string;
   avatar_url: string;
   html_url: string;
 }
 
-export class GithubProvider extends AbstractProvider<GithubSettings> {
+export class GithubProvider extends AbstractProvider<IGithubSettings> {
   public id = 'github';
   public label = 'GitHub';
   public settingsComponent = () => <Settings provider={this} />;
   public cardComponent = IssueCard;
 
   @observable
-  public profile: GithubProfile = null;
+  public profile: IGithubProfile = null;
 
   @action.bound
   public async initialize() {

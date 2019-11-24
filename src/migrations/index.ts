@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 
-import { Migration } from './types';
+import { IMigration } from './types';
 import v0_to_v1 from './v0-to-v1';
 import v1_to_v2 from './v1-to-v2';
 import v2_to_v3 from './v2-to-v3';
@@ -8,7 +8,7 @@ import v2_to_v3 from './v2-to-v3';
 import './testing-utils';
 
 class Migrator {
-  private migrations: Migration[] = [];
+  private migrations: IMigration[] = [];
 
   public migrate() {
     console.log('[migration] Running necessary migrations...');
@@ -21,7 +21,7 @@ class Migrator {
     });
   }
 
-  public registerMigration(migration: Migration): Migrator {
+  public registerMigration(migration: IMigration): Migrator {
     this.migrations.push(migration);
     return this;
   }

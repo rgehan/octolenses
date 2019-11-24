@@ -4,10 +4,10 @@ import React from 'react';
 import { compose } from 'recompose';
 
 import { SettingsStore } from '../../../store/settings';
-import { JiraResource } from '../index';
+import { IJiraResource } from '../index';
 
 interface IProps {
-  resources: JiraResource[];
+  resources: IJiraResource[];
 }
 
 interface IInnerProps extends IProps {

@@ -3,11 +3,11 @@ import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { compose } from 'recompose';
 
-import { GithubProfile } from '../index';
+import { IGithubProfile } from '../index';
 import { SettingsStore } from '../../../store/settings';
 
 interface IProps {
-  profile: GithubProfile;
+  profile: IGithubProfile;
 }
 
 interface IInnerProps extends IProps {

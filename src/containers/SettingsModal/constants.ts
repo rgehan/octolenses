@@ -2,9 +2,9 @@ import { map } from 'lodash';
 
 import { providers } from '../../providers';
 import { Behavior, CacheSettings, NightMode } from './tabs';
-import { SettingView } from './types';
+import { ISettingView } from './types';
 
-export const SETTINGS_VIEWS: SettingView[] = [
+export const SETTINGS_VIEWS: ISettingView[] = [
   {
     id: 'behavior',
     label: 'Behavior',

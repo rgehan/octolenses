@@ -6,7 +6,7 @@ import { compose } from 'recompose';
 
 import { Button, ButtonType } from '../../components/Button';
 import { FilterPredicate } from '../../components/FilterPredicate';
-import { AbstractProvider, StoredPredicate } from '../../providers';
+import { AbstractProvider, IStoredPredicate } from '../../providers';
 import { SettingsStore } from '../../store/settings';
 
 interface IProps {
@@ -76,7 +76,7 @@ export const PredicatesStep = compose<IInnerProps, IProps>(
     const handlePredicateChange = (index: number) => ({
       value,
       operator,
-    }: StoredPredicate) => {
+    }: IStoredPredicate) => {
       setPredicates([
         ...predicates.slice(0, index),
         { ...predicates[index], value, operator },

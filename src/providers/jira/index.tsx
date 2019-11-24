@@ -13,12 +13,12 @@ import { Settings } from './components/Settings';
 import { fetchFilter } from './fetchers';
 import { refreshToken } from './fetchers/refreshToken';
 import { fetchResources } from './fetchers/resources';
-import { SwapResult } from './fetchers/swapToken';
+import { ISwapResult } from './fetchers/swapToken';
 import { availablePredicates } from './predicates';
 
 const FIVE_MINUTES = 5 * 60 * 1000; // ms
 
-export interface JiraSettings {
+export interface IJiraSettings {
   auth: {
     access_token: string;
     refresh_token: string;
@@ -26,7 +26,7 @@ export interface JiraSettings {
   };
 }
 
-export interface JiraResource {
+export interface IJiraResource {
   avatarUrl: string;
   id: string;
   name: string;
@@ -34,7 +34,7 @@ export interface JiraResource {
   url: string;
 }
 
-export class JiraProvider extends AbstractProvider<JiraSettings> {
+export class JiraProvider extends AbstractProvider<IJiraSettings> {
   public id = 'jira';
   public label = 'Jira';
   public settingsComponent = () => <Settings provider={this} />;
@@ -43,7 +43,7 @@ export class JiraProvider extends AbstractProvider<JiraSettings> {
   );
 
   @observable
-  public resources: JiraResource[] = [];
+  public resources: IJiraResource[] = [];
 
   public async initialize() {
     if (this.shouldRefreshToken) {
@@ -82,7 +82,7 @@ export class JiraProvider extends AbstractProvider<JiraSettings> {
   }
 
   @action.bound
-  public setAuth({ access_token, expires_in, refresh_token }: SwapResult) {
+  public setAuth({ access_token, expires_in, refresh_token }: ISwapResult) {
     this.settings.auth = {
       refresh_token,
       access_token,

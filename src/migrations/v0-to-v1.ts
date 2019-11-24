@@ -1,9 +1,9 @@
 /* tslint:disable no-console */
 
-import { Migration } from './types';
+import { IMigration } from './types';
 import { getFromLocalStorage, saveToLocalStorage } from './utils';
 
-export default class implements Migration {
+export default class implements IMigration {
   public name = 'v0-to-v1';
 
   public shouldRun(): boolean {
