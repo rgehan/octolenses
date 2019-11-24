@@ -11,7 +11,7 @@ interface IProps {
 export const NightMode = ({ settings }: IProps) => {
   const [darkMode, setDarkMode] = useState(settings.darkMode);
 
-  useEffect(() => settings.updateSettings('darkMode', darkMode), [darkMode]);
+  useEffect(() => settings.updateDarkMode(darkMode), [darkMode]);
 
   return (
     <div>

@@ -55,7 +55,7 @@ const performOnboarding = () => {
     ],
   });
 
-  settingsStore.updateSettings('wasOnboarded', true);
+  settingsStore.updateWasOnboarded(true);
 };
 
 export const refreshAllData = async () => {
