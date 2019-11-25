@@ -47,7 +47,7 @@
     "@typescript-eslint/eslint-plugin": "^2.8.0",
     "@typescript-eslint/parser": "^2.8.0",
     "cypress": "^3.6.1",
-    "eslint": "^6.7.0",
+    "eslint": "^6.7.1",
     "eslint-plugin-react": "^7.16.0",
     "jest": "^24.5.0",
     "jest-localstorage-mock": "^2.4.0",
