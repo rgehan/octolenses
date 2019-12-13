@@ -1,4 +1,4 @@
-import { isNewTabUrl } from './utils';
+import { isNewTab } from './utils';
 import { NEW_TAB_SETTING_LS_KEY } from '../constants/newTab';
 
 /**
@@ -18,7 +18,7 @@ const shouldUseNewTabPage = () => {
  * if the settings of the user allowed it.
  */
 export const overrideNewTabPage = tab => {
-  if (shouldUseNewTabPage() && isNewTabUrl(tab.url)) {
+  if (shouldUseNewTabPage() && isNewTab(tab)) {
     chrome.tabs.update(tab.id, {
       url: chrome.extension.getURL('index.html'),
     });
