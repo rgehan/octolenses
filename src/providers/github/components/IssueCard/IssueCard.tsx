@@ -3,7 +3,7 @@ import { get } from 'lodash';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { compose } from 'recompose';
-import timeago from 'timeago.js';
+import * as timeago from 'timeago.js';
 
 import { SettingsStore } from '../../../../store/settings';
 import { CheckStatusIndicator } from './CheckStatusIndicator';
@@ -123,7 +123,7 @@ export const IssueCard = compose<IInnerProps, IProps>(
             settingsStore.isDark ? 'text-gray-500' : 'text-gray-700'
           )}
         >
-          #{issue.number} opened {timeago().format(issue.createdAt)} by{' '}
+          #{issue.number} opened {timeago.format(issue.createdAt)} by{' '}
           <a
             href={issue.author.url}
             className={cx(

@@ -2,7 +2,7 @@ import cx from 'classnames';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { compose } from 'recompose';
-import timeago from 'timeago.js';
+import * as timeago from 'timeago.js';
 
 import { SettingsStore } from '../../../../store/settings';
 import { JiraProvider } from '../../index';
@@ -117,7 +117,7 @@ export const IssueCard = compose<IInnerProps, IProps>(
             settingsStore.isDark ? 'text-gray-500' : 'text-gray-700'
           )}
         >
-          {issue.key} opened {timeago().format(issue.fields.created)}
+          {issue.key} opened {timeago.format(issue.fields.created)}
         </div>
       </div>
     </div>
