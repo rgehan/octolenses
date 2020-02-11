@@ -57,6 +57,11 @@ export const availablePredicates: Predicate[] = [
     placeholder: 'LABEL',
   }),
   makeSimplePredicate({
+    name: 'project',
+    label: 'Project',
+    placeholder: 'USERNAME/REPOSITORY/PROJECT',
+  }),
+  makeSimplePredicate({
     name: 'mentions',
     label: 'Mentions',
     placeholder: 'USERNAME',
