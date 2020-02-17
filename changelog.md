@@ -1,3 +1,18 @@
+### v1.2.5
+- Fix Jira resource style in night mode [Renan GEHAN]
+- Fix link style [Renan GEHAN]
+- Add support project predicate (#151) [GitHub]
+- Bump eslint-plugin-react from 7.16.0 to 7.18.3 (#147) [GitHub]
+- Bump @babel/plugin-proposal-object-rest-spread from 7.7.4 to 7.8… (#145) [GitHub]
+- Bump cypress from 3.6.1 to 3.8.3 (#146) [GitHub]
+- Bump mobx from 5.15.0 to 5.15.1 (#137) [Renan GEHAN]
+- Bump sass from 1.23.7 to 1.24.2 (#140) [Renan GEHAN]
+- Bump typescript from 3.7.2 to 3.7.4 (#139) [Renan GEHAN]
+- Bump timeago.js from 3.0.2 to 4.0.1 (#131) [Renan GEHAN]
+- Bump object-hash from 2.0.0 to 2.0.1 (#133) [Renan GEHAN]
+- [Security] Bump serialize-to-js from 3.0.0 to 3.0.2 (#136) [Renan GEHAN]
+- Bump eslint from 6.7.0 to 6.7.2 (#134) [Renan GEHAN]
+
 ### v1.2.4
 - Fix "Open in New Tab" in recent versions of Chrome [Renan GEHAN]
 - add-tsc-check (#130) [GitHub]
