@@ -37,7 +37,13 @@ export const AvailableResources = compose<IInnerProps, IProps>(
             <img src={resource.avatarUrl} />
           </div>
           <div className="pt-2">
-            <div className="text-gray-800">{resource.name}</div>
+            <div
+              className={
+                settingsStore.isDark ? 'text-gray-300' : 'text-gray-800'
+              }
+            >
+              {resource.name}
+            </div>
             <div className="text-sm text-gray-600 mt-1">{resource.id}</div>
           </div>
         </div>
