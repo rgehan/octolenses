@@ -47,7 +47,7 @@ export const Settings = compose<IInnerProps, IProps>(
         <p>
           You can generate a Personal Access Token on{' '}
           <a
-            className="text-blue"
+            className="text-blue-500"
             href={CREATE_TOKEN_URL}
             target="_blank"
             rel="noopener noreferrer"
