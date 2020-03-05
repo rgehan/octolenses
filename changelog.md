@@ -1,3 +1,8 @@
+### v1.2.6
+- Display last activity date in IssueCard [Renan Gehan]
+- Bump rimraf from 3.0.0 to 3.0.2 (#150) [GitHub]
+- Bump @typescript-eslint/parser from 2.8.0 to 2.19.2 (#152) [GitHub]
+
 ### v1.2.5
 - Fix Jira resource style in night mode [Renan GEHAN]
 - Fix link style [Renan GEHAN]
