@@ -56,6 +56,22 @@ const pullRequestFragment = `
         }
       }
     }
+    timelineItems(itemTypes: [PULL_REQUEST_COMMIT, PULL_REQUEST_REVIEW, ISSUE_COMMENT], last: 1) {
+      nodes {
+        __typename
+        ... on IssueComment {
+          createdAt
+        }
+        ... on PullRequestReview {
+          createdAt
+        }
+        ... on PullRequestCommit {
+          commit {
+            committedDate
+          }
+        }
+      }
+    }
   }`;
 
 export const makeQuery = (filterString: string) => `

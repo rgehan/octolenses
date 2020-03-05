@@ -11,7 +11,7 @@ import { ConflictIndicator } from './ConflictIndicator';
 import { ContextualDropdown } from './ContextualDropdown';
 import { IssueStatusIndicator } from './IssueStatusIndicator';
 import { LabelBadge } from './LabelBadge';
-import { IssueStatus } from './types';
+import { IssueStatus, TimelineItem, TimelineItemType } from './types';
 
 export interface IIssue {
   type: 'PullRequest' | 'Issue';
@@ -42,6 +42,7 @@ export interface IIssue {
     totalCount: number;
   };
   labels: Array<{ color: string; name: string }>;
+  timelineItems?: TimelineItem[];
 }
 
 interface IProps {
@@ -61,10 +62,23 @@ export const IssueCard = compose<IInnerProps, IProps>(
     ? 'text-blue-400'
     : 'text-blue-500 hover:text-blue-600';
 
+  const firstTimelineItem = get(issue, 'timelineItems.nodes.0');
+
   function getTotalCommentsCount() {
     return (
       get(issue, 'reviews.totalCount', 0) + get(issue, 'comments.totalCount', 0)
     );
+  }
+
+  function getLastActivityDate(item: TimelineItem) {
+    switch (item.__typename) {
+      case TimelineItemType.ISSUE_COMMENT:
+        return item.createdAt;
+      case TimelineItemType.PULL_REQUEST_COMMIT:
+        return item.commit.committedDate;
+      case TimelineItemType.PULL_REQUEST_REVIEW:
+        return item.createdAt;
+    }
   }
 
   return (
@@ -133,6 +147,15 @@ export const IssueCard = compose<IInnerProps, IProps>(
           >
             {issue.author.login}
           </a>
+
+          {firstTimelineItem && (
+            <React.Fragment>
+              {', '}
+              <span>
+                last activity {timeago.format(getLastActivityDate(firstTimelineItem))}
+              </span>
+            </React.Fragment>
+          )}
           <ContextualDropdown issue={issue} />
         </div>
         <div className="flex mt-3">
