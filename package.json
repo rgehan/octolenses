@@ -13,7 +13,7 @@
     "contrast": "^1.0.1",
     "es6-error": "^4.1.1",
     "human-format": "^0.10.1",
-    "immer": "^5.0.0",
+    "immer": "^9.0.6",
     "lodash": "^4.17.15",
     "mobx": "^5.15.1",
     "mobx-persist": "^0.4.1",
