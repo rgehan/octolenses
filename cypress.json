@@ -3,5 +3,7 @@
   "watchForFileChanges": false,
   "env": {
     "BASE_URL": "http://localhost:1234"
-  }
+  },
+  "fixturesFolder": false,
+  "pluginsFile": false
 }
