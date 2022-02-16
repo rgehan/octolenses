@@ -103,7 +103,7 @@ export class Filter {
   }
 
   public update(payload: any) {
-    merge(this, {
+    Object.assign(this, {
       disableNotificationsOnNextFetch: true,
       ...payload,
     });
