@@ -1,3 +1,13 @@
+### v1.2.7
+- Upgrade all dependencies [Renan GEHAN]
+- Fix predicates deletion [Renan GEHAN]
+- [Security] Bump acorn from 5.7.3 to 5.7.4 (#161) [GitHub]
+- Bump @babel/core from 7.7.4 to 7.8.7 (#160) [GitHub]
+- Bump ts-jest from 24.2.0 to 24.3.0 (#158) [GitHub]
+- Bump @babel/polyfill from 7.7.0 to 7.8.3 (#154) [GitHub]
+- Bump typescript from 3.7.4 to 3.8.3 (#156) [GitHub]
+- Fix lint [Renan Gehan]
+
 ### v1.2.6
 - Display last activity date in IssueCard [Renan Gehan]
 - Bump rimraf from 3.0.0 to 3.0.2 (#150) [GitHub]
