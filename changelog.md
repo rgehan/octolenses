@@ -1,3 +1,15 @@
+### v2.0.0
+- Fallback to localStorage if chrome.storage not available [Renan GEHAN]
+- Upgrade cypress [Renan GEHAN]
+- Upgrade cypress github action [Renan GEHAN]
+- Fix tsc issues [Renan GEHAN]
+- Prettify [Renan GEHAN]
+- Fix .gitignore [Renan GEHAN]
+- Remove some usage of `localStorage` [Renan GEHAN]
+- Update @types/chrome [Renan GEHAN]
+- Migrate to manifest v3 [Renan GEHAN]
+- Upgrade Cypress [Renan GEHAN]
+
 ### v1.2.7
 - Upgrade all dependencies [Renan GEHAN]
 - Fix predicates deletion [Renan GEHAN]
