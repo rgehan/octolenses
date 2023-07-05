@@ -1,17 +1,14 @@
 import { includes } from "lodash";
 
 import './cache.js';
-import { NEW_TAB_SETTING_LS_KEY } from "../constants/newTab";
+import { getNewTabSetting } from "../constants/newTab";
 
 /**
  * Whenever a blank new tab is opened, overrides it with OctoLenses
  * if the settings of the user allowed it.
  */
 async function overrideNewTabPage(tab) {
-  const useNewTabPage = await chrome.storage.local.get([NEW_TAB_SETTING_LS_KEY]);
-
-  console.log('useNewTabPage', useNewTabPage);
-
+  const useNewTabPage = await getNewTabSetting();
   if (useNewTabPage && isNewTab(tab)) {
     chrome.tabs.update(tab.id, {
       url: chrome.runtime.getURL('index.html'),
