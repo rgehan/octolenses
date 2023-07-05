@@ -13,7 +13,7 @@ export const Behavior = () => {
 
   // When changing the setting, persist it
   useEffect(() => {
-    saveNewTabSetting(useNewTab)
+    saveNewTabSetting(useNewTab);
   }, [useNewTab]);
 
   return (

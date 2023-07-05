@@ -11,7 +11,10 @@ export enum TimelineItemType {
   PULL_REQUEST_REVIEW = 'PullRequestReview',
 }
 
-export type TimelineItem = IIssueComment | IPullRequestCommit | IPullRequestReview;
+export type TimelineItem =
+  | IIssueComment
+  | IPullRequestCommit
+  | IPullRequestReview;
 
 interface IIssueComment {
   __typename: TimelineItemType.ISSUE_COMMENT;

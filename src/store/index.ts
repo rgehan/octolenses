@@ -77,6 +77,11 @@ export const bootstrap = async () => {
 
 // This shouldn't be typed, as we don't want to advertize that this is available
 // on the global window object. It's only there for debugging purposes
-(window as any).stores = { navigationStore, filtersStore, trendsStore, settingsStore };
+(window as any).stores = {
+  navigationStore,
+  filtersStore,
+  trendsStore,
+  settingsStore,
+};
 
 export { navigationStore, filtersStore, trendsStore, settingsStore };

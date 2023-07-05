@@ -147,12 +147,12 @@ export const IssueCard = compose<IInnerProps, IProps>(
           >
             {issue.author.login}
           </a>
-
           {firstTimelineItem && (
             <React.Fragment>
               {', '}
               <span>
-                last activity {timeago.format(getLastActivityDate(firstTimelineItem))}
+                last activity{' '}
+                {timeago.format(getLastActivityDate(firstTimelineItem))}
               </span>
             </React.Fragment>
           )}

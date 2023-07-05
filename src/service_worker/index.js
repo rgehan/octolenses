@@ -1,7 +1,7 @@
-import { includes } from "lodash";
+import { includes } from 'lodash';
 
 import './cache.js';
-import { getNewTabSetting } from "../constants/newTab";
+import { getNewTabSetting } from '../constants/newTab';
 
 /**
  * Whenever a blank new tab is opened, overrides it with OctoLenses
@@ -49,4 +49,3 @@ chrome.tabs.onCreated.addListener(overrideNewTabPage);
 
 // On click of the extension's icon, open OctoLenses in a new tab.
 chrome.action.onClicked.addListener(openInNewTab);
-
