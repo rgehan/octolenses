@@ -71,7 +71,7 @@ export const Settings = compose<IInnerProps, IProps>(
           id="token"
           type="password"
           value={token}
-          onChange={event => setToken(event.target.value)}
+          onChange={(event: any) => setToken(event.target.value)}
           placeholder="xxxxx-xxxxx-xxxxx-xxxxx-xxxxx-xxxxx"
           dark={settingsStore.isDark}
           className={cx(

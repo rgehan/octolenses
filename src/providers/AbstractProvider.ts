@@ -44,7 +44,7 @@ export abstract class AbstractProvider<T = {}> {
    * Called after the app has been booted, so that we can perform initial
    * data fetching and initialization tasks.
    */
-  public abstract async initialize(): Promise<void>;
+  public abstract initialize(): Promise<void>;
 
   /**
    * Returns an array of available predicates for the provider

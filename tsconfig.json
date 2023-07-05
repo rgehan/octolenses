@@ -19,7 +19,7 @@
     "noEmitOnError": false,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
-    "types": ["chrome", "jest"]
+    "types": ["chrome", "jest", "node"]
   },
   "include": ["./src/**/*.ts", "./src/**/*.tsx"],
   "exclude": ["node_modules", "dist"]

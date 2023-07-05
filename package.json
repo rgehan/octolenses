@@ -39,6 +39,7 @@
     "@types/clipboard": "^2.0.1",
     "@types/jest": "^24.0.22",
     "@types/lodash": "^4.14.146",
+    "@types/node": "^20.3.3",
     "@types/react-dom": "^16.9.4",
     "@types/react-sortable-hoc": "^0.7.1",
     "@types/recompose": "^0.30.7",
