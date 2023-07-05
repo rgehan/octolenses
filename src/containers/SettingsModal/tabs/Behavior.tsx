@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react';
 
 import { RadioCard } from '../../../components/RadioCard';
-import { NEW_TAB_SETTING_LS_KEY } from '../../../constants/newTab';
+import { getNewTabSetting, saveNewTabSetting } from '../../../constants/newTab';
 
 export const Behavior = () => {
-  const [useNewTab, setUseNewTab] = useState(getNewTabSetting());
+  const [useNewTab, setUseNewTab] = useState(false);
 
-  useEffect(() => saveNewTabSetting(useNewTab), [useNewTab]);
+  // Initialize setting
+  useEffect(() => {
+    getNewTabSetting().then(value => setUseNewTab(value));
+  }, []);
+
+  // When changing the setting, persist it
+  useEffect(() => {
+    saveNewTabSetting(useNewTab);
+  }, [useNewTab]);
 
   return (
     <div>
@@ -28,15 +36,3 @@ export const Behavior = () => {
     </div>
   );
 };
-
-function getNewTabSetting() {
-  if (localStorage.getItem('useNewTab') === 'false') {
-    return false;
-  }
-
-  return true;
-}
-
-function saveNewTabSetting(useNewTab: boolean) {
-  localStorage.setItem(NEW_TAB_SETTING_LS_KEY, JSON.stringify(useNewTab));
-}
