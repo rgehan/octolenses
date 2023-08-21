@@ -11,6 +11,9 @@
     "https://use.fontawesome.com/*",
     "https://fonts.googleapis.com/*"
   ],
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
   "background": {
     "service_worker": "service_worker.js"
   },

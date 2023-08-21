@@ -67,8 +67,6 @@ ever, I even included a pretty cool dark mode.
 There are a lot of settings you can tweak, to adapt the experience of the
 extension to your needs.
 
-![](.github/screenshots/light/settings-behavior.png)
-
 ![](.github/screenshots/light/settings-cache.png)
 
 ![](.github/screenshots/light/settings-git-hub.png)
