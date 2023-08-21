@@ -143,7 +143,7 @@ async function screenshotSettings(page, screenshotFolder) {
   await page.waitFor(300);
 
   // Screenshot all tabs
-  const SETTING_TABS = ['Behavior', 'Night mode', 'Cache', 'GitHub', 'Jira'];
+  const SETTING_TABS = ['Night mode', 'Cache', 'GitHub', 'Jira'];
 
   for (tab of SETTING_TABS) {
     await page.click(`[data-setting-tab="${tab}"]`);
