@@ -5,7 +5,7 @@
   "version": "<version>",
   "short_name": "OctoLenses Browser Extension",
   "description": "Watch your repos and discover awesome things directly from your New Tab page.",
-  "permissions": ["tabs", "identity", "storage"],
+  "permissions": ["identity", "storage"],
   "host_permissions": [
     "*://*.github.com/*",
     "https://use.fontawesome.com/*",
