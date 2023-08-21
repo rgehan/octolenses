@@ -1,3 +1,6 @@
+### v2.1.0
+- use-page-overrides-api (#218) [GitHub]
+
 ### v2.0.0
 - Fallback to localStorage if chrome.storage not available [Renan GEHAN]
 - Upgrade cypress [Renan GEHAN]
