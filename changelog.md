@@ -1,3 +1,6 @@
+### v2.1.1
+- Remove unnecessary `tabs` permission [Renan GEHAN]
+
 ### v2.1.0
 - use-page-overrides-api (#218) [GitHub]
 
