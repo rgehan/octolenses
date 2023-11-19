@@ -46,7 +46,7 @@ export const FilterLink = compose<IInnerProps, IProps>(
     <div
       key={filter.id}
       className={cx(
-        'flex items-center text-right rtl pr-4 mb-3 cursor-pointer whitespace-no-wrap select-none',
+        'flex items-center text-right rtl pr-4 mb-3 cursor-pointer whitespace-nowrap select-none',
         `hover:${activeColor}`,
         isSelected ? activeColor : 'text-gray-600'
       )}
