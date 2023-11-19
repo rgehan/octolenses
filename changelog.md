@@ -1,3 +1,6 @@
+### v2.1.2
+- Remove unused `storage` permission [Renan GEHAN]
+
 ### v2.1.1
 - Remove unnecessary `tabs` permission [Renan GEHAN]
 
