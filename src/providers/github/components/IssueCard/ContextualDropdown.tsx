@@ -85,7 +85,7 @@ export const ContextualDropdown = compose<IInnerProps, IProps>(
           settingsStore.isDark
             ? 'bg-gray-700'
             : 'bg-white border border-gray-200',
-          'whitespace-no-wrap rounded shadow-lg',
+          'whitespace-nowrap rounded shadow-lg',
           'flex flex-col',
         ])}
       >

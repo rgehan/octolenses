@@ -15,7 +15,7 @@
     "newtab": "index.html"
   },
   "background": {
-    "service_worker": "service_worker.js"
+    "service_worker": "service_worker/index.js"
   },
   "action": {
     "default_title": "OctoLenses",

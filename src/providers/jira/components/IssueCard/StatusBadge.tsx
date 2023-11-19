@@ -22,7 +22,7 @@ export const StatusBadge = ({ issue }: IProps) => {
   return (
     <div
       className={cx(
-        'rounded px-2 py-1 ml-3 whitespace-no-wrap',
+        'rounded px-2 py-1 ml-3 whitespace-nowrap',
         COLORS_TO_STYLE[colorName as JiraColor]
       )}
     >
