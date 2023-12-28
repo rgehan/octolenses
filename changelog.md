@@ -1,3 +1,8 @@
+### v2.2.0
+- Fix wrap issues with GH label badges [Renan GEHAN]
+- Add .idea to .gitignore [Renan GEHAN]
+- Update main deps (parcel, tailwind) + node LTS (#219) [GitHub]
+
 ### v2.1.2
 - Remove unused `storage` permission [Renan GEHAN]
 
