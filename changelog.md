@@ -1,3 +1,6 @@
+### v2.2.1
+- Add support for draft PRs [Renan GEHAN]
+
 ### v2.2.0
 - Fix wrap issues with GH label badges [Renan GEHAN]
 - Add .idea to .gitignore [Renan GEHAN]
