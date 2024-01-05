@@ -79,7 +79,7 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "clean": "rimraf dist/",
+    "clean": "rimraf dist/ .parcel-cache",
     "start": "parcel serve --no-hmr --no-autoinstall src/index.html",
     "copyManifest": "cp manifest.json dist/manifest.json",
     "copyIcons": "cp -r icons/ dist/icons/",
