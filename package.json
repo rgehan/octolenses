@@ -13,7 +13,7 @@
     }
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",
-  "version": "2.1.2",
+  "version": "2.2.1",
   "author": "Renan GEHAN <rgehan94@gmail.com>",
   "license": "MIT",
   "dependencies": {
@@ -79,7 +79,7 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "clean": "rimraf dist/",
+    "clean": "rimraf dist/ .parcel-cache",
     "start": "parcel serve --no-hmr --no-autoinstall src/index.html",
     "copyManifest": "cp manifest.json dist/manifest.json",
     "copyIcons": "cp -r icons/ dist/icons/",

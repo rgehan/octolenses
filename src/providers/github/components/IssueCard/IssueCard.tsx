@@ -158,7 +158,7 @@ export const IssueCard = compose<IInnerProps, IProps>(
           )}
           <ContextualDropdown issue={issue} />
         </div>
-        <div className="flex mt-3">
+        <div className="flex flex-wrap gap-y-1 gap-x-1 mt-3">
           {issue.labels.map(label => (
             <LabelBadge key={label.name} label={label} />
           ))}
