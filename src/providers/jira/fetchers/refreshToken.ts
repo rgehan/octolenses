@@ -1,11 +1,11 @@
-interface RefreshResult {
+interface IRefreshResult {
   access_token: string;
   expires_in: number;
 }
 
 export const refreshToken = async (
   refreshToken: string
-): Promise<RefreshResult> => {
+): Promise<IRefreshResult> => {
   const url = 'https://octolenses.now.sh/api/refresh';
 
   const { data } = await fetch(url, {

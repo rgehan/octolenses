@@ -1,17 +1,23 @@
 import cx from 'classnames';
-import { observer } from 'mobx-react-lite';
-import React, { useContext } from 'react';
+import { inject, observer } from 'mobx-react';
+import React from 'react';
+import { compose } from 'recompose';
 
-import { GithubProfile } from '..';
-import { IsDarkContext } from '../../../contexts/isDark';
+import { IGithubProfile } from '../index';
+import { SettingsStore } from '../../../store/settings';
 
 interface IProps {
-  profile: GithubProfile;
+  profile: IGithubProfile;
 }
 
-export const ProfileCard = observer(({ profile }: IProps) => {
-  const isDark = useContext(IsDarkContext);
+interface IInnerProps extends IProps {
+  settingsStore: SettingsStore;
+}
 
+export const ProfileCard = compose<IInnerProps, IProps>(
+  inject('settingsStore'),
+  observer
+)(({ profile, settingsStore }) => {
   if (!profile) {
     return null;
   }
@@ -21,19 +27,24 @@ export const ProfileCard = observer(({ profile }: IProps) => {
       <div
         className={cx(
           'w-16 h-16 rounded-full overflow-hidden mr-3',
-          isDark ? 'bg-grey-darker' : 'bg-grey-light'
+          settingsStore.isDark ? 'bg-gray-700' : 'bg-gray-400'
         )}
       >
         <img src={profile.avatar_url} />
       </div>
       <div className="pt-2">
-        <div className="text-grey-darkest">{profile.name}</div>
+        <div
+          className={settingsStore.isDark ? 'text-gray-300' : 'text-gray-800'}
+        >
+          {profile.name}
+        </div>
         <a
           href={profile.html_url}
-          target="__blank"
-          className="text-sm text-grey-dark mt-1"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm text-gray-600 mt-1"
         >
-          {profile.login}
+          @{profile.login}
         </a>
       </div>
     </div>

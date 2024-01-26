@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/camelcase */
+
 import { find, get } from 'lodash';
 import { action, computed, observable } from 'mobx';
 import hash from 'object-hash';
@@ -6,17 +8,17 @@ import React from 'react';
 import { Cache } from '../../lib/cache';
 import { Filter } from '../../store/filters';
 import { AbstractProvider } from '../AbstractProvider';
-import { IssueCard } from './components/IssueCard';
+import { IProps as IIssueCardProps, IssueCard } from './components/IssueCard';
 import { Settings } from './components/Settings';
 import { fetchFilter } from './fetchers';
 import { refreshToken } from './fetchers/refreshToken';
 import { fetchResources } from './fetchers/resources';
-import { SwapResult } from './fetchers/swapToken';
+import { ISwapResult } from './fetchers/swapToken';
 import { availablePredicates } from './predicates';
 
 const FIVE_MINUTES = 5 * 60 * 1000; // ms
 
-export interface JiraSettings {
+export interface IJiraSettings {
   auth: {
     access_token: string;
     refresh_token: string;
@@ -24,21 +26,24 @@ export interface JiraSettings {
   };
 }
 
-export interface JiraResource {
+export interface IJiraResource {
   avatarUrl: string;
   id: string;
   name: string;
   scopes: string[];
+  url: string;
 }
 
-export class JiraProvider extends AbstractProvider<JiraSettings> {
+export class JiraProvider extends AbstractProvider<IJiraSettings> {
   public id = 'jira';
   public label = 'Jira';
   public settingsComponent = () => <Settings provider={this} />;
-  public cardComponent = IssueCard;
+  public cardComponent = (props: Omit<IIssueCardProps, 'provider'>) => (
+    <IssueCard {...props} provider={this} />
+  );
 
   @observable
-  public resources: JiraResource[] = [];
+  public resources: IJiraResource[] = [];
 
   public async initialize() {
     if (this.shouldRefreshToken) {
@@ -50,6 +55,10 @@ export class JiraProvider extends AbstractProvider<JiraSettings> {
 
   public async fetchFilter(filter: Filter) {
     return fetchFilter(filter, this.settings, this.resources[0]);
+  }
+
+  public resolveFilterItemIdentifier(item: any): string {
+    return item.key;
   }
 
   public getAvailablePredicates = () => availablePredicates;
@@ -73,7 +82,7 @@ export class JiraProvider extends AbstractProvider<JiraSettings> {
   }
 
   @action.bound
-  public setAuth({ access_token, expires_in, refresh_token }: SwapResult) {
+  public setAuth({ access_token, expires_in, refresh_token }: ISwapResult) {
     this.settings.auth = {
       refresh_token,
       access_token,

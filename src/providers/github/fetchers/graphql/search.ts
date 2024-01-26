@@ -1,9 +1,14 @@
-import { chain, get, omit } from 'lodash';
+import { chain, omit, map } from 'lodash';
 
 import { Cache } from '../../../../lib/cache';
 import { Filter } from '../../../../store/filters';
 import { client } from '../client';
 import { makeQuery } from './query';
+import {
+  extractConflictStatus,
+  extractGraphqlLabels,
+  extractGraphqlStatus,
+} from './utils';
 
 /**
  * Fetch a filter using the shiny GraphQL API
@@ -33,23 +38,13 @@ export const search = async (filter: Filter, token: string) => {
 /**
  * Format a graphql response so that it's easy to use
  */
-export const formatResponse = (response: any) =>
-  chain(response)
-    .get('data.search.edges')
-    .map('node')
-    .map(issue => ({
-      ...omit(issue, ['commits', '__typename']),
-      type: issue.__typename,
-      status: extractGraphqlStatus(issue),
-      labels: extractGraphqlLabels(issue),
-    }))
-    .value();
-
-const extractGraphqlStatus = (issue: any) =>
-  get(issue, 'commits.edges.0.node.commit.status.state');
-
-const extractGraphqlLabels = (issue: any) =>
-  chain(issue)
-    .get('labels.edges')
-    .map('node')
-    .value();
+export const formatResponse = (response: any) => {
+  const issues = map(response.data.search.edges, 'node');
+  return issues.map(issue => ({
+    ...omit(issue, ['commits', '__typename', 'mergeable']),
+    type: issue.__typename,
+    status: extractGraphqlStatus(issue),
+    labels: extractGraphqlLabels(issue),
+    conflicting: extractConflictStatus(issue),
+  }));
+};

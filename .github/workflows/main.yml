@@ -1,0 +1,48 @@
+name: Lint & Tests
+on: [push]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Restore node_modules folder
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-cache-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cache-
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run ESLint
+        run: yarn lint
+
+      - name: Run tsc
+        run: tsc --noEmit
+
+      - name: Run Jest
+        run: yarn test
+
+
+  integration-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Run Cypress
+        uses: cypress-io/github-action@v5
+        with:
+          record: true
+          start: yarn start
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CYPRESS_GITHUB_TOKEN: ${{ secrets.CYPRESS_GITHUB_TOKEN }}

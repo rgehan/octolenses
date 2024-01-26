@@ -1,8 +1,10 @@
 import cx from 'classnames';
-import React, { ReactNode, useContext, useEffect } from 'react';
+import { inject, observer } from 'mobx-react';
+import React, { ReactNode, useEffect } from 'react';
+import { compose } from 'recompose';
 import styled, { keyframes } from 'styled-components';
 
-import { IsDarkContext } from '../../contexts/isDark';
+import { SettingsStore } from '../../store/settings';
 
 const fadeIn = keyframes`
   from { opacity: 0; }
@@ -28,44 +30,46 @@ interface IProps {
   className?: string;
 }
 
-export const Modal = ({ children, onClose }: IProps) => {
-  const isDark = useContext(IsDarkContext);
+interface IInnerProps extends IProps {
+  settingsStore: SettingsStore;
+}
 
+export const Modal = compose<IInnerProps, IProps>(
+  inject('settingsStore'),
+  observer
+)(({ children, onClose, settingsStore }) => {
   // Close the modal on ESC
-  useEffect(
-    () => {
-      function handleKeyDown(event: KeyboardEvent) {
-        if (event.key === 'Escape') {
-          onClose();
-        }
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        onClose();
       }
+    }
 
-      window.addEventListener('keydown', handleKeyDown);
-      return () => window.removeEventListener('keydown', handleKeyDown);
-    },
-    [onClose]
-  );
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
 
   return (
     <Backdrop
       className={cx(
-        'fixed z-50 pin font-roboto text-lg',
-        isDark ? 'bg-black' : 'bg-white'
+        'fixed z-50 inset-0 font-roboto text-lg',
+        settingsStore.isDark ? 'bg-gray-900' : 'bg-white'
       )}
     >
       <div
         onClick={onClose}
         className={cx(
-          'flex items-center absolute pin-t pin-r mt-4 mr-4 cursor-pointer py-1 px-2 rounded-full',
-          isDark
-            ? 'text-grey hover:bg-grey-darkest'
-            : 'text-grey-darker hover:bg-grey-lighter'
+          'flex items-center absolute top-0 right-0 mt-4 mr-4 cursor-pointer py-1 px-2 rounded-full',
+          settingsStore.isDark
+            ? 'text-gray-500 hover:bg-gray-800'
+            : 'text-gray-700 hover:bg-gray-200'
         )}
       >
         <span className="mr-2">Close</span>
         <i className="fa fa-times" />
       </div>
-      <Wrapper>{children}</Wrapper>
+      <Wrapper className="h-full overflow-auto">{children}</Wrapper>
     </Backdrop>
   );
-};
+});

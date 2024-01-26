@@ -1,37 +1,45 @@
 import cx from 'classnames';
-import React, { ReactNode, useContext } from 'react';
+import { inject, observer } from 'mobx-react';
+import React from 'react';
+import { compose } from 'recompose';
 
-import { IsDarkContext } from '../../contexts/isDark';
+import { SettingsStore } from '../../store/settings';
 
 const COLORS = {
   dark: {
     active: 'text-white',
-    inactive: 'text-grey-light hover:text-white',
+    inactive: 'text-gray-400 hover:text-white',
   },
   light: {
-    active: 'text-grey-darkest',
-    inactive: 'text-grey-dark hover:text-grey-darkest',
+    active: 'text-gray-800',
+    inactive: 'text-gray-600 hover:text-gray-800',
   },
 };
 
 interface IProps {
   onClick: () => void;
-  children: ReactNode;
+  name: string;
   active?: boolean;
 }
 
-export const TabLink = ({ children, onClick, active = false }: IProps) => {
-  const isDark = useContext(IsDarkContext);
+interface IInnerProps extends IProps {
+  settingsStore: SettingsStore;
+}
 
-  return (
-    <a
-      className={cx(
-        'font-roboto ml-4 py-2 cursor-pointer',
-        COLORS[isDark ? 'dark' : 'light'][active ? 'active' : 'inactive']
-      )}
-      onClick={onClick}
-    >
-      {children}
-    </a>
-  );
-};
+export const TabLink = compose<IInnerProps, IProps>(
+  inject('settingsStore'),
+  observer
+)(({ children, name, onClick, active = false, settingsStore }) => (
+  <a
+    className={cx(
+      'font-roboto ml-4 py-2 cursor-pointer',
+      COLORS[settingsStore.isDark ? 'dark' : 'light'][
+        active ? 'active' : 'inactive'
+      ]
+    )}
+    onClick={onClick}
+    data-header-link={name}
+  >
+    {children}
+  </a>
+));

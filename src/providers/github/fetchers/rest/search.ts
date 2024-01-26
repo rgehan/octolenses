@@ -2,6 +2,7 @@ import { chain, map, pick } from 'lodash';
 
 import { Cache } from '../../../../lib/cache';
 import { Filter } from '../../../../store/filters';
+import { IssueStatus } from '../../components/IssueCard/types';
 import { client } from '../client';
 
 /**
@@ -52,6 +53,7 @@ export const formatResponse = (response: any) => {
     type: issue.pull_request ? 'PullRequest' : 'Issue',
     comments: { totalCount: issue.comments },
     reviews: { totalCount: 0 },
+    status: IssueStatus.UNKNOWN,
   }));
 };
 

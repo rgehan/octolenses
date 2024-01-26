@@ -1,11 +1,13 @@
 import cx from 'classnames';
 import ClipboardJS from 'clipboard';
-import React, { useContext, useEffect } from 'react';
+import { inject, observer } from 'mobx-react';
+import React, { useEffect } from 'react';
+import { compose } from 'recompose';
 import styled from 'styled-components';
 
 import { toast } from '../../../../components/ToastManager/ToastManager';
-import { IsDarkContext } from '../../../../contexts/isDark';
-import { Issue } from './IssueCard';
+import { SettingsStore } from '../../../../store/settings';
+import { IIssue } from './IssueCard';
 
 const Wrapper = styled.div`
   .overlay {
@@ -36,7 +38,7 @@ const Overlay = styled.div<{ dark: boolean }>`
   }
 `;
 
-const makeActions = (issue: Issue) => {
+const makeActions = (issue: IIssue) => {
   const type = issue.pull_request ? 'Pull request' : 'Issue';
 
   return [
@@ -54,12 +56,17 @@ const makeActions = (issue: Issue) => {
 };
 
 interface IProps {
-  issue: Issue;
+  issue: IIssue;
 }
 
-export const ContextualDropdown = ({ issue }: IProps) => {
-  const isDark = useContext(IsDarkContext);
+interface IInnerProps extends IProps {
+  settingsStore: SettingsStore;
+}
 
+export const ContextualDropdown = compose<IInnerProps, IProps>(
+  inject('settingsStore'),
+  observer
+)(({ issue, settingsStore }) => {
   useEffect(() => {
     const clipboard = new ClipboardJS('[data-clipboard-text]');
     return () => clipboard.destroy();
@@ -71,12 +78,14 @@ export const ContextualDropdown = ({ issue }: IProps) => {
     <Wrapper className="inline-block relative">
       <i className="fa fa-caret-down py-1 px-2 -mt-1 cursor-pointer" />
       <Overlay
-        dark={isDark}
+        dark={settingsStore.isDark}
         className={cx([
           'overlay',
           'absolute py-1',
-          isDark ? 'bg-grey-darker' : 'bg-white border border-grey-lighter',
-          'whitespace-no-wrap rounded shadow',
+          settingsStore.isDark
+            ? 'bg-gray-700'
+            : 'bg-white border border-gray-200',
+          'whitespace-nowrap rounded shadow-lg',
           'flex flex-col',
         ])}
       >
@@ -92,4 +101,4 @@ export const ContextualDropdown = ({ issue }: IProps) => {
       </Overlay>
     </Wrapper>
   );
-};
+});

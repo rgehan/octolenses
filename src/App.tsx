@@ -1,37 +1,33 @@
 import { inject, observer } from 'mobx-react';
 import React from 'react';
+import { compose } from 'recompose';
 
 import { Header, ToastManager } from './components';
-import { IsDarkContext } from './contexts/isDark';
 import { Dashboard, Discover } from './pages';
 import { NavigationStore } from './store/navigation';
-import { SettingsStore } from './store/settings';
 
 const PAGES = {
   discover: Discover,
   dashboard: Dashboard,
 };
 
-interface IProps {
-  navigation: NavigationStore;
-  settings: SettingsStore;
+type PageName = keyof typeof PAGES;
+
+interface IInnerProps {
+  navigationStore: NavigationStore;
 }
 
-@inject('navigation', 'settings')
-@observer
-export class App extends React.Component<IProps> {
-  public render() {
-    const { navigation, settings } = this.props;
-    const Page = PAGES[navigation.page];
+export const App = compose<IInnerProps, {}>(
+  inject('navigationStore'),
+  observer
+)(({ navigationStore }) => {
+  const Page = PAGES[navigationStore.page as PageName];
 
-    return (
-      <div className="App">
-        <IsDarkContext.Provider value={settings.isDark}>
-          <Header navigation={navigation} />
-          <Page />
-          <ToastManager />
-        </IsDarkContext.Provider>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="App">
+      <Header />
+      <Page />
+      <ToastManager />
+    </div>
+  );
+});

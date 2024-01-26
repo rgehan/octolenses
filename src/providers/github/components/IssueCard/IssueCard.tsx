@@ -1,25 +1,28 @@
 import cx from 'classnames';
 import { get } from 'lodash';
-import { observer } from 'mobx-react-lite';
-import React, { useContext } from 'react';
-import timeago from 'timeago.js';
+import { inject, observer } from 'mobx-react';
+import React from 'react';
+import { compose } from 'recompose';
+import * as timeago from 'timeago.js';
 
-import { IsDarkContext } from '../../../../contexts/isDark';
-
+import { SettingsStore } from '../../../../store/settings';
 import { CheckStatusIndicator } from './CheckStatusIndicator';
+import { ConflictIndicator } from './ConflictIndicator';
 import { ContextualDropdown } from './ContextualDropdown';
 import { IssueStatusIndicator } from './IssueStatusIndicator';
 import { LabelBadge } from './LabelBadge';
+import { IssueStatus, TimelineItem, TimelineItemType } from './types';
 
-export interface Issue {
+export interface IIssue {
   type: 'PullRequest' | 'Issue';
   title: string;
   url: string;
   html_url: string;
   state: 'open' | 'closed' | 'merged';
-  status: 'EXPECTED' | 'ERROR' | 'FAILURE' | 'PENDING' | 'SUCCESS';
+  status: IssueStatus;
   number: number;
   createdAt: string;
+  conflicting: boolean;
   pull_request?: {
     url: string;
   };
@@ -39,18 +42,27 @@ export interface Issue {
     totalCount: number;
   };
   labels: Array<{ color: string; name: string }>;
+  timelineItems?: TimelineItem[];
 }
 
 interface IProps {
-  data: Issue;
+  data: IIssue;
+  isNew: boolean;
 }
 
-export const IssueCard = observer(({ data: issue }: IProps) => {
-  const isDark = useContext(IsDarkContext);
+interface IInnerProps extends IProps {
+  settingsStore: SettingsStore;
+}
 
-  const linkStyle = isDark
-    ? 'text-blue-light'
-    : 'text-blue hover:text-blue-dark';
+export const IssueCard = compose<IInnerProps, IProps>(
+  inject('settingsStore'),
+  observer
+)(({ data: issue, isNew, settingsStore }) => {
+  const linkStyle = settingsStore.isDark
+    ? 'text-blue-400'
+    : 'text-blue-500 hover:text-blue-600';
+
+  const firstTimelineItem = get(issue, 'timelineItems.nodes.0');
 
   function getTotalCommentsCount() {
     return (
@@ -58,13 +70,29 @@ export const IssueCard = observer(({ data: issue }: IProps) => {
     );
   }
 
+  function getLastActivityDate(item: TimelineItem) {
+    switch (item.__typename) {
+      case TimelineItemType.ISSUE_COMMENT:
+        return item.createdAt;
+      case TimelineItemType.PULL_REQUEST_COMMIT:
+        return item.commit.committedDate;
+      case TimelineItemType.PULL_REQUEST_REVIEW:
+        return item.createdAt;
+    }
+  }
+
   return (
-    <div className="p-6 flex">
-      <div className="flex items-center justify-center flex-no-shrink pr-4">
+    <div
+      className={cx(
+        'p-6 flex border-l-4',
+        isNew ? 'border-blue-500' : 'border-transparent'
+      )}
+    >
+      <div className="flex items-center justify-center flex-shrink-0 pr-4">
         <div
           className={cx(
             'w-16 h-16 rounded-full overflow-hidden',
-            isDark ? 'bg-grey-darker' : 'bg-grey-light'
+            settingsStore.isDark ? 'bg-gray-700' : 'bg-gray-400'
           )}
         >
           <img src={issue.author.avatarUrl} />
@@ -93,27 +121,44 @@ export const IssueCard = observer(({ data: issue }: IProps) => {
             </span>
 
             <CheckStatusIndicator status={issue.status} />
+
+            <ConflictIndicator conflicting={issue.conflicting} />
           </div>
-          <a href={issue.url} className="ml-2 text-grey-dark hover:text-grey">
+          <a
+            href={issue.url}
+            className="ml-2 text-gray-600 hover:text-gray-500"
+          >
             <i className="far fa-comment-alt" /> {getTotalCommentsCount()}
           </a>
         </div>
         <div
-          className={cx('text-xs', isDark ? 'text-grey' : 'text-grey-darker')}
+          className={cx(
+            'text-xs',
+            settingsStore.isDark ? 'text-gray-500' : 'text-gray-700'
+          )}
         >
-          #{issue.number} opened {timeago().format(issue.createdAt)} by{' '}
+          #{issue.number} opened {timeago.format(issue.createdAt)} by{' '}
           <a
             href={issue.author.url}
             className={cx(
               'no-underline hover:underline',
-              isDark ? 'text-grey' : 'text-grey-darker'
+              settingsStore.isDark ? 'text-gray-500' : 'text-gray-700'
             )}
           >
             {issue.author.login}
           </a>
+          {firstTimelineItem && (
+            <React.Fragment>
+              {', '}
+              <span>
+                last activity{' '}
+                {timeago.format(getLastActivityDate(firstTimelineItem))}
+              </span>
+            </React.Fragment>
+          )}
           <ContextualDropdown issue={issue} />
         </div>
-        <div className="flex mt-3">
+        <div className="flex flex-wrap gap-y-1 gap-x-1 mt-3">
           {issue.labels.map(label => (
             <LabelBadge key={label.name} label={label} />
           ))}

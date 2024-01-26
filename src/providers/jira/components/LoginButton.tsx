@@ -1,12 +1,13 @@
 import cx from 'classnames';
 import { chain } from 'lodash';
-import { observer } from 'mobx-react-lite';
-import React, { useContext } from 'react';
+import { inject, observer } from 'mobx-react';
+import React from 'react';
+import { compose } from 'recompose';
 
 import { JiraProvider } from '..';
 import { Button, ButtonType } from '../../../components/Button';
-import { IsDarkContext } from '../../../contexts/isDark';
-import { SwapResult, swapToken } from '../fetchers/swapToken';
+import { SettingsStore } from '../../../store/settings';
+import { ISwapResult, swapToken } from '../fetchers/swapToken';
 
 const CLIENT_ID = '4WgiRI4XRQ2OTWof5i7yCKmlekkIldH0';
 
@@ -14,9 +15,14 @@ interface IProps {
   provider: JiraProvider;
 }
 
-export const LoginButton = observer(({ provider }: IProps) => {
-  const isDark = useContext(IsDarkContext);
+interface IInnerProps extends IProps {
+  settingsStore: SettingsStore;
+}
 
+export const LoginButton = compose<IInnerProps, IProps>(
+  inject('settingsStore'),
+  observer
+)(({ provider, settingsStore }) => {
   async function handleLogin() {
     try {
       const data = await initJiraOauthFlow();
@@ -43,7 +49,7 @@ export const LoginButton = observer(({ provider }: IProps) => {
       <p
         className={cx(
           'text-base mt-4',
-          isDark ? ' text-grey-dark' : ' text-grey'
+          settingsStore.isDark ? 'text-gray-600' : 'text-gray-500'
         )}
       >
         The only way to connect your Atlassian account is using the OAuth flow.
@@ -53,14 +59,15 @@ export const LoginButton = observer(({ provider }: IProps) => {
       <p
         className={cx(
           'text-base mt-4',
-          isDark ? ' text-grey-dark' : ' text-grey'
+          settingsStore.isDark ? 'text-gray-600' : 'text-gray-500'
         )}
       >
         During the authentication flow, a token swap service (whose source code
         is auditable{' '}
         <a
           href="https://github.com/rgehan/octolenses-jira-token-swap-service"
-          target="__blank"
+          target="_blank"
+          rel="noopener noreferrer"
           className="text-blue"
         >
           here
@@ -77,7 +84,7 @@ export const LoginButton = observer(({ provider }: IProps) => {
  * API. An external (privately hosted by me) token swap service is then used
  * to obtain access/refresh tokens.
  */
-async function initJiraOauthFlow(): Promise<SwapResult> {
+async function initJiraOauthFlow(): Promise<ISwapResult> {
   const redirectUri = chrome.identity.getRedirectURL('provider_cb');
   const redirectRegexp = new RegExp(redirectUri + '[#?](.*)');
 
@@ -101,7 +108,7 @@ async function initJiraOauthFlow(): Promise<SwapResult> {
       }
 
       // Unable to extract an authorization code from the response
-      const authCode = chain(response.match(redirectRegexp))
+      const authCode = chain(redirectRegexp.exec(response))
         .get(1)
         .split('=')
         .get(1)

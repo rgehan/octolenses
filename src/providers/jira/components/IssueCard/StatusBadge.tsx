@@ -1,18 +1,18 @@
 import cx from 'classnames';
 import React from 'react';
 
-import { JiraIssue } from './IssueCard';
+import { IJiraIssue } from './IssueCard';
 
 interface IProps {
-  issue: JiraIssue;
+  issue: IJiraIssue;
 }
 
 type JiraColor = 'green' | 'yellow' | 'blue-gray';
 
 const COLORS_TO_STYLE: Record<JiraColor, string> = {
-  green: 'text-green bg-green-lightest',
-  yellow: 'text-yellow-darker bg-yellow-lighter',
-  'blue-gray': 'text-blue-dark bg-blue-lightest',
+  green: 'text-green-500 bg-green-100',
+  yellow: 'text-yellow-800 bg-yellow-200',
+  'blue-gray': 'text-blue-600 bg-blue-100',
 };
 
 export const StatusBadge = ({ issue }: IProps) => {
@@ -22,7 +22,7 @@ export const StatusBadge = ({ issue }: IProps) => {
   return (
     <div
       className={cx(
-        'rounded px-2 py-1 ml-3 whitespace-no-wrap',
+        'rounded px-2 py-1 ml-3 whitespace-nowrap',
         COLORS_TO_STYLE[colorName as JiraColor]
       )}
     >

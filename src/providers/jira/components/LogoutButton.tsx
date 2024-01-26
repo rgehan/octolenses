@@ -1,4 +1,4 @@
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
 import React from 'react';
 
 import { JiraProvider } from '..';
@@ -9,7 +9,7 @@ interface IProps {
 }
 
 export const LogoutButton = observer(({ provider }: IProps) => {
-  async function handleLogout() {
+  function handleLogout() {
     provider.disconnect();
   }
 

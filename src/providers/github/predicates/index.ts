@@ -5,13 +5,14 @@ import { mergeStatus } from './mergeStatus';
 import { review } from './review';
 import { status } from './status';
 import { type } from './type';
+import { draft } from "./draft";
 
 enum GithubOperators {
   EQUAL = 'equal',
   NOT_EQUAL = 'not_equal',
 }
 
-interface SimplePredicatePayload {
+interface ISimplePredicatePayload {
   name: string;
   placeholder: string;
   label?: string;
@@ -25,7 +26,7 @@ export const makeSimplePredicate = ({
   name,
   label,
   placeholder,
-}: SimplePredicatePayload): Predicate => ({
+}: ISimplePredicatePayload): Predicate => ({
   name,
   label: label || capitalize(name),
   placeholder,
@@ -55,6 +56,11 @@ export const availablePredicates: Predicate[] = [
     name: 'label',
     label: 'Label',
     placeholder: 'LABEL',
+  }),
+  makeSimplePredicate({
+    name: 'project',
+    label: 'Project',
+    placeholder: 'USERNAME/REPOSITORY/PROJECT',
   }),
   makeSimplePredicate({
     name: 'mentions',
@@ -115,4 +121,5 @@ export const availablePredicates: Predicate[] = [
   status,
   mergeStatus,
   review,
+  draft,
 ];

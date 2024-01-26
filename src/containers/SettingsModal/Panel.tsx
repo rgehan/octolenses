@@ -1,14 +1,23 @@
 import { find } from 'lodash';
+import { inject, observer } from 'mobx-react';
 import React from 'react';
+import { compose } from 'recompose';
 
-import { settings } from '../../store/settings';
-import { SETTINGS_VIEWS } from './SettingsModal';
+import { SettingsStore } from '../../store/settings';
+import { SETTINGS_VIEWS } from './constants';
 
 interface IProps {
   selectedTab: string;
 }
 
-export const Panel = ({ selectedTab }: IProps) => {
+interface IInnerProps extends IProps {
+  settingsStore: SettingsStore;
+}
+
+export const Panel = compose<IInnerProps, IProps>(
+  inject('settingsStore'),
+  observer
+)(({ selectedTab, settingsStore }) => {
   const view = find(SETTINGS_VIEWS, { id: selectedTab });
 
   if (!view) {
@@ -17,5 +26,5 @@ export const Panel = ({ selectedTab }: IProps) => {
 
   const Component = view.component;
 
-  return <Component settings={view.isProvider ? undefined : settings} />;
-};
+  return <Component settings={view.isProvider ? undefined : settingsStore} />;
+});

@@ -5,12 +5,12 @@ import { Filter } from '../store/filters';
 import { SettingsStore } from '../store/settings';
 import { Predicate } from './types';
 
-interface SettingsComponentProps {
+interface ISettingsComponentProps {
   settings: SettingsStore;
 }
 
-type SettingsComponent = ({ settings }: SettingsComponentProps) => JSX.Element;
-type CardComponent = ({ data }: any) => JSX.Element;
+type SettingsComponent = ({ settings }: ISettingsComponentProps) => JSX.Element;
+type CardComponent = React.ComponentType<{ data: any }>;
 
 export abstract class AbstractProvider<T = {}> {
   /**
@@ -44,7 +44,7 @@ export abstract class AbstractProvider<T = {}> {
    * Called after the app has been booted, so that we can perform initial
    * data fetching and initialization tasks.
    */
-  public async initialize(): Promise<void> {}
+  public abstract initialize(): Promise<void>;
 
   /**
    * Returns an array of available predicates for the provider
@@ -63,4 +63,10 @@ export abstract class AbstractProvider<T = {}> {
    * @param providerSettings
    */
   public abstract fetchFilter(filter: Filter): Promise<any[]>;
+
+  /**
+   * Resolve the unique identifier associated to a filter item
+   * @param item A filter item
+   */
+  public abstract resolveFilterItemIdentifier(item: any): string;
 }

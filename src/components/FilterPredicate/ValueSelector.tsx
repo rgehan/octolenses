@@ -1,8 +1,10 @@
 import cx from 'classnames';
-import React, { useContext } from 'react';
+import { inject, observer } from 'mobx-react';
+import React from 'react';
+import { compose } from 'recompose';
 
-import { IsDarkContext } from '../../contexts/isDark';
 import { Predicate, PredicateType } from '../../providers';
+import { SettingsStore } from '../../store/settings';
 
 interface IProps {
   predicate: Predicate;
@@ -10,12 +12,17 @@ interface IProps {
   onChange: (value: string) => void;
 }
 
-export const ValueSelector = ({ predicate, value, onChange }: IProps) => {
-  const isDark = useContext(IsDarkContext);
+interface IInnerProps extends IProps {
+  settingsStore: SettingsStore;
+}
 
+export const ValueSelector = compose<IInnerProps, IProps>(
+  inject('settingsStore'),
+  observer
+)(({ predicate, value, onChange, settingsStore }) => {
   const baseStyle = cx(
     'h-full flex-1 bg-transparent outline-none',
-    isDark ? 'text-white' : 'text-grey-darkest'
+    settingsStore.isDark ? 'text-white' : 'text-gray-800'
   );
 
   if (predicate.type === PredicateType.TEXT) {
@@ -26,6 +33,7 @@ export const ValueSelector = ({ predicate, value, onChange }: IProps) => {
         onChange={event => onChange(event.target.value)}
         placeholder={predicate.placeholder}
         className={cx(baseStyle, 'pl-3')}
+        data-id="predicate-value-selector"
       />
     );
   }
@@ -36,6 +44,7 @@ export const ValueSelector = ({ predicate, value, onChange }: IProps) => {
         value={value}
         onChange={event => onChange(event.target.value)}
         className={cx(baseStyle, 'ml-2 mr-3')}
+        data-id="predicate-value-selector"
       >
         <option key="__default" value="">
           Choose...
@@ -50,4 +59,4 @@ export const ValueSelector = ({ predicate, value, onChange }: IProps) => {
   }
 
   return null;
-};
+});

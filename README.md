@@ -1,3 +1,8 @@
+[![](.github/icons/chrome.png)](https://chrome.google.com/webstore/detail/octolenses/ghlblfakaklgkdmfejdlffbmpcaidoci)
+[![](.github/icons/firefox.png)](https://addons.mozilla.org/firefox/addon/github-octolenses/)
+
+![](https://github.com/rgehan/octolenses/workflows/Lint%20%26%20Tests/badge.svg)
+
 # OctoLenses Browser Extension
 
 > Watch your repos and discover awesome things directly from your New Tab page.
@@ -8,20 +13,20 @@ is fundamental: your code
 This extension allows you to create very precise filters that will nicely lay
 out all the information you need in order to be as productive as possible.
 
-![](.github/dashboard_screenshot.png)
+![](.github/screenshots/light/dashboard.png)
 
-![](.github/filter_editor_screenshot.png)
+![](.github/screenshots/light/filter-add.png)
 
-![](.github/discover_screenshot.png)
+![](.github/screenshots/light/filter-edit.png)
 
 ## Installation
 
-[![](.github/chrome_logo.png)](https://chrome.google.com/webstore/detail/octolenses/ghlblfakaklgkdmfejdlffbmpcaidoci)
-[![](.github/firefox_logo.png)](https://addons.mozilla.org/fr/firefox/addon/github-octolenses/)
+[![](.github/icons/chrome.png)](https://chrome.google.com/webstore/detail/octolenses/ghlblfakaklgkdmfejdlffbmpcaidoci)
+[![](.github/icons/firefox.png)](https://addons.mozilla.org/firefox/addon/github-octolenses/)
 
 Simply download it on your favorite browser's extensions store.
 
-It is available on both [Google Chrome](https://chrome.google.com/webstore/detail/octolenses/ghlblfakaklgkdmfejdlffbmpcaidoci) and [Firefox](https://addons.mozilla.org/fr/firefox/addon/github-octolenses/).
+It is available on both [Google Chrome](https://chrome.google.com/webstore/detail/octolenses/ghlblfakaklgkdmfejdlffbmpcaidoci) and [Firefox](https://addons.mozilla.org/firefox/addon/github-octolenses/).
 
 By default, it overrides your browser's default "New Tab" page, but this can be
 disabled so that it only opens when you click on the extension's icon.
@@ -44,14 +49,29 @@ all it can do. It can do much more, such as:
 - Allowing you to discover trendy repositories in your favorite language
   (similar to what [GitHunt](https://github.com/kamranahmedse/githunt) does)
 
-## Miscellaneous
+## Dark theme
 
 Because being flashed bright lights in the eyes at night is the worst thing
 ever, I even included a pretty cool dark mode.
 
-![](.github/dashboard_dark_screenshot.png)
+![](.github/screenshots/dark/dashboard.png)
 
-![](.github/discover_dark_screenshot.png)
+![](.github/screenshots/dark/filter-edit.png)
+
+![](.github/screenshots/dark/discover.png)
+
+![](.github/screenshots/dark/settings-night-mode.png)
+
+## Extensively configurable
+
+There are a lot of settings you can tweak, to adapt the experience of the
+extension to your needs.
+
+![](.github/screenshots/light/settings-cache.png)
+
+![](.github/screenshots/light/settings-git-hub.png)
+
+![](.github/screenshots/light/settings-jira.png)
 
 ## Permissions asked
 
@@ -90,6 +110,19 @@ The built extension (located in the `dist/` folder), can then be loaded inside
 your browser as an _unpacked extension_, provided you're in developer mode.
 
 [https://github.com/rgehan/octolenses](rgehan/octolenses)
+
+## Testing
+
+The extension is covered by unit tests, and integration tests.
+
+Here is how you can run them:
+```bash
+# Run the unit tests (w/ Jest)
+yarn test
+
+# Open the integration tests runner (w/ Cypress)
+CYPRESS_GITHUB_TOKEN=<github token> yarn e2e
+```
 
 ## Releasing
 

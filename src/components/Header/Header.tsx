@@ -1,26 +1,33 @@
 import cx from 'classnames';
 import { capitalize } from 'lodash';
-import { inject } from 'mobx-react';
-import { observer } from 'mobx-react-lite';
-import React, { useContext, useState } from 'react';
+import { inject, observer } from 'mobx-react';
+import React, { useState } from 'react';
+import { compose } from 'recompose';
 
 import { SettingsModal } from '../../containers';
-import { IsDarkContext } from '../../contexts/isDark';
 import { NavigationStore } from '../../store/navigation';
+import { SettingsStore } from '../../store/settings';
 import { TabLink } from './TabLink';
 
-interface IProps {
-  navigation: NavigationStore;
+interface IInnerProps {
+  settingsStore: SettingsStore;
+  navigationStore: NavigationStore;
 }
 
-const _Header = ({ navigation }: IProps) => {
+export const Header = compose<IInnerProps, {}>(
+  inject('settingsStore', 'navigationStore'),
+  observer
+)(({ settingsStore, navigationStore }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const isDark = useContext(IsDarkContext);
 
   function renderLink(name: string) {
-    const { page, navigateTo } = navigation;
+    const { page, navigateTo } = navigationStore;
     return (
-      <TabLink onClick={() => navigateTo(name)} active={page === name}>
+      <TabLink
+        onClick={() => navigateTo(name)}
+        active={page === name}
+        name={name}
+      >
         {capitalize(name)}
       </TabLink>
     );
@@ -34,7 +41,7 @@ const _Header = ({ navigation }: IProps) => {
             href="https://github.com/rgehan/octolenses"
             className={cx(
               'font-roboto text-4xl font-bold mt-4',
-              isDark ? 'text-white' : 'text-black'
+              settingsStore.isDark ? 'text-white' : 'text-gray-900'
             )}
           >
             <i className="fab fa-github mr-3" />
@@ -43,7 +50,7 @@ const _Header = ({ navigation }: IProps) => {
           <div className="tabs flex-1 flex justify-end">
             {renderLink('dashboard')}
             {renderLink('discover')}
-            <TabLink onClick={() => setModalOpen(true)}>
+            <TabLink onClick={() => setModalOpen(true)} name="settings">
               <i className="fa fa-cog" />
             </TabLink>
           </div>
@@ -52,6 +59,4 @@ const _Header = ({ navigation }: IProps) => {
       {modalOpen && <SettingsModal onClose={() => setModalOpen(false)} />}
     </React.Fragment>
   );
-};
-
-export const Header = inject('navigation')(observer(_Header));
+});

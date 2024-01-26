@@ -1,6 +1,6 @@
 import { chain, startsWith } from 'lodash';
 
-interface CacheEntry<T> {
+interface ICacheEntry<T> {
   expiresAt: number;
   value: T;
 }
@@ -39,12 +39,14 @@ export class Cache {
    * Retrieve an item from the cache
    * @param key Key at which the item is stored
    */
-  public static get<T = any>(key: string): CacheEntry<T> {
+  public static get<T = any>(key: string): ICacheEntry<T> {
     const item = localStorage.getItem(Cache.getPrefixedKey(key));
 
     try {
       return JSON.parse(item);
-    } catch (error) {}
+    } catch (error) {
+      // Do nothing
+    }
 
     return null;
   }

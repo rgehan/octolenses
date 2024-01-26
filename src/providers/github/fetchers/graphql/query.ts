@@ -34,16 +34,40 @@ const issueFragment = `
 const pullRequestFragment = `
   fragment PullRequestFragment on PullRequest {
     ${commonFields}
+    mergeable
     reviews {
       totalCount
     }
     commits(last: 1) {
-      edges {
-        node {
-          commit {
-            status {
-              state
+      nodes {
+        commit {
+          status {
+            state
+          }
+          checkSuites(first: 1) {
+            nodes {
+              status
+              conclusion
+              app {
+                name
+              }
             }
+          }
+        }
+      }
+    }
+    timelineItems(itemTypes: [PULL_REQUEST_COMMIT, PULL_REQUEST_REVIEW, ISSUE_COMMENT], last: 1) {
+      nodes {
+        __typename
+        ... on IssueComment {
+          createdAt
+        }
+        ... on PullRequestReview {
+          createdAt
+        }
+        ... on PullRequestCommit {
+          commit {
+            committedDate
           }
         }
       }

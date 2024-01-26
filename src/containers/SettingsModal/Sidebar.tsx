@@ -1,10 +1,13 @@
 import cx from 'classnames';
 import { partition } from 'lodash';
-import React, { useContext } from 'react';
+import { inject, observer } from 'mobx-react';
+import React from 'react';
+import { compose } from 'recompose';
 import styled from 'styled-components';
 
-import { IsDarkContext } from '../../contexts/isDark';
-import { SETTINGS_VIEWS, SettingView } from './SettingsModal';
+import { SettingsStore } from '../../store/settings';
+import { SETTINGS_VIEWS } from './constants';
+import { ISettingView } from './types';
 
 const Wrapper = styled.div`
   width: 200px;
@@ -34,25 +37,33 @@ interface IProps {
   selectTab: Function;
 }
 
-export const Sidebar = ({ selectedTab, selectTab }: IProps) => {
-  const [providerItems, staticItems] = partition(SETTINGS_VIEWS, 'isProvider');
-  const isDark = useContext(IsDarkContext);
+interface IInnerProps extends IProps {
+  settingsStore: SettingsStore;
+}
 
-  function renderItems(items: SettingView[]) {
+export const Sidebar = compose<IInnerProps, IProps>(
+  inject('settingsStore'),
+  observer
+)(({ selectedTab, selectTab, settingsStore }) => {
+  const [providerItems, staticItems] = partition(SETTINGS_VIEWS, 'isProvider');
+
+  function renderItems(items: ISettingView[]) {
     return items.map(({ label, id }) => (
       <Item
+        key={id}
         onClick={() => selectTab(id)}
         className={cx(
-          selectedTab === id && 'text-white bg-blue font-medium rounded',
-          isDark && 'text-grey'
+          selectedTab === id && 'text-white bg-blue-500 font-medium rounded',
+          settingsStore.isDark && 'text-gray-300'
         )}
+        data-setting-tab={label}
       >
         {label}
       </Item>
     ));
   }
 
-  const headerClass = isDark ? 'text-grey-darker' : 'text-grey';
+  const headerClass = settingsStore.isDark ? 'text-gray-600' : 'text-gray-500';
 
   return (
     <Wrapper>
@@ -62,4 +73,4 @@ export const Sidebar = ({ selectedTab, selectTab }: IProps) => {
       {renderItems(providerItems)}
     </Wrapper>
   );
-};
+});

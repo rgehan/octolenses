@@ -1,0 +1,157 @@
+#!/usr/bin/env node
+
+const path = require('path');
+
+const Bundler = require('parcel-bundler');
+const puppeteer = require('puppeteer');
+const { kebabCase } = require('lodash');
+
+(async () => {
+  const port = await startDevelopmentServer();
+  const { browser, page } = await setupPuppeteer(port);
+  await takeScreenshots(page);
+
+  console.log('All done.');
+
+  browser.close();
+  process.exit(0);
+})();
+
+async function startDevelopmentServer() {
+  console.log('Starting development server...');
+
+  const bundler = new Bundler(path.resolve(__dirname, '../src/index.html'), {
+    hmr: false,
+  });
+
+  const server = await bundler.serve();
+
+  console.log('Started.');
+
+  return server.address().port;
+}
+
+async function setupPuppeteer(port) {
+  const browser = await puppeteer.launch({
+    // headless: false,
+    // devtools: false,
+  });
+
+  const page = await browser.newPage();
+
+  // Setup the viewport
+  await page.setViewport({ width: 1280, height: 800, deviceScaleFactor: 1 });
+
+  await page.goto(`http://localhost:${port}`);
+
+  return { browser, page };
+}
+
+async function takeScreenshots(page) {
+  // Move to the app, wait for it to load
+
+  const DARK_MODES = ['DISABLED', 'ENABLED'];
+  const SCENARIOS = [
+    screenshotDashboard,
+    screenshotDiscover,
+    screenshotFilterEditModal,
+    screenshotFilterAddModal,
+    screenshotSettings,
+  ];
+
+  for (darkMode of DARK_MODES) {
+    console.log(`[darkMode: ${darkMode}]`);
+
+    await page.evaluate(darkMode => {
+      window.stores.settingsStore.darkMode = darkMode;
+    }, darkMode);
+
+    const screenshotFolder = path.resolve(
+      __dirname,
+      '../.github/screenshots/',
+      darkMode === 'ENABLED' ? 'dark' : 'light'
+    );
+
+    for (scenario of SCENARIOS) {
+      await scenario(page, screenshotFolder);
+    }
+  }
+}
+
+async function screenshotDashboard(page, screenshotFolder) {
+  console.log('Capturing screenshot of the Dashboard page...');
+
+  await page.waitForFunction(() => !document.querySelector('[data-id=loader]'));
+
+  await page.waitFor(300);
+
+  await page.evaluate(() => {
+    const filter = window.stores.filtersStore.data[0];
+    const identifiers = filter.data.slice(0, 2).map(filter => filter.number);
+    filter.newItemsIdentifiers = identifiers;
+  });
+
+  await page.screenshot({
+    path: path.resolve(screenshotFolder, './dashboard.png'),
+  });
+}
+
+async function screenshotDiscover(page, screenshotFolder) {
+  console.log('Capturing screenshot of the Discover page...');
+
+  await page.click('[data-header-link=discover]');
+  await page.waitForFunction(() => !document.querySelector('[data-id=loader]'));
+
+  await page.screenshot({
+    path: path.resolve(screenshotFolder, './discover.png'),
+  });
+
+  await page.click('[data-header-link=dashboard]');
+}
+
+async function screenshotFilterEditModal(page, screenshotFolder) {
+  console.log('Capturing screenshot of the filter edition modal...');
+
+  await page.click('.fa-edit');
+  await page.waitFor(500);
+
+  await page.screenshot({
+    path: path.resolve(screenshotFolder, './filter-edit.png'),
+  });
+
+  await page.keyboard.press('Escape');
+}
+
+async function screenshotFilterAddModal(page, screenshotFolder) {
+  console.log('Capturing screenshot of the filter addition modal...');
+
+  await page.click('.fa-plus-square');
+  await page.waitFor(500);
+
+  await page.screenshot({
+    path: path.resolve(screenshotFolder, './filter-add.png'),
+  });
+
+  await page.keyboard.press('Escape');
+}
+
+async function screenshotSettings(page, screenshotFolder) {
+  console.log('Capturing screenshot of the night mode settings modal...');
+
+  // Open the settings modal
+  await page.click('.fa-cog');
+  await page.waitFor(300);
+
+  // Screenshot all tabs
+  const SETTING_TABS = ['Night mode', 'Cache', 'GitHub', 'Jira'];
+
+  for (tab of SETTING_TABS) {
+    await page.click(`[data-setting-tab="${tab}"]`);
+
+    await page.screenshot({
+      path: path.resolve(screenshotFolder, `./settings-${kebabCase(tab)}.png`),
+    });
+  }
+
+  await page.keyboard.press('Escape');
+}

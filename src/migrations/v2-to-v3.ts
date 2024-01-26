@@ -2,10 +2,10 @@
 
 import { providers, ProviderType } from '../providers';
 import { Filter } from '../store/filters';
-import { Migration } from './index';
+import { IMigration } from './types';
 import { getFromLocalStorage, saveToLocalStorage } from './utils';
 
-export default class implements Migration {
+export default class implements IMigration {
   public name = 'v2-to-v3';
 
   public shouldRun(): boolean {

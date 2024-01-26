@@ -1,78 +1,13 @@
-import { findIndex } from 'lodash';
+import { find, findIndex } from 'lodash';
 import { action, computed, observable } from 'mobx';
 import { persist } from 'mobx-persist';
-import hash from 'object-hash';
 import { arrayMove } from 'react-sortable-hoc';
-import uuidv1 from 'uuid/v1';
 
-import { toast } from '../components/ToastManager';
-import { providers, ProviderType, StoredPredicate } from '../providers';
+import { ProviderType } from '../providers';
+import { Filter, FilterIdentifier } from './models/filter';
+import { settingsStore } from './settings';
 
-type FilterIdentifier = string;
-
-export class Filter {
-  public static fromAttributes({ provider, label, predicates, id }: any) {
-    const filter = new Filter();
-    filter.provider = provider;
-    filter.label = label;
-    filter.predicates = predicates;
-    filter.id = id || uuidv1();
-    filter.data = [];
-    filter.loading = true;
-    return filter;
-  }
-
-  @persist
-  public provider: ProviderType;
-
-  @persist
-  @observable
-  public id: FilterIdentifier;
-
-  @persist
-  @observable
-  public label = '';
-
-  @persist('list')
-  @observable
-  public predicates: StoredPredicate[] = [];
-
-  @observable
-  public data: any[] = []; // TODO
-
-  @observable
-  public loading = true;
-
-  @observable
-  public lastModified: number = 0;
-
-  public serializePredicate(payload: StoredPredicate): string {
-    const provider = providers[this.provider];
-    const predicate = provider.findPredicate(payload.type);
-    return predicate.serialize(payload);
-  }
-
-  public clone(): Filter {
-    return Filter.fromAttributes({
-      provider: this.provider,
-      label: `${this.label} (Copy)`,
-      predicates: this.predicates,
-    });
-  }
-
-  public invalidateCache() {
-    this.lastModified = Date.now();
-  }
-
-  @computed
-  public get hash(): string {
-    return hash({
-      id: this.id,
-      lastModified: this.lastModified,
-      predicates: this.predicates,
-    });
-  }
-}
+export { Filter };
 
 export class FiltersStore {
   @persist('list', Filter)
@@ -80,32 +15,47 @@ export class FiltersStore {
   private data: Filter[] = [];
 
   @computed
-  get firstFilterId(): FilterIdentifier {
-    if (this.count === 0) {
-      return null;
-    }
-
-    return this.data[0].id;
-  }
-
-  @computed
   get count() {
     return this.data.length;
+  }
+
+  public findFilter(id: string) {
+    return find(this.data, { id });
+  }
+
+  public findFilterIndex(id: string) {
+    return findIndex(this.data, { id });
+  }
+
+  public getFilters() {
+    return this.data;
+  }
+
+  public getFilterAt(index: number) {
+    return this.data[index];
+  }
+
+  public getFirstFilter() {
+    return this.data[0] || null;
   }
 
   // TODO Any
   @action.bound
   public saveFilter(filterPayload: any) {
-    const filter = Filter.fromAttributes(filterPayload);
+    const index = findIndex(this.data, { id: filterPayload.id });
 
-    const index = findIndex(this.data, { id: filter.id });
-    if (index === -1) {
-      this.data.push(filter);
-    } else {
-      this.data[index] = filter;
+    // If we're saving a filter that already exists, we only need to update
+    // some of its attributes
+    if (index !== -1) {
+      this.data[index].update(filterPayload);
+      return;
     }
 
-    this.fetchFilter(filter);
+    // Else create a new filter
+    const filter = Filter.fromAttributes(filterPayload);
+    this.data.push(filter);
+    filter.fetchFilter();
+    settingsStore.selectedFilterId = filter.id;
   }
 
   @action.bound
@@ -131,25 +81,8 @@ export class FiltersStore {
     this.data = arrayMove(this.data, oldIndex, newIndex);
   }
 
-  @action.bound
-  public async fetchFilter(filter: Filter) {
-    const index = findIndex(this.data, { id: filter.id });
-    this.data[index].loading = true;
-
-    try {
-      const result = await providers[filter.provider].fetchFilter(filter);
-      this.data[index].data = result;
-    } catch (error) {
-      // TODO Handle various errors (RateLimitError for now)
-      toast('Oops, something failed with your filter!', 'error');
-      console.log(error);
-    }
-
-    this.data[index].loading = false;
-  }
-
   public async fetchAllFilters() {
-    await Promise.all(this.data.map(this.fetchFilter));
+    await Promise.all(this.data.map(filter => filter.invalidateCache()));
   }
 }
 
@@ -159,4 +92,4 @@ export const EMPTY_FILTER_PAYLOAD = {
   predicates: [{ type: 'status', value: 'open' }],
 };
 
-export const filters = new FiltersStore();
+export const filtersStore = new FiltersStore();
