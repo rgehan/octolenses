@@ -4,6 +4,7 @@ import { Cache } from '../../../../lib/cache';
 import { Filter } from '../../../../store/filters';
 import { IssueStatus } from '../../components/IssueCard/types';
 import { client } from '../client';
+import { Cache } from '../../../../lib/cache';
 
 /**
  * Fetch a filter on the old REST API. This is only supposed to be
