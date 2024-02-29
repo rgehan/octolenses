@@ -35,6 +35,7 @@ const pullRequestFragment = `
   fragment PullRequestFragment on PullRequest {
     ${commonFields}
     mergeable
+    isDraft
     reviews {
       totalCount
     }

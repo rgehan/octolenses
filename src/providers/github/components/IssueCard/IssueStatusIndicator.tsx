@@ -2,26 +2,34 @@ import cx from 'classnames';
 import React from 'react';
 
 import { IIssue } from './IssueCard';
-
-const ISSUE_STATUS_COLORS: Record<IIssue['state'], string> = {
-  open: 'text-green-500',
-  closed: 'text-red-500',
-  merged: 'text-purple-500',
-};
+import {assertUnreachable} from "../../../../lib/assertUnreachable";
 
 interface IProps {
-  type: IIssue['type'];
-  state: IIssue['state'];
+  issue: Pick<IIssue, 'state' | 'isDraft' | 'type'>;
 }
 
-export const IssueStatusIndicator = ({ type, state }: IProps) => (
+export const IssueStatusIndicator = ({ issue }: IProps) => (
   <i
     className={cx(
       'mr-2',
-      type === 'PullRequest'
+      issue.type === 'PullRequest'
         ? 'fas fa-code-branch'
         : 'fas fa-exclamation-circle',
-      ISSUE_STATUS_COLORS[state.toLowerCase() as IIssue['state']]
+      getColor(issue.state.toLowerCase() as IIssue['state'], issue.isDraft)
     )}
   />
 );
+
+function getColor(state: IIssue['state'], isDraft: boolean)
+{
+  switch (state) {
+    case 'open':
+      return isDraft ? 'text-gray-500' : 'text-green-500';
+    case 'closed':
+      return 'text-red-500';
+    case 'merged':
+      return 'text-purple-500';
+    default:
+      return assertUnreachable(state, 'text-gray-500');
+  }
+}

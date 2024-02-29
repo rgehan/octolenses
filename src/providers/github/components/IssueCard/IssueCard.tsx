@@ -19,6 +19,7 @@ export interface IIssue {
   url: string;
   html_url: string;
   state: 'open' | 'closed' | 'merged';
+  isDraft: boolean;
   status: IssueStatus;
   number: number;
   createdAt: string;
@@ -101,7 +102,7 @@ export const IssueCard = compose<IInnerProps, IProps>(
       <div className="flex-1 min-w-0">
         <div className="flex-1 flex justify-between items-center">
           <div className="flex-1 flex items-center mb-1 min-w-0">
-            <IssueStatusIndicator type={issue.type} state={issue.state} />
+            <IssueStatusIndicator issue={issue} />
 
             <span className={cx('truncate pb-1 min-w-0', linkStyle)}>
               <a
