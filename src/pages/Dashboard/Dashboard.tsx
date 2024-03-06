@@ -22,6 +22,29 @@ interface IProps {
 export class Dashboard extends React.Component<IProps> {
   public state = {
     filterModal: { isOpen: false, mode: 'adding' },
+    metaPressed: false,
+  };
+
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleKeyDown);
+    window.addEventListener('keyup', this.handleKeyUp);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeyDown);
+    window.removeEventListener('keyup', this.handleKeyUp);
+  }
+
+  private handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Meta') {
+      this.setState({ metaPressed: true });
+    }
+  };
+
+  private handleKeyUp = (event: KeyboardEvent) => {
+    if (event.key === 'Meta') {
+      this.setState({ metaPressed: false });
+    }
   };
 
   @computed
@@ -58,6 +81,10 @@ export class Dashboard extends React.Component<IProps> {
 
   public handleRefreshFilter = () => {
     this.selectedFilter.invalidateCache();
+  };
+
+  public handleRefreshAllFilters = () => {
+    this.props.filtersStore.fetchAllFilters();
   };
 
   public handleDeleteFilter = () => {
@@ -124,7 +151,7 @@ export class Dashboard extends React.Component<IProps> {
 
   public render() {
     const { filtersStore, settingsStore } = this.props;
-    const { filterModal } = this.state;
+    const { filterModal, metaPressed } = this.state;
 
     const LINKS = [
       {
@@ -142,11 +169,17 @@ export class Dashboard extends React.Component<IProps> {
         text: 'Clone',
         icon: 'far fa-clone',
       },
-      {
-        handler: this.handleRefreshFilter,
-        text: 'Refresh',
-        icon: 'fas fa-sync-alt',
-      },
+      metaPressed
+        ? {
+            handler: this.handleRefreshAllFilters,
+            text: 'Refresh All',
+            icon: 'fas fa-sync-alt',
+          }
+        : {
+            handler: this.handleRefreshFilter,
+            text: 'Refresh',
+            icon: 'fas fa-sync-alt',
+          },
       {
         handler: this.handleDeleteFilter,
         text: 'Delete',
