@@ -1,3 +1,8 @@
+### v2.2.2
+- Refresh all button, when pressing Meta key [Renan GEHAN]
+- Handle draft PRs [Renan GEHAN]
+- Fix build script to avoid weird parcel issues [Renan GEHAN]
+
 ### v2.2.1
 - Add support for draft PRs [Renan GEHAN]
 
