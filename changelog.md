@@ -1,3 +1,6 @@
+### v2.3.0
+- Allow filtering PRs/issues by relative update/creation date [Renan GEHAN]
+
 ### v2.2.2
 - Refresh all button, when pressing Meta key [Renan GEHAN]
 - Handle draft PRs [Renan GEHAN]

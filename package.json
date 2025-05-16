@@ -13,7 +13,7 @@
     }
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "author": "Renan GEHAN <rgehan94@gmail.com>",
   "license": "MIT",
   "dependencies": {
