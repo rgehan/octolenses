@@ -6,6 +6,7 @@ import { review } from './review';
 import { status } from './status';
 import { type } from './type';
 import { draft } from "./draft";
+import { createdAt, updatedAt } from './createdOrUpdatedAt';
 
 enum GithubOperators {
   EQUAL = 'equal',
@@ -122,4 +123,6 @@ export const availablePredicates: Predicate[] = [
   mergeStatus,
   review,
   draft,
+  createdAt,
+  updatedAt
 ];
